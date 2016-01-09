@@ -47,5 +47,17 @@ public class OI {
 	public double getLeft() {
 		return xbox.getY(Hand.kLeft);
 	}
+	
+	public double getLeftTrigger() {
+		return xbox.getLT();
+	}
+	
+	public double getRightTrigger() {
+		return xbox.getRT();
+	}
+	
+	public double getLeftX() {
+		return xbox.getX(Hand.kLeft);
+	}
 }
 
