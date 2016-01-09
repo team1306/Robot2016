@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
@@ -33,5 +34,19 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	
+	private final XboxController xbox;
+	
+	public OI() {
+		xbox = new XboxController(RobotMap.xboxPort);
+	}
+	
+	public double getRight() {
+		return xbox.getY(Hand.kRight);
+	}
+	
+	public double getLeft() {
+		return xbox.getY(Hand.kLeft);
+	}
 }
 
