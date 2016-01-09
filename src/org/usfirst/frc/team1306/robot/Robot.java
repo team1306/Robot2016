@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team1306.robot;
 
-import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,8 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-//this is a test comment, delete it
-	public static OI oi;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -29,7 +25,6 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
