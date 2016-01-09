@@ -17,6 +17,10 @@ public class Drivetrain extends Subsystem {
 	public void driveTank(double leftVel, double rightVel) {
 		drivetrain.tankDrive(leftVel, rightVel);
 	}
+	
+	public void driveHybrid(double velocity, double rotation) {
+		drivetrain.arcadeDrive(velocity, rotation);
+	}
 
 	public void stop() {
 		drivetrain.tankDrive(0.0, 0.0);
