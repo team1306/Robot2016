@@ -13,9 +13,13 @@ public class Drivetrain extends Subsystem {
 
 	private RobotDrive drivetrain = new RobotDrive(RobotMap.leftTalon1Port, RobotMap.leftTalon2Port,
 			RobotMap.rightTalon1Port, RobotMap.rightTalon2Port);
-	
-	public void driveTank(double rightVel, double leftVel) {
+
+	public void driveTank(double leftVel, double rightVel) {
 		drivetrain.tankDrive(leftVel, rightVel);
+	}
+
+	public void stop() {
+		drivetrain.tankDrive(0.0, 0.0);
 	}
 
 	// Put methods for controlling this subsystem
