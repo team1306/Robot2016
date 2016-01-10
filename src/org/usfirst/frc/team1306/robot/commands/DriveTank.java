@@ -3,9 +3,9 @@ package org.usfirst.frc.team1306.robot.commands;
 /**
  *
  */
-public class TankDrive extends CommandBase {
+public class DriveTank extends CommandBase {
 
-	public TankDrive() {
+	public DriveTank() {
 		requires(drivetrain);
 	}
 
