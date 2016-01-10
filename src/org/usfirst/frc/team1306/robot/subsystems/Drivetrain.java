@@ -20,7 +20,6 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
-    double angle;
   
 
 	private final RobotDrive drivetrain;
@@ -52,6 +51,13 @@ public class Drivetrain extends Subsystem {
 		updateConstants();
 		drivetrain.arcadeDrive(velocity * MAX_SPEED, rotation * MAX_SPEED);
 	}
+	
+	public void set_straight(double current_angle, double ideal_angle) {
+		double angle_difference=ideal_angle-current_angle;
+		
+		
+	}
+	 
 
 	public void stop() {
 		drivetrain.stopMotor();
