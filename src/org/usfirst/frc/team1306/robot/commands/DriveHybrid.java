@@ -1,36 +1,27 @@
 package org.usfirst.frc.team1306.robot.commands;
 
-/**
- *
- */
 public class DriveHybrid extends CommandBase {
 
-    public DriveHybrid() {
-    	requires(drivetrain);
-    }
+	public DriveHybrid() {
+		requires(drivetrain);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	protected void initialize() {
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	drivetrain.driveHybrid(oi.getRightTrigger() - oi.getLeftTrigger(), oi.getLeftX());
-    }
+	protected void execute() {
+		drivetrain.driveHybrid(oi.getRightTrigger() - oi.getLeftTrigger(), oi.getLeftX());
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	drivetrain.stop();
-    }
+	protected void end() {
+		drivetrain.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	protected void interrupted() {
+		end();
+	}
 }

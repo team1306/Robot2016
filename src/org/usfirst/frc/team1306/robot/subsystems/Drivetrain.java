@@ -17,7 +17,7 @@ public class Drivetrain extends Subsystem {
 	public void driveTank(double leftVel, double rightVel) {
 		drivetrain.tankDrive(leftVel, rightVel);
 	}
-	
+
 	public void driveHybrid(double velocity, double rotation) {
 		drivetrain.arcadeDrive(velocity, rotation);
 	}
@@ -26,12 +26,7 @@ public class Drivetrain extends Subsystem {
 		drivetrain.tankDrive(0.0, 0.0);
 	}
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new DriveTank());
 	}
 }
