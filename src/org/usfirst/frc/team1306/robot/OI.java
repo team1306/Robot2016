@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1306.robot;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
@@ -12,6 +14,8 @@ public class OI {
 
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
+		AHRS ahrs= new AHRS(SPI.Port.kMXP); //This is SPI or I2C I don't know (for now it's SPI)
+
 	}
 
 	public double getRight() {
@@ -36,4 +40,5 @@ public class OI {
 	public int getPOV() {
 		return xbox.getPOV();
 	}
+	
 }

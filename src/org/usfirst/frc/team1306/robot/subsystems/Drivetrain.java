@@ -1,5 +1,4 @@
 package org.usfirst.frc.team1306.robot.subsystems;
-import com.kauailabs.navx.frc.AHRS;
 
 
 import org.usfirst.frc.team1306.robot.RobotMap;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Drivetrain extends Subsystem {
-    AHRS ahrs= new AHRS(SPI.Port.kMXP);
 
 
 	private final CANTalon leftMotor1;
