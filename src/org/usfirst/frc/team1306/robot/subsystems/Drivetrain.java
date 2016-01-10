@@ -6,6 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -27,18 +28,23 @@ public class Drivetrain extends Subsystem {
 		rightMotor2 = new CANTalon(RobotMap.rightTalon1Port);
 
 		drivetrain = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-
-		leftMotor1.setPID(P, I, D, F, IZONE, CLOSED_LOOP_RAMP_RATE, 0);
-		leftMotor2.setPID(P, I, D, F, IZONE, CLOSED_LOOP_RAMP_RATE, 0);
-		rightMotor1.setPID(P, I, D, F, IZONE, CLOSED_LOOP_RAMP_RATE, 0);
-		rightMotor2.setPID(P, I, D, F, IZONE, CLOSED_LOOP_RAMP_RATE, 0);
+		
+		SmartDashboard.putNumber("p", P);
+		SmartDashboard.putNumber("i", I);
+		SmartDashboard.putNumber("d", D);
+		SmartDashboard.putNumber("f", F);
+		SmartDashboard.putNumber("izone", IZONE);
+		SmartDashboard.putNumber("rampRate", RAMP_RATE);
+		
 	}
 
 	public void driveTank(double leftVel, double rightVel) {
+		updateConstants();
 		drivetrain.tankDrive(leftVel * MAX_SPEED, rightVel * MAX_SPEED);
 	}
 
 	public void driveHybrid(double velocity, double rotation) {
+		updateConstants();
 		drivetrain.arcadeDrive(velocity * MAX_SPEED, rotation * MAX_SPEED);
 	}
 
@@ -50,6 +56,22 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new DriveTank());
 	}
 
+	private void updateConstants() {
+
+		double p = SmartDashboard.getNumber("p", P);
+		double i = SmartDashboard.getNumber("i", I);
+		double d = SmartDashboard.getNumber("d", D);
+		double f = SmartDashboard.getNumber("f", F);
+		int izone = SmartDashboard.getNumber("izone", IZONE);
+		double rampRate = SmartDashboard.getNumber("rampRate", RAMP_RATE);
+		
+		leftMotor1.setPID(p, i, d, f, izone, rampRate, 0);
+		leftMotor2.setPID(p, i, d, f, izone, rampRate, 0);
+		rightMotor1.setPID(p, i, d, f, izone, rampRate, 0);
+		rightMotor2.setPID(p, i, d, f, izone, rampRate, 0);
+
+	}
+
 	/** All of these are placeholder values. */
 	private static double MAX_SPEED = 1.0;
 	private static double P = 1.0;
@@ -57,6 +79,6 @@ public class Drivetrain extends Subsystem {
 	private static double D = 0.0;
 	private static double F = 0.0;
 	private static int IZONE = 0;
-	private static double CLOSED_LOOP_RAMP_RATE = 10.0;
+	private static double RAMP_RATE = 10.0;
 
 }
