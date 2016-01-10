@@ -23,7 +23,6 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor2;
 
 	private final RobotDrive drivetrain;
-	private double maxSpeed;
 
 	public Drivetrain() {
 
@@ -35,29 +34,21 @@ public class Drivetrain extends Subsystem {
 		motors = new CANTalon[]{leftMotor1, leftMotor2, rightMotor1, rightMotor2};
 		for (CANTalon motor : motors) {
 			setupMotor(motor);
-			motor.set(0.0);
 		}
 
 		drivetrain = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		
 		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
-		
-		SmartDashboard.putNumber("p", P);
-		SmartDashboard.putNumber("i", I);
-		SmartDashboard.putNumber("d", D);
-		SmartDashboard.putNumber("f", F);
-		SmartDashboard.putNumber("izone", IZONE);
-		SmartDashboard.putNumber("rampRate", RAMP_RATE);
-		
+				
 	}
 
 	public void driveTank(double leftVel, double rightVel) {
-		updateConstants();
+		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
 	}
 
 	public void driveHybrid(double velocity, double rotation) {
-		updateConstants();
+		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		drivetrain.arcadeDrive(velocity * maxSpeed, rotation * maxSpeed);
 	}
 
@@ -69,23 +60,8 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new DriveTank());
 	}
 
-	private void updateConstants() {
-
-		maxSpeed = SmartDashboard.getNumber("maxSpeed", MAX_SPEED);
-		double p = SmartDashboard.getNumber("p", P);
-		double i = SmartDashboard.getNumber("i", I);
-		double d = SmartDashboard.getNumber("d", D);
-		double f = SmartDashboard.getNumber("f", F);
-		int izone = (int)SmartDashboard.getNumber("izone", IZONE);
-		double rampRate = SmartDashboard.getNumber("rampRate", RAMP_RATE);
-		
-		for (CANTalon motor : motors) {
-			motor.setPID(p, i, d, f, izone, rampRate, 0);
-		}
-
-	}
-
 	private void setupMotor(CANTalon motor) {
+		motor.setPID(P, I, D, F, IZONE, RAMP_RATE, 0);
 		motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		motor.changeControlMode(TalonControlMode.Speed);
 		motor.set(0.0);
