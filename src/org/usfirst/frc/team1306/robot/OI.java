@@ -33,4 +33,7 @@ public class OI {
 	public double getLeftX() {
 		return xbox.getX(Hand.kLeft);
 	}
+	public int getPOV() {
+		return xbox.getPOV();
+	}
 }
