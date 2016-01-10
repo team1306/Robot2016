@@ -38,13 +38,17 @@ public class Drivetrain extends Subsystem {
 
 		drivetrain = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		
-		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
+		//SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
 				
 	}
 
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
+		leftMotor1.set(leftVel);
+		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
+		SmartDashboard.putNumber("leftMotor1.get()", leftMotor1.get());
+		SmartDashboard.putNumber("leftMotor1.getError()", leftMotor1.getError());
+		SmartDashboard.putNumber("Encoder velocity", leftMotor1.getEncVelocity());
 	}
 
 	public void driveHybrid(double velocity, double rotation) {
@@ -61,7 +65,6 @@ public class Drivetrain extends Subsystem {
 	}
 
 	private void setupMotor(CANTalon motor) {
-		motor.setPID(P, I, D, F, IZONE, RAMP_RATE, 0);
 		motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		motor.changeControlMode(TalonControlMode.Speed);
 		motor.set(0.0);
@@ -69,12 +72,12 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	/** All of these are placeholder values. */
-	private static double MAX_SPEED = 1.0;
+	/*private static double MAX_SPEED = 850.0;
 	private static double P = 1.0;
 	private static double I = 0.0;
 	private static double D = 0.0;
 	private static double F = 0.0;
 	private static int IZONE = 0;
-	private static double RAMP_RATE = 10.0;
+	private static double RAMP_RATE = 2.0;*/
 
 }

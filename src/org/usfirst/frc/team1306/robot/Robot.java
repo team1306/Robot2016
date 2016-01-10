@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team1306.robot;
 
+import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.commands.TalonTest;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -33,6 +36,7 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
 //      chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        CommandBase.init();
     }
 	
 	/**
@@ -58,7 +62,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+        autonomousCommand = (Command) new TalonTest();
         
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 //		switch(autoSelected) {
