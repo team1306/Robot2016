@@ -1,5 +1,5 @@
 package org.usfirst.frc.team1306.robot;
-import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS; //This is a third party library
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 public class OI {
 
 	private final XboxController xbox;
+    private final AHRS ahrs;	
 
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
-		AHRS ahrs= new AHRS(SPI.Port.kMXP); //This is SPI or I2C I don't know (for now it's SPI)
+		ahrs= new AHRS(SPI.Port.kMXP); //This is SPI or I2C I don't know (for now it's SPI)
+		//ahrs will control our gyro
 
 	}
 
@@ -40,5 +42,8 @@ public class OI {
 	public int getPOV() {
 		return xbox.getPOV();
 	}
-	
+	public double getAngle() { 
+		return ahrs.getAngle();
+		
+	}
 }
