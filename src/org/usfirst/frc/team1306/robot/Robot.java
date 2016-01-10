@@ -1,8 +1,8 @@
 
 package org.usfirst.frc.team1306.robot;
-import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
+    
+    
+
 	//this is a test comment
 	//another test comment
 	
@@ -60,6 +62,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
+
         
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 //		switch(autoSelected) {

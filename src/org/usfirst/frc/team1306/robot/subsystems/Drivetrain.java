@@ -1,10 +1,13 @@
 package org.usfirst.frc.team1306.robot.subsystems;
+import com.kauailabs.navx.frc.AHRS;
+
 
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,11 +15,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Drivetrain extends Subsystem {
+    AHRS ahrs= new AHRS(SPI.Port.kMXP);
+
 
 	private final CANTalon leftMotor1;
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
+    double angle;
+  
 
 	private final RobotDrive drivetrain;
 
