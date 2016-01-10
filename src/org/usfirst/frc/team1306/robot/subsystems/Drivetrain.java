@@ -62,7 +62,7 @@ public class Drivetrain extends Subsystem {
 		double i = SmartDashboard.getNumber("i", I);
 		double d = SmartDashboard.getNumber("d", D);
 		double f = SmartDashboard.getNumber("f", F);
-		int izone = SmartDashboard.getNumber("izone", IZONE);
+		int izone = (int)SmartDashboard.getNumber("izone", IZONE);
 		double rampRate = SmartDashboard.getNumber("rampRate", RAMP_RATE);
 		
 		leftMotor1.setPID(p, i, d, f, izone, rampRate, 0);
