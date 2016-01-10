@@ -1,5 +1,6 @@
 
 package org.usfirst.frc.team1306.robot;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
