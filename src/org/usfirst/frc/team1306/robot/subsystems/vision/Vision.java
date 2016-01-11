@@ -46,6 +46,8 @@ public class Vision extends Subsystem {
 
 		NIVision.imaqColorThreshold(binaryFrame, frame, 255, ColorMode.HSV, threshold.hueRange(), threshold.satRange(),
 				threshold.valRange());
+		int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+		SmartDashboard.putNumber("Masked particles", numParticles);
 	}
 
 	public void initDefaultCommand() {
