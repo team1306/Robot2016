@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1306.robot.subsystems;
+package org.usfirst.frc.team1306.robot.subsystems.vision;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
