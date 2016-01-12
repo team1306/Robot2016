@@ -24,7 +24,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.getError(0));
 		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
 		
-		SmartDashboard.putNumber("test2", 5);
+		SmartDashboard.putNumber("leftMotor2.get()", drivetrain.get(1));
+		SmartDashboard.putNumber("leftMotor2.getError()", drivetrain.getError(1));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

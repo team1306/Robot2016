@@ -32,20 +32,18 @@ public class Drivetrain extends Subsystem {
 		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
 		
 		motors = new CANTalon[]{leftMotor1, leftMotor2, rightMotor1, rightMotor2};
-		for (CANTalon motor : motors) {
-			setupMotor(motor);
-		}
-
-		drivetrain = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+		setupMotors(leftMotor1, leftMotor2);
+		setupMotors(rightMotor1, rightMotor2);
 		
-		//SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
+		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
+		
+		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
 				
 	}
 
 	public void driveTank(double leftVel, double rightVel) {
-		//double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		leftMotor1.set(leftVel);
-		SmartDashboard.putNumber("test", 5);
+		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
+		leftMotor1.set(leftVel*maxSpeed);
 		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
 	}
 
@@ -62,11 +60,15 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new DriveTank());
 	}
 
-	private void setupMotor(CANTalon motor) {
-		motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		motor.changeControlMode(TalonControlMode.Speed);
-		motor.set(0.0);
-		motor.enable();
+	private void setupMotors(CANTalon master, CANTalon slave) {
+		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		master.changeControlMode(TalonControlMode.Speed);
+		master.reverseSensor(true);
+		master.set(0.0);
+		master.enable();
+		
+		slave.changeControlMode(TalonControlMode.Follower);
+		slave.set(master.getDeviceID());
 	}
 	
 	// These are mainly getters for the smartdashboard command
@@ -84,8 +86,8 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	/** All of these are placeholder values. */
-	/*private static double MAX_SPEED = 850.0;
-	private static double P = 1.0;
+	private static double MAX_SPEED = 850.0;
+	/*private static double P = 1.0;
 	private static double I = 0.0;
 	private static double D = 0.0;
 	private static double F = 0.0;

@@ -22,8 +22,8 @@ public class DriveTank extends CommandBase {
 	protected void execute() {
 		double straightVel = oi.getRightTrigger() - oi.getLeftTrigger();
 		drivetrain.driveTank(oi.getLeft() + straightVel, oi.getRight() + straightVel);
-		SmartDashboard.putNumber("left", oi.getLeft());
-		SmartDashboard.putNumber("right", oi.getRight());
+		SmartDashboard.putNumber("left", oi.getLeft() + straightVel);
+		SmartDashboard.putNumber("right", oi.getRight() + straightVel);
 	}
 
 	protected boolean isFinished() {
