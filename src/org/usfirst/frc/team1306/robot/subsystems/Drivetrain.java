@@ -43,8 +43,9 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void driveTank(double leftVel, double rightVel) {
-		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
+		//double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		leftMotor1.set(leftVel);
+		SmartDashboard.putNumber("test", 5);
 		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
 	}
 

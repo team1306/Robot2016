@@ -40,6 +40,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto mode", chooser);
         CommandBase.init();
         smartdashboard = new SmartDashboardUpdate();
+        smartdashboard.start();
     }
 	
 	/**

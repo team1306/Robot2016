@@ -10,6 +10,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	public SmartDashboardUpdate() {
 		// Not sure whether or not to use requires for the drivetrain.
 		// I want to access it, but I don't want this to block DriveTank.
+		setRunWhenDisabled(true);
 	}
 
 	// Called just before this Command runs the first time
@@ -22,6 +23,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("leftMotor1.get()", drivetrain.get(0));
 		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.getError(0));
 		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
+		
+		SmartDashboard.putNumber("test2", 5);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
