@@ -4,7 +4,9 @@ import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.ColorMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
+import com.ni.vision.NIVision.MeasurementType;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,7 +37,8 @@ public class Vision extends Subsystem {
 	}
 
 	private double distance;
-	private double angle;
+	private double pitch;
+	private double yaw;
 
 	public void update() {
 		NIVision.IMAQdxGrab(session, frame, 1);
@@ -48,6 +51,40 @@ public class Vision extends Subsystem {
 				threshold.valRange());
 		int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
 		SmartDashboard.putNumber("Masked particles", numParticles);
+		CameraServer.getInstance().setImage(binaryFrame);
+
+		int particleIndex = -1;
+		double largestArea = 0.0;
+		for (int i = 0; i < numParticles; i++) {
+			double area = NIVision.imaqMeasureParticle(binaryFrame, i, 0, MeasurementType.MT_AREA);
+			if (area > largestArea) {
+				particleIndex = i;
+				largestArea = area;
+			}
+		}
+
+		if (particleIndex < 0) {
+			return;
+		}
+
+		int x = (int) (NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0,
+				MeasurementType.MT_BOUNDING_RECT_LEFT)
+				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_RIGHT))
+				/ 2;
+		int y = (int) (NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0,
+				MeasurementType.MT_BOUNDING_RECT_TOP)
+				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM))
+				/ 2;
+	}
+
+	private static double calculatePitch(int y) {
+		double yTarget = (RES_Y / 2.0 - y) / (RES_Y / 2.0);
+		return yTarget * FOV_Y / 2.0;
+	}
+
+	private static double calculateYaw(int x) {
+		double xTarget = (x - RES_X / 2.0) / (RES_X / 2.0);
+		return xTarget * FOV_X / 2.0;
 	}
 
 	public void initDefaultCommand() {
@@ -56,6 +93,12 @@ public class Vision extends Subsystem {
 	}
 
 	private static final String cameraName = "cam0";
+
+	private static final int RES_X = 320;
+	private static final int RES_Y = 240;
+	private static final double FOV_X = 60.0;
+	private static final double FOV_Y = 45.0;
+
 	private static final int HUE_MIN = 0;
 	private static final int HUE_MAX = 255;
 	private static final int SAT_MIN = 127;
