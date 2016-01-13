@@ -21,11 +21,11 @@ public class OI {
 	}
 
 	public double getRight() {
-		return xbox.getY(Hand.kRight);
+		return deadband(xbox.getY(Hand.kRight));
 	}
 
 	public double getLeft() {
-		return xbox.getY(Hand.kLeft);
+		return deadband(xbox.getY(Hand.kLeft));
 	}
 
 	public double getLeftTrigger() {
@@ -37,13 +37,27 @@ public class OI {
 	}
 
 	public double getLeftX() {
-		return xbox.getX(Hand.kLeft);
+		return deadband(xbox.getX(Hand.kLeft));
 	}
 	public int getPOV() {
 		return xbox.getPOV();
 	}
+<<<<<<< HEAD
 	public double getAngle() { 
 		return ahrs.getAngle();
 		
 	}
+=======
+	
+	private static double deadband(double value) {
+		if (value < -DEADBAND) {
+			return (value + DEADBAND) / (1.0 - DEADBAND);
+		}
+		if (value > DEADBAND) {
+			return (value - DEADBAND) / (1.0 - DEADBAND);
+		}
+		return 0;
+	}
+	private static final double DEADBAND = 0.15;
+>>>>>>> master
 }
