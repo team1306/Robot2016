@@ -42,12 +42,12 @@ public class OI {
 	public int getPOV() {
 		return xbox.getPOV();
 	}
-<<<<<<< HEAD
+
 	public double getAngle() { 
 		return ahrs.getAngle();
 		
 	}
-=======
+
 	
 	private static double deadband(double value) {
 		if (value < -DEADBAND) {
@@ -59,5 +59,5 @@ public class OI {
 		return 0;
 	}
 	private static final double DEADBAND = 0.15;
->>>>>>> master
+
 }
