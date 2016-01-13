@@ -75,6 +75,9 @@ public class Vision extends Subsystem {
 				MeasurementType.MT_BOUNDING_RECT_TOP)
 				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM))
 				/ 2;
+		
+		SmartDashboard.putNumber("Pitch", calculatePitch(y));
+		SmartDashboard.putNumber("Yaw", calculateYaw(x));
 	}
 
 	private static double calculatePitch(int y) {
