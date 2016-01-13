@@ -16,29 +16,27 @@ public class TalonTest extends CommandBase {
 	private double speed = 0.0;
 
     public TalonTest() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(drivetrain);
     	startTime = Timer.getFPGATimestamp();
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    	if (target < Math.pow(Constants.MAX_SPEED, 2)/(2*Constants.MAX_ACCELERATION)) {
+    	if (target < Math.pow(Constants.MAX_SPEED, 2)/(2*Constants.MAX_ACCELERATION)) { // if the target distance is too short for us to get up to full speed
     		maxSpeed = Math.sqrt(target*Constants.MAX_ACCELERATION);
-    	} else {
+    	} else { // if we can reach our max speed
     		maxSpeed = Constants.MAX_SPEED;
     	}
     	
+    	// zero the encoders and set the speeds of 0
     	drivetrain.zero();
     	drivetrain.driveTank(speed, speed);
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (speed < maxSpeed) {
-    		speed = (Timer.getFPGATimestamp() - startTime) * Constants.MAX_ACCELERATION;
-    	} else {
+    	// if we're under the projected max speed, continue ramping up or maintain max speed
+    	if (drivetrain.getPosition(0) < target - 0.5 * Math.pow(maxSpeed, 2) / Constants.MAX_ACCELERATION) { 
+    		speed = Math.min((Timer.getFPGATimestamp() - startTime) * Constants.MAX_ACCELERATION, Constants.MAX_SPEED);
+    	} else { // once it's time to ramp down, do so
     		if (declineTime == 0.0) {
     			declineTime = Timer.getFPGATimestamp();
     		}
@@ -47,18 +45,15 @@ public class TalonTest extends CommandBase {
     	drivetrain.driveTank(speed, speed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	// terminate when we've ramped all the way down
         return speed < 0;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	drivetrain.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }
