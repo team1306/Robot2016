@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.TalonTest;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,6 +27,7 @@ public class Robot extends IterativeRobot {
 	//new testing comments
 
     Command autonomousCommand;
+    Command smartdashboard;
     SendableChooser chooser;
 
     /**
@@ -37,6 +39,8 @@ public class Robot extends IterativeRobot {
 //      chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         CommandBase.init();
+        smartdashboard = new SmartDashboardUpdate();
+        smartdashboard.start();
     }
 	
 	/**
