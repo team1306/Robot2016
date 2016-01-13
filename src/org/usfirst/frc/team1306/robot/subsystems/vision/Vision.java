@@ -38,7 +38,13 @@ public class Vision extends Subsystem {
 
 	private double distance;
 	private double pitch;
+	public double getPitch() {
+		return pitch;
+	}
 	private double yaw;
+	public double getYaw() {
+		return yaw;
+	}
 
 	public void update() {
 		NIVision.IMAQdxGrab(session, frame, 1);
@@ -76,8 +82,8 @@ public class Vision extends Subsystem {
 				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM))
 				/ 2;
 		
-		SmartDashboard.putNumber("Pitch", calculatePitch(y));
-		SmartDashboard.putNumber("Yaw", calculateYaw(x));
+		pitch = calculatePitch(y);
+		yaw = calculateYaw(x);
 	}
 
 	private static double calculatePitch(int y) {
