@@ -21,6 +21,8 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
+	
+	private double initPos[] = {0, 0, 0, 0};
 
 	private final RobotDrive drivetrain;
 
@@ -83,6 +85,16 @@ public class Drivetrain extends Subsystem {
 	
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
+	}
+	
+	public double getPosition(int motor) {
+		return motors[motor].getPosition() - initPos[motor];
+	}
+	
+	public void zero() {
+		for (int i = 0; i < 4; i++) {
+			initPos[i] = motors[i].getPosition();
+		}
 	}
 	
 	/** All of these are placeholder values. */
