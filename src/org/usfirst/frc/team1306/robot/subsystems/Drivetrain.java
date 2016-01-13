@@ -5,6 +5,7 @@ import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,6 +21,7 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
+	PIDController pid; 
   
 
 	private final RobotDrive drivetrain;
@@ -53,9 +55,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void set_straight(double current_angle, double ideal_angle) {
-		double angle_difference=ideal_angle-current_angle;
-		
-		
+		double angle_difference=ideal_angle-current_angle; //This is our proportional value
 	}
 	 
 
