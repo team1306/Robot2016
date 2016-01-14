@@ -7,12 +7,13 @@ import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.NIVision.MeasurementType;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision extends Subsystem {
 
-	private final int session;
+	private int session;
 	private final Image frame;
 	private final Image binaryFrame;
 	private HSVThreshold threshold;
@@ -22,31 +23,62 @@ public class Vision extends Subsystem {
 		frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
 		binaryFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
 
-		session = NIVision.IMAQdxOpenCamera(cameraName, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-		NIVision.IMAQdxConfigureGrab(session);
-		NIVision.IMAQdxStartAcquisition(session);
+		int sessionNumber;
+		try {
 
-		SmartDashboard.putNumber("Hue min", HUE_MIN);
-		SmartDashboard.putNumber("Hue max", HUE_MAX);
-		SmartDashboard.putNumber("Sat min", SAT_MIN);
-		SmartDashboard.putNumber("Sat max", SAT_MAX);
-		SmartDashboard.putNumber("Val min", VAL_MIN);
-		SmartDashboard.putNumber("Val max", VAL_MAX);
-		threshold = new HSVThreshold(HUE_MIN, HUE_MAX, SAT_MIN, SAT_MAX, VAL_MIN, VAL_MAX);
+			sessionNumber = NIVision.IMAQdxOpenCamera(cameraName,
+					NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			NIVision.IMAQdxConfigureGrab(session);
+			NIVision.IMAQdxStartAcquisition(session);
 
+			SmartDashboard.putNumber("Hue min", HUE_MIN);
+			SmartDashboard.putNumber("Hue max", HUE_MAX);
+			SmartDashboard.putNumber("Sat min", SAT_MIN);
+			SmartDashboard.putNumber("Sat max", SAT_MAX);
+			SmartDashboard.putNumber("Val min", VAL_MIN);
+			SmartDashboard.putNumber("Val max", VAL_MAX);
+			threshold = new HSVThreshold(HUE_MIN, HUE_MAX, SAT_MIN, SAT_MAX, VAL_MIN, VAL_MAX);
+
+		} catch (Exception e) {
+			SmartDashboard.putString("Error", "Unable to connect to camera " + cameraName);
+			sessionNumber = -1;
+		}
+
+		session = sessionNumber;
+		distance = 0.0;
+		pitch = 0.0;
+		yaw = 0.0;
+
+		lastUpdateTime = Timer.getFPGATimestamp();
 	}
 
 	private double distance;
 	private double pitch;
+
 	public double getPitch() {
 		return pitch;
 	}
+
 	private double yaw;
+
 	public double getYaw() {
 		return yaw;
 	}
 
+	private double lastUpdateTime;
+
 	public void update() {
+
+		if (Timer.getFPGATimestamp() - lastUpdateTime < 0.2) {
+			return;
+		}
+
+		lastUpdateTime = Timer.getFPGATimestamp();
+
+		if (session < 0) {
+			return;
+		}
+
 		NIVision.IMAQdxGrab(session, frame, 1);
 		threshold = new HSVThreshold((int) SmartDashboard.getNumber("Hue min", HUE_MIN),
 				(int) SmartDashboard.getNumber("Hue max", HUE_MAX), (int) SmartDashboard.getNumber("Sat min", SAT_MIN),
@@ -77,11 +109,10 @@ public class Vision extends Subsystem {
 				MeasurementType.MT_BOUNDING_RECT_LEFT)
 				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_RIGHT))
 				/ 2;
-		int y = (int) (NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0,
-				MeasurementType.MT_BOUNDING_RECT_TOP)
+		int y = (int) (NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_TOP)
 				+ NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM))
 				/ 2;
-		
+
 		pitch = calculatePitch(y);
 		yaw = calculateYaw(x);
 	}
