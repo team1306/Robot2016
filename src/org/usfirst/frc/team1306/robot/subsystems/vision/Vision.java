@@ -132,7 +132,7 @@ public class Vision extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	private static final String cameraName = "cam0";
+	private static final String cameraName = "cam1";
 
 	private static final int RES_X = 320;
 	private static final int RES_Y = 240;

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -27,7 +28,9 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("leftMotor2.get()", drivetrain.get(1));
 		SmartDashboard.putNumber("leftMotor2.getError()", drivetrain.getError(1));
 		
-		vision.update();
+		if (Math.floor(Timer.getFPGATimestamp()*1000) % 100 == 0) {
+			vision.update();
+		}
 		SmartDashboard.putNumber("Pitch", vision.getPitch());
 		SmartDashboard.putNumber("Yaw", vision.getYaw());
 	}
