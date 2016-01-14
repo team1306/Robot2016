@@ -60,6 +60,13 @@ public class Drivetrain extends Subsystem {
 		rightMotor1.set(rightVel);
 	}
 
+	/**
+	 * Takes values from -1.0 to 1.0 for velocity and rotation
+	 * 
+	 * @param velocity	Base speed forward
+	 * @param rotation	Additional rotational rate
+	 */
+	
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		double leftVel = maxSpeed * (velocity + rotation);
