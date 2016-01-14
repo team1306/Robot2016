@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 
@@ -37,7 +38,7 @@ public class Drivetrain extends Subsystem {
 		
 		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
 		
-		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
+		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 				
 	}
 
@@ -84,14 +85,5 @@ public class Drivetrain extends Subsystem {
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
 	}
-	
-	/** All of these are placeholder values. */
-	private static double MAX_SPEED = 850.0;
-	/*private static double P = 1.0;
-	private static double I = 0.0;
-	private static double D = 0.0;
-	private static double F = 0.0;
-	private static int IZONE = 0;
-	private static double RAMP_RATE = 2.0;*/
 
 }
