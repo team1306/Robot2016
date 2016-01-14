@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 
@@ -37,21 +38,44 @@ public class Drivetrain extends Subsystem {
 		setupMotors(leftMotor1, leftMotor2);
 		setupMotors(rightMotor1, rightMotor2);
 		
+		leftMotor1.reverseOutput(true);
+		
 		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
 		
-		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
+		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 				
 	}
 
+	/**
+	 * Takes two values from -1.0 to 1.0 for the right and left motors
+	 * 
+	 * @param leftVel	Speed of left motor
+	 * @param rightVel	Speed of right motor
+	 */
+	
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		leftMotor1.set(leftVel*maxSpeed);
-		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
+		leftVel = leftVel * maxSpeed;
+		rightVel = rightVel * maxSpeed;
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 
+	/**
+	 * Takes values from -1.0 to 1.0 for velocity and rotation
+	 * 
+	 * @param velocity	Base speed forward
+	 * @param rotation	Additional rotational rate
+	 */
+	
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		drivetrain.arcadeDrive(velocity * maxSpeed, rotation * maxSpeed);
+		double leftVel = maxSpeed * (velocity + rotation);
+		double rightVel = maxSpeed * (velocity - rotation);
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 
 	public void stop() {
