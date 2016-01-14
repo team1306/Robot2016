@@ -45,6 +45,7 @@ public class Drivetrain extends Subsystem {
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		leftMotor1.set(leftVel*maxSpeed);
+		//rightMotor1.set(rightVel*maxSpeed);
 		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
 	}
 
@@ -65,6 +66,7 @@ public class Drivetrain extends Subsystem {
 		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		master.changeControlMode(TalonControlMode.Speed);
 		master.reverseSensor(true);
+		master.configEncoderCodesPerRev(2048);
 		master.set(0.0);
 		master.enable();
 		
