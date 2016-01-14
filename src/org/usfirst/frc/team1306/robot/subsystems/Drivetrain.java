@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import java.util.Queue;
+
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
@@ -95,6 +97,29 @@ public class Drivetrain extends Subsystem {
 		
 		slave.changeControlMode(TalonControlMode.Follower);
 		slave.set(master.getDeviceID());
+	}
+	
+	public void setTrajectory(int motor, Queue<Double> velocities, Queue<Double> positions, int steps) {
+		for (int i = 0; i < steps; i++) {
+			CANTalon.TrajectoryPoint point = new CANTalon.TrajectoryPoint();
+			point.velocity = velocities.remove();
+			point.position = positions.remove();
+			point.timeDurMs = Constants.PROFILE_STEP;
+			point.profileSlotSelect = 0;
+			point.isLastPoint = (i == steps - 1);
+			point.zeroPos = (i == 0);
+			point.velocityOnly = false;
+			motors[motor].pushMotionProfileTrajectory(point);
+		}
+	}
+	
+	public void runProfile() {
+		if (leftMotor1.getMotionProfileTopLevelBufferCount() > 0) {
+			leftMotor1.processMotionProfileBuffer();
+		}
+		if (rightMotor1.getMotionProfileTopLevelBufferCount() > 0) {
+			rightMotor1.processMotionProfileBuffer();
+		}
 	}
 	
 	// These are mainly getters for the smartdashboard command

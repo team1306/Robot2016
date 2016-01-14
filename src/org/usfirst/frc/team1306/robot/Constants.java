@@ -7,4 +7,7 @@ public class Constants {
 	
 	// OI constants
 	public final static double DEADBAND = 0.15;
+	
+	// Profiling constants
+	public final static int PROFILE_STEP = 20;
 }
