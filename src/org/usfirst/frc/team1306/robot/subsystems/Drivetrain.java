@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+
 import org.usfirst.frc.team1306.robot.Constants;
->>>>>>> master
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import com.kauailabs.navx.frc.AHRS; //This is a third party library
@@ -42,9 +42,6 @@ public class Drivetrain extends Subsystem {
 		
 		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
 		
-		
-        pid.setContinuous();
-
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 
 				
@@ -90,6 +87,8 @@ public class Drivetrain extends Subsystem {
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTank());
+	}
+	public void driveArcade(double angle) {
 	}
 
 	private void setupMotors(CANTalon master, CANTalon slave) {
