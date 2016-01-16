@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-<<<<<<< HEAD
     
     
 
@@ -28,9 +27,6 @@ public class Robot extends IterativeRobot {
 	//another test comment
 	
 	//new testing comments
-=======
-	
->>>>>>> master
 
     Command autonomousCommand;
     Command smartdashboard;
@@ -72,13 +68,10 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-<<<<<<< HEAD
-        autonomousCommand = (Command) chooser.getSelected();
+    	autonomousCommand = (Command) chooser.getSelected();
 
-=======
         autonomousCommand = (Command) new TalonTest();
->>>>>>> master
-        
+
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 //		switch(autoSelected) {
 //		case "My Auto":

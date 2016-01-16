@@ -13,12 +13,12 @@ public class TalonTest extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.driveTank(1000, 1000);
+    	drivetrain.driveTank(0.3, 0.3);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drivetrain.driveTank(1000, 1000);
+    	drivetrain.driveTank(0.3, 0.3);
     }
 
     // Make this return true when this Command no longer needs to run execute()

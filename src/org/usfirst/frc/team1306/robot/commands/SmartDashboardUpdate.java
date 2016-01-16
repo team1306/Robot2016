@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -21,11 +22,16 @@ public class SmartDashboardUpdate extends CommandBase {
 	protected void execute() {
 		// drivetrain
 		SmartDashboard.putNumber("leftMotor1.get()", drivetrain.get(0));
-		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.getError(0));
+		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.get(0) + drivetrain.getEncVelocity(0));
 		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
 		
-		SmartDashboard.putNumber("leftMotor2.get()", drivetrain.get(1));
-		SmartDashboard.putNumber("leftMotor2.getError()", drivetrain.getError(1));
+		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
+		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
+		
+		
+		vision.update();
+		SmartDashboard.putNumber("Pitch", vision.getPitch());
+		SmartDashboard.putNumber("Yaw", vision.getYaw());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

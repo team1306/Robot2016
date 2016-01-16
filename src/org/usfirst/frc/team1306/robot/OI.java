@@ -50,11 +50,11 @@ public class OI {
 
 	
 	private static double deadband(double value) {
-		if (value < -DEADBAND) {
-			return (value + DEADBAND) / (1.0 - DEADBAND);
+		if (value < -Constants.DEADBAND) {
+			return (value + Constants.DEADBAND) / (1.0 - Constants.DEADBAND);
 		}
-		if (value > DEADBAND) {
-			return (value - DEADBAND) / (1.0 - DEADBAND);
+		if (value > Constants.DEADBAND) {
+			return (value - Constants.DEADBAND) / (1.0 - Constants.DEADBAND);
 		}
 		return 0;
 	}

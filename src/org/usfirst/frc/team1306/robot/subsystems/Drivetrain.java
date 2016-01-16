@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
-
+import org.usfirst.frc.team1306.robot.Constants;
+>>>>>>> master
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import com.kauailabs.navx.frc.AHRS; //This is a third party library
@@ -39,28 +40,53 @@ public class Drivetrain extends Subsystem {
 		setupMotors(leftMotor1, leftMotor2);
 		setupMotors(rightMotor1, rightMotor2);
 		
+		leftMotor1.reverseOutput(true);
+		
 		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
 		
-        pid = new PIDController(0.0, 0.0, 0.0, gyro, drivetrain);
+		
         pid.setContinuous();
 
-		SmartDashboard.putNumber("maxSpeed", MAX_SPEED);
+		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
+
 				
 	}
 
+	/**
+	 * Takes two values from -1.0 to 1.0 for the right and left motors
+	 * 
+	 * @param leftVel	Speed of left motor
+	 * @param rightVel	Speed of right motor
+	 */
+	
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		leftMotor1.set(leftVel*maxSpeed);
-		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
+		leftVel = leftVel * maxSpeed;
+		rightVel = rightVel * maxSpeed;
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 
+	/**
+	 * Takes values from -1.0 to 1.0 for velocity and rotation
+	 * 
+	 * @param velocity	Base speed forward
+	 * @param rotation	Additional rotational rate
+	 */
+	
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		drivetrain.arcadeDrive(velocity * maxSpeed, rotation * maxSpeed);
+		double leftVel = maxSpeed * (velocity + rotation);
+		double rightVel = maxSpeed * (velocity - rotation);
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 	
 	public void set_straight(double ideal_angle) {
 		double angle= gyro.pidGet();
+		drivetrain.arcadeDrive(0.0, ideal_angle-angle);
 		pid.setSetpoint(ideal_angle);
 		pid.enable();
 
@@ -99,14 +125,5 @@ public class Drivetrain extends Subsystem {
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
 	}
-	
-	/** All of these are placeholder values. */
-	private static double MAX_SPEED = 850.0;
-	/*private static double P = 1.0;
-	private static double I = 0.0;
-	private static double D = 0.0;
-	private static double F = 0.0;
-	private static int IZONE = 0;
-	private static double RAMP_RATE = 2.0;*/
 
 }
