@@ -25,12 +25,10 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
-	PIDController pid; 
-    private final AHRS gyro;		
+	
 	private final RobotDrive drivetrain;
 
 	public Drivetrain() {
-		gyro= new AHRS(SPI.Port.kMXP); //This is SPI or I2C I don't know (for now it's SPI)
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
@@ -84,13 +82,6 @@ public class Drivetrain extends Subsystem {
 		rightMotor1.set(rightVel);
 	}
 	
-	public void set_straight(double ideal_angle) {
-		double angle= gyro.pidGet();
-		drivetrain.arcadeDrive(0.0, ideal_angle-angle);
-		pid.setSetpoint(ideal_angle);
-		pid.enable();
-
-	}
 	 
 
 	public void stop() {
