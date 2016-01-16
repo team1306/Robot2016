@@ -61,7 +61,8 @@ public class Drivetrain extends Subsystem {
 	
 	public void set_straight(double ideal_angle) {
 		double angle= gyro.pidGet();
-		
+		pid.setSetpoint(ideal_angle);
+		pid.enable();
 
 	}
 	 

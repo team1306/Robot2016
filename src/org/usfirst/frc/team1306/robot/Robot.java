@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+<<<<<<< HEAD
     
     
 
@@ -27,6 +28,9 @@ public class Robot extends IterativeRobot {
 	//another test comment
 	
 	//new testing comments
+=======
+	
+>>>>>>> master
 
     Command autonomousCommand;
     Command smartdashboard;
