@@ -32,11 +32,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        CommandBase.init();
         chooser = new SendableChooser();
         chooser.addDefault("My profiling", new TalonTest());
         chooser.addObject("Talon profiling", new StraightProfile());
         SmartDashboard.putData("Auto mode", chooser);
-        CommandBase.init();
         smartdashboard = new SmartDashboardUpdate();
         smartdashboard.start();
     }

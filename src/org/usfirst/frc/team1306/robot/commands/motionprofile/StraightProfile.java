@@ -1,19 +1,22 @@
 package org.usfirst.frc.team1306.robot.commands.motionprofile;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class StraightProfile extends CommandBase {
 
-	private final double target = 1000;
+	private final double target = 3000;
 
 	public StraightProfile() {
 		// Use requires() here to declare subsystem dependencies
@@ -33,17 +36,17 @@ public class StraightProfile extends CommandBase {
 			maxSpeed = Constants.MAX_SPEED;
 		}
 		
-		Queue<Double> velocities = new LinkedList<Double>();
-		Queue<Double> positions = new LinkedList<Double>();
+		List<Double> velocities = new LinkedList<Double>();
+		List<Double> positions = new LinkedList<Double>();
 		
 		int time = 0;
 		double velocity = 0.0;
 		double position = 0.0;
 		int steps = 0;
-		while (velocity > 0 || position == 0.0) {
+		while (position < target) {
 			position += velocity * Constants.PROFILE_STEP;
 			
-			if (target - position < 0.5 * Math.pow(velocity, 2) / Constants.MAX_ACCELERATION) {
+			if (target - position > 0.5 * Math.pow(velocity, 2) / Constants.MAX_ACCELERATION) {
 				velocity = Math.max(Math.min(time*Constants.MAX_ACCELERATION, Constants.MAX_SPEED), 0.0);
 			} else {
 				velocity -= Constants.MAX_ACCELERATION * Constants.PROFILE_STEP;
@@ -53,6 +56,9 @@ public class StraightProfile extends CommandBase {
 			positions.add(position);
 			steps++;
 			time = steps * Constants.PROFILE_STEP;
+			//SmartDashboard.putNumber("steps", steps);
+			SmartDashboard.putNumber("vel", velocity);
+			SmartDashboard.putNumber("profile pos", position);
 		}
 		
 		drivetrain.setTrajectory(0, velocities, positions, steps);

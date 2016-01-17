@@ -3,21 +3,21 @@ package org.usfirst.frc.team1306.robot.commands;
 import org.usfirst.frc.team1306.robot.Constants;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class TalonTest extends CommandBase {
 	
-	private final double target = 1000;
-	private final double startTime;
+	private final double target = 6000;
+	private double startTime;
 	private double declineTime = 0.0;
 	private double maxSpeed = 0.0;
 	private double speed = 0.0;
 
     public TalonTest() {
     	requires(drivetrain);
-    	startTime = Timer.getFPGATimestamp();
     }
 
     protected void initialize() {
@@ -26,10 +26,12 @@ public class TalonTest extends CommandBase {
     	} else { // if we can reach our max speed
     		maxSpeed = Constants.MAX_SPEED;
     	}
+    	SmartDashboard.putNumber("maxSpeed", maxSpeed);
     	
     	// zero the encoders and set the speeds of 0
     	drivetrain.zero();
     	drivetrain.driveTank(speed, speed);
+    	startTime = Timer.getFPGATimestamp();
     }
 
     protected void execute() {
@@ -41,8 +43,13 @@ public class TalonTest extends CommandBase {
     			declineTime = Timer.getFPGATimestamp();
     		}
     		speed = maxSpeed - (Timer.getFPGATimestamp() - declineTime) * Constants.MAX_ACCELERATION;
+    		SmartDashboard.putNumber("decceleration #", (Timer.getFPGATimestamp() - declineTime) * Constants.MAX_ACCELERATION);
     	}
-    	drivetrain.driveTank(speed, speed);
+    	drivetrain.driveTank(speed/Constants.MAX_SPEED, speed/Constants.MAX_SPEED);
+    	SmartDashboard.putNumber("zoop #", speed/Constants.MAX_SPEED);
+    	SmartDashboard.putNumber("zoop2", speed);
+    	SmartDashboard.putNumber("drivetrain.getPosition(0)", drivetrain.getPosition(0));
+    	SmartDashboard.putNumber("rhs", target - 0.5 * Math.pow(maxSpeed, 2) / Constants.MAX_ACCELERATION);
     }
 
     protected boolean isFinished() {

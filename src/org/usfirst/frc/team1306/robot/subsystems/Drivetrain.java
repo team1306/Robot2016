@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import java.util.List;
 import java.util.Queue;
 
 import org.usfirst.frc.team1306.robot.Constants;
@@ -27,8 +28,6 @@ public class Drivetrain extends Subsystem {
 	
 	private double initPos[] = {0, 0, 0, 0};
 
-	private final RobotDrive drivetrain;
-
 	public Drivetrain() {
 
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
@@ -40,9 +39,7 @@ public class Drivetrain extends Subsystem {
 		setupMotors(leftMotor1, leftMotor2);
 		setupMotors(rightMotor1, rightMotor2);
 		
-		leftMotor1.reverseOutput(true);
-		
-		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
+		rightMotor1.reverseOutput(true);
 		
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 				
@@ -81,7 +78,8 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void stop() {
-		drivetrain.stopMotor();
+		leftMotor1.set(0.0);
+		rightMotor1.set(0.0);
 	}
 
 	public void initDefaultCommand() {
@@ -99,11 +97,12 @@ public class Drivetrain extends Subsystem {
 		slave.set(master.getDeviceID());
 	}
 	
-	public void setTrajectory(int motor, Queue<Double> velocities, Queue<Double> positions, int steps) {
+	public void setTrajectory(int motor, List<Double> velocities, List<Double> positions, int steps) {
 		for (int i = 0; i < steps; i++) {
+			SmartDashboard.putNumber("i", i);
 			CANTalon.TrajectoryPoint point = new CANTalon.TrajectoryPoint();
-			point.velocity = velocities.remove();
-			point.position = positions.remove();
+			point.velocity = velocities.get(i);
+			point.position = positions.get(i);
 			point.timeDurMs = Constants.PROFILE_STEP;
 			point.profileSlotSelect = 0;
 			point.isLastPoint = (i == steps - 1);
@@ -137,7 +136,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public double getPosition(int motor) {
-		return motors[motor].getPosition() - initPos[motor];
+		return -1*(motors[motor].getPosition() - initPos[motor]);
 	}
 	
 	public void zero() {
