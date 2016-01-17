@@ -61,6 +61,11 @@ public class Vision extends Subsystem {
 
 	private double yaw;
 
+	/**
+	 * Returns the heading of the largest target in relation to the robot.
+	 * 
+	 * @return The required yaw in degrees.
+	 */
 	public double getYaw() {
 		return yaw;
 	}

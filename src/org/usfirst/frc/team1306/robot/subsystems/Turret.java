@@ -41,9 +41,19 @@ public class Turret extends Subsystem {
 		turretTalon.set(-Constants.TURRET_MAX_SPEED);
 	}
 
-	public void goToPosition(double position) {
+	public void setTarget(double position) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(position);
+	}
+	
+	public void setTargetRelative(double angle) {
+		turretTalon.changeControlMode(TalonControlMode.Position);
+		turretTalon.set(turretTalon.get() + angle);
+	}
+	
+	public void stop() {
+		turretTalon.changeControlMode(TalonControlMode.Position);
+		turretTalon.set(turretTalon.get());
 	}
 
 	public boolean onTarget() {
