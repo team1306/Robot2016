@@ -1,51 +1,53 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class Turret extends PIDSubsystem {
-	
-	private final CANTalon turretTalon;
-	
-	private final Counter turretEncoder;
+public class Turret extends Subsystem {
 
-    // Initialize your subsystem here
-    public Turret() {
-    	super("turret", 0.1, 0.0, 0.0);
-    	
-    	turretTalon = new CANTalon(RobotMap.turretTalonPort);
-    	
-    	turretEncoder = new Counter(RobotMap.turretEncoderPort);
-    	setSetpoint(turretEncoder.get());
-    	enable();
-    }
-    
-    public void initDefaultCommand() {
-        //setDefaultCommand(new AutoTarget());
-    	//setDefaultCommand(new ManualTarget());
-    }
-    
-    public void turnCW() {
-    	setSetpoint(turretEncoder.get() - 5);
-    	turretEncoder.setReverseDirection(true);
-    }
-    
-    public void turnCCW() {
-    	setSetpoint(turretEncoder.get() + 5);
-    	turretEncoder.setReverseDirection(false);
-    }
-    
-    protected double returnPIDInput() {
-    	return turretEncoder.pidGet();
-    }
-    
-    protected void usePIDOutput(double output) {
-        turretTalon.set(output);
-    }
+	private final CANTalon turretTalon;
+
+	// Initialize your subsystem here
+	public Turret() {
+
+		turretTalon = new CANTalon(RobotMap.turretTalonPort);
+		turretTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		turretTalon.changeControlMode(TalonControlMode.Position);
+		turretTalon.set(turretTalon.get());
+		turretTalon.enable();
+
+	}
+
+	public void initDefaultCommand() {
+		// setDefaultCommand(new AutoTarget());
+		// setDefaultCommand(new ManualTarget());
+	}
+
+	public void turnCW() {
+		turretTalon.changeControlMode(TalonControlMode.Speed);
+		turretTalon.set(Constants.TURRET_MAX_SPEED);
+	}
+
+	public void turnCCW() {
+		turretTalon.changeControlMode(TalonControlMode.Speed);
+		turretTalon.set(-Constants.TURRET_MAX_SPEED);
+	}
+
+	public void goToPosition(double position) {
+		turretTalon.changeControlMode(TalonControlMode.Position);
+		turretTalon.set(position);
+	}
+
+	public boolean onTarget() {
+		return turretTalon.getControlMode().equals(TalonControlMode.Position)
+				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
+	}
 }
