@@ -17,11 +17,11 @@ public abstract class CommandBase extends Command {
 	protected static Vision vision;
 
 	public static void init() {
-		oi = new OI();
 		drivetrain = new Drivetrain();
 		shooter = new Shooter();
 		turret = new Turret();
 		vision = new Vision();
+		oi = new OI();
 	}
 
 }

@@ -23,12 +23,13 @@ public class Fire extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return shooter.isSpunUp();
+		return true;//shooter.isSpunUp();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		// spin intake to pull in ball
+		shooter.spinDown();
 	}
 
 	// Called when another command which requires one or more of the same

@@ -20,7 +20,7 @@ public class Shooter extends Subsystem {
     }
     
     public void spinUp() {
-    	shooter.set(1.0);
+    	shooter.set(-1.0);
     }
     
     public void spinDown() {
