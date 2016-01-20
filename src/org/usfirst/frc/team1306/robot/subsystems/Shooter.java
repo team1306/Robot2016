@@ -12,10 +12,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
     
-    CANTalon flywheel;
+    private CANTalon flywheel;
     
     public Shooter() {
     	flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
+    	
+    	flywheel.reverseOutput(true);
+    	flywheel.reverseSensor(true);
     	
     	flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	flywheel.changeControlMode(TalonControlMode.Speed);
@@ -26,11 +29,11 @@ public class Shooter extends Subsystem {
     }
     
     public void spinTo(double speed) {
-    	flywheel.set(-1 * speed);
+    	flywheel.set(speed);
     }
     
     public void spinUp() {
-    	flywheel.set(-1.0);
+    	flywheel.set(1.0);
     }
     
     public void spinDown() {
