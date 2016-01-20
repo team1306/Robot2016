@@ -149,9 +149,9 @@ public class Vision extends Subsystem {
 	private static final double FOV_Y = 45.0;
 
 	private static final int HUE_MIN = 0;
-	private static final int HUE_MAX = 255;
-	private static final int SAT_MIN = 127;
-	private static final int SAT_MAX = 255;
-	private static final int VAL_MIN = 127;
-	private static final int VAL_MAX = 255;
+	private static final int HUE_MAX = 256;
+	private static final int SAT_MIN = 0;
+	private static final int SAT_MAX = 256;
+	private static final int VAL_MIN = 192;
+	private static final int VAL_MAX = 256;
 }
