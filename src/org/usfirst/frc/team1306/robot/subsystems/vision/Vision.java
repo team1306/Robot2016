@@ -2,9 +2,9 @@ package org.usfirst.frc.team1306.robot.subsystems.vision;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.ColorMode;
-import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.NIVision.MeasurementType;
+import com.ni.vision.NIVision.Range;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Timer;
@@ -14,14 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Vision extends Subsystem {
 
 	private int session;
-	private final Image frame;
-	private final Image binaryFrame;
-	private HSVThreshold threshold;
 
 	public Vision() {
-
-		frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-		binaryFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
 
 		int sessionNumber;
 		try {
@@ -37,7 +31,6 @@ public class Vision extends Subsystem {
 			SmartDashboard.putNumber("Sat max", SAT_MAX);
 			SmartDashboard.putNumber("Val min", VAL_MIN);
 			SmartDashboard.putNumber("Val max", VAL_MAX);
-			threshold = new HSVThreshold(HUE_MIN, HUE_MAX, SAT_MIN, SAT_MAX, VAL_MIN, VAL_MAX);
 
 		} catch (Exception e) {
 			SmartDashboard.putString("Error", "Unable to connect to camera " + cameraName);
@@ -75,18 +68,34 @@ public class Vision extends Subsystem {
 
 		lastUpdateTime = Timer.getFPGATimestamp();
 
+		NIVision.Image frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
+		NIVision.Image binaryFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
+
 		if (session < 0) {
 			return;
 		}
 
 		NIVision.IMAQdxGrab(session, frame, 1);
-		threshold = new HSVThreshold((int) SmartDashboard.getNumber("Hue min", HUE_MIN),
-				(int) SmartDashboard.getNumber("Hue max", HUE_MAX), (int) SmartDashboard.getNumber("Sat min", SAT_MIN),
-				(int) SmartDashboard.getNumber("Sat max", SAT_MAX), (int) SmartDashboard.getNumber("Val min", VAL_MIN),
-				(int) SmartDashboard.getNumber("Val max", VAL_MAX));
 
-		NIVision.imaqColorThreshold(binaryFrame, frame, 255, ColorMode.HSV, threshold.hueRange(), threshold.satRange(),
-				threshold.valRange());
+		int hueMin = (int) SmartDashboard.getNumber("Hue min", HUE_MIN),
+				hueMax = (int) SmartDashboard.getNumber("Hue max", HUE_MAX);
+		Range satRange = new Range((int) SmartDashboard.getNumber("Sat min", SAT_MIN),
+				(int) SmartDashboard.getNumber("Sat max", SAT_MAX));
+		Range valRange = new Range((int) SmartDashboard.getNumber("Val min", VAL_MIN),
+				(int) SmartDashboard.getNumber("Val max", VAL_MAX));
+		
+		if (hueMax < hueMin) {
+			Range hueRangeLow = new Range(0, hueMax);
+			Range hueRangeHigh = new Range(hueMin, 256);
+			
+			NIVision.imaqColorThreshold(binaryFrame, frame, 255, ColorMode.HSV, hueRangeLow, satRange, valRange);
+			NIVision.imaqColorThreshold(binaryFrame, frame, 255, ColorMode.HSV, hueRangeHigh, satRange, valRange);
+		} else {
+			Range hueRange = new Range(hueMin, hueMax);
+			
+			NIVision.imaqColorThreshold(binaryFrame, frame, 255, ColorMode.HSV, hueRange, satRange, valRange);
+		}
+
 		int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
 		SmartDashboard.putNumber("Masked particles", numParticles);
 		CameraServer.getInstance().setImage(binaryFrame);
@@ -132,7 +141,7 @@ public class Vision extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	private static final String cameraName = "cam1";
+	private static final String cameraName = "cam0";
 
 	private static final int RES_X = 320;
 	private static final int RES_Y = 240;
