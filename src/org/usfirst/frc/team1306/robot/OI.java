@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1306.robot;
 import com.kauailabs.navx.frc.AHRS; //This is a third party library
 
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,7 +46,11 @@ public class OI {
 	}
 
 	public double getAngle() { 
-		return ahrs.getAngle();	
+		
+		double angle=ahrs.getAngle();
+		SmartDashboard.putNumber("angle", angle);
+		return angle;
+		
 	}
 
 	
