@@ -44,16 +44,36 @@ public class Drivetrain extends Subsystem {
 				
 	}
 
+	/**
+	 * Takes two values from -1.0 to 1.0 for the right and left motors
+	 * 
+	 * @param leftVel	Speed of left motor
+	 * @param rightVel	Speed of right motor
+	 */
+	
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		leftMotor1.set(leftVel*maxSpeed);
-		rightMotor1.set(rightVel*maxSpeed);
-		//drivetrain.tankDrive(leftVel * maxSpeed, rightVel * maxSpeed);
+		leftVel = leftVel * maxSpeed;
+		rightVel = rightVel * maxSpeed;
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 
+	/**
+	 * Takes values from -1.0 to 1.0 for velocity and rotation
+	 * 
+	 * @param velocity	Base speed forward
+	 * @param rotation	Additional rotational rate
+	 */
+	
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		drivetrain.arcadeDrive(velocity * maxSpeed, rotation * maxSpeed);
+		double leftVel = maxSpeed * (velocity + rotation);
+		double rightVel = maxSpeed * (velocity - rotation);
+		
+		leftMotor1.set(leftVel);
+		rightMotor1.set(rightVel);
 	}
 
 	public void stop() {
