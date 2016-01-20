@@ -9,6 +9,8 @@ public class Constants {
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
+	
+	public final static double HOOD_TOLERANCE = 1.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;

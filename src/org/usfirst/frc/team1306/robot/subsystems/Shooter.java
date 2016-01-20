@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -13,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
     
     private CANTalon flywheel;
+    
+    private double target = 0;
     
     public Shooter() {
     	flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
@@ -30,18 +33,19 @@ public class Shooter extends Subsystem {
     
     public void spinTo(double speed) {
     	flywheel.set(speed);
+    	target = speed;
     }
     
     public void spinUp() {
-    	flywheel.set(1.0);
+    	spinTo(1.0);
     }
     
     public void spinDown() {
-    	flywheel.set(0.0);
+    	spinTo(0.0);
     }
     
     public boolean isSpunUp() {
-    	return flywheel.getEncVelocity() > 900;
+    	return Math.abs(flywheel.getEncVelocity() - target) < Constants.HOOD_TOLERANCE;
     }
     
 }
