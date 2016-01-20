@@ -22,8 +22,8 @@ public class Vision extends Subsystem {
 
 			sessionNumber = NIVision.IMAQdxOpenCamera(cameraName,
 					NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			NIVision.IMAQdxConfigureGrab(session);
-			NIVision.IMAQdxStartAcquisition(session);
+			NIVision.IMAQdxConfigureGrab(sessionNumber);
+			NIVision.IMAQdxStartAcquisition(sessionNumber);
 
 			SmartDashboard.putNumber("Hue min", HUE_MIN);
 			SmartDashboard.putNumber("Hue max", HUE_MAX);
