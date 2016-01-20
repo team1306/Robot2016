@@ -7,6 +7,7 @@ import java.util.Queue;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,8 +45,17 @@ public class StraightProfile extends CommandBase {
 		double pos = 0.0;
 		for (int i=0; i<500; i++) {
 			speed = i;
-			pos += i*1;
+			pos += speed;
+			velocities.add(speed);
+			positions.add(pos);
 		}
+		for (int i=0; i<500; i++) {
+			speed = 499 - i;
+			pos += speed;
+			velocities.add(speed);
+			positions.add(pos);
+		}
+		int steps = 1000;
 		
 		/*int time = 0;
 		double velocity = 0.0;

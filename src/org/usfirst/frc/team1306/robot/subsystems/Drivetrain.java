@@ -130,6 +130,12 @@ public class Drivetrain extends Subsystem {
 		if (rightMotor1.getMotionProfileTopLevelBufferCount() > 0) {
 			rightMotor1.processMotionProfileBuffer();
 		}
+		
+		CANTalon.MotionProfileStatus status = new CANTalon.MotionProfileStatus();
+		
+		leftMotor1.getMotionProfileStatus(status);
+		
+		SmartDashboard.putBoolean("activePointValid", status.activePointValid);
 	}
 	
 	// These are mainly getters for the smartdashboard command
