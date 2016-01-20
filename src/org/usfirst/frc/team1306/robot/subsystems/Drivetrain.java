@@ -56,6 +56,7 @@ public class Drivetrain extends Subsystem {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		leftVel = leftVel * maxSpeed;
 		rightVel = rightVel * maxSpeed;
+		SmartDashboard.putNumber("applied value", leftVel);
 		
 		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
@@ -95,6 +96,16 @@ public class Drivetrain extends Subsystem {
 		
 		slave.changeControlMode(TalonControlMode.Follower);
 		slave.set(master.getDeviceID());
+	}
+	
+	public void setMotionProfiling(boolean profile) {
+		if (profile) {
+			motors[0].changeControlMode(TalonControlMode.MotionProfile);
+			motors[2].changeControlMode(TalonControlMode.MotionProfile);
+		} else {
+			motors[1].changeControlMode(TalonControlMode.Speed);
+			motors[3].changeControlMode(TalonControlMode.Speed);
+		}
 	}
 	
 	public void setTrajectory(int motor, List<Double> velocities, List<Double> positions, int steps) {

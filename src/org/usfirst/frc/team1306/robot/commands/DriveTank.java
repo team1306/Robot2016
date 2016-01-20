@@ -12,6 +12,7 @@ public class DriveTank extends CommandBase {
 	}
 
 	protected void initialize() {
+		drivetrain.setMotionProfiling(false);
 	}
 
 	/**

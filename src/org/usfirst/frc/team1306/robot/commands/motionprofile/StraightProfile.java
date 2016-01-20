@@ -29,6 +29,7 @@ public class StraightProfile extends CommandBase {
 		double stopRampUp;
 		double startRampDown;
 		double maxSpeed;
+		drivetrain.setMotionProfiling(true);
 		// if the target distance is too short for us to get up to full speed
 		if (target < Math.pow(Constants.MAX_SPEED, 2) / (2 * Constants.MAX_ACCELERATION)) {
 			maxSpeed = Math.sqrt(target * Constants.MAX_ACCELERATION);
