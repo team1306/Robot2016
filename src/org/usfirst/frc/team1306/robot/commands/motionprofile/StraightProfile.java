@@ -40,7 +40,14 @@ public class StraightProfile extends CommandBase {
 		List<Double> velocities = new LinkedList<Double>();
 		List<Double> positions = new LinkedList<Double>();
 		
-		int time = 0;
+		double speed = 0.0;
+		double pos = 0.0;
+		for (int i=0; i<500; i++) {
+			speed = i;
+			pos += i*1;
+		}
+		
+		/*int time = 0;
 		double velocity = 0.0;
 		double position = 0.0;
 		int steps = 0;
@@ -60,7 +67,7 @@ public class StraightProfile extends CommandBase {
 			//SmartDashboard.putNumber("steps", steps);
 			SmartDashboard.putNumber("vel", velocity);
 			SmartDashboard.putNumber("profile pos", position);
-		}
+		}*/
 		
 		drivetrain.setTrajectory(0, velocities, positions, steps);
 		drivetrain.setTrajectory(1, velocities, positions, steps);

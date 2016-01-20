@@ -33,7 +33,7 @@ public class Vision extends Subsystem {
 			SmartDashboard.putNumber("Val max", VAL_MAX);
 
 		} catch (Exception e) {
-			SmartDashboard.putString("Error", "Unable to connect to camera " + cameraName);
+			SmartDashboard.putString("Error", "Unable to connect to camera " + e);
 			sessionNumber = -1;
 		}
 
