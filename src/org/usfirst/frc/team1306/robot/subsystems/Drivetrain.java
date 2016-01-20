@@ -7,6 +7,7 @@ import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import com.kauailabs.navx.frc.AHRS; //This is a third party library
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends Subsystem  {
 
 	
 	private final CANTalon[] motors;
@@ -25,10 +26,13 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
+	PIDController pid;
+	AHRS gyro;
 	
 	private final RobotDrive drivetrain;
 
 	public Drivetrain() {
+		gyro = new AHRS(SPI.Port.kMXP);
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
@@ -89,6 +93,9 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new DriveTank());
 	}
 	public void driveArcade(double angle) {
+		pid = new PIDController(0.1, 0.1, 0.1, 0.1, gyro, leftMotor1);
+
+		
 	}
 
 	private void setupMotors(CANTalon master, CANTalon slave) {

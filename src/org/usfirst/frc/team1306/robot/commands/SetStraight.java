@@ -23,7 +23,7 @@ public class SetStraight extends CommandBase {
     	double current_angle=oi.getAngle();
     	double ideal_angle=oi.getPOV();
     	double angle_change=ideal_angle - current_angle;
-    	
+    	drivetrain.driveArcade(angle_change);
     	
     	
     	
@@ -43,5 +43,6 @@ public class SetStraight extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
