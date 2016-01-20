@@ -93,7 +93,8 @@ public class Drivetrain extends Subsystem  {
 		setDefaultCommand(new DriveTank());
 	}
 	public void driveArcade(double angle) {
-		pid = new PIDController(0.1, 0.1, 0.1, 0.1, gyro, leftMotor1);
+		drivetrain.arcadeDrive(0.0, angle);
+		
 
 		
 	}

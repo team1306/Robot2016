@@ -23,7 +23,13 @@ public class SetStraight extends CommandBase {
     	double current_angle=oi.getAngle();
     	double ideal_angle=oi.getPOV();
     	double angle_change=ideal_angle - current_angle;
-    	drivetrain.driveArcade(angle_change);
+    	if (angle_change > 180) { //270 - 2 = 268 --> 360 - 268 =  92 92 * -1 = -92
+    		angle_change=(360-angle_change) * -1;
+    	}
+    	if (angle_change < -180) { // 0 - 270 = -270 --> 360 -270 = 90
+    		angle_change=(360+angle_change);
+    	}
+    	drivetrain.driveHybrid(0.0, angle_change);
     	
     	
     	

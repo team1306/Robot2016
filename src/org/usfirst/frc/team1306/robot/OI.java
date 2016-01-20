@@ -44,8 +44,7 @@ public class OI {
 	}
 
 	public double getAngle() { 
-		return ahrs.getAngle();
-		
+		return ahrs.getAngle();	
 	}
 
 	
