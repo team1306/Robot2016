@@ -14,4 +14,12 @@ public class RobotMap {
 	public static int leftTalon2Port = 2;
 	public static int rightTalon1Port = 3;
 	public static int rightTalon2Port = 4;
+	
+	public static int flyWheelTalonPort = 5;
+	public static int hoodTalonPort = 6;
+	public static int turretTalonPort = 7;
+	
+	public static int turretEncoderPort = 2;
+	
+	public static int intakeLimitPort = 1;
 }

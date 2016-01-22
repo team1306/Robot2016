@@ -23,8 +23,6 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
 
-	private final RobotDrive drivetrain;
-
 	public Drivetrain() {
 
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
@@ -37,8 +35,6 @@ public class Drivetrain extends Subsystem {
 		setupMotors(rightMotor1, rightMotor2);
 		
 		leftMotor1.reverseOutput(true);
-		
-		drivetrain = new RobotDrive(leftMotor1, rightMotor1);
 		
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 				
@@ -77,7 +73,8 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void stop() {
-		drivetrain.stopMotor();
+		leftMotor1.set(0.0);
+		rightMotor1.set(0.0);
 	}
 
 	public void initDefaultCommand() {
