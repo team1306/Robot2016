@@ -2,27 +2,29 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
  *
  */
-public class TurnTurretCCW extends CommandBase {
+public class ManualTarget extends CommandBase {
 
-    public TurnTurretCCW() {
+    public ManualTarget() {
         requires(turret);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	turret.turnCCW();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	turret.setVel(oi.getSecondaryRightTrigger() - oi.getSecondaryLeftTrigger());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

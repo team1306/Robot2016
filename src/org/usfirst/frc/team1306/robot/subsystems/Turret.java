@@ -38,14 +38,13 @@ public class Turret extends Subsystem {
 		// setDefaultCommand(new ManualTarget());
 	}
 
-	public void turnCW() {
+	/**
+	 * Set the velocity of the turret motor, on a scale from -1.0 to 1.0
+	 * @param velocity the new velocity
+	 */
+	public void setVel(double velocity) {
 		turretTalon.changeControlMode(TalonControlMode.Speed);
-		turretTalon.set(Constants.TURRET_MAX_SPEED);
-	}
-
-	public void turnCCW() {
-		turretTalon.changeControlMode(TalonControlMode.Speed);
-		turretTalon.set(-Constants.TURRET_MAX_SPEED);
+		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
 	public void setTarget(double position) {

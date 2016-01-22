@@ -9,6 +9,7 @@ package org.usfirst.frc.team1306.robot;
 public class RobotMap {
 
 	public static int xboxPort = 0;
+	public static int secondaryPort = 1;
 
 	public static int leftTalon1Port = 1;
 	public static int leftTalon2Port = 2;

@@ -31,6 +31,10 @@ public class Vision extends Subsystem {
 		return newData;
 	}
 	
+	public boolean canSeeTarget() {
+		return getData().getDistance() > 0.0;
+	}
+	
 	private final static double PERIOD = 0.2;
 
 	/*
