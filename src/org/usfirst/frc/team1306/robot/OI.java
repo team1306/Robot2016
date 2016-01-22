@@ -30,6 +30,14 @@ public class OI {
 		buttonB.whenPressed(new Fire());
 		
 	}
+	
+	public boolean autoTargetingStart() {
+		return secondary.getRawButton(XboxController.START);
+	}
+	
+	public boolean autoTargetingStop() {
+		return secondary.getRawButton(XboxController.BACK);
+	}
 
 	public double getRight() {
 		return deadband(xbox.getY(Hand.kRight));

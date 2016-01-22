@@ -2,8 +2,6 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 /**
  *
  */
@@ -24,7 +22,7 @@ public class ManualTarget extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return vision.canSeeTarget();
     }
 
     // Called once after isFinished returns true
