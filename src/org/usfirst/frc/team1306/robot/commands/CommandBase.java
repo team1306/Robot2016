@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.commands;
 
 import org.usfirst.frc.team1306.robot.OI;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team1306.robot.subsystems.Shooter;
+import org.usfirst.frc.team1306.robot.subsystems.Turret;
 import org.usfirst.frc.team1306.robot.subsystems.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,12 +12,16 @@ public abstract class CommandBase extends Command {
 
 	protected static OI oi;
 	protected static Drivetrain drivetrain;
+	protected static Shooter shooter;
+	protected static Turret turret;
 	protected static Vision vision;
 
 	public static void init() {
-		oi = new OI();
 		drivetrain = new Drivetrain();
+		shooter = new Shooter();
+		turret = new Turret();
 		vision = new Vision();
+		oi = new OI();
 	}
 
 }
