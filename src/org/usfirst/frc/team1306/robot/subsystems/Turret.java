@@ -24,7 +24,7 @@ public class Turret extends Subsystem {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(turretTalon.get());
 		turretTalon.enable();
-		
+
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -65,9 +65,10 @@ public class Turret extends Subsystem {
 
 	public boolean onTarget() {
 		return turretTalon.getControlMode().equals(TalonControlMode.Position)
-				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
+				&& turretTalon.getError() < Constants.TURRET_TOLERANCE
+				&& Math.abs(turretTalon.getEncVelocity()) < Constants.TURRET_STOPPED_SPEED;
 	}
-	
+
 	public void setHoodHeight(double position) {
 		hoodTalon.set(position);
 	}
