@@ -25,7 +25,7 @@ public final class VisionData {
 		return distance;
 	}
 	
-	public double timestamp() {
+	public double getTimestamp() {
 		return timestamp;
 	}
 }
