@@ -5,6 +5,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  * Manually controls the turret using the triggers on the secondary Xbox
  * controller.
+ * 
+ * @author Finn Voichick
  */
 public class ManualTarget extends CommandBase {
 
@@ -34,6 +36,8 @@ public class ManualTarget extends CommandBase {
 	/**
 	 * Make this return true when this Command no longer needs to run execute().
 	 * This command only ends when it's interrupted.
+	 * 
+	 * @return false
 	 */
 	protected boolean isFinished() {
 		return false;

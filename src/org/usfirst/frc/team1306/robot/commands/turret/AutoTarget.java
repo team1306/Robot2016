@@ -7,6 +7,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * (5 times per second) gets data about where the target is, then uses the
  * CANTalon's internal PID loop to point there, always updating its intended
  * target.
+ * 
+ * @author Finn Voichick
  */
 public class AutoTarget extends CommandBase {
 
@@ -42,6 +44,8 @@ public class AutoTarget extends CommandBase {
 	/**
 	 * Make this return true when this Command no longer needs to run execute().
 	 * This command only ends when it's interrupted.
+	 * 
+	 * @return false
 	 */
 	protected boolean isFinished() {
 		return false;
