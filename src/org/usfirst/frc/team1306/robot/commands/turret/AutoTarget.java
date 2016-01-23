@@ -15,15 +15,17 @@ public class AutoTarget extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		turret.setTargetRelative(vision.getData().getYaw());
-		recentTimestamp = vision.getData().getTimestamp();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (vision.getData().getTimestamp() > recentTimestamp) {
-			recentTimestamp = vision.getData().getTimestamp();
-			turret.setTargetRelative(vision.getData().getYaw());
+		if (vision.canSeeTarget()) {
+			if (vision.getData().getTimestamp() > recentTimestamp) {
+				turret.setTargetRelative(vision.getData().getYaw());
+				recentTimestamp = vision.getData().getTimestamp();
+			}
+		} else {
+			turret.setVel(oi.getSecondaryRightTrigger() - oi.getSecondaryLeftTrigger());
 		}
 	}
 

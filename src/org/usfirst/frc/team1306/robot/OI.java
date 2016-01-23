@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
+import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -18,6 +19,7 @@ public class OI {
 	
 	private final Button buttonA;
 	private final Button buttonB;
+	private final Button secondaryA;
 
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
@@ -25,10 +27,11 @@ public class OI {
 		
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
+		secondaryA = new JoystickButton(secondary, XboxController.A);
 		
 		buttonA.whenPressed(new SpinUp());
 		buttonB.whenPressed(new Fire());
-		
+		secondaryA.toggleWhenPressed(new AutoTarget());
 	}
 	
 	public boolean autoTargetingStart() {

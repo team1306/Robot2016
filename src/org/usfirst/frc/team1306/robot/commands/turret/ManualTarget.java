@@ -22,7 +22,7 @@ public class ManualTarget extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return vision.canSeeTarget();
+        return false;
     }
 
     // Called once after isFinished returns true
