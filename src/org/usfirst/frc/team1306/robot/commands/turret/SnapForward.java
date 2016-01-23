@@ -5,26 +5,19 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  *
  */
-public class AutoTarget extends CommandBase {
+public class SnapForward extends CommandBase {
 
-	private double recentTimestamp;
-
-	public AutoTarget() {
+	public SnapForward() {
 		requires(turret);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		turret.setTarget(0.0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (vision.canSeeTarget()) {
-			if (vision.getData().getTimestamp() > recentTimestamp) {
-				turret.setTargetRelative(vision.getData().getYaw());
-				recentTimestamp = vision.getData().getTimestamp();
-			}
-		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
