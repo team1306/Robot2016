@@ -1,9 +1,8 @@
-package org.usfirst.frc.team1306.robot.subsystems.vision;
+package org.usfirst.frc.team1306.robot.vision;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Vision extends Subsystem {
+public class Vision {
 	
 	private VisionData recentData;
 	

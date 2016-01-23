@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1306.robot.subsystems.vision;
+package org.usfirst.frc.team1306.robot.vision;
 
 import edu.wpi.first.wpilibj.Timer;
 
