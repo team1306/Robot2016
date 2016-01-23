@@ -56,7 +56,7 @@ public class AutoTarget extends CommandBase {
 	/**
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Nothing happens because it simply
-	 * transfers control, so no new target need to be set.
+	 * transfers control, so no new target needs to be set.
 	 */
 	protected void interrupted() {
 	}
