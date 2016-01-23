@@ -1,5 +1,5 @@
 package org.usfirst.frc.team1306.robot;
-import com.kauailabs.navx.frc.AHRS; //This is a third party library
+import com.kauailabs.navx.frc.*; //This is a third party library
 
 
 import edu.wpi.first.wpilibj.SPI;
