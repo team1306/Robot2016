@@ -10,13 +10,20 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * The turret that controls the heading of the shooter relative to the robot.
+ * This subsystem has methods for controlling both the position and the velocity
+ * of the motor.
+ * 
+ * @author Finn Voichick
  */
 public class Turret extends Subsystem {
 
 	private final CANTalon turretTalon;
 
-	// Initialize your subsystem here
+	/**
+	 * Creates a new turret and enables PID position control using a quadrature
+	 * encoder.
+	 */
 	public Turret() {
 
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
@@ -27,6 +34,9 @@ public class Turret extends Subsystem {
 
 	}
 
+	/**
+	 * Sets the default command for the turret to ManualTarget
+	 */
 	public void initDefaultCommand() {
 		setDefaultCommand(new ManualTarget());
 	}
@@ -42,21 +52,45 @@ public class Turret extends Subsystem {
 		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
+	/**
+	 * Set the target position for the turret. 0 is straight forward, and the
+	 * angle is measured in degrees.
+	 * 
+	 * @param position
+	 *            The intended heading of the turret relative to the robot.
+	 */
 	public void setTarget(double position) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(position);
 	}
 
+	/**
+	 * Set the target position for the turret, relative to its current position.
+	 * Measured in degrees.
+	 * 
+	 * @param angle
+	 *            The intended angular displacement.
+	 */
 	public void setTargetRelative(double angle) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(turretTalon.get() + angle);
 	}
 
+	/**
+	 * Stop the motor by setting its target position to its current position.
+	 */
 	public void stop() {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(turretTalon.get());
 	}
 
+	/**
+	 * Finds whether the turret is on target. The turret is on target if it is
+	 * within the TURRET_TOLERANCE specified in Constants. If the turret is
+	 * being controlled manually, it can't be considered on target.
+	 * 
+	 * @return true if the turret is on target, otherwise false.
+	 */
 	public boolean onTarget() {
 		return turretTalon.getControlMode().equals(TalonControlMode.Position)
 				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
