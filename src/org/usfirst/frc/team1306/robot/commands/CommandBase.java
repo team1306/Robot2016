@@ -4,7 +4,7 @@ import org.usfirst.frc.team1306.robot.OI;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
 import org.usfirst.frc.team1306.robot.subsystems.Turret;
-import org.usfirst.frc.team1306.robot.subsystems.vision.Vision;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 

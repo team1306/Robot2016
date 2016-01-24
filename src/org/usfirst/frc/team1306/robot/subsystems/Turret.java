@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.turret.ManualTarget;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -24,7 +25,7 @@ public class Turret extends Subsystem {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(turretTalon.get());
 		turretTalon.enable();
-		
+
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -34,18 +35,18 @@ public class Turret extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		// setDefaultCommand(new AutoTarget());
-		// setDefaultCommand(new ManualTarget());
+		setDefaultCommand(new ManualTarget());
 	}
 
-	public void turnCW() {
+	/**
+	 * Set the velocity of the turret motor, on a scale from -1.0 to 1.0
+	 * 
+	 * @param velocity
+	 *            the new velocity
+	 */
+	public void setVel(double velocity) {
 		turretTalon.changeControlMode(TalonControlMode.Speed);
-		turretTalon.set(Constants.TURRET_MAX_SPEED);
-	}
-
-	public void turnCCW() {
-		turretTalon.changeControlMode(TalonControlMode.Speed);
-		turretTalon.set(-Constants.TURRET_MAX_SPEED);
+		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
 	public void setTarget(double position) {
@@ -67,7 +68,7 @@ public class Turret extends Subsystem {
 		return turretTalon.getControlMode().equals(TalonControlMode.Position)
 				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
 	}
-	
+
 	public void setHoodHeight(double position) {
 		hoodTalon.set(position);
 	}
