@@ -1,23 +1,22 @@
-package org.usfirst.frc.team1306.robot.vision;
+package org.usfirst.frc.team1306.robot.subsystems;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
+import org.usfirst.frc.team1306.robot.commands.VisionCommand;
+import org.usfirst.frc.team1306.robot.vision.VisionData;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * A class for getting data from the Jetson.
- * 
- * @author Finn Voichick
+ *
  */
-public class Vision {
-
+public class Vision extends Subsystem {
 	/**
 	 * This boolean represents whether making the socket was successful. It's
 	 * only going to try once since repeated tries are what broke the robot last
@@ -32,11 +31,8 @@ public class Vision {
 
 	/** The most recent data retrieved from the Jetson. */
 	private VisionData recentData;
-
-	/**
-	 * Creates a new Vision object with no data.
-	 */
-	public Vision() throws UnknownHostException, IOException {
+	
+	public Vision() {
 		recentData = null;
 
 		try {
@@ -50,24 +46,34 @@ public class Vision {
 		}
 	}
 
+    
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        setDefaultCommand(new VisionCommand());
+    }
+    
 	/**
 	 * Returns the most recent data if it is recent enough, otherwise gets new
 	 * data from the Jetson and returns that.
 	 * 
 	 * @return recent data from the Jetson.
 	 */
-	public VisionData getData() {
-		if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
+	public String getData() {
+		/*if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
 			return recentData;
-		}
+		}*/
 
 		double pitch = 0.0;
 		double yaw = 0.0;
 		double distance = 0.0;
 
+		String data = "";
 		if (isConnected) {
 			out.print('a');
-			String data = null;
+			data = null;
 			try {
 				data = in.readLine();
 			} catch (IOException e) {
@@ -82,23 +88,14 @@ public class Vision {
 
 		VisionData newData = new VisionData(pitch, yaw, distance);
 		recentData = newData;
-		return newData;
+		return data;
 	}
-
-	/**
-	 * Finds whether a target is detected.
-	 * 
-	 * @return true if a target is detected, otherwise false
-	 */
-	public boolean canSeeTarget() {
-		return getData().getDistance() > 0.0;
-	}
-
+    
 	/** The period between updates, in seconds */
 	private final static double PERIOD = 0.2;
 
 	/** The ip address and port number of the jetson */
 	private final static String hostName = "http://10.13.6.22";
 	private final static int portNumber = 5802;
-
 }
+

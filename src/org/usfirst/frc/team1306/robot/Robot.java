@@ -4,6 +4,7 @@ package org.usfirst.frc.team1306.robot;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.TalonTest;
+import org.usfirst.frc.team1306.robot.commands.shooter.ManualShoot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -62,7 +63,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) new TalonTest();
+        autonomousCommand = (Command) new ManualShoot();
         
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 //		switch(autoSelected) {

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import org.usfirst.frc.team1306.robot.vision.Vision;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,6 +29,11 @@ public class SmartDashboardUpdate extends CommandBase {
 		
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
+		
+		SmartDashboard.putNumber("talon current", shooter.getCurrent());
+		SmartDashboard.putNumber("trigger", oi.getRightTrigger());
+		
+		//SmartDashboard.putNumber("pitch", vision.getData().getPitch());
 		
 	}
 
