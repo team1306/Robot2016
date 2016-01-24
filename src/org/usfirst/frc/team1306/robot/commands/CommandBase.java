@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import org.usfirst.frc.team1306.robot.OI;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
@@ -15,12 +18,19 @@ public abstract class CommandBase extends Command {
 	protected static Shooter shooter;
 	protected static Turret turret;
 	protected static Vision vision;
+	protected static org.usfirst.frc.team1306.robot.subsystems.Vision visionsub;
 
 	public static void init() {
 		drivetrain = new Drivetrain();
 		shooter = new Shooter();
 		turret = new Turret();
-		vision = new Vision();
+		try {
+			vision = new Vision();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//visionsub = new org.usfirst.frc.team1306.robot.subsystems.Vision();
 		oi = new OI();
 	}
 

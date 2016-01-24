@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.shooter.ManualShoot;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -20,15 +21,16 @@ public class Shooter extends Subsystem {
     public Shooter() {
     	flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
     	
-    	flywheel.reverseOutput(true);
+    	/*flywheel.reverseOutput(true);
     	flywheel.reverseSensor(true);
     	
     	flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	flywheel.changeControlMode(TalonControlMode.Speed);
-    	flywheel.enable();
+    	flywheel.enable();*/
     }
 
     public void initDefaultCommand() {
+    	setDefaultCommand(new ManualShoot());
     }
     
     public void spinTo(double speed) {
@@ -37,7 +39,7 @@ public class Shooter extends Subsystem {
     }
     
     public void spinUp() {
-    	spinTo(1.0);
+    	spinTo(-0.75);
     }
     
     public void spinDown() {
@@ -46,6 +48,14 @@ public class Shooter extends Subsystem {
     
     public boolean isSpunUp() {
     	return Math.abs(flywheel.getEncVelocity() - target) < Constants.HOOD_TOLERANCE;
+    }
+    
+    public void set(double speed) {
+    	flywheel.set(950*speed);
+    }
+    
+    public double getCurrent() {
+    	return flywheel.getOutputCurrent();
     }
     
 }
