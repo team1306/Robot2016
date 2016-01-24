@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.commands.turret.ManualTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -35,14 +35,14 @@ public class Turret extends Subsystem {
 	}
 
 	/**
-	 * Sets the default command for the turret to ManualTarget
+	 * Sets the default command for the turret to ResetTarget.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new ManualTarget());
+		setDefaultCommand(new ResetTurret());
 	}
 
 	/**
-	 * Set the velocity of the turret motor, on a scale from -1.0 to 1.0
+	 * Set the velocity of the turret motor, on a scale from -1.0 to 1.0.
 	 * 
 	 * @param velocity
 	 *            the new velocity
