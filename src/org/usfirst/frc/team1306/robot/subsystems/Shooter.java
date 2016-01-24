@@ -39,7 +39,7 @@ public class Shooter extends Subsystem {
     }
     
     public void spinUp() {
-    	spinTo(-0.75);
+    	spinTo(-0.66);
     }
     
     public void spinDown() {
