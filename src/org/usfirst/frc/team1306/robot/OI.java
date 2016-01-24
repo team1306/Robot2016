@@ -46,9 +46,7 @@ public class OI {
 	}
 
 	public double getAngle() { 
-		
 		double angle=ahrs.getAngle();
-		SmartDashboard.putNumber("angle", angle);
 		return angle;
 		
 	}

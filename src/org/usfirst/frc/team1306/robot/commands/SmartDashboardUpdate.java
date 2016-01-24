@@ -23,6 +23,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("leftMotor1.get()", drivetrain.get(0));
 		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.get(0) + drivetrain.getEncVelocity(0));
 		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
+		SmartDashboard.putNumber("angle", oi.getAngle());
+
 		
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
