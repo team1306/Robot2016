@@ -1,5 +1,12 @@
 package org.usfirst.frc.team1306.robot.vision;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -9,6 +16,18 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Vision {
 
+	/**
+	 * This boolean represents whether making the socket was successful. It's
+	 * only going to try once since repeated tries are what broke the robot last
+	 * year.
+	 */
+	private boolean isConnected = true;
+
+	/** Socket members */
+	private Socket jetson;
+	private PrintWriter out;
+	private BufferedReader in;
+
 	/** The most recent data retrieved from the Jetson. */
 	private VisionData recentData;
 
@@ -17,6 +36,19 @@ public class Vision {
 	 */
 	public Vision() {
 		recentData = null;
+
+		try {
+			jetson = new Socket(hostName, portNumber);
+			out = new PrintWriter(jetson.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
+			isConnected = true;
+
+		} catch (Exception e) {
+			jetson = null;
+			out = null;
+			in = null;
+			isConnected = false;
+		}
 	}
 
 	/**
@@ -29,11 +61,25 @@ public class Vision {
 		if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
 			return recentData;
 		}
-
-		// TODO James, put your code here.
+		
 		double pitch = 0.0;
 		double yaw = 0.0;
 		double distance = 0.0;
+		
+		if (isConnected) {
+			String data = null;
+			while (true) {
+				try {
+					data = in.readLine();
+				} catch (IOException e) {
+					break;
+				}
+			}
+			
+			if (data != null) {
+				//yaw = (int) data;
+			}
+		}
 
 		VisionData newData = new VisionData(pitch, yaw, distance);
 		recentData = newData;
@@ -51,5 +97,9 @@ public class Vision {
 
 	/** The period between updates, in seconds */
 	private final static double PERIOD = 0.2;
+
+	/** The ip address and port number of the jetson */
+	private final static String hostName = "10.13.6.95";
+	private final static int portNumber = 5802;
 
 }
