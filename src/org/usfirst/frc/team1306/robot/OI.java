@@ -4,7 +4,7 @@ import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ManualTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.SnapForward;
+import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 import org.usfirst.frc.team1306.robot.triggers.SecondaryTriggers;
 
@@ -41,7 +41,7 @@ public class OI {
 		buttonA.whenPressed(new SpinUp());
 		buttonB.whenPressed(new Fire());
 		secondaryA.whenPressed(new AutoTarget());
-		dPadUp.whenActive(new SnapForward());
+		dPadUp.whenActive(new ResetTurret());
 		secondaryTriggers.whenActive(new ManualTarget());
 	}
 

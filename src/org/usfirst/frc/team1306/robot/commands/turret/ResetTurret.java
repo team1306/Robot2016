@@ -3,29 +3,33 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * Sets the Turret to point directly forward (encoder position zero). This
- * command will continue until interrupted, either by manual or automatic
- * targeting.
+ * Sets the Turret to point directly forward (encoder position zero), and lowers
+ * the hood so that the robot can fit under the low bar. This command will
+ * continue until interrupted, either by manual or automatic targeting.
  * 
  * @author Finn Voichick
  */
-public class SnapForward extends CommandBase {
+public class ResetTurret extends CommandBase {
 
 	/**
-	 * Creates a new SnapForward command. The turret is required because this
-	 * command can't run at the same time as AutoTarget or ManualTarget.
+	 * Creates a new SnapForward command. The turret and hood are required
+	 * because this command can't run at the same time as AutoTarget or
+	 * ManualTarget.
 	 */
-	public SnapForward() {
+	public ResetTurret() {
 		requires(turret);
+		requires(hood);
 	}
 
 	/**
 	 * Called just before this Command runs the first time. This is where the
-	 * turret's target is set to zero. Because the PID calculations are done on
-	 * the CANTalon, the target only needs to be set once.
+	 * turret's target is set to zero and the hood is lowered all the way.
+	 * Because the PID calculations are done on the CANTalon, the target only
+	 * needs to be set once.
 	 */
 	protected void initialize() {
 		turret.setTarget(0.0);
+		hood.setHeight(0.0);
 	}
 
 	/**
