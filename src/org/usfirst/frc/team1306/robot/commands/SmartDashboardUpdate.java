@@ -28,10 +28,6 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
 		
-		
-		vision.update();
-		SmartDashboard.putNumber("Pitch", vision.getPitch());
-		SmartDashboard.putNumber("Yaw", vision.getYaw());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
