@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Turret extends Subsystem {
 
 	private final CANTalon turretTalon;
-	private final CANTalon hoodTalon;
 
 	// Initialize your subsystem here
 	public Turret() {
@@ -25,12 +24,6 @@ public class Turret extends Subsystem {
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(turretTalon.get());
 		turretTalon.enable();
-
-		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
-		hoodTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(hoodTalon.get());
-		hoodTalon.enable();
 
 	}
 
@@ -69,7 +62,4 @@ public class Turret extends Subsystem {
 				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
 	}
 
-	public void setHoodHeight(double position) {
-		hoodTalon.set(position);
-	}
 }
