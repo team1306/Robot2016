@@ -3,10 +3,8 @@ package org.usfirst.frc.team1306.robot;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.ManualTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
-import org.usfirst.frc.team1306.robot.triggers.SecondaryTriggers;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -26,7 +24,6 @@ public class OI {
 	private final Button buttonB;
 	private final Button secondaryA;
 	private final Trigger dPadUp;
-	private final Trigger secondaryTriggers;
 
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
@@ -36,13 +33,11 @@ public class OI {
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		secondaryA = new JoystickButton(secondary, XboxController.A);
 		dPadUp = new DPadUp(secondary);
-		secondaryTriggers = new SecondaryTriggers(secondary);
 
 		buttonA.whenPressed(new SpinUp());
 		buttonB.whenPressed(new Fire());
 		secondaryA.whenPressed(new AutoTarget());
 		dPadUp.whenActive(new ResetTurret());
-		secondaryTriggers.whenActive(new ManualTarget());
 	}
 
 	public boolean autoTargetingStart() {
@@ -83,6 +78,10 @@ public class OI {
 
 	public double getSecondaryRightTrigger() {
 		return secondary.getRT();
+	}
+	
+	public boolean getManualOverride() {
+		return secondary.getRawButton(XboxController.START);
 	}
 
 	private static double deadband(double value) {
