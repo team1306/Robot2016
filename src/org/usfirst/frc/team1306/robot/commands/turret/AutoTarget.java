@@ -40,8 +40,8 @@ public class AutoTarget extends CommandBase {
 				turret.setTargetRelative(vision.getData().getYaw());
 				recentTimestamp = vision.getData().getTimestamp();
 			}
-		} else if (oi.getSecondaryLeftTrigger() != oi.getSecondaryRightTrigger() || oi.getManualOverride()) {
-			turret.setVel(oi.getSecondaryRightTrigger() - oi.getSecondaryLeftTrigger());
+		} else if (oi.getTurretVel() > 0 || oi.getManualOverride()) {
+			turret.setVel(oi.getTurretVel());
 		}
 	}
 

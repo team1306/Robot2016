@@ -20,10 +20,10 @@ public class DriveTank extends CommandBase {
 	 * triggers.
 	 */
 	protected void execute() {
-		double straightVel = oi.getRightTrigger() - oi.getLeftTrigger();
-		drivetrain.driveTank(oi.getLeft() + straightVel, oi.getRight() + straightVel);
-		SmartDashboard.putNumber("left", oi.getLeft() + straightVel);
-		SmartDashboard.putNumber("right", oi.getRight() + straightVel);
+		double straightVel = oi.getStraightVel();
+		drivetrain.driveTank(oi.getLeftVel() + straightVel, oi.getRightVel() + straightVel);
+		SmartDashboard.putNumber("left", oi.getLeftVel() + straightVel);
+		SmartDashboard.putNumber("right", oi.getRightVel() + straightVel);
 	}
 
 	protected boolean isFinished() {

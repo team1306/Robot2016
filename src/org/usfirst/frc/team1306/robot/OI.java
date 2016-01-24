@@ -4,12 +4,10 @@ import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
-import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,8 +20,7 @@ public class OI {
 
 	private final Button buttonA;
 	private final Button buttonB;
-	private final Button secondaryA;
-	private final Trigger dPadUp;
+	private final Button buttonY;
 
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
@@ -31,37 +28,24 @@ public class OI {
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
-		secondaryA = new JoystickButton(secondary, XboxController.A);
-		dPadUp = new DPadUp(secondary);
+		buttonY = new JoystickButton(xbox, XboxController.Y);
 
-		buttonA.whenPressed(new SpinUp());
-		buttonB.whenPressed(new Fire());
-		secondaryA.whenPressed(new AutoTarget());
-		dPadUp.whenActive(new ResetTurret());
+		buttonA.whenPressed(new ResetTurret());
+		buttonB.whenPressed(new SpinUp());
+		buttonB.whenPressed(new AutoTarget());
+		buttonY.whenPressed(new Fire());
 	}
 
-	public boolean autoTargetingStart() {
-		return secondary.getRawButton(XboxController.START);
-	}
-
-	public boolean autoTargetingStop() {
-		return secondary.getRawButton(XboxController.BACK);
-	}
-
-	public double getRight() {
+	public double getRightVel() {
 		return deadband(xbox.getY(Hand.kRight));
 	}
 
-	public double getLeft() {
+	public double getLeftVel() {
 		return deadband(xbox.getY(Hand.kLeft));
 	}
 
-	public double getLeftTrigger() {
-		return xbox.getLT();
-	}
-
-	public double getRightTrigger() {
-		return xbox.getRT();
+	public double getStraightVel() {
+		return xbox.getRT() - xbox.getLT();
 	}
 
 	public double getLeftX() {
@@ -72,14 +56,10 @@ public class OI {
 		return xbox.getPOV();
 	}
 
-	public double getSecondaryLeftTrigger() {
-		return secondary.getLT();
+	public double getTurretVel() {
+		return secondary.getRT() - secondary.getLT();
 	}
 
-	public double getSecondaryRightTrigger() {
-		return secondary.getRT();
-	}
-	
 	public boolean getManualOverride() {
 		return secondary.getRawButton(XboxController.START);
 	}
