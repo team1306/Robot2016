@@ -21,6 +21,7 @@ public class AutoTarget extends CommandBase {
 	 */
 	public AutoTarget() {
 		requires(turret);
+		recentTimestamp = 0;
 	}
 
 	/**
