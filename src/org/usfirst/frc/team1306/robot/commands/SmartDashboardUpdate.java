@@ -33,7 +33,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("talon current", shooter.getCurrent());
 		SmartDashboard.putNumber("trigger", oi.getRightTrigger());
 		
-		//SmartDashboard.putNumber("pitch", vision.getData().getPitch());
+		vision.getData();
 		
 	}
 

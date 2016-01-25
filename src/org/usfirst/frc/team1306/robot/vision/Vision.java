@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -17,37 +18,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Finn Voichick
  */
 public class Vision {
-
-	/**
-	 * This boolean represents whether making the socket was successful. It's
-	 * only going to try once since repeated tries are what broke the robot last
-	 * year.
-	 */
+	
+	Socket jetson;
+	BufferedReader in;
+	PrintWriter out;
+	
 	private boolean isConnected = true;
-
-	/** Socket members */
-	private Socket jetson;
-	private PrintWriter out;
-	private BufferedReader in;
-
+	
 	/** The most recent data retrieved from the Jetson. */
 	private VisionData recentData;
 
 	/**
 	 * Creates a new Vision object with no data.
 	 */
-	public Vision() throws UnknownHostException, IOException {
-		recentData = null;
-
-		try {
-			jetson = new Socket(hostName, portNumber);
-			out = new PrintWriter(jetson.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
-			isConnected = true;
-
-		} catch (Exception e) {
-			SmartDashboard.putString("error", e.getMessage());
-		}
+	public Vision() {
+		connectToJetson();
 	}
 
 	/**
@@ -57,16 +42,16 @@ public class Vision {
 	 * @return recent data from the Jetson.
 	 */
 	public VisionData getData() {
-		if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
+		/*if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
 			return recentData;
-		}
+		}*/
 
 		double pitch = 0.0;
 		double yaw = 0.0;
 		double distance = 0.0;
 
 		if (isConnected) {
-			out.print('a');
+			out.println('a');
 			String data = null;
 			try {
 				data = in.readLine();
@@ -78,11 +63,30 @@ public class Vision {
 			pitch = Integer.parseInt(numbers[0]);
 			yaw = Integer.parseInt(numbers[1]);
 			distance = Integer.parseInt(numbers[2]);
+		} else {
+			connectToJetson();
 		}
 
 		VisionData newData = new VisionData(pitch, yaw, distance);
 		recentData = newData;
 		return newData;
+	}
+	
+	private void connectToJetson() {
+		try {
+			jetson = new Socket(hostName, portNumber);
+			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
+			out = new PrintWriter(jetson.getOutputStream());
+			isConnected = true;
+			out.println('a');
+			SmartDashboard.putBoolean("Connected", true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			SmartDashboard.putString("error", e.getMessage());
+			isConnected = false;
+			SmartDashboard.putBoolean("Connected", false);
+		}
 	}
 
 	/**
@@ -98,7 +102,7 @@ public class Vision {
 	private final static double PERIOD = 0.2;
 
 	/** The ip address and port number of the jetson */
-	private final static String hostName = "http://10.13.6.22";
+	private final static String hostName = "10.13.6.22";
 	private final static int portNumber = 5802;
 
 }
