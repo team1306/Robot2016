@@ -57,5 +57,9 @@ public class Hood extends Subsystem {
 	public void flatten() {
 		hoodTalon.set(90.0 * Constants.HOOD_TICKS_PER_DEGREE);
 	}
+	
+	public boolean onTarget() {
+		return hoodTalon.getError() < Constants.HOOD_TOLERANCE;
+	}
 
 }
