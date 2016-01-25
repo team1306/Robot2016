@@ -29,7 +29,7 @@ public class ResetTurret extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.setTarget(0.0);
-		hood.setHeight(0.0);
+		hood.flatten();
 	}
 
 	/**

@@ -39,13 +39,23 @@ public class Hood extends Subsystem {
 	}
 
 	/**
-	 * Sets the position of the hood, in degrees.
+	 * Sets the position of the hood, in degrees. 0 shoots directly forward,
+	 * while 90 shoots straight up. The angle is the angle of the trajectory,
+	 * not the angle of the edge of the hood.
 	 * 
-	 * @param the
-	 *            new position of the hood
+	 * @param position
+	 *            the new position of the hood
 	 */
 	public void setHeight(double position) {
 		hoodTalon.set(position * Constants.HOOD_TICKS_PER_DEGREE);
+	}
+
+	/**
+	 * Sets the hood to a flat position. At this position (position 90), the
+	 * robot will fit under the low bar.
+	 */
+	public void flatten() {
+		hoodTalon.set(90.0 * Constants.HOOD_TICKS_PER_DEGREE);
 	}
 
 }
