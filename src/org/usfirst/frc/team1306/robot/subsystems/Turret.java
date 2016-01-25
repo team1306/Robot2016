@@ -61,7 +61,7 @@ public class Turret extends Subsystem {
 	 */
 	public void setTarget(double position) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(position);
+		turretTalon.set(position * Constants.TURRET_TICKS_PER_DEGREE);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Turret extends Subsystem {
 	 */
 	public void setTargetRelative(double angle) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(turretTalon.get() + angle);
+		turretTalon.set(turretTalon.get() + angle * Constants.TURRET_TICKS_PER_DEGREE);
 	}
 
 	/**

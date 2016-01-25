@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -44,7 +45,7 @@ public class Hood extends Subsystem {
 	 *            new position of the hood
 	 */
 	public void setHeight(double position) {
-		hoodTalon.set(position);
+		hoodTalon.set(position * Constants.HOOD_TICKS_PER_DEGREE);
 	}
 
 }
