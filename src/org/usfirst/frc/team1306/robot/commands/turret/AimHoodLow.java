@@ -1,36 +1,60 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- *
+ * A command that aims the hood at the low goal. It is meant to be used at the
+ * same time as AutoTarget so that the turret will automatically aim correctly.
  */
 public class AimHoodLow extends CommandBase {
 
-    public AimHoodLow() {
-        requires(hood);
-    }
+	/**
+	 * Creates a new AimHoodLow command. The hood is required because this
+	 * command can't run at the same time as AimHood
+	 */
+	public AimHoodLow() {
+		requires(hood);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	hood.setHeight(0.0);
-    }
+	/**
+	 * Called just before this Command runs the first time. This is where the
+	 * hood's target is set to the position specified in Constants, pointing it
+	 * at the low goal. Because the PID calculations are done on the CANTalon,
+	 * the target only needs to be set once.
+	 */
+	protected void initialize() {
+		hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	/**
+	 * Called repeatedly when this Command is scheduled to run. Nothing is here
+	 * because nothing needs to happen repeatedly.
+	 */
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	/**
+	 * Make this return true when this Command no longer needs to run execute().
+	 * This command only ends when it's interrupted.
+	 * 
+	 * @return false
+	 */
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	/**
+	 * Called once after isFinished returns true. This command never does end.
+	 */
+	protected void end() {
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	/**
+	 * Called when another command which requires one or more of the same
+	 * subsystems is scheduled to run. Nothing happens because it simply
+	 * transfers control, so no new position or velocity needs to be set.
+	 */
+	protected void interrupted() {
+	}
 }

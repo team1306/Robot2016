@@ -12,7 +12,8 @@ public class Constants {
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
 
 	public final static double HOOD_TICKS_PER_DEGREE = 100.0; // placeholder
-	public final static double HOOD_TOLERANCE = 1.0;
+	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
+	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
