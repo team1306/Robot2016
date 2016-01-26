@@ -8,19 +8,22 @@ package org.usfirst.frc.team1306.robot;
  */
 public class RobotMap {
 
-	public static int xboxPort = 0;
-	public static int secondaryPort = 1;
+	public static final int xboxPort = 0;
+	public static final int secondaryPort = 1;
 
-	public static int leftTalon1Port = 1;
-	public static int leftTalon2Port = 2;
-	public static int rightTalon1Port = 3;
-	public static int rightTalon2Port = 4;
-	
-	public static int flyWheelTalonPort = 5;
-	public static int hoodTalonPort = 6;
-	public static int turretTalonPort = 7;
-	
-	public static int turretEncoderPort = 2;
-	
-	public static int intakeLimitPort = 1;
+	public static final int leftTalon1Port = 1;
+	public static final int leftTalon2Port = 2;
+	public static final int rightTalon1Port = 3;
+	public static final int rightTalon2Port = 4;
+
+	public static final int flyWheelTalonPort = 5;
+	public static final int hoodTalonPort = 6;
+	public static final int turretTalonPort = 7;
+
+	public static final int leftIntakeTalonPort = 8;
+	public static final int rightIntakeTalonPort = 9;
+
+	public static final int turretEncoderPort = 2;
+
+	public static final int intakeLimitPort = 1;
 }
