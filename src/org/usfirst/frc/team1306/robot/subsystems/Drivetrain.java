@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * The subsystem representing the drivetrain and its motors
+ * 
+ * @author James Tautges
  */
 public class Drivetrain extends Subsystem {
 

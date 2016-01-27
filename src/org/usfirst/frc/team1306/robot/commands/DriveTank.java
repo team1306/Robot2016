@@ -3,8 +3,11 @@ package org.usfirst.frc.team1306.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Command for tank drive
+ * 
+ * @author James Tautges
  */
+
 public class DriveTank extends CommandBase {
 
 	public DriveTank() {
