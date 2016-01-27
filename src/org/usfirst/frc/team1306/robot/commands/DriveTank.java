@@ -19,6 +19,7 @@ public class DriveTank extends CommandBase {
 	 * joysticks. If joysticks aren't used, it can drive straight using the
 	 * triggers.
 	 */
+	
 	protected void execute() {
 		double straightVel = oi.getRightTrigger() - oi.getLeftTrigger();
 		drivetrain.driveTank(oi.getLeft() + straightVel, oi.getRight() + straightVel);
