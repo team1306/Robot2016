@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Subsystem representing the turret and its controllers
+ * 
+ * @author James Tautges
  */
 public class Turret extends Subsystem {
 
