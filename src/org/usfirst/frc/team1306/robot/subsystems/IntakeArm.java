@@ -32,5 +32,10 @@ public class IntakeArm extends Subsystem {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
+	
+	public void setPosition(double angle) {
+		leftMotor.changeControlMode(TalonControlMode.Position);
+		rightMotor.changeControlMode(TalonControlMode.Position);
+	}
 
 }
