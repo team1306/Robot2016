@@ -78,14 +78,35 @@ public class Drivetrain extends Subsystem {
 		rightMotor1.set(rightVel);
 	}
 
+	/**
+	 * Sets zero speed to all motors
+	 */
+
 	public void stop() {
 		leftMotor1.set(0.0);
 		rightMotor1.set(0.0);
 	}
 
+	/**
+	 * Start the default tank drive command to start driving
+	 */
+
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTank());
 	}
+
+	/**
+	 * Configure all of the Talons with one as the PID controlled master and the
+	 * others as following slaves. This also configures the parity of the output
+	 * and the sensor value
+	 * 
+	 * @param master
+	 *            PID controlled main Talon
+	 * @param slave1
+	 *            First follower controller
+	 * @param slave2
+	 *            Second follower controller
+	 */
 
 	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
 		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -100,15 +121,40 @@ public class Drivetrain extends Subsystem {
 		slave2.set(master.getDeviceID());
 	}
 
-	// These are mainly getters for the smartdashboard command
+	/**
+	 * Get the value passed to the motor controller with the given index. (ie
+	 * leftMotor1 = 0, leftMotor2 = 1, leftMotor3 = 2, rightMotor1 = 3,
+	 * rightMotor2 = 4, rightMotor3 = 5)
+	 * 
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return Value set to the given Talon
+	 */
 
 	public double get(int motor) {
 		return motors[motor].get();
 	}
 
+	/**
+	 * Get the PID error of the motor controller with the given index.
+	 * 
+	 * @see get(int motor)
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return PID error of given Talon
+	 */
+
 	public double getError(int motor) {
 		return motors[motor].getError();
 	}
+
+	/**
+	 * Get the encoder velocity for the given Talon
+	 * 
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return Encoder velocity in ticks per 10ms
+	 */
 
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
