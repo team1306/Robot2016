@@ -7,6 +7,7 @@ import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -24,6 +25,9 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
 	private final CANTalon rightMotor3;
+	
+	private final DoubleSolenoid leftShifter;
+	private final DoubleSolenoid rightShifter;
 
 	public Drivetrain() {
 
@@ -41,6 +45,12 @@ public class Drivetrain extends Subsystem {
 		leftMotor1.reverseOutput(true);
 
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
+		
+		leftShifter = new DoubleSolenoid(0, 1);
+		rightShifter = new DoubleSolenoid(2, 3);
+		
+		leftShifter.set(DoubleSolenoid.Value.kForward);
+		rightShifter.set(DoubleSolenoid.Value.kForward);
 
 	}
 
