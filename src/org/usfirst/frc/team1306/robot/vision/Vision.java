@@ -36,12 +36,9 @@ public class Vision {
 	 * Creates a new Vision object with no data.
 	 */
 	public Vision() {
-<<<<<<< HEAD
 		connectToJetson();
-=======
 		recentData = null;
 		timer.start();
->>>>>>> master
 	}
 
 	/**
