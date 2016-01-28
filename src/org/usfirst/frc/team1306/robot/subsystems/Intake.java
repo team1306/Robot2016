@@ -38,11 +38,15 @@ public class Intake extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void toggleTuskState() {
-		if (leftIntakeSol.get() == DoubleSolenoid.Value.kForward) {
-			retractTusks();
+	/**
+	 * Toggle the rollers
+	 */
+	
+	public void toggleRollers() {
+		if (roller1.get() > 0) {
+			stopRollers();
 		} else {
-			extendTusks();
+			startRollers();
 		}
 	}
 
@@ -62,6 +66,18 @@ public class Intake extends Subsystem {
 	public void stopRollers() {
 		roller1.set(0.0);
 		roller2.set(0.0);
+	}
+	
+	/**
+	 * Toggle the tusk state
+	 */
+	
+	public void toggleTuskState() {
+		if (leftIntakeSol.get() == DoubleSolenoid.Value.kForward) {
+			retractTusks();
+		} else {
+			extendTusks();
+		}
 	}
 
 	/**
