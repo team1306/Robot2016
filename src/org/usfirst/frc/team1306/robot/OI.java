@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot;
 
+import org.usfirst.frc.team1306.robot.commands.intake.ToggleTusks;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
@@ -28,6 +29,7 @@ public class OI {
 	// Buttons and triggers
 	private final Button buttonA;
 	private final Button buttonB;
+	private final Button buttonX;
 	private final Button secondaryA;
 	private final Trigger dPadUp;
 	private final Trigger secondaryTriggers;
@@ -39,6 +41,7 @@ public class OI {
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
+		buttonX = new JoystickButton(xbox, XboxController.X);
 		secondaryA = new JoystickButton(secondary, XboxController.A);
 		dPadUp = new DPadUp(secondary);
 		secondaryTriggers = new SecondaryTriggers(secondary);
@@ -46,6 +49,7 @@ public class OI {
 		// Bind input devices to commands
 		buttonA.whenPressed(new SpinUp());
 		buttonB.whenPressed(new Fire());
+		buttonX.whenPressed(new ToggleTusks());
 		secondaryA.whenPressed(new AutoTarget());
 		dPadUp.whenActive(new SnapForward());
 		secondaryTriggers.whenActive(new ManualTarget());
