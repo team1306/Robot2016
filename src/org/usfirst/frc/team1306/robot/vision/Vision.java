@@ -35,6 +35,7 @@ public class Vision {
 	public Vision() {
 		connectToJetson();
 		recentData = null;
+		timer = new Timer();
 		timer.start();
 	}
 

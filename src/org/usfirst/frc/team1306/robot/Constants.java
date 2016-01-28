@@ -18,6 +18,10 @@ public class Constants {
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
 
 	public final static double HOOD_TOLERANCE = 1.0;
+	
+	// intake constants
+	public final static double INTAKE_LENGTH = 14.0; // placeholder
+	public final static double TUSK_LENGTH = 5.0; // placeholder
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
