@@ -3,20 +3,16 @@ package org.usfirst.frc.team1306.robot.commands.intake;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * This is a convenience class to bind the extendTusks method to an input
- * 
- * @author James Tautges
+ *
  */
-public class ExtendTusks extends CommandBase {
+public class ToggleTusks extends CommandBase {
 
-    public ExtendTusks() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public ToggleTusks() {
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.extendTusks();
+    	intake.toggleTuskState();
     }
 
     // Called repeatedly when this Command is scheduled to run
