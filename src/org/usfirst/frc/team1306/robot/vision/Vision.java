@@ -21,6 +21,7 @@ public class Vision {
 	 */
 	public Vision() {
 		recentData = null;
+		timer = new Timer();
 		timer.start();
 	}
 
