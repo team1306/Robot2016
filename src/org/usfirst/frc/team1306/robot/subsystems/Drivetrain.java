@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.commands.DriveTank;
+import org.usfirst.frc.team1306.robot.commands.drivetrain.DriveTank;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -131,6 +131,24 @@ public class Drivetrain extends Subsystem {
 		slave1.set(master.getDeviceID());
 		slave2.changeControlMode(TalonControlMode.Follower);
 		slave2.set(master.getDeviceID());
+	}
+	
+	/**
+	 * Put both motors into high gear
+	 */
+	
+	public void shiftUp() {
+		leftShifter.set(DoubleSolenoid.Value.kReverse);
+		rightShifter.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	/**
+	 * Put both motors into low gear
+	 */
+	
+	public void shiftDown() {
+		leftShifter.set(DoubleSolenoid.Value.kForward);
+		rightShifter.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
