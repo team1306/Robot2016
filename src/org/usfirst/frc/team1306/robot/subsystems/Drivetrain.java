@@ -7,51 +7,67 @@ import org.usfirst.frc.team1306.robot.commands.DriveTank;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * The subsystem representing the drivetrain and its motors
+ * 
+ * @author James Tautges
  */
 public class Drivetrain extends Subsystem {
 
-	
 	private final CANTalon[] motors;
 	private final CANTalon leftMotor1;
 	private final CANTalon leftMotor2;
+	private final CANTalon leftMotor3;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
+	private final CANTalon rightMotor3;
+	
+	private final DoubleSolenoid leftShifter;
+	//private final DoubleSolenoid rightShifter;
 
 	public Drivetrain() {
 
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
+		leftMotor3 = new CANTalon(RobotMap.leftTalon3Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
 		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
-		
-		motors = new CANTalon[]{leftMotor1, leftMotor2, rightMotor1, rightMotor2};
-		setupMotors(leftMotor1, leftMotor2);
-		setupMotors(rightMotor1, rightMotor2);
-		
+		rightMotor3 = new CANTalon(RobotMap.rightTalon3Port);
+
+		motors = new CANTalon[] { leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3 };
+		setupMotors(leftMotor1, leftMotor2, leftMotor3);
+		setupMotors(rightMotor1, rightMotor2, rightMotor3);
+
 		leftMotor1.reverseOutput(true);
-		
+
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
-				
+		
+		leftShifter = new DoubleSolenoid(0, 1);
+		//rightShifter = new DoubleSolenoid(2, 3);
+		
+		leftShifter.set(DoubleSolenoid.Value.kForward);
+		//rightShifter.set(DoubleSolenoid.Value.kForward);
+
 	}
 
 	/**
 	 * Takes two values from -1.0 to 1.0 for the right and left motors
 	 * 
-	 * @param leftVel	Speed of left motor
-	 * @param rightVel	Speed of right motor
+	 * @param leftVel
+	 *            Speed of left motor
+	 * @param rightVel
+	 *            Speed of right motor
 	 */
-	
+
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		leftVel = leftVel * maxSpeed;
 		rightVel = rightVel * maxSpeed;
-		
+
 		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
 	}
@@ -59,49 +75,99 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Takes values from -1.0 to 1.0 for velocity and rotation
 	 * 
-	 * @param velocity	Base speed forward
-	 * @param rotation	Additional rotational rate
+	 * @param velocity
+	 *            Base speed forward
+	 * @param rotation
+	 *            Additional rotational rate
 	 */
-	
+
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		double leftVel = maxSpeed * (velocity + rotation);
 		double rightVel = maxSpeed * (velocity - rotation);
-		
+
 		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
 	}
+
+	/**
+	 * Sets zero speed to all motors
+	 */
 
 	public void stop() {
 		leftMotor1.set(0.0);
 		rightMotor1.set(0.0);
 	}
 
+	/**
+	 * Start the default tank drive command to start driving
+	 */
+
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTank());
 	}
 
-	private void setupMotors(CANTalon master, CANTalon slave) {
+	/**
+	 * Configure all of the Talons with one as the PID controlled master and the
+	 * others as following slaves. This also configures the parity of the output
+	 * and the sensor value
+	 * 
+	 * @param master
+	 *            PID controlled main Talon
+	 * @param slave1
+	 *            First follower controller
+	 * @param slave2
+	 *            Second follower controller
+	 */
+
+	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
 		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		master.changeControlMode(TalonControlMode.Speed);
 		master.reverseSensor(true);
 		master.set(0.0);
 		master.enable();
-		
-		slave.changeControlMode(TalonControlMode.Follower);
-		slave.set(master.getDeviceID());
+
+		slave1.changeControlMode(TalonControlMode.Follower);
+		slave1.set(master.getDeviceID());
+		slave2.changeControlMode(TalonControlMode.Follower);
+		slave2.set(master.getDeviceID());
 	}
-	
-	// These are mainly getters for the smartdashboard command
-	
+
+	/**
+	 * Get the value passed to the motor controller with the given index. (ie
+	 * leftMotor1 = 0, leftMotor2 = 1, leftMotor3 = 2, rightMotor1 = 3,
+	 * rightMotor2 = 4, rightMotor3 = 5)
+	 * 
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return Value set to the given Talon
+	 */
+
 	public double get(int motor) {
 		return motors[motor].get();
 	}
-	
+
+	/**
+	 * Get the PID error of the motor controller with the given index.
+	 * 
+	 * @see get(int motor)
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return PID error of given Talon
+	 */
+
 	public double getError(int motor) {
 		return motors[motor].getError();
 	}
-	
+
+	/**
+	 * Get the encoder velocity for the given Talon
+	 * 
+	 * @param motor
+	 *            Index of the Talon to read
+	 * @return Encoder velocity in ticks per 10ms
+	 */
+
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
 	}

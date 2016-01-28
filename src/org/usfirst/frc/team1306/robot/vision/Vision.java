@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.usfirst.frc.team1306.robot.Constants;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * A class for getting data from the Jetson.
  * 
- * @author Finn Voichick
+ * @author James Tautges
  */
 public class Vision {
 	
@@ -28,11 +30,18 @@ public class Vision {
 	/** The most recent data retrieved from the Jetson. */
 	private VisionData recentData;
 
+	private Timer timer;
+
 	/**
 	 * Creates a new Vision object with no data.
 	 */
 	public Vision() {
+<<<<<<< HEAD
 		connectToJetson();
+=======
+		recentData = null;
+		timer.start();
+>>>>>>> master
 	}
 
 	/**
@@ -42,34 +51,35 @@ public class Vision {
 	 * @return recent data from the Jetson.
 	 */
 	public VisionData getData() {
-		/*if (recentData != null && Timer.getFPGATimestamp() - recentData.getTimestamp() < PERIOD) {
-			return recentData;
-		}*/
-
-		double pitch = 0.0;
-		double yaw = 0.0;
-		double distance = 0.0;
-
-		if (isConnected) {
-			out.println('a');
-			String data = null;
-			try {
-				data = in.readLine();
-			} catch (IOException e) {
-				
+		if (timer.hasPeriodPassed(Constants.VISION_PERIOD) || recentData == null) {
+			// TODO James, put your code here.
+			double pitch = 0.0;
+			double yaw = 0.0;
+			double distance = 0.0;
+			
+			if (isConnected) {
+				out.println('a');
+				String data = null;
+				try {
+					data = in.readLine();
+				} catch (IOException e) {
+					
+				}
+				SmartDashboard.putString("data", data);
+				String[] numbers = data.split(",");
+				pitch = Integer.parseInt(numbers[0]);
+				yaw = Integer.parseInt(numbers[1]);
+				distance = Integer.parseInt(numbers[2]);
+			} else {
+				connectToJetson();
 			}
-			SmartDashboard.putString("data", data);
-			String[] numbers = data.split(",");
-			pitch = Integer.parseInt(numbers[0]);
-			yaw = Integer.parseInt(numbers[1]);
-			distance = Integer.parseInt(numbers[2]);
-		} else {
-			connectToJetson();
-		}
 
-		VisionData newData = new VisionData(pitch, yaw, distance);
-		recentData = newData;
-		return newData;
+			VisionData newData = new VisionData(pitch, yaw, distance);
+			recentData = newData;
+			return newData;
+		} else {
+			return recentData;
+		}
 	}
 	
 	private void connectToJetson() {
@@ -98,6 +108,8 @@ public class Vision {
 		return getData().getDistance() > 0.0;
 	}
 
+	/// TODO put these constants in Constants
+	
 	/** The period between updates, in seconds */
 	private final static double PERIOD = 0.2;
 
