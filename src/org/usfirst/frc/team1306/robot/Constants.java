@@ -21,4 +21,7 @@ public class Constants {
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
+	
+	// vision constants
+	public final static double VISION_PERIOD = 0.2;
 }
