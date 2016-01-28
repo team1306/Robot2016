@@ -46,4 +46,7 @@ public class RobotMap {
 	
 	// intake sensor ports
 	public static int intakeLimitPort = 1;
+	
+	// arm control ports
+	public static int armPort = 2;
 }

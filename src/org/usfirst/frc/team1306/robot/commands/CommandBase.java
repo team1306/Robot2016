@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands;
 
 import org.usfirst.frc.team1306.robot.OI;
+import org.usfirst.frc.team1306.robot.subsystems.Arm;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1306.robot.subsystems.Intake;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
@@ -24,6 +25,7 @@ public abstract class CommandBase extends Command {
 	protected static Shooter shooter;
 	protected static Turret turret;
 	protected static Intake intake;
+	protected static Arm arm;
 	protected static Vision vision;
 
 	public static void init() {
@@ -31,6 +33,7 @@ public abstract class CommandBase extends Command {
 		shooter = new Shooter();
 		turret = new Turret();
 		intake = new Intake();
+		arm = new Arm();
 		vision = new Vision();
 		oi = new OI();
 	}
