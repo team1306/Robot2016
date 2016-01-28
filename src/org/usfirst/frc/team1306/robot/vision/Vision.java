@@ -2,16 +2,13 @@ package org.usfirst.frc.team1306.robot.vision;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import org.usfirst.frc.team1306.robot.Constants;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -49,13 +46,13 @@ public class Vision {
 	 */
 	public VisionData getData() {
 		if (timer.hasPeriodPassed(Constants.VISION_PERIOD) || recentData == null) {
-			// TODO James, put your code here.
 			double pitch = 0.0;
 			double yaw = 0.0;
 			double distance = 0.0;
 			
 			if (isConnected) {
-				out.println('a');
+				out.println("hello");
+				out.flush();
 				String data = null;
 				try {
 					data = in.readLine();
@@ -105,10 +102,7 @@ public class Vision {
 		return getData().getDistance() > 0.0;
 	}
 
-	/// TODO put these constants in Constants
-	
-	/** The period between updates, in seconds */
-	private final static double PERIOD = 0.2;
+	// TODO put these constants in Constants
 
 	/** The ip address and port number of the jetson */
 	private final static String hostName = "10.13.6.22";
