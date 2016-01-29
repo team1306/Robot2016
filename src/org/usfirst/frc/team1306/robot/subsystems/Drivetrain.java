@@ -42,8 +42,6 @@ public class Drivetrain extends Subsystem {
 		setupMotors(leftMotor1, leftMotor2, leftMotor3);
 		setupMotors(rightMotor1, rightMotor2, rightMotor3);
 
-		leftMotor1.reverseOutput(true);
-
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 		
 		leftShifter = new DoubleSolenoid(0, 1);
@@ -65,10 +63,10 @@ public class Drivetrain extends Subsystem {
 
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		leftVel = leftVel * maxSpeed;
-		rightVel = rightVel * maxSpeed;
+		/*leftVel = leftVel * maxSpeed;
+		rightVel = rightVel * maxSpeed;*/
 
-		leftMotor1.set(leftVel);
+		leftMotor1.set(-1.0*leftVel);
 		rightMotor1.set(rightVel);
 	}
 
@@ -121,9 +119,10 @@ public class Drivetrain extends Subsystem {
 	 */
 
 	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
-		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		/*master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		master.changeControlMode(TalonControlMode.Speed);
-		master.reverseSensor(true);
+		master.reverseSensor(true);*/
+		master.changeControlMode(TalonControlMode.PercentVbus);
 		master.set(0.0);
 		master.enable();
 
