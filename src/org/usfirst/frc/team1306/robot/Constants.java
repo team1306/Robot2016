@@ -9,9 +9,11 @@ package org.usfirst.frc.team1306.robot;
 
 public class Constants {
 	// drive constants
-	// measured in encoder ticks per 1ms^2
+	// measured in encoder ticks per 100ms^2
 	public final static double MAX_ACCELERATION = 0.01;
 	public final static double MAX_SPEED = 500.0;
+	public final static double RISING_SHIFT_SPEED_THRESHOLD = 300.0; // placeholder
+	public final static double FALLING_SHIFT_SPEED_THRESHOLD = 200.0; // placeholder
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
