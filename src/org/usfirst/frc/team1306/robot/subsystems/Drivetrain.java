@@ -64,20 +64,21 @@ public class Drivetrain extends Subsystem {
 
 	public void driveTank(double leftVel, double rightVel) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		/*leftVel = leftVel * maxSpeed;
-		rightVel = rightVel * maxSpeed;*/
+		/*
+		 * leftVel = leftVel * maxSpeed; rightVel = rightVel * maxSpeed;
+		 */
 
-		leftMotor1.set(-1.0*leftVel);
+		leftMotor1.set(-1.0 * leftVel);
 		rightMotor1.set(rightVel);
 
-		if (leftVel == rightVel) {
-			if (leftMotor1.get() < leftVel && leftShifter.get().equals(Value.kForward)
-					&& leftMotor1.get() >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
-				shiftUp();
-			} else if (leftMotor1.get() > leftVel && leftShifter.get().equals(Value.kReverse)
-					&& leftMotor1.get() <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
-				shiftDown();
-			}
+		double curAveVel = (leftMotor1.get() + rightMotor1.get()) / 2;
+		double setAveVel = (leftVel + rightVel) / 2;
+		if (curAveVel < setAveVel && leftShifter.get().equals(Value.kForward)
+				&& curAveVel >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
+			shiftUp();
+		} else if (curAveVel > setAveVel && leftShifter.get().equals(Value.kReverse)
+				&& curAveVel <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
+			shiftDown();
 		}
 	}
 
@@ -130,9 +131,11 @@ public class Drivetrain extends Subsystem {
 	 */
 
 	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
-		/*master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		master.changeControlMode(TalonControlMode.Speed);
-		master.reverseSensor(true);*/
+		/*
+		 * master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		 * master.changeControlMode(TalonControlMode.Speed);
+		 * master.reverseSensor(true);
+		 */
 		master.changeControlMode(TalonControlMode.PercentVbus);
 		master.set(0.0);
 		master.enable();
