@@ -30,12 +30,20 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
-		SmartDashboard.putNumber("leftMotor1.getCurent()", pdp.getCurrent(0));
-		SmartDashboard.putNumber("leftMotor2.getCurent()", pdp.getCurrent(1));
-		SmartDashboard.putNumber("leftMotor3.getCurent()", pdp.getCurrent(2));
-		SmartDashboard.putNumber("rightMotor1.getCurent()", pdp.getCurrent(15));
-		SmartDashboard.putNumber("rightMotor2.getCurent()", pdp.getCurrent(14));
-		SmartDashboard.putNumber("rightMotor3.getCurent()", pdp.getCurrent(13));
+		
+		SmartDashboard.putNumber("MAX leftMotor1.getCurrent()", Math.max(pdp.getCurrent(0), SmartDashboard.getNumber("MAX leftMotor1.getCurrent()")));
+		SmartDashboard.putNumber("MAX leftMotor2.getCurrent()", Math.max(pdp.getCurrent(1), SmartDashboard.getNumber("MAX leftMotor2.getCurrent()")));
+		SmartDashboard.putNumber("MAX leftMotor3.getCurrent()", Math.max(pdp.getCurrent(2), SmartDashboard.getNumber("MAX leftMotor3.getCurrent()")));
+		SmartDashboard.putNumber("MAX rightMotor1.getCurrent()", Math.max(pdp.getCurrent(15), SmartDashboard.getNumber("MAX rightMotor1.getCurrent()")));
+		SmartDashboard.putNumber("MAX rightMotor2.getCurrent()", Math.max(pdp.getCurrent(14), SmartDashboard.getNumber("MAX rightMotor2.getCurrent()")));
+		SmartDashboard.putNumber("MAX rightMotor3.getCurrent()", Math.max(pdp.getCurrent(13), SmartDashboard.getNumber("MAX rightMotor3.getCurrent()")));
+
+		SmartDashboard.putNumber("NOW leftMotor1.getCurrent()", pdp.getCurrent(1));
+		SmartDashboard.putNumber("NOW leftMotor2.getCurrent()", pdp.getCurrent(1));
+		SmartDashboard.putNumber("NOW leftMotor3.getCurrent()", pdp.getCurrent(2));
+		SmartDashboard.putNumber("NOW rightMotor1.getCurrent()", pdp.getCurrent(15));
+		SmartDashboard.putNumber("NOW rightMotor2.getCurrent()", pdp.getCurrent(14));
+		SmartDashboard.putNumber("NOW rightMotor3.getCurrent()", pdp.getCurrent(13));
 	}
 
 	protected boolean isFinished() {
