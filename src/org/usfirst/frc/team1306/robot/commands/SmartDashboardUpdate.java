@@ -30,7 +30,12 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
-
+		SmartDashboard.putNumber("leftMotor1.getCurent()", pdp.getCurrent(0));
+		SmartDashboard.putNumber("leftMotor2.getCurent()", pdp.getCurrent(1));
+		SmartDashboard.putNumber("leftMotor3.getCurent()", pdp.getCurrent(2));
+		SmartDashboard.putNumber("rightMotor1.getCurent()", pdp.getCurrent(15));
+		SmartDashboard.putNumber("rightMotor2.getCurent()", pdp.getCurrent(14));
+		SmartDashboard.putNumber("rightMotor3.getCurent()", pdp.getCurrent(13));
 	}
 
 	protected boolean isFinished() {
