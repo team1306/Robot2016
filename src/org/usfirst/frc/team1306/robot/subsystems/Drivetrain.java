@@ -72,10 +72,14 @@ public class Drivetrain extends Subsystem {
 		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
 
-		if (leftMotor1.get() < leftMotor1.getSetpoint() && leftShifter.get().equals(Value.kForward) && leftMotor1.get() >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
-			shiftUp();
-		} else if (leftMotor1.get() > leftMotor1.getSetpoint() && leftShifter.get().equals(Value.kReverse) && leftMotor1.get() <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
-			shiftDown();
+		if (leftVel == rightVel) {
+			if (leftMotor1.get() < leftVel && leftShifter.get().equals(Value.kForward)
+					&& leftMotor1.get() >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
+				shiftUp();
+			} else if (leftMotor1.get() > leftVel && leftShifter.get().equals(Value.kReverse)
+					&& leftMotor1.get() <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
+				shiftDown();
+			}
 		}
 	}
 
