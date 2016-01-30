@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +26,7 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
 	private final CANTalon rightMotor3;
-	
+
 	private final DoubleSolenoid leftShifter;
 	private final DoubleSolenoid rightShifter;
 
@@ -45,10 +46,10 @@ public class Drivetrain extends Subsystem {
 		leftMotor1.reverseOutput(true);
 
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
-		
+
 		leftShifter = new DoubleSolenoid(0, 1);
 		rightShifter = new DoubleSolenoid(2, 3);
-		
+
 		leftShifter.set(DoubleSolenoid.Value.kForward);
 		rightShifter.set(DoubleSolenoid.Value.kForward);
 
@@ -70,6 +71,12 @@ public class Drivetrain extends Subsystem {
 
 		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
+
+		if (leftMotor1.get() < leftMotor1.getSetpoint() && leftShifter.get().equals(Value.kForward) && leftMotor1.get() >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
+			shiftUp();
+		} else if (leftMotor1.get() > leftMotor1.getSetpoint() && leftShifter.get().equals(Value.kReverse) && leftMotor1.get() <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
+			shiftDown();
+		}
 	}
 
 	/**
@@ -132,20 +139,20 @@ public class Drivetrain extends Subsystem {
 		slave2.changeControlMode(TalonControlMode.Follower);
 		slave2.set(master.getDeviceID());
 	}
-	
+
 	/**
 	 * Put both motors into high gear
 	 */
-	
+
 	public void shiftUp() {
 		leftShifter.set(DoubleSolenoid.Value.kReverse);
 		rightShifter.set(DoubleSolenoid.Value.kReverse);
 	}
-	
+
 	/**
 	 * Put both motors into low gear
 	 */
-	
+
 	public void shiftDown() {
 		leftShifter.set(DoubleSolenoid.Value.kForward);
 		rightShifter.set(DoubleSolenoid.Value.kForward);
