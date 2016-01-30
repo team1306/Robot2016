@@ -68,11 +68,11 @@ public class Drivetrain extends Subsystem {
 		 * leftVel = leftVel * maxSpeed; rightVel = rightVel * maxSpeed;
 		 */
 
-		leftMotor1.set(-1.0 * leftVel);
-		rightMotor1.set(rightVel);
+		leftMotor1.set(-1.0 * leftVel * maxSpeed);
+		rightMotor1.set(rightVel * maxSpeed);
 
 		double curAveVel = (leftMotor1.get() + rightMotor1.get()) / 2;
-		double setAveVel = (leftVel + rightVel) / 2;
+		double setAveVel = (leftMotor1.getSetpoint() + rightMotor1.getSetpoint()) / 2;
 		if (curAveVel < setAveVel && leftShifter.get().equals(Value.kForward)
 				&& curAveVel >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
 			shiftUp();
