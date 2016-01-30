@@ -7,6 +7,7 @@ import org.usfirst.frc.team1306.robot.subsystems.Intake;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
 import org.usfirst.frc.team1306.robot.subsystems.Turret;
 import org.usfirst.frc.team1306.robot.vision.Vision;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -27,6 +28,7 @@ public abstract class CommandBase extends Command {
 	protected static Intake intake;
 	protected static Arm arm;
 	protected static Vision vision;
+	protected static PowerDistributionPanel pdp;
 
 	public static void init() {
 		drivetrain = new Drivetrain();
@@ -36,6 +38,7 @@ public abstract class CommandBase extends Command {
 		arm = new Arm();
 		vision = new Vision();
 		oi = new OI();
+		pdp = new PowerDistributionPanel();
 	}
 
 }
