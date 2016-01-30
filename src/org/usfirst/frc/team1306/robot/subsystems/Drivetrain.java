@@ -63,13 +63,12 @@ public class Drivetrain extends Subsystem {
 	 */
 
 	public void driveTank(double leftVel, double rightVel) {
-		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		/*
 		 * leftVel = leftVel * maxSpeed; rightVel = rightVel * maxSpeed;
 		 */
 
-		leftMotor1.set(-1.0 * leftVel * maxSpeed);
-		rightMotor1.set(rightVel * maxSpeed);
+		leftMotor1.set(-1.0 * leftVel * Constants.MAX_SPEED);
+		rightMotor1.set(rightVel * Constants.MAX_SPEED);
 
 		double curAveVel = (leftMotor1.get() + rightMotor1.get()) / 2;
 		double setAveVel = (leftMotor1.getSetpoint() + rightMotor1.getSetpoint()) / 2;
