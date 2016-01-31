@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * A command that automatically aims the turret at the tower goal. It repeatedly
  * (5 times per second) gets data about where the target is, then uses the
@@ -22,6 +24,7 @@ public class AutoTarget extends CommandBase {
 	public AutoTarget() {
 		requires(turret);
 		recentTimestamp = 0;
+		manual = true;
 	}
 
 	/**
@@ -41,10 +44,15 @@ public class AutoTarget extends CommandBase {
 				turret.setTargetRelative(vision.getData().getYaw());
 				recentTimestamp = vision.getData().getTimestamp();
 			}
-		} else if (oi.getTurretVel() > 0 || oi.getManualOverride()) {
+			manual = false;
+		} else if (manual || oi.getTurretVel() != 0 || oi.getManualOverride()) {
+			SmartDashboard.putNumber("vel", oi.getTurretVel());
 			turret.setVel(oi.getTurretVel());
+			manual = oi.getTurretVel() != 0;
 		}
 	}
+	
+	private boolean manual;
 
 	/**
 	 * Make this return true when this Command no longer needs to run execute().

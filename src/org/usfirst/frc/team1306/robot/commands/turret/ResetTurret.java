@@ -18,7 +18,7 @@ public class ResetTurret extends CommandBase {
 	 */
 	public ResetTurret() {
 		requires(turret);
-		requires(hood);
+		//requires(hood);
 	}
 
 	/**

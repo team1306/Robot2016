@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -29,9 +30,9 @@ public class Turret extends Subsystem {
 		// Configure the turret Talon with an encoder and position control
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(turretTalon.get());
-		turretTalon.enable();
+		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		//turretTalon.set(turretTalon.get());
+		//turretTalon.enable();
 
 	}
 
@@ -39,7 +40,7 @@ public class Turret extends Subsystem {
 	 * Sets the default command for the turret to ResetTarget.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new ResetTurret());
+		setDefaultCommand(new AutoTarget());
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class Turret extends Subsystem {
 	 */
 
 	public void setVel(double velocity) {
-		turretTalon.changeControlMode(TalonControlMode.Speed);
+		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
