@@ -63,8 +63,8 @@ public class Vision {
 				SmartDashboard.putString("data", data);
 				String[] numbers = data.split(",");
 				pitch = Integer.parseInt(numbers[0]);
-				yaw = Integer.parseInt(numbers[1]);
-				distance = Integer.parseInt(numbers[2]);
+				/*yaw = Integer.parseInt(numbers[1]);
+				distance = Integer.parseInt(numbers[2]);*/
 			} else {
 				connectToJetson();
 			}
