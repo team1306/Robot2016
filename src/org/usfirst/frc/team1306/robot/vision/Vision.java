@@ -106,7 +106,7 @@ public class Vision {
 	// TODO put these constants in Constants
 
 	/** The ip address and port number of the jetson */
-	private final static String hostName = "10.13.6.22";
+	private final static String hostName = "tegra-ubuntu";
 	private final static int portNumber = 5802;
 
 }
