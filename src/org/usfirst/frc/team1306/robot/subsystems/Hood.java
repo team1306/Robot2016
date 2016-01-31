@@ -24,7 +24,7 @@ public class Hood extends Subsystem {
 	public Hood() {
 
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
-		hoodTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(hoodTalon.get());
 		hoodTalon.enable();
@@ -47,7 +47,7 @@ public class Hood extends Subsystem {
 	 *            the new position of the hood
 	 */
 	public void setHeight(double position) {
-		hoodTalon.set(position * Constants.HOOD_TICKS_PER_DEGREE);
+		hoodTalon.set(position * Constants.HOOD_VOLTS_PER_DEGREE);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Hood extends Subsystem {
 	 * robot will fit under the low bar.
 	 */
 	public void flatten() {
-		hoodTalon.set(90.0 * Constants.HOOD_TICKS_PER_DEGREE);
+		hoodTalon.set(90.0 * Constants.HOOD_VOLTS_PER_DEGREE);
 	}
 	
 	public boolean onTarget() {

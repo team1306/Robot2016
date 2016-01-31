@@ -19,7 +19,7 @@ public class Constants {
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
 
 	// hood constants
-	public final static double HOOD_TICKS_PER_DEGREE = 100.0; // placeholder
+	public final static double HOOD_VOLTS_PER_DEGREE = 0.1; // placeholder
 	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 
