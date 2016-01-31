@@ -41,7 +41,7 @@ public class Shooter extends Subsystem {
 	 *            Speed to set the Talon
 	 */
 
-	public void spinTo(double speed) {
+	public void set(double speed) {
 		flywheel.set(speed);
 		target = speed;
 	}
@@ -51,7 +51,7 @@ public class Shooter extends Subsystem {
 	 */
 
 	public void spinUp() {
-		spinTo(1.0);
+		set(1.0);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Shooter extends Subsystem {
 	 */
 
 	public void spinDown() {
-		spinTo(0.0);
+		set(0.0);
 	}
 
 	/**

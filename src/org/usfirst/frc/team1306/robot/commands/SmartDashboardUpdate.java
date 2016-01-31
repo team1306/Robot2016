@@ -33,7 +33,6 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
 		
-		SmartDashboard.putNumber("talon current", shooter.getCurrent());
 		SmartDashboard.putNumber("trigger", oi.getRightTrigger());
 		
 		vision.getData();
