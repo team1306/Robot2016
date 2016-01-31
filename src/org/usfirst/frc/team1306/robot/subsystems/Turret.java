@@ -26,6 +26,7 @@ public class Turret extends Subsystem {
 	 */
 	public Turret() {
 
+		// Configure the turret Talon with an encoder and position control
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		turretTalon.changeControlMode(TalonControlMode.Position);
@@ -47,12 +48,14 @@ public class Turret extends Subsystem {
 	 * @param velocity
 	 *            the new velocity
 	 */
+
 	public void setVel(double velocity) {
 		turretTalon.changeControlMode(TalonControlMode.Speed);
 		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
 	/**
+	 * 
 	 * Set the target position for the turret. 0 is straight forward, and the
 	 * angle is measured in degrees.
 	 * 
