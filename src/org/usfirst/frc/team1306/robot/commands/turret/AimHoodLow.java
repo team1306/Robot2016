@@ -1,31 +1,30 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * Sets the Turret to point directly forward (encoder position zero). This
- * command will continue until interrupted, either by manual or automatic
- * targeting.
- * 
- * @author Finn Voichick
+ * A command that aims the hood at the low goal. It is meant to be used at the
+ * same time as AutoTarget so that the turret will automatically aim correctly.
  */
-public class SnapForward extends CommandBase {
+public class AimHoodLow extends CommandBase {
 
 	/**
-	 * Creates a new SnapForward command. The turret is required because this
-	 * command can't run at the same time as AutoTarget or ManualTarget.
+	 * Creates a new AimHoodLow command. The hood is required because this
+	 * command can't run at the same time as AimHood
 	 */
-	public SnapForward() {
-		requires(turret);
+	public AimHoodLow() {
+		requires(hood);
 	}
 
 	/**
 	 * Called just before this Command runs the first time. This is where the
-	 * turret's target is set to zero. Because the PID calculations are done on
-	 * the CANTalon, the target only needs to be set once.
+	 * hood's target is set to the position specified in Constants, pointing it
+	 * at the low goal. Because the PID calculations are done on the CANTalon,
+	 * the target only needs to be set once.
 	 */
 	protected void initialize() {
-		turret.setTarget(0.0);
+		hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class SnapForward extends CommandBase {
 	/**
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Nothing happens because it simply
-	 * transfers control, so no new velocity needs to be set.
+	 * transfers control, so no new position or velocity needs to be set.
 	 */
 	protected void interrupted() {
 	}

@@ -21,6 +21,7 @@ public class AutoTarget extends CommandBase {
 	 */
 	public AutoTarget() {
 		requires(turret);
+		recentTimestamp = 0;
 	}
 
 	/**
@@ -35,9 +36,13 @@ public class AutoTarget extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		if (vision.canSeeTarget() && vision.getData().getTimestamp() > recentTimestamp) {
-			turret.setTargetRelative(vision.getData().getYaw());
-			recentTimestamp = vision.getData().getTimestamp();
+		if (vision.canSeeTarget() && !oi.getManualOverride()) {
+			if (vision.getData().getTimestamp() > recentTimestamp) {
+				turret.setTargetRelative(vision.getData().getYaw());
+				recentTimestamp = vision.getData().getTimestamp();
+			}
+		} else if (oi.getTurretVel() > 0 || oi.getManualOverride()) {
+			turret.setVel(oi.getTurretVel());
 		}
 	}
 

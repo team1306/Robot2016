@@ -7,21 +7,17 @@ import org.usfirst.frc.team1306.robot.commands.intake.ToggleTusks;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.ManualTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.SnapForward;
-import org.usfirst.frc.team1306.robot.triggers.DPadUp;
-import org.usfirst.frc.team1306.robot.triggers.SecondaryTriggers;
+import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  * 
- * @author James Tautges
+ * @author James Tautges, Finn Voichick
  */
 public class OI {
 
@@ -37,8 +33,6 @@ public class OI {
 	private final Button bumperL;
 	private final Button bumperR;
 	private final Button secondaryA;
-	private final Trigger dPadUp;
-	private final Trigger secondaryTriggers;
 
 	// Initialize everything
 	public OI() {
@@ -51,21 +45,17 @@ public class OI {
 		buttonY = new JoystickButton(xbox, XboxController.Y);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 		bumperR = new JoystickButton(xbox, XboxController.RB);
-		
+
 		secondaryA = new JoystickButton(secondary, XboxController.A);
-		dPadUp = new DPadUp(secondary);
-		secondaryTriggers = new SecondaryTriggers(secondary);
 
 		// Bind input devices to commands
-		buttonA.whenPressed(new SpinUp());
-		buttonB.whenPressed(new Fire());
-		buttonX.whenPressed(new ToggleTusks());
-		buttonY.whenPressed(new ToggleRollers());
+		buttonA.whenPressed(new AutoTarget());
+		buttonB.whenPressed(new SpinUp());
+		buttonX.whenPressed(new ResetTurret());
+		buttonY.whenPressed(new Fire());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		secondaryA.whenPressed(new AutoTarget());
-		dPadUp.whenActive(new SnapForward());
-		secondaryTriggers.whenActive(new ManualTarget());
 	}
 
 	/**
@@ -97,7 +87,7 @@ public class OI {
 	 * @return Y axis value of main right joystick
 	 */
 
-	public double getRight() {
+	public double getRightVel() {
 		return deadband(xbox.getY(Hand.kRight));
 	}
 
@@ -108,36 +98,21 @@ public class OI {
 	 * @return Y axis value of main right joystick
 	 */
 
-	public double getLeft() {
+	public double getLeftVel() {
 		return deadband(xbox.getY(Hand.kLeft));
 	}
 
-	/**
-	 * Return the value of the main left trigger (no deadband)
-	 * 
-	 * @return Value of main left trigger
-	 */
-
-	public double getLeftTrigger() {
-		return xbox.getLT();
+	public double getStraightVel() {
+		return xbox.getRT() - xbox.getLT();
 	}
 
 	/**
-	 * Return the value of the main right trigger (no deadband)
-	 * 
-	 * @return Value of main right trigger
-	 */
-	
-	public double getRightTrigger() {
-		return xbox.getRT();
-	}
-
-	/**
-	 * Return the X axis value of the main left joystick after applying a deadband
+	 * Return the X axis value of the main left joystick after applying a
+	 * deadband
 	 * 
 	 * @return X axis value of the main left joystick
 	 */
-	
+
 	public double getLeftX() {
 		return deadband(xbox.getX(Hand.kLeft));
 	}
@@ -145,25 +120,13 @@ public class OI {
 	public int getPOV() {
 		return xbox.getPOV();
 	}
-	
-	/**
-	 * Return the value of the secondary left trigger (no deadband)
-	 * 
-	 * @return Value of secondary left trigger
-	 */
-	
-	public double getSecondaryLeftTrigger() {
-		return secondary.getLT();
+
+	public double getTurretVel() {
+		return secondary.getRT() - secondary.getLT();
 	}
 
-	/**
-	 * Return the value of the secondary right trigger (no deadband)
-	 * 
-	 * @return Value of main secondary trigger
-	 */
-	
-	public double getSecondaryRightTrigger() {
-		return secondary.getRT();
+	public boolean getManualOverride() {
+		return secondary.getRawButton(XboxController.START);
 	}
 
 	/**
