@@ -57,34 +57,11 @@ public class OI {
 	}
 
 	/**
-	 * Get the value of the start button on the secondary controller. This
-	 * corresponds to starting auto targeting
-	 * 
-	 * @return Value of secondary start button
-	 */
-
-	public boolean autoTargetingStart() {
-		return secondary.getRawButton(XboxController.START);
-	}
-
-	/**
-	 * Get the value of the back button on the secondary controller. This
-	 * corresponds to stopping auto targeting
-	 * 
-	 * @return Value of secondary back button
-	 */
-
-	public boolean autoTargetingStop() {
-		return secondary.getRawButton(XboxController.BACK);
-	}
-
-	/**
 	 * Return the value of the Y axis of the main right joystick after applying
 	 * a deadband
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
-
 	public double getRightVel() {
 		return deadband(xbox.getY(Hand.kRight));
 	}
@@ -95,7 +72,6 @@ public class OI {
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
-
 	public double getLeftVel() {
 		return deadband(xbox.getY(Hand.kLeft));
 	}
@@ -110,7 +86,6 @@ public class OI {
 	 * 
 	 * @return X axis value of the main left joystick
 	 */
-
 	public double getLeftX() {
 		return deadband(xbox.getX(Hand.kLeft));
 	}
@@ -136,7 +111,6 @@ public class OI {
 	 *            Value to deadband
 	 * @return Deadbanded value
 	 */
-
 	private static double deadband(double value) {
 		if (value < -Constants.DEADBAND) {
 			return (value + Constants.DEADBAND) / (1.0 - Constants.DEADBAND);
