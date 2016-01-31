@@ -27,7 +27,6 @@ public abstract class CommandBase extends Command {
 	protected static Intake intake;
 	protected static Arm arm;
 	protected static Vision vision;
-	protected static org.usfirst.frc.team1306.robot.subsystems.Vision visionsub;
 
 	public static void init() {
 		drivetrain = new Drivetrain();
@@ -36,7 +35,6 @@ public abstract class CommandBase extends Command {
 		intake = new Intake();
 		arm = new Arm();
 		vision = new Vision();
-		//visionsub = new org.usfirst.frc.team1306.robot.subsystems.Vision();
 		oi = new OI();
 	}
 
