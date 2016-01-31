@@ -2,8 +2,6 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
-import org.usfirst.frc.team1306.robot.commands.intake.ToggleRollers;
-import org.usfirst.frc.team1306.robot.commands.intake.ToggleTusks;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
