@@ -3,7 +3,6 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -13,9 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 
-	private final CANTalon leftIntakeMotor;
-	private final CANTalon rightIntakeMotor;
-
 	private final Talon roller1;
 	private final Talon roller2;
 
@@ -23,9 +19,6 @@ public class Intake extends Subsystem {
 	private final DoubleSolenoid rightIntakeSol;
 
 	public Intake() {
-		leftIntakeMotor = new CANTalon(RobotMap.intakeMotor1Port);
-		rightIntakeMotor = new CANTalon(RobotMap.intakeMotor2Port);
-
 		roller1 = new Talon(RobotMap.intakeRoller1Port);
 		roller2 = new Talon(RobotMap.intakeRoller2Port);
 
@@ -37,11 +30,10 @@ public class Intake extends Subsystem {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
-	
+
 	/**
 	 * Toggle the rollers
 	 */
-	
 	public void toggleRollers() {
 		if (roller1.get() > 0) {
 			stopRollers();
@@ -53,7 +45,6 @@ public class Intake extends Subsystem {
 	/**
 	 * Set the rollers spinning
 	 */
-
 	public void startRollers() {
 		roller1.set(1.0);
 		roller2.set(1.0);
@@ -62,16 +53,14 @@ public class Intake extends Subsystem {
 	/**
 	 * Stop the rollers spinning
 	 */
-
 	public void stopRollers() {
 		roller1.set(0.0);
 		roller2.set(0.0);
 	}
-	
+
 	/**
 	 * Toggle the tusk state
 	 */
-	
 	public void toggleTuskState() {
 		if (leftIntakeSol.get() == DoubleSolenoid.Value.kForward) {
 			retractTusks();
@@ -83,7 +72,6 @@ public class Intake extends Subsystem {
 	/**
 	 * Actuate the solenoids to extend the tusks
 	 */
-
 	public void extendTusks() {
 		if (15 - Constants.INTAKE_LENGTH * Math.cos(getAngle()) < Constants.TUSK_LENGTH) {
 			leftIntakeSol.set(DoubleSolenoid.Value.kForward);
@@ -96,18 +84,16 @@ public class Intake extends Subsystem {
 	/**
 	 * Actuate the solenoids to retract the tusks
 	 */
-
 	public void retractTusks() {
 		leftIntakeSol.set(DoubleSolenoid.Value.kReverse);
 		rightIntakeSol.set(DoubleSolenoid.Value.kReverse);
 	}
-	
+
 	/**
 	 * Return the angle of the intake from the horizontal
 	 * 
 	 * @return Angle of intake
 	 */
-	
 	public double getAngle() {
 		// TODO write this code
 		return 0.0;
