@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
+
 	public void autonomousInit() {
 		autonomousCommand = (Command) new TalonTest();
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team1306.robot.vision.VisionData;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -30,7 +31,11 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
-
+		
+		SmartDashboard.putNumber("trigger", oi.getRightTrigger());
+		
+		VisionData data = vision.getData();
+		SmartDashboard.putNumber("latera", data.getYaw());
 	}
 
 	protected boolean isFinished() {
