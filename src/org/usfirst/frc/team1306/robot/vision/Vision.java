@@ -62,7 +62,7 @@ public class Vision {
 				}
 				SmartDashboard.putString("data", data);
 				String[] numbers = data.split(",");
-				pitch = Integer.parseInt(numbers[0]);
+				pitch = Double.parseDouble(numbers[0]);
 				/*
 				 * yaw = Integer.parseInt(numbers[1]); distance =
 				 * Integer.parseInt(numbers[2]);
@@ -82,9 +82,9 @@ public class Vision {
 				}
 				SmartDashboard.putString("data", data);
 				String[] numbers = data.split(",");
-				pitch = Integer.parseInt(numbers[0]);
-				yaw = Integer.parseInt(numbers[1]);
-				distance = Integer.parseInt(numbers[2]);
+				pitch = Double.parseDouble(numbers[0]);
+				yaw = Double.parseDouble(numbers[1]);
+				distance = Double.parseDouble(numbers[2]);
 			} else {
 				connectToJetson();
 			}
@@ -106,7 +106,6 @@ public class Vision {
 			out.println('a');
 			SmartDashboard.putBoolean("Connected", true);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			SmartDashboard.putString("error", e.getMessage());
 			isConnected = false;

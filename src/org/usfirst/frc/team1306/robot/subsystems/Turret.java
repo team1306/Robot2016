@@ -3,12 +3,12 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The turret that controls the heading of the shooter relative to the robot.
@@ -29,7 +29,7 @@ public class Turret extends Subsystem {
 
 		// Configure the turret Talon with an encoder and position control
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
-		turretTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		//turretTalon.set(turretTalon.get());
 		//turretTalon.enable();
@@ -52,6 +52,7 @@ public class Turret extends Subsystem {
 
 	public void setVel(double velocity) {
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		SmartDashboard.putNumber("turret enc", turretTalon.getEncPosition());
 		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 

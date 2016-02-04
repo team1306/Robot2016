@@ -31,9 +31,9 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
-		
-		SmartDashboard.putNumber("trigger", oi.getRightTrigger());
-		
+
+		SmartDashboard.putNumber("trigger", oi.getStraightVel());
+
 		VisionData data = vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());
 	}

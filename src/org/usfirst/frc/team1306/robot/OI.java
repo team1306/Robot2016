@@ -30,7 +30,6 @@ public class OI {
 	private final Button buttonY;
 	private final Button bumperL;
 	private final Button bumperR;
-	private final Button secondaryA;
 
 	// Initialize everything
 	public OI() {
@@ -44,8 +43,6 @@ public class OI {
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 		bumperR = new JoystickButton(xbox, XboxController.RB);
 
-		secondaryA = new JoystickButton(secondary, XboxController.A);
-
 		// Bind input devices to commands
 		buttonA.whenPressed(new AutoTarget());
 		buttonB.whenPressed(new SpinUp());
@@ -53,7 +50,6 @@ public class OI {
 		buttonY.whenPressed(new Fire());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
-		secondaryA.whenPressed(new AutoTarget());
 	}
 
 	/**
