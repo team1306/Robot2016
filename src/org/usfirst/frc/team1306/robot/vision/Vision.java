@@ -17,13 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author James Tautges
  */
 public class Vision {
-	
+
 	Socket jetson;
 	BufferedReader in;
 	PrintWriter out;
-	
+
 	private boolean isConnected = true;
-	
+
 	/** The most recent data retrieved from the Jetson. */
 	private VisionData recentData;
 
@@ -50,7 +50,7 @@ public class Vision {
 			double pitch = 0.0;
 			double yaw = 0.0;
 			double distance = 0.0;
-			
+
 			if (isConnected) {
 				out.println("hello");
 				out.flush();
@@ -58,13 +58,33 @@ public class Vision {
 				try {
 					data = in.readLine();
 				} catch (IOException e) {
-					
+
 				}
 				SmartDashboard.putString("data", data);
 				String[] numbers = data.split(",");
 				pitch = Integer.parseInt(numbers[0]);
-				/*yaw = Integer.parseInt(numbers[1]);
-				distance = Integer.parseInt(numbers[2]);*/
+				/*
+				 * yaw = Integer.parseInt(numbers[1]); distance =
+				 * Integer.parseInt(numbers[2]);
+				 */
+			} else {
+				connectToJetson();
+			}
+
+			if (isConnected) {
+				out.println("hello");
+				out.flush();
+				String data = null;
+				try {
+					data = in.readLine();
+				} catch (IOException e) {
+
+				}
+				SmartDashboard.putString("data", data);
+				String[] numbers = data.split(",");
+				pitch = Integer.parseInt(numbers[0]);
+				yaw = Integer.parseInt(numbers[1]);
+				distance = Integer.parseInt(numbers[2]);
 			} else {
 				connectToJetson();
 			}
@@ -76,7 +96,7 @@ public class Vision {
 			return recentData;
 		}
 	}
-	
+
 	private void connectToJetson() {
 		try {
 			jetson = new Socket(hostName, portNumber);
