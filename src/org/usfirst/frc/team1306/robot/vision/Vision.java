@@ -116,7 +116,7 @@ public class Vision {
 	 * 
 	 * @return true if a target is detected, otherwise false
 	 */
-	public boolean canSeeTarget() {
+	public static boolean canSeeTarget() {
 		return getData().getDistance() > 0.01;
 	}
 

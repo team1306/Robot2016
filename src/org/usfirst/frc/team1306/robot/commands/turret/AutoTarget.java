@@ -35,7 +35,7 @@ public class AutoTarget extends CommandBase {
 	 * nothing.
 	 */
 	protected void initialize() {
-
+		turret.disable();
 	}
 
 	/**
@@ -44,11 +44,7 @@ public class AutoTarget extends CommandBase {
 	 */
 	protected void execute() {
 		if (vision.canSeeTarget()) {
-			if (Math.abs(vision.getData().getYaw()) > 2) {
-				turret.setVel(Constants.TURRET_P * vision.getData().getYaw());
-			} else {
-				turret.setVel(0.0);
-			}
+			turret.enable();
 		} else {
 			turret.setVel(oi.getTurretVel());
 		}
