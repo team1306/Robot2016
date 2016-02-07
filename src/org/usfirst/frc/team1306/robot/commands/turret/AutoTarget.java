@@ -50,7 +50,7 @@ public class AutoTarget extends CommandBase {
 				turret.setVel(0.0);
 			}
 		} else {
-			turret.setVel(0.0);
+			turret.setVel(oi.getTurretVel());
 		}
 		/*
 		 * if (vision.canSeeTarget() && !oi.getManualOverride()) { if
