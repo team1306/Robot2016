@@ -4,6 +4,7 @@ package org.usfirst.frc.team1306.robot;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.TalonTest;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
+		Vision.init();
 		
 		// Start the debugging log command
 		smartdashboard = new SmartDashboardUpdate();

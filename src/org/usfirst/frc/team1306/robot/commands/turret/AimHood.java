@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 /**
  *
@@ -20,8 +21,8 @@ public class AimHood extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (vision.canSeeTarget() && vision.getData().getTimestamp() > recentTimestamp) {
-			hood.setHeight(vision.getData().getPitch());
+		if (Vision.canSeeTarget() && Vision.getData().getTimestamp() > recentTimestamp) {
+			hood.setHeight(Vision.getData().getPitch());
 		}
 	}
 

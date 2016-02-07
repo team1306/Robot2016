@@ -26,7 +26,6 @@ public class TurretPID extends PIDSubsystem {
     	turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.reverseOutput(true);
 		turretTalon.set(turretTalon.get());
 		turretTalon.enable();
     }
@@ -37,11 +36,11 @@ public class TurretPID extends PIDSubsystem {
     
     public void enable() {
     	setSetpoint(0.0);
-    	enable();
+    	super.enable();
     }
     
     public void disable() {
-    	disable();
+    	super.disable();
     }
     
     public void setVel(double speed) {
@@ -63,6 +62,6 @@ public class TurretPID extends PIDSubsystem {
     }
     
     protected void usePIDOutput(double output) {
-        turretTalon.set(output);
+        turretTalon.set(-output);
     }
 }

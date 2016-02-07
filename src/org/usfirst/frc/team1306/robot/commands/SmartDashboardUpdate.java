@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import org.usfirst.frc.team1306.robot.vision.Vision;
 import org.usfirst.frc.team1306.robot.vision.VisionData;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,7 +35,7 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("trigger", oi.getStraightVel());
 
-		VisionData data = vision.getData();
+		VisionData data = Vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());
 	}
 

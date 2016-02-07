@@ -18,7 +18,7 @@ public class Constants {
 	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
 	public final static double TURRET_TOLERANCE = 2.0; // placeholder
 	
-	public final static double TURRET_P = 0.008;
+	public final static double TURRET_P = 0.01;
 	public final static double TURRET_I = 0.0;
 	public final static double TURRET_D = 0.0;
 

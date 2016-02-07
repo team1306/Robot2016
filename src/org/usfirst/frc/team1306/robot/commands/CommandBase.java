@@ -29,7 +29,6 @@ public abstract class CommandBase extends Command {
 	protected static Intake intake;
 	protected static Arm arm;
 	protected static Hood hood;
-	protected static Vision vision;
 
 	public static void init() {
 		drivetrain = new Drivetrain();
