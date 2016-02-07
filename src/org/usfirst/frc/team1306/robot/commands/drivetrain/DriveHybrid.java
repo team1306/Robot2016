@@ -1,4 +1,6 @@
-package org.usfirst.frc.team1306.robot.commands;
+package org.usfirst.frc.team1306.robot.commands.drivetrain;
+
+import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 public class DriveHybrid extends CommandBase {
 
@@ -10,7 +12,7 @@ public class DriveHybrid extends CommandBase {
 	}
 
 	protected void execute() {
-		drivetrain.driveHybrid(oi.getRightTrigger() - oi.getLeftTrigger(), oi.getLeftX());
+		drivetrain.driveHybrid(oi.getStraightVel(), oi.getLeftX());
 	}
 
 	protected boolean isFinished() {
