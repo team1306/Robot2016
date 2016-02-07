@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -43,14 +44,8 @@ public class AutoTarget extends CommandBase {
 	 */
 	protected void execute() {
 		if (vision.canSeeTarget()) {
-			if (vision.getData().getYaw() > 2) {
-				if (vision.getData().getYaw() > 0) {
-					direction = 1;
-				} else {
-					direction = -1;
-				}
-
-				turret.setVel(0.1 * direction);
+			if (Math.abs(vision.getData().getYaw()) > 2) {
+				turret.setVel(Constants.TURRET_P * vision.getData().getYaw());
 			} else {
 				turret.setVel(0.0);
 			}

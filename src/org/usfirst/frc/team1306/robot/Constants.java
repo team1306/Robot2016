@@ -17,6 +17,8 @@ public class Constants {
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
 	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
+	
+	public final static double TURRET_P = 2;
 
 	// hood constants
 	public final static double HOOD_VOLTS_PER_DEGREE = 0.1; // placeholder
