@@ -2,14 +2,21 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.triggers.DPadDown;
+import org.usfirst.frc.team1306.robot.triggers.DPadRight;
+import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -31,6 +38,9 @@ public class OI {
 	private final Button bumperL;
 	private final Button bumperR;
 	private final Button secondaryA;
+	private final Trigger dPadUp;
+	private final Trigger dPadRight;
+	private final Trigger dPadDown;
 
 	// Initialize everything
 	public OI() {
@@ -46,6 +56,10 @@ public class OI {
 
 		secondaryA = new JoystickButton(secondary, XboxController.A);
 
+		dPadUp = new DPadUp(xbox);
+		dPadRight = new DPadRight(xbox);
+		dPadDown = new DPadDown(xbox);
+
 		// Bind input devices to commands
 		buttonA.whenPressed(new AutoTarget());
 		buttonB.whenPressed(new SpinUp());
@@ -54,6 +68,10 @@ public class OI {
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		secondaryA.whenPressed(new AutoTarget());
+		dPadUp.whenActive(new IntakeArmVertical());
+		dPadRight.whenActive(new IntakeArmPickup());
+		dPadDown.whenActive(new IntakeArmDown());
+
 	}
 
 	/**
