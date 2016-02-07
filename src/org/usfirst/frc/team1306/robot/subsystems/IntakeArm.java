@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -32,10 +33,14 @@ public class IntakeArm extends Subsystem {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
-	
+
 	public void setPosition(double angle) {
 		leftMotor.changeControlMode(TalonControlMode.Position);
 		rightMotor.changeControlMode(TalonControlMode.Position);
+		leftMotor.set(Constants.INTAKE_LEFT_ARM_0_POS
+				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0);
+		rightMotor.set(Constants.INTAKE_RIGHT_ARM_0_POS
+				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
 	}
 
 }
