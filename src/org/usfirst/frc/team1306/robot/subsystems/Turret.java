@@ -31,6 +31,7 @@ public class Turret extends Subsystem {
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		turretTalon.reverseOutput(true);
 		//turretTalon.set(turretTalon.get());
 		//turretTalon.enable();
 
@@ -40,7 +41,7 @@ public class Turret extends Subsystem {
 	 * Sets the default command for the turret to ResetTarget.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new AutoTarget());
+		//setDefaultCommand(new AutoTarget());
 	}
 
 	/**

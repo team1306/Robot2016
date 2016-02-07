@@ -28,6 +28,7 @@ public class Vision {
 	private VisionData recentData;
 
 	private Timer timer;
+	private Timer connectionTimer;
 
 	/**
 	 * Creates a new Vision object with no data.
@@ -36,7 +37,9 @@ public class Vision {
 		connectToJetson();
 		recentData = null;
 		timer = new Timer();
+		connectionTimer = new Timer();
 		timer.start();
+		connectionTimer.start();
 	}
 
 	/**
@@ -51,42 +54,37 @@ public class Vision {
 			double yaw = 0.0;
 			double distance = 0.0;
 
-			if (isConnected) {
-				out.println("hello");
-				out.flush();
+			if (isConnected && !jetson.isClosed()) {
 				String data = null;
 				try {
+					out.println("hello");
+					out.flush();
 					data = in.readLine();
-				} catch (IOException e) {
-
+				} catch (Exception e) {
+					e.printStackTrace();
+					isConnected = false;
+					recentData = new VisionData(0.0, 0.0, 0.0);
+					return recentData;
 				}
-				SmartDashboard.putString("data", data);
-				String[] numbers = data.split(",");
-				pitch = Double.parseDouble(numbers[0]);
-				/*
-				 * yaw = Integer.parseInt(numbers[1]); distance =
-				 * Integer.parseInt(numbers[2]);
-				 */
-			} else {
-				connectToJetson();
-			}
-
-			if (isConnected) {
-				out.println("hello");
-				out.flush();
-				String data = null;
-				try {
-					data = in.readLine();
-				} catch (IOException e) {
-
+				if (data == null) {
+					isConnected = false;
+					recentData = new VisionData(0.0, 0.0, 0.0);
+					return recentData;
 				}
+
 				SmartDashboard.putString("data", data);
 				String[] numbers = data.split(",");
 				pitch = Double.parseDouble(numbers[0]);
 				yaw = Double.parseDouble(numbers[1]);
 				distance = Double.parseDouble(numbers[2]);
+
+				// convert units
+				yaw = -yaw / 10;
 			} else {
-				connectToJetson();
+				isConnected = false;
+				if (connectionTimer.hasPeriodPassed(1.0)) {
+					connectToJetson();
+				}
 			}
 
 			VisionData newData = new VisionData(pitch, yaw, distance);
@@ -105,7 +103,7 @@ public class Vision {
 			isConnected = true;
 			out.println('a');
 			SmartDashboard.putBoolean("Connected", true);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			SmartDashboard.putString("error", e.getMessage());
 			isConnected = false;
@@ -119,7 +117,7 @@ public class Vision {
 	 * @return true if a target is detected, otherwise false
 	 */
 	public boolean canSeeTarget() {
-		return getData().getDistance() > 0.0;
+		return getData().getDistance() > 0.01;
 	}
 
 	// TODO put these constants in Constants

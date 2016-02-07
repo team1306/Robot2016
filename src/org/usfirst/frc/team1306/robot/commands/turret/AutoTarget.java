@@ -17,6 +17,8 @@ public class AutoTarget extends CommandBase {
 	/** The timestamp of the most recent vision data */
 	private double recentTimestamp;
 
+	private int direction = 1;
+
 	/**
 	 * Creates a new AutoTarget command. The turret is required because this
 	 * command can't run at the same time as ManualTarget or SnapForward.
@@ -32,6 +34,7 @@ public class AutoTarget extends CommandBase {
 	 * nothing.
 	 */
 	protected void initialize() {
+
 	}
 
 	/**
@@ -39,19 +42,32 @@ public class AutoTarget extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		if (vision.canSeeTarget() && !oi.getManualOverride()) {
-			if (vision.getData().getTimestamp() > recentTimestamp) {
-				turret.setTargetRelative(vision.getData().getYaw());
-				recentTimestamp = vision.getData().getTimestamp();
+		if (vision.canSeeTarget()) {
+			if (vision.getData().getYaw() > 2) {
+				if (vision.getData().getYaw() > 0) {
+					direction = 1;
+				} else {
+					direction = -1;
+				}
+
+				turret.setVel(0.1 * direction);
+			} else {
+				turret.setVel(0.0);
 			}
-			manual = false;
-		} else if (manual || oi.getTurretVel() != 0 || oi.getManualOverride()) {
-			SmartDashboard.putNumber("vel", oi.getTurretVel());
-			turret.setVel(oi.getTurretVel());
-			manual = oi.getTurretVel() != 0;
+		} else {
+			turret.setVel(0.0);
 		}
+		/*
+		 * if (vision.canSeeTarget() && !oi.getManualOverride()) { if
+		 * (vision.getData().getTimestamp() > recentTimestamp) {
+		 * turret.setTargetRelative(vision.getData().getYaw()); recentTimestamp
+		 * = vision.getData().getTimestamp(); } manual = false; } else if
+		 * (manual || oi.getTurretVel() != 0 || oi.getManualOverride()) {
+		 * SmartDashboard.putNumber("vel", oi.getTurretVel());
+		 * turret.setVel(oi.getTurretVel()); manual = oi.getTurretVel() != 0; }
+		 */
 	}
-	
+
 	private boolean manual;
 
 	/**
@@ -68,6 +84,7 @@ public class AutoTarget extends CommandBase {
 	 * Called once after isFinished returns true. This command never does end.
 	 */
 	protected void end() {
+		turret.setVel(0.0);
 	}
 
 	/**
@@ -76,5 +93,6 @@ public class AutoTarget extends CommandBase {
 	 * transfers control, so no new target needs to be set.
 	 */
 	protected void interrupted() {
+		end();
 	}
 }
