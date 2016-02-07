@@ -27,6 +27,11 @@ public class Constants {
 	public final static double INTAKE_LENGTH = 14.0; // placeholder
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
+	public final static double INTAKE_LEFT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_LEFT_ARM_90_POS = 1.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_90_POS = 1.0; // placeholder
+
 	// OI constants
 	public final static double DEADBAND = 0.15;
 
