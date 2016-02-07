@@ -18,17 +18,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Vision {
 
-	Socket jetson;
-	BufferedReader in;
-	PrintWriter out;
+	static Socket jetson;
+	static BufferedReader in;
+	static PrintWriter out;
 
-	private boolean isConnected = true;
+	private static boolean isConnected = true;
 
 	/** The most recent data retrieved from the Jetson. */
-	private VisionData recentData;
+	private static VisionData recentData;
 
-	private Timer timer;
-	private Timer connectionTimer;
+	private static Timer timer;
+	private static Timer connectionTimer;
 
 	/**
 	 * Creates a new Vision object with no data.
@@ -48,7 +48,7 @@ public class Vision {
 	 * 
 	 * @return recent data from the Jetson.
 	 */
-	public VisionData getData() {
+	public static VisionData getData() {
 		if (timer.hasPeriodPassed(Constants.VISION_PERIOD) || recentData == null) {
 			double pitch = 0.0;
 			double yaw = 0.0;
@@ -95,7 +95,7 @@ public class Vision {
 		}
 	}
 
-	private void connectToJetson() {
+	private static void connectToJetson() {
 		try {
 			jetson = new Socket(hostName, portNumber);
 			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
