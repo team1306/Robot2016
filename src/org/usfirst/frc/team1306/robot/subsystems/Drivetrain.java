@@ -27,7 +27,6 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor3;
 
 	private final DoubleSolenoid leftShifter;
-	private final DoubleSolenoid rightShifter;
 
 	public Drivetrain() {
 
@@ -45,10 +44,8 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 
 		leftShifter = new DoubleSolenoid(0, 1);
-		rightShifter = new DoubleSolenoid(2, 3);
 
 		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
 
 	}
 
