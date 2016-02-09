@@ -32,8 +32,8 @@ public class Turret extends Subsystem {
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.reverseOutput(true);
-		//turretTalon.set(turretTalon.get());
-		//turretTalon.enable();
+		// turretTalon.set(turretTalon.get());
+		// turretTalon.enable();
 
 	}
 
@@ -41,7 +41,7 @@ public class Turret extends Subsystem {
 	 * Sets the default command for the turret to ResetTarget.
 	 */
 	public void initDefaultCommand() {
-		//setDefaultCommand(new AutoTarget());
+		// setDefaultCommand(new AutoTarget());
 	}
 
 	/**
@@ -53,7 +53,9 @@ public class Turret extends Subsystem {
 
 	public void setVel(double velocity) {
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		SmartDashboard.putNumber("turret enc", turretTalon.getEncPosition());
+		SmartDashboard.putNumber("PWM position", turretTalon.getPulseWidthPosition());
+		SmartDashboard.putNumber("PWM velocity", turretTalon.getPulseWidthVelocity());
+		SmartDashboard.putString("PWM present", turretTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Absolute).toString());
 		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
 	}
 
