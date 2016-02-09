@@ -4,7 +4,7 @@ package org.usfirst.frc.team1306.robot;
  * All random numbers that aren't port numbers should go here once they're
  * settled. Everything is prettier that way.
  * 
- * @author James Tautges
+ * @author James Tautges, Finn Voichick
  */
 
 public class Constants {
@@ -12,8 +12,10 @@ public class Constants {
 	// measured in encoder ticks per 100ms^2
 	public final static double MAX_ACCELERATION = 0.01;
 	public final static double MAX_SPEED = 500.0;
-	public final static double RISING_SHIFT_SPEED_THRESHOLD = 300.0; // placeholder
-	public final static double FALLING_SHIFT_SPEED_THRESHOLD = 200.0; // placeholder
+	
+	public final static double GEAR_RATIO = 2.65;
+	public final static double RISING_SHIFT_SPEED_THRESHOLD = 0.9; // placeholder
+	public final static double FALLING_SHIFT_SPEED_THRESHOLD = 0.75; // placeholder
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder

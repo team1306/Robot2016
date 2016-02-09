@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The subsystem representing the drivetrain and its motors
  * 
- * @author James Tautges
+ * @author James Tautges, Finn Voichick
  */
 public class Drivetrain extends Subsystem {
 
@@ -58,17 +58,22 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		leftMotor1.set(-leftVel * Constants.MAX_SPEED);
-		rightMotor1.set(rightVel * Constants.MAX_SPEED);
-
-		double curAveVel = (leftMotor1.get() + rightMotor1.get()) / 2;
-		double setAveVel = (leftMotor1.getSetpoint() + rightMotor1.getSetpoint()) / 2;
-		if (curAveVel < setAveVel && shifter.get().equals(Value.kForward)
-				&& curAveVel >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
-			shiftUp();
-		} else if (curAveVel > setAveVel && shifter.get().equals(Value.kReverse)
-				&& curAveVel <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
-			shiftDown();
+		double aveVel = (leftMotor1.get() + rightMotor1.get()) / 2.0 / Constants.MAX_SPEED;
+		if (isHighGear()) {
+			if (aveVel / Constants.GEAR_RATIO < Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
+				shiftDown();
+			}
+		} else {
+			if (aveVel / Constants.GEAR_RATIO > Constants.RISING_SHIFT_SPEED_THRESHOLD) {
+				shiftUp();
+			}
+		}
+		if (isHighGear()) {
+			leftMotor1.set(-leftVel * Constants.MAX_SPEED);
+			rightMotor1.set(rightVel * Constants.MAX_SPEED);
+		} else {
+			leftMotor1.set(-leftVel * Constants.MAX_SPEED * Constants.GEAR_RATIO);
+			rightMotor1.set(rightVel * Constants.MAX_SPEED * Constants.GEAR_RATIO);
 		}
 	}
 
@@ -135,15 +140,19 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Put both motors into high gear
 	 */
-	public void shiftUp() {
+	private void shiftUp() {
 		shifter.set(Value.kReverse);
 	}
 
 	/**
 	 * Put both motors into low gear
 	 */
-	public void shiftDown() {
+	private void shiftDown() {
 		shifter.set(Value.kForward);
+	}
+
+	private boolean isHighGear() {
+		return shifter.get().equals(Value.kReverse);
 	}
 
 	/**
