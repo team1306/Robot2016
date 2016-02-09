@@ -20,6 +20,8 @@ public class IntakeArm extends Subsystem {
 
 		leftMotor = new CANTalon(RobotMap.intakeMotor1Port);
 		rightMotor = new CANTalon(RobotMap.intakeMotor2Port);
+		leftMotor.enableBrakeMode(false); // TODO remove this
+		rightMotor.enableBrakeMode(false); // TODO remove this
 		leftMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		rightMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		leftMotor.changeControlMode(TalonControlMode.Position);
