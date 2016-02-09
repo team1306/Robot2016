@@ -5,7 +5,6 @@ import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.DriveTank;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -61,12 +60,7 @@ public class Drivetrain extends Subsystem {
 	 * @param rightVel
 	 *            Speed of right motor
 	 */
-
 	public void driveTank(double leftVel, double rightVel) {
-		/*
-		 * leftVel = leftVel * maxSpeed; rightVel = rightVel * maxSpeed;
-		 */
-
 		leftMotor1.set(-1.0 * leftVel * Constants.MAX_SPEED);
 		rightMotor1.set(rightVel * Constants.MAX_SPEED);
 
@@ -89,7 +83,6 @@ public class Drivetrain extends Subsystem {
 	 * @param rotation
 	 *            Additional rotational rate
 	 */
-
 	public void driveHybrid(double velocity, double rotation) {
 		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
 		double leftVel = maxSpeed * (velocity + rotation);
@@ -102,7 +95,6 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Sets zero speed to all motors
 	 */
-
 	public void stop() {
 		leftMotor1.set(0.0);
 		rightMotor1.set(0.0);
@@ -111,7 +103,6 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Start the default tank drive command to start driving
 	 */
-
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTank());
 	}
@@ -128,7 +119,6 @@ public class Drivetrain extends Subsystem {
 	 * @param slave2
 	 *            Second follower controller
 	 */
-
 	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
 		/*
 		 * master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -148,7 +138,6 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Put both motors into high gear
 	 */
-
 	public void shiftUp() {
 		leftShifter.set(DoubleSolenoid.Value.kReverse);
 		rightShifter.set(DoubleSolenoid.Value.kReverse);
@@ -157,7 +146,6 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Put both motors into low gear
 	 */
-
 	public void shiftDown() {
 		leftShifter.set(DoubleSolenoid.Value.kForward);
 		rightShifter.set(DoubleSolenoid.Value.kForward);
@@ -172,7 +160,6 @@ public class Drivetrain extends Subsystem {
 	 *            Index of the Talon to read
 	 * @return Value set to the given Talon
 	 */
-
 	public double get(int motor) {
 		return motors[motor].get();
 	}
@@ -185,7 +172,6 @@ public class Drivetrain extends Subsystem {
 	 *            Index of the Talon to read
 	 * @return PID error of given Talon
 	 */
-
 	public double getError(int motor) {
 		return motors[motor].getError();
 	}
@@ -197,7 +183,6 @@ public class Drivetrain extends Subsystem {
 	 *            Index of the Talon to read
 	 * @return Encoder velocity in ticks per 10ms
 	 */
-
 	public double getEncVelocity(int motor) {
 		return motors[motor].getEncVelocity();
 	}

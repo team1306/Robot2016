@@ -17,17 +17,26 @@ public class Constants {
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
+	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
 	public final static double TURRET_TOLERANCE = 1.0; // placeholder
 
-	public final static double HOOD_TOLERANCE = 1.0;
-	
+	// hood constants
+	public final static double HOOD_VOLTS_PER_DEGREE = 0.1; // placeholder
+	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
+	public final static double HOOD_TOLERANCE = 1.0; // placeholder
+
 	// intake constants
 	public final static double INTAKE_LENGTH = 14.0; // placeholder
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
+	public final static double INTAKE_LEFT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_LEFT_ARM_90_POS = 1.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_90_POS = 1.0; // placeholder
+
 	// OI constants
 	public final static double DEADBAND = 0.15;
-	
+
 	// vision constants
 	public final static double VISION_PERIOD = 0.2;
 }
