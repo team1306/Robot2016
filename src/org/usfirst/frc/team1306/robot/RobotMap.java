@@ -22,10 +22,8 @@ public class RobotMap {
 	public static int rightTalon2Port = 5;
 	public static int rightTalon3Port = 6;
 
-	public static int leftShifterPortA = 0;
-	public static int leftShifterPortB = 1;
-	public static int rightShifterPortA = 2;
-	public static int rightShifterPortB = 3;
+	public static int shifterForwardChannel = 0;
+	public static int shifterReverseChannel = 1;
 
 	// shooter and turret controller ports
 	public static int flyWheelTalonPort = 7;

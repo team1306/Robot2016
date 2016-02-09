@@ -26,7 +26,7 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon rightMotor2;
 	private final CANTalon rightMotor3;
 
-	private final DoubleSolenoid leftShifter;
+	private final DoubleSolenoid shifter;
 
 	public Drivetrain() {
 
@@ -43,9 +43,9 @@ public class Drivetrain extends Subsystem {
 
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 
-		leftShifter = new DoubleSolenoid(0, 1);
+		shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
-		leftShifter.set(DoubleSolenoid.Value.kForward);
+		shifter.set(Value.kForward);
 
 	}
 
@@ -58,15 +58,15 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		leftMotor1.set(-1.0 * leftVel * Constants.MAX_SPEED);
+		leftMotor1.set(-leftVel * Constants.MAX_SPEED);
 		rightMotor1.set(rightVel * Constants.MAX_SPEED);
 
 		double curAveVel = (leftMotor1.get() + rightMotor1.get()) / 2;
 		double setAveVel = (leftMotor1.getSetpoint() + rightMotor1.getSetpoint()) / 2;
-		if (curAveVel < setAveVel && leftShifter.get().equals(Value.kForward)
+		if (curAveVel < setAveVel && shifter.get().equals(Value.kForward)
 				&& curAveVel >= Constants.RISING_SHIFT_SPEED_THRESHOLD) {
 			shiftUp();
-		} else if (curAveVel > setAveVel && leftShifter.get().equals(Value.kReverse)
+		} else if (curAveVel > setAveVel && shifter.get().equals(Value.kReverse)
 				&& curAveVel <= Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
 			shiftDown();
 		}
@@ -136,16 +136,14 @@ public class Drivetrain extends Subsystem {
 	 * Put both motors into high gear
 	 */
 	public void shiftUp() {
-		leftShifter.set(DoubleSolenoid.Value.kReverse);
-		rightShifter.set(DoubleSolenoid.Value.kReverse);
+		shifter.set(Value.kReverse);
 	}
 
 	/**
 	 * Put both motors into low gear
 	 */
 	public void shiftDown() {
-		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
+		shifter.set(Value.kForward);
 	}
 
 	/**
