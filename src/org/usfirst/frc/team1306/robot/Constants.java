@@ -18,8 +18,8 @@ public class Constants {
 	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
 	public final static double TURRET_TOLERANCE = 2.0; // placeholder
 	
-	public final static double TURRET_P = 0.01;
-	public final static double TURRET_I = 0.0;
+	public final static double TURRET_P = 0.02;
+	public final static double TURRET_I = 0.001; // 0.001
 	public final static double TURRET_D = 0.0;
 
 	// hood constants
@@ -35,5 +35,5 @@ public class Constants {
 	public final static double DEADBAND = 0.15;
 
 	// vision constants
-	public final static double VISION_PERIOD = 0.2;
+	public final static double VISION_PERIOD = 0.1;
 }

@@ -53,51 +53,52 @@ public class Vision {
 	 * @return recent data from the Jetson.
 	 */
 	public static VisionData getData() {
-		// if (timer.hasPeriodPassed(Constants.VISION_PERIOD) || recentData ==
-		// null) {
-		double pitch = 0.0;
-		double yaw = 0.0;
-		double distance = 0.0;
+		if (timer.hasPeriodPassed(Constants.VISION_PERIOD) || recentData == null) {
+			double pitch = 0.0;
+			double yaw = 0.0;
+			double distance = 0.0;
 
-		if (isConnected && !jetson.isClosed()) {
-			String data = null;
-			try {
-				out.println("hello");
-				out.flush();
-				data = in.readLine();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (isConnected && !jetson.isClosed()) {
+				String data = null;
+				try {
+					out.println("hello");
+					out.flush();
+					data = in.readLine();
+				} catch (Exception e) {
+					e.printStackTrace();
+					isConnected = false;
+					recentData = new VisionData(0.0, 0.0, 0.0);
+					return recentData;
+				}
+				if (data == null) {
+					isConnected = false;
+					recentData = new VisionData(0.0, 0.0, 0.0);
+					return recentData;
+				}
+
+				SmartDashboard.putString("data", data);
+				String[] numbers = data.split(",");
+				pitch = Double.parseDouble(numbers[0]);
+				yaw = Double.parseDouble(numbers[1]);
+				distance = Double.parseDouble(numbers[2]);
+
+				// convert units
+				yaw = -yaw / 10;
+			} else {
 				isConnected = false;
-				recentData = new VisionData(0.0, 0.0, 0.0);
-				return recentData;
-			}
-			if (data == null) {
-				isConnected = false;
-				recentData = new VisionData(0.0, 0.0, 0.0);
-				return recentData;
+				if (connectionTimer.hasPeriodPassed(1.0)) {
+					connectToJetson();
+				}
 			}
 
-			SmartDashboard.putString("data", data);
-			String[] numbers = data.split(",");
-			pitch = Double.parseDouble(numbers[0]);
-			yaw = Double.parseDouble(numbers[1]);
-			distance = Double.parseDouble(numbers[2]);
+			VisionData newData = new VisionData(pitch, yaw, distance);
+			recentData = newData;
+			return newData;
 
-			// convert units
-			yaw = -yaw / 10;
 		} else {
-			isConnected = false;
-			if (connectionTimer.hasPeriodPassed(1.0)) {
-				connectToJetson();
-			}
+			return recentData;
 		}
 
-		VisionData newData = new VisionData(pitch, yaw, distance);
-		recentData = newData;
-		return newData;
-		/*
-		 * } else { return recentData; }
-		 */
 	}
 
 	private static void connectToJetson() {
