@@ -7,8 +7,6 @@ import org.usfirst.frc.team1306.robot.subsystems.Hood;
 import org.usfirst.frc.team1306.robot.subsystems.Intake;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
 import org.usfirst.frc.team1306.robot.subsystems.Turret;
-import org.usfirst.frc.team1306.robot.subsystems.TurretPID;
-import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,7 +23,7 @@ public abstract class CommandBase extends Command {
 	protected static OI oi;
 	protected static Drivetrain drivetrain;
 	protected static Shooter shooter;
-	protected static TurretPID turret;
+	protected static Turret turret;
 	protected static Intake intake;
 	protected static Arm arm;
 	protected static Hood hood;
@@ -33,10 +31,10 @@ public abstract class CommandBase extends Command {
 	public static void init() {
 		drivetrain = new Drivetrain();
 		shooter = new Shooter();
-		turret = new TurretPID();
+		turret = new Turret();
 		intake = new Intake();
 		arm = new Arm();
-		//hood = new Hood();
+		// hood = new Hood();
 		oi = new OI();
 	}
 
