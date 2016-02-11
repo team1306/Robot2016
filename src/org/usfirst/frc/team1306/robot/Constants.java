@@ -34,6 +34,15 @@ public class Constants {
 	public final static double INTAKE_LENGTH = 14.0; // placeholder
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
+	// intake arm constants
+	public final static double INTAKE_LEFT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_LEFT_ARM_90_POS = 1.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_0_POS = 0.0; // placeholder
+	public final static double INTAKE_RIGHT_ARM_90_POS = 1.0; // placeholder
+	public final static double INTAKE_PICKUP_POS = 0.0;
+	public final static double INTAKE_VERTICAL_POS = 90.0;
+	public final static double INTAKE_PORTCULLIS_POS = -15.0;
+
 	// OI constants
 	public final static double DEADBAND = 0.15;
 
