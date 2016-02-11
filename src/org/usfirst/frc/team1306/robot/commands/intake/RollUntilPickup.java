@@ -3,37 +3,37 @@ package org.usfirst.frc.team1306.robot.commands.intake;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * This command simply starts and stops the rollers. This will be coupled with a
- * whileHeld trigger, so we don't need a specific stopping command. If we decide
- * to do press on press off, we will need one.
+ * This command starts the rollers and runs them until a ball is picked up. It
+ * uses the Intake and Indexer subsystems.
  * 
- * @author James Tautges
+ * @author Finn Voichick
  */
-public class Roll extends CommandBase {
+public class RollUntilPickup extends CommandBase {
 
-	public Roll() {
-		// Intentionally not requiring the intake since other commands might
-		// simultaneously want to access the other parts
+	public RollUntilPickup() {
+		requires(intake);
+		requires(indexer);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		intake.startRollers();
+		indexer.driveMotor();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		intake.startRollers();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return indexer.hasBall();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		intake.stopRollers();
+		indexer.stop();
 	}
 
 	// Called when another command which requires one or more of the same
