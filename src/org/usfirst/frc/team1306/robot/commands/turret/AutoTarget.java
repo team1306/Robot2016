@@ -13,19 +13,12 @@ import org.usfirst.frc.team1306.robot.vision.Vision;
  */
 public class AutoTarget extends CommandBase {
 
-	/** The timestamp of the most recent vision data */
-	private double recentTimestamp;
-
-	private int direction = 1;
-
 	/**
 	 * Creates a new AutoTarget command. The turret is required because this
-	 * command can't run at the same time as ManualTarget or SnapForward.
+	 * command can't run at the same time as ResetTurret.
 	 */
 	public AutoTarget() {
 		requires(turret);
-		recentTimestamp = 0;
-		manual = true;
 	}
 
 	/**
@@ -48,8 +41,6 @@ public class AutoTarget extends CommandBase {
 			turret.setVel(oi.getTurretVel());
 		}
 	}
-
-	private boolean manual;
 
 	/**
 	 * Make this return true when this Command no longer needs to run execute().
