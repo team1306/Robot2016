@@ -31,7 +31,7 @@ public class Turret extends PIDSubsystem {
 		setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
 
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
-		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
+		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.set(turretTalon.get());
 		setSetpoint(0.0);
@@ -54,10 +54,10 @@ public class Turret extends PIDSubsystem {
 	public void setVel(double speed) {
 		turretTalon.disable();
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		SmartDashboard.putNumber("PWM Position", turretTalon.getPulseWidthPosition());
-		SmartDashboard.putNumber("PWM Velocity", turretTalon.getPulseWidthVelocity());
-		SmartDashboard.putString("PWM Status",
-				turretTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Absolute).toString());
+		SmartDashboard.putNumber("Relative Position", turretTalon.getEncPosition());
+		SmartDashboard.putNumber("Turret Velocity", turretTalon.getEncPosition());
+		SmartDashboard.putString("Encoder Status",
+				turretTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Relative).toString());
 		turretTalon.set(speed);
 	}
 
