@@ -35,6 +35,7 @@ public class Turret extends PIDSubsystem {
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.set(turretTalon.get());
 		setSetpoint(0.0);
+		enable();
 	}
 
 	/**
@@ -51,11 +52,28 @@ public class Turret extends PIDSubsystem {
 	 *            the new velocity
 	 */
 	public void setVel(double speed) {
+		turretTalon.disable();
+		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		SmartDashboard.putNumber("PWM Position", turretTalon.getPulseWidthPosition());
 		SmartDashboard.putNumber("PWM Velocity", turretTalon.getPulseWidthVelocity());
 		SmartDashboard.putString("PWM Status",
 				turretTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Absolute).toString());
-		turretTalon.set(speed * Constants.TURRET_MAX_SPEED);
+		turretTalon.set(speed);
+	}
+
+	/**
+	 * Set the target position for the turret to straight forward. The turret
+	 * will then use its PID position control (using an encoder) to point
+	 * forward.
+	 * 
+	 * @param position
+	 *            The intended heading of the turret relative to the robot.
+	 */
+	public void setTurretForward() {
+		disable();
+		turretTalon.changeControlMode(TalonControlMode.Position);
+		turretTalon.set(0.0);
+		turretTalon.enable();
 	}
 
 	/**
@@ -81,6 +99,6 @@ public class Turret extends PIDSubsystem {
 	 * Sets the velocity of the turret based on the output of the PID loop.
 	 */
 	protected void usePIDOutput(double output) {
-		turretTalon.set(output);
+		setVel(output);
 	}
 }

@@ -18,7 +18,7 @@ public class ResetTurret extends CommandBase {
 	 */
 	public ResetTurret() {
 		requires(turret);
-		//requires(hood);
+		requires(hood);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class ResetTurret extends CommandBase {
 	 * needs to be set once.
 	 */
 	protected void initialize() {
-		//turret.setTarget(0.0);
+		turret.setTurretForward();
 		hood.flatten();
 	}
 

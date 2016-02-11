@@ -41,7 +41,7 @@ public class AutoTarget extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		if (Vision.canSeeTarget()) {
+		if (Vision.canSeeTarget() && !oi.getManualOverride()) {
 			turret.enable();
 		} else {
 			turret.disable();

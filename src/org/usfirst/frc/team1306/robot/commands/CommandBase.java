@@ -34,7 +34,7 @@ public abstract class CommandBase extends Command {
 		turret = new Turret();
 		intake = new Intake();
 		arm = new Arm();
-		// hood = new Hood();
+		hood = new Hood();
 		oi = new OI();
 	}
 
