@@ -3,6 +3,8 @@ package org.usfirst.frc.team1306.robot.commands.intake;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  *
  */
@@ -19,6 +21,7 @@ public class IntakeArmPickup extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		SmartDashboard.putNumber("intake current", intakeArm.getCurrent());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
