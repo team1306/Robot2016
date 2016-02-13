@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
@@ -11,14 +12,16 @@ import org.usfirst.frc.team1306.robot.vision.Vision;
  * 
  * @author Finn Voichick
  */
-public class AutoTarget extends CommandBase {
+public class Target extends CommandBase {
 
 	/**
-	 * Creates a new AutoTarget command. The turret is required because this
-	 * command can't run at the same time as ResetTurret.
+	 * Creates a new Target command. The turret is required because this command
+	 * can't run at the same time as ResetTurret.
 	 */
-	public AutoTarget() {
+	public Target() {
 		requires(turret);
+		requires(hood);
+		requires(shooter);
 	}
 
 	/**
@@ -27,6 +30,7 @@ public class AutoTarget extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.disable();
+		shooter.spinUp();
 	}
 
 	/**
@@ -36,9 +40,17 @@ public class AutoTarget extends CommandBase {
 	protected void execute() {
 		if (Vision.canSeeTarget() && !oi.getManualOverride()) {
 			turret.enable();
+			if (hood.isAimingLow()) {
+				hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+			} else {
+				hood.setHeight(Vision.getData().getPitch());
+			}
 		} else {
 			turret.disable();
 			turret.setVel(oi.getTurretVel());
+			if (oi.getManualOverride()) {
+				hood.setVel(oi.getHoodVel());
+			}
 		}
 	}
 

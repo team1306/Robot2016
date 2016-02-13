@@ -17,12 +17,14 @@ public class Hood extends Subsystem {
 
 	/** The motor that moves the hood */
 	private final CANTalon hoodTalon;
+	private boolean aimingLow;
 
 	/**
 	 * Constructs a Hood and enables PID position control.
 	 */
 	public Hood() {
 
+		aimingLow = false;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -47,7 +49,14 @@ public class Hood extends Subsystem {
 	 *            the new position of the hood
 	 */
 	public void setHeight(double position) {
-		hoodTalon.set(position * Constants.HOOD_VOLTS_PER_DEGREE);
+		hoodTalon.changeControlMode(TalonControlMode.Position);
+		hoodTalon.set(Constants.HOOD_0_POS
+				+ position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
+	}
+
+	public void setVel(double velocity) {
+		hoodTalon.changeControlMode(TalonControlMode.PercentVbus);
+		hoodTalon.set(velocity);
 	}
 
 	/**
@@ -55,11 +64,20 @@ public class Hood extends Subsystem {
 	 * robot will fit under the low bar.
 	 */
 	public void flatten() {
-		hoodTalon.set(90.0 * Constants.HOOD_VOLTS_PER_DEGREE);
+		setHeight(90.0);
 	}
 	
+	public void toggleTarget() {
+		aimingLow = !aimingLow;
+	}
+	
+	public boolean isAimingLow() {
+		return aimingLow;
+	}
+
 	public boolean onTarget() {
-		return hoodTalon.getError() < Constants.HOOD_TOLERANCE;
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position)
+				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE;
 	}
 
 }

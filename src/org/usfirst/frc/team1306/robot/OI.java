@@ -5,15 +5,17 @@ import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
-import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.Target;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -28,7 +30,7 @@ public class OI {
 
 	// Driver controls
 	private final XboxController xbox;
-	private final XboxController secondary;
+	private final Joystick targetingStick;
 
 	// Buttons and triggers
 	private final Button buttonA;
@@ -44,7 +46,7 @@ public class OI {
 	// Initialize everything
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
-		secondary = new XboxController(RobotMap.secondaryPort);
+		targetingStick = new Joystick(RobotMap.secondaryPort);
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
@@ -59,12 +61,12 @@ public class OI {
 		dPadDown = new DPadDown(xbox);
 
 		// Bind input devices to commands
-		buttonA.whenPressed(new AutoTarget());
-		buttonB.whenPressed(new SpinUp());
-		buttonX.whenPressed(new ResetTurret());
-		buttonY.whenPressed(new Fire());
-		bumperL.whenPressed(new ShiftDown());
-		bumperR.whenPressed(new ShiftUp());
+		buttonA.whenPressed(new Fire());
+		buttonB.whenPressed(new ResetTurret());
+		buttonX.whenPressed(new Target());
+		buttonY.whenPressed(new HoodToggleTarget());
+		//bumperL.whenPressed(new ShiftDown());
+		bumperR.whenPressed(new RollUntilPickup());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
@@ -110,11 +112,15 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return secondary.getRT() - secondary.getLT();
+		return deadband(targetingStick.getX());
+	}
+	
+	public double getHoodVel() {
+		return deadband(targetingStick.getY());
 	}
 
 	public boolean getManualOverride() {
-		return secondary.getRawButton(XboxController.START);
+		return targetingStick.getTrigger();
 	}
 
 	/**
