@@ -29,8 +29,8 @@ public class IntakeArm extends Subsystem {
 	 */
 	public IntakeArm() {
 
-		leftMotor = new CANTalon(RobotMap.intakeMotor1Port);
-		rightMotor = new CANTalon(RobotMap.intakeMotor2Port);
+		leftMotor = new CANTalon(RobotMap.intakeLeftMotorPort);
+		rightMotor = new CANTalon(RobotMap.intakeRightMotorPort);
 		leftMotor.enableBrakeMode(false); // TODO remove this
 		rightMotor.enableBrakeMode(false); // TODO remove this
 		leftMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
