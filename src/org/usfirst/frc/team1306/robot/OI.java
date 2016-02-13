@@ -14,6 +14,7 @@ import org.usfirst.frc.team1306.robot.triggers.DPadRight;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -28,7 +29,7 @@ public class OI {
 
 	// Driver controls
 	private final XboxController xbox;
-	private final XboxController secondary;
+	private final Joystick targetingStick;
 
 	// Buttons and triggers
 	private final Button buttonA;
@@ -44,7 +45,7 @@ public class OI {
 	// Initialize everything
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
-		secondary = new XboxController(RobotMap.secondaryPort);
+		targetingStick = new Joystick(RobotMap.secondaryPort);
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
@@ -110,11 +111,15 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return secondary.getRT() - secondary.getLT();
+		return targetingStick.getX();
+	}
+	
+	public double getHoodVel() {
+		return targetingStick.getY();
 	}
 
 	public boolean getManualOverride() {
-		return secondary.getRawButton(XboxController.START);
+		return targetingStick.getTrigger();
 	}
 
 	/**
