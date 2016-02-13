@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A Subsystem that controls the intake arm. This arm can be lowered, allowing
@@ -39,6 +40,8 @@ public class IntakeArm extends Subsystem {
 		rightMotor.changeControlMode(TalonControlMode.Position);
 		leftMotor.set(leftMotor.get());
 		rightMotor.set(rightMotor.get());
+		leftMotor.enable();
+		rightMotor.enable();
 
 	}
 
@@ -59,12 +62,17 @@ public class IntakeArm extends Subsystem {
 	 *            The new setpoint for the arm.
 	 */
 	public void setPosition(double angle) {
+		SmartDashboard.putNumber("intake arm error", leftMotor.getError());
 		leftMotor.changeControlMode(TalonControlMode.Position);
 		rightMotor.changeControlMode(TalonControlMode.Position);
 		leftMotor.set(Constants.INTAKE_LEFT_ARM_0_POS
 				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0);
 		rightMotor.set(Constants.INTAKE_RIGHT_ARM_0_POS
 				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
+	}
+	
+	public double getCurrent() {
+		return leftMotor.getOutputCurrent() + rightMotor.getOutputCurrent();
 	}
 
 }

@@ -5,7 +5,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
  * A command that aims the hood at the low goal. It is meant to be used at the
- * same time as AutoTarget so that the turret will automatically aim correctly.
+ * same time as Target so that the turret will automatically aim correctly.
  */
 public class AimHoodLow extends CommandBase {
 

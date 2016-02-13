@@ -7,7 +7,7 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -60,7 +61,7 @@ public class OI {
 		dPadDown = new DPadDown(xbox);
 
 		// Bind input devices to commands
-		buttonA.whenPressed(new AutoTarget());
+		buttonA.whenPressed(new Target());
 		buttonB.whenPressed(new SpinUp());
 		buttonX.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new Fire());

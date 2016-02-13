@@ -11,13 +11,13 @@ import org.usfirst.frc.team1306.robot.vision.Vision;
  * 
  * @author Finn Voichick
  */
-public class AutoTarget extends CommandBase {
+public class Target extends CommandBase {
 
 	/**
-	 * Creates a new AutoTarget command. The turret is required because this
+	 * Creates a new Target command. The turret is required because this
 	 * command can't run at the same time as ResetTurret.
 	 */
-	public AutoTarget() {
+	public Target() {
 		requires(turret);
 	}
 

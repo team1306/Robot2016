@@ -13,7 +13,7 @@ public class ResetTurret extends CommandBase {
 
 	/**
 	 * Creates a new SnapForward command. The turret and hood are required
-	 * because this command can't run at the same time as AutoTarget or
+	 * because this command can't run at the same time as Target or
 	 * ManualTarget.
 	 */
 	public ResetTurret() {

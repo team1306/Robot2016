@@ -45,7 +45,7 @@ public class RobotMap {
 	public static int intakeSol2PortB = 7;
 	
 	// indexer ports
-	public static int indexerPort = 2; // TODO tell Finn what this should be
+	public static int indexerPort = 3; // TODO tell Finn what this should be
 
 	// intake sensor ports
 	public static int indexerLimitPort = 1;
