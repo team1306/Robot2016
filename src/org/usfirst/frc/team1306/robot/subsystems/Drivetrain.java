@@ -20,10 +20,8 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon[] motors;
 	private final CANTalon leftMotor1;
 	private final CANTalon leftMotor2;
-	private final CANTalon leftMotor3;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
-	private final CANTalon rightMotor3;
 
 	private final DoubleSolenoid leftShifter;
 	private final DoubleSolenoid rightShifter;
@@ -32,14 +30,12 @@ public class Drivetrain extends Subsystem {
 
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
-		leftMotor3 = new CANTalon(RobotMap.leftTalon3Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
 		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
-		rightMotor3 = new CANTalon(RobotMap.rightTalon3Port);
 
-		motors = new CANTalon[] { leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3 };
-		setupMotors(leftMotor1, leftMotor2, leftMotor3);
-		setupMotors(rightMotor1, rightMotor2, rightMotor3);
+		motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
+		setupMotors(leftMotor1, leftMotor2);
+		setupMotors(rightMotor1, rightMotor2);
 
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 
@@ -113,7 +109,7 @@ public class Drivetrain extends Subsystem {
 	 * @param slave2
 	 *            Second follower controller
 	 */
-	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
+	private void setupMotors(CANTalon master, CANTalon slave1) {
 		/*
 		 * master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		 * master.changeControlMode(TalonControlMode.Speed);
@@ -125,8 +121,6 @@ public class Drivetrain extends Subsystem {
 
 		slave1.changeControlMode(TalonControlMode.Follower);
 		slave1.set(master.getDeviceID());
-		slave2.changeControlMode(TalonControlMode.Follower);
-		slave2.set(master.getDeviceID());
 	}
 
 	/**

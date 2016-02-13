@@ -17,10 +17,8 @@ public class RobotMap {
 	// drivetrain controllers ports
 	public static int leftTalon1Port = 1;
 	public static int leftTalon2Port = 2;
-	public static int leftTalon3Port = 3;
 	public static int rightTalon1Port = 4;
 	public static int rightTalon2Port = 5;
-	public static int rightTalon3Port = 6;
 
 	public static int leftShifterPortA = 0;
 	public static int leftShifterPortB = 1;
