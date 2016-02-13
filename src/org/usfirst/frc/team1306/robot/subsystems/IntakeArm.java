@@ -66,13 +66,5 @@ public class IntakeArm extends Subsystem {
 		rightMotor.set(Constants.INTAKE_RIGHT_ARM_0_POS
 				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
 	}
-	
-	public double getLeftPos() {
-		return leftMotor.getAnalogInPosition();
-	}
-	
-	public double getRightPos() {
-		return rightMotor.getAnalogInPosition();
-	}
 
 }

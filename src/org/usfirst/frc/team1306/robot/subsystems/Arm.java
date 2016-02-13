@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Arm extends Subsystem {
 
-	//private final Talon armTalon;
+	private final Talon armTalon;
 	
 	public Arm() {
-		//armTalon = new Talon(RobotMap.armPort);
+		armTalon = new Talon(RobotMap.armPort);
 	}
 
 	public void initDefaultCommand() {

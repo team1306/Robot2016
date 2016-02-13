@@ -25,8 +25,15 @@ public class SmartDashboardUpdate extends CommandBase {
 	// operations. Since we don't require any subsystems, we can't guarantee
 	// that other commands aren't accessing it
 	protected void execute() {
-		SmartDashboard.putNumber("left intake motor", intakeArm.getLeftPos());
-		SmartDashboard.putNumber("right intake motor", intakeArm.getRightPos());
+		// Values useful for PID debugging
+		SmartDashboard.putNumber("leftMotor1.get()", drivetrain.get(0));
+		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.get(0) + drivetrain.getEncVelocity(0));
+		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
+
+		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
+		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
+
+		SmartDashboard.putNumber("trigger", oi.getStraightVel());
 
 		VisionData data = Vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());

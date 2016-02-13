@@ -28,13 +28,13 @@ public class RobotMap {
 	public static int rightShifterPortB = 3;
 
 	// shooter and turret controller ports
-	public static int flyWheelTalonPort = 9;
-	public static int hoodTalonPort = 10;
-	public static int turretTalonPort = 11;
+	public static int flyWheelTalonPort = 7;
+	public static int hoodTalonPort = 8;
+	public static int turretTalonPort = 9;
 
 	// intake control ports
-	public static int intakeMotor1Port = 7;
-	public static int intakeMotor2Port = 8;
+	public static int intakeMotor1Port = 10;
+	public static int intakeMotor2Port = 11;
 
 	public static int intakeRoller1Port = 0;
 	public static int intakeRoller2Port = 1;
