@@ -6,34 +6,43 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  *
  */
 public class Fire extends CommandBase {
+	
+	private boolean fired;
 
 	public Fire() {
 		requires(shooter);
-		// requires(intake);
+		requires(indexer);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		fired = false;
+		shooter.spinUp();
+		indexer.driveMotor();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		shooter.spinUp();
+		if (!indexer.hasBall() && !shooter.onTarget()) {
+			indexer.stop();
+			fired = true;
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;//shooter.isSpunUp();
+		return fired && shooter.onTarget();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		// spin intake to pull in ball
 		shooter.spinDown();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		indexer.stop();
+		shooter.spinDown();
 	}
 }
