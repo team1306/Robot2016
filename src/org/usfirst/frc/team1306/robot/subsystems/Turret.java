@@ -52,8 +52,9 @@ public class Turret extends PIDSubsystem {
 	 *            the new velocity
 	 */
 	public void setVel(double speed) {
-		turretTalon.disable();
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		SmartDashboard.putNumber("turret vel", turretTalon.get());
+		SmartDashboard.putString("turret mode", turretTalon.getControlMode().toString());
 		SmartDashboard.putNumber("Relative Position", turretTalon.getEncPosition());
 		SmartDashboard.putNumber("Turret Velocity", turretTalon.getEncPosition());
 		SmartDashboard.putString("Encoder Status",

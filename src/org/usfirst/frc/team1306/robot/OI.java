@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,7 +31,7 @@ public class OI {
 
 	// Driver controls
 	private final XboxController xbox;
-	private final Joystick targetingStick;
+	private final XboxController targetingStick;
 
 	// Buttons and triggers
 	private final Button buttonA;
@@ -46,7 +47,7 @@ public class OI {
 	// Initialize everything
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
-		targetingStick = new Joystick(RobotMap.secondaryPort);
+		targetingStick = new XboxController(RobotMap.secondaryPort);
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
@@ -112,15 +113,16 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return deadband(targetingStick.getX());
+		SmartDashboard.putNumber("get turret vel", targetingStick.getRT() - targetingStick.getLT());
+		return targetingStick.getRT() - targetingStick.getLT();
 	}
 	
 	public double getHoodVel() {
-		return deadband(targetingStick.getY());
+		return deadband(targetingStick.getY(Hand.kRight));
 	}
 
 	public boolean getManualOverride() {
-		return targetingStick.getTrigger();
+		return targetingStick.getRawButton(XboxController.BACK);
 	}
 
 	/**

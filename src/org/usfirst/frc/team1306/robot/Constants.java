@@ -23,7 +23,7 @@ public class Constants {
 	public final static double TURRET_D = 0.0;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 500.0; // placeholder
+	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
 	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
