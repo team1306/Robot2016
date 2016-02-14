@@ -27,7 +27,8 @@ public class Constants {
 	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
-	public final static double HOOD_VOLTS_PER_DEGREE = 0.1; // placeholder
+	public final static double HOOD_0_POS = 0.0; // placeholder
+	public final static double HOOD_90_POS = 1.0; // placeholder;
 	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 

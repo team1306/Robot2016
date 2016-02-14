@@ -50,7 +50,8 @@ public class Hood extends Subsystem {
 	 */
 	public void setHeight(double position) {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(position * Constants.HOOD_VOLTS_PER_DEGREE);
+		hoodTalon.set(Constants.HOOD_0_POS
+				+ position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
 	}
 
 	public void setVel(double velocity) {
@@ -63,8 +64,7 @@ public class Hood extends Subsystem {
 	 * robot will fit under the low bar.
 	 */
 	public void flatten() {
-		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(90.0 * Constants.HOOD_VOLTS_PER_DEGREE);
+		setHeight(90.0);
 	}
 	
 	public void toggleTarget() {
