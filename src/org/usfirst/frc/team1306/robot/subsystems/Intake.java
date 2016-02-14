@@ -4,6 +4,7 @@ import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,14 +13,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 
-	private final Talon roller1;
-	private final Talon roller2;
+	private final SpeedController roller1;
+	private final SpeedController roller2;
 
 	private final DoubleSolenoid leftIntakeSol;
 	private final DoubleSolenoid rightIntakeSol;
 
 	public Intake() {
 		roller1 = new Talon(RobotMap.intakeRoller1Port);
+		roller1.setInverted(true);
 		roller2 = new Talon(RobotMap.intakeRoller2Port);
 
 		leftIntakeSol = new DoubleSolenoid(RobotMap.intakeSol1PortA, RobotMap.intakeSol1PortB);

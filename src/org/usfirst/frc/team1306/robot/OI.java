@@ -5,6 +5,7 @@ import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
@@ -18,7 +19,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -65,8 +65,8 @@ public class OI {
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new HoodToggleTarget());
-		bumperL.whenPressed(new ShiftDown());
-		bumperR.whenPressed(new ShiftUp());
+		//bumperL.whenPressed(new ShiftDown());
+		bumperR.whenPressed(new RollUntilPickup());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
@@ -112,11 +112,11 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return targetingStick.getX();
+		return deadband(targetingStick.getX());
 	}
 	
 	public double getHoodVel() {
-		return targetingStick.getY();
+		return deadband(targetingStick.getY());
 	}
 
 	public boolean getManualOverride() {
