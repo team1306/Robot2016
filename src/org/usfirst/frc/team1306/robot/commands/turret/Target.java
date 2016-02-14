@@ -4,6 +4,9 @@ import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * A command that automatically aims the turret at the tower goal. It repeatedly
  * (5 times per second) gets data about where the target is, then uses the
@@ -38,20 +41,23 @@ public class Target extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		if (Vision.canSeeTarget() && !oi.getManualOverride()) {
-			turret.enable();
-			if (hood.isAimingLow()) {
-				hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-			} else {
-				hood.setHeight(Vision.getData().getPitch());
-			}
-		} else {
-			turret.disable();
-			turret.setVel(oi.getTurretVel());
-			if (oi.getManualOverride()) {
-				hood.setVel(oi.getHoodVel());
-			}
+		//SmartDashboard.putNumber("running Target", Timer.getFPGATimestamp());
+		// if (Vision.canSeeTarget() && !oi.getManualOverride()) {
+		// turret.enable();
+		// if (hood.isAimingLow()) {
+		// hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+		// } else {
+		// hood.setHeight(Vision.getData().getPitch());
+		// }
+		// } else {
+		SmartDashboard.putNumber("set turret vel", oi.getTurretVel());
+		shooter.spinUp();
+		turret.disable();
+		turret.setVel(oi.getTurretVel());
+		if (oi.getManualOverride()) {
+			hood.setVel(oi.getHoodVel());
 		}
+		// }
 	}
 
 	/**
