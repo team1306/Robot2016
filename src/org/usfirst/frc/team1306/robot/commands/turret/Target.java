@@ -19,6 +19,8 @@ public class Target extends CommandBase {
 	 */
 	public Target() {
 		requires(turret);
+		requires(hood);
+		requires(shooter);
 	}
 
 	/**
@@ -27,6 +29,7 @@ public class Target extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.disable();
+		shooter.spinUp();
 	}
 
 	/**
@@ -36,9 +39,13 @@ public class Target extends CommandBase {
 	protected void execute() {
 		if (Vision.canSeeTarget() && !oi.getManualOverride()) {
 			turret.enable();
+			hood.setHeight(Vision.getData().getPitch());
 		} else {
 			turret.disable();
 			turret.setVel(oi.getTurretVel());
+			if (oi.getManualOverride()) {
+				hood.setVel(oi.getHoodVel());
+			}
 		}
 	}
 

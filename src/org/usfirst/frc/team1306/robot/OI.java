@@ -6,8 +6,8 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
-import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
@@ -61,10 +61,10 @@ public class OI {
 		dPadDown = new DPadDown(xbox);
 
 		// Bind input devices to commands
-		buttonA.whenPressed(new Target());
-		buttonB.whenPressed(new SpinUp());
-		buttonX.whenPressed(new ResetTurret());
-		buttonY.whenPressed(new Fire());
+		buttonA.whenPressed(new Fire());
+		buttonB.whenPressed(new ResetTurret());
+		buttonX.whenPressed(new Target());
+		buttonY.whenPressed(new HoodToggleTarget());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
