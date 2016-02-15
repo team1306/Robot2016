@@ -23,7 +23,7 @@ public class Constants {
 	public final static double TURRET_D = 0.0;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
+	public final static double SHOOTER_MAX_SPEED = 0.7; // placeholder
 	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
@@ -44,7 +44,7 @@ public class Constants {
 	public final static double INTAKE_LEFT_ARM_90_POS = 493.0;
 	public final static double INTAKE_RIGHT_ARM_0_POS = 822.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 408.0;
-	public final static double INTAKE_PICKUP_POS = 0.0;
+	public final static double INTAKE_PICKUP_POS = 10.0;
 	public final static double INTAKE_VERTICAL_POS = 90.0;
 	public final static double INTAKE_PORTCULLIS_POS = -30.0;
 

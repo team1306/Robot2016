@@ -17,6 +17,7 @@ public class DriveTank extends CommandBase {
 	}
 
 	protected void initialize() {
+		drivetrain.shiftDown();
 	}
 
 	/**
@@ -26,6 +27,7 @@ public class DriveTank extends CommandBase {
 	 */
 	
 	protected void execute() {
+		drivetrain.shiftDown();
 		double straightVel = oi.getStraightVel();
 		drivetrain.driveTank(oi.getLeftVel() + straightVel, oi.getRightVel() + straightVel);
 		SmartDashboard.putNumber("left", oi.getLeftVel() + straightVel);

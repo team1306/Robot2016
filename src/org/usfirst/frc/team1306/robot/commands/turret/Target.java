@@ -24,7 +24,7 @@ public class Target extends CommandBase {
 	public Target() {
 		requires(turret);
 		requires(hood);
-		requires(shooter);
+		//requires(shooter);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class Target extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.disable();
-		shooter.spinUp();
+		//shooter.spinUp();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Target extends CommandBase {
 		// }
 		// } else {
 		SmartDashboard.putNumber("set turret vel", oi.getTurretVel());
-		shooter.spinUp();
+		//shooter.spinUp();
 		turret.disable();
 		turret.setVel(oi.getTurretVel());
 		if (oi.getManualOverride()) {

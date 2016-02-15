@@ -18,6 +18,7 @@ public class Indexer extends Subsystem {
     
     public Indexer() {
     	motor = new Talon(RobotMap.indexerPort);
+    	motor.setInverted(true);
     	ballSwitch = new DigitalInput(RobotMap.indexerPort);
     }
 

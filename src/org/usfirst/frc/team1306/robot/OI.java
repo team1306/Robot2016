@@ -1,21 +1,19 @@
 package org.usfirst.frc.team1306.robot;
 
-import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
-import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
-import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.Roll;
+import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
-import org.usfirst.frc.team1306.robot.commands.turret.Target;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
+import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -43,6 +41,9 @@ public class OI {
 	private final Trigger dPadUp;
 	private final Trigger dPadRight;
 	private final Trigger dPadDown;
+	
+	private final Button buttonA2;
+	private final Button buttonB2;
 
 	// Initialize everything
 	public OI() {
@@ -55,6 +56,9 @@ public class OI {
 		buttonY = new JoystickButton(xbox, XboxController.Y);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 		bumperR = new JoystickButton(xbox, XboxController.RB);
+		
+		buttonA2 = new JoystickButton(targetingStick, XboxController.A);
+		buttonB2 = new JoystickButton(targetingStick, XboxController.B);
 
 
 		dPadUp = new DPadUp(xbox);
@@ -65,13 +69,16 @@ public class OI {
 		buttonA.whenPressed(new Fire());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new Target());
-		buttonY.whenPressed(new HoodToggleTarget());
+		//buttonY.whenPressed(new HoodToggleTarget());
 		//bumperL.whenPressed(new ShiftDown());
-		bumperR.whenPressed(new RollUntilPickup());
+		buttonY.whileHeld(new Roll());
+		buttonY.whenReleased(new StopRoll());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
 
+		buttonA2.whenPressed(new SpinUp());
+		buttonB2.whenPressed(new Fire());
 	}
 
 	/**

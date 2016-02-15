@@ -119,8 +119,8 @@ public class Drivetrain extends Subsystem {
 		master.set(0.0);
 		master.enable();
 
-		slave1.changeControlMode(TalonControlMode.Follower);
-		slave1.set(master.getDeviceID());
+		//slave1.changeControlMode(TalonControlMode.Follower);
+		//slave1.set(master.getDeviceID());
 	}
 
 	/**
