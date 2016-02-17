@@ -24,7 +24,6 @@ public class Target extends CommandBase {
 	public Target() {
 		requires(turret);
 		requires(hood);
-		//requires(shooter);
 	}
 
 	/**
@@ -33,7 +32,9 @@ public class Target extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.disable();
-		//shooter.spinUp();
+		if (hood.isAimingLow()) {
+			hood.toggleTarget();
+		}
 	}
 
 	/**
@@ -41,23 +42,22 @@ public class Target extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		//SmartDashboard.putNumber("running Target", Timer.getFPGATimestamp());
-		// if (Vision.canSeeTarget() && !oi.getManualOverride()) {
-		// turret.enable();
-		// if (hood.isAimingLow()) {
-		// hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-		// } else {
-		// hood.setHeight(Vision.getData().getPitch());
-		// }
-		// } else {
-		SmartDashboard.putNumber("set turret vel", oi.getTurretVel());
-		//shooter.spinUp();
-		turret.disable();
-		turret.setVel(oi.getTurretVel());
-		if (oi.getManualOverride()) {
+		SmartDashboard.putNumber("running Target", Timer.getFPGATimestamp());
+		if (Vision.canSeeTarget() && !oi.getTurretOverrride()) {
+			turret.enable();
+		} else {
+			turret.disable();
+			turret.setVel(oi.getTurretVel());
+		}
+		if ((Vision.canSeeTarget() || hood.isAimingLow()) && !oi.getHoodOverride()) {
+			if (hood.isAimingLow()) {
+				hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+			} else {
+				hood.setHeight(Vision.getData().getPitch());
+			}
+		} else {
 			hood.setVel(oi.getHoodVel());
 		}
-		// }
 	}
 
 	/**

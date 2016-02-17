@@ -127,8 +127,12 @@ public class OI {
 		return deadband(secondary.getY(Hand.kRight));
 	}
 
-	public boolean getManualOverride() {
-		return secondary.getRawButton(XboxController.BACK);
+	public boolean getTurretOverrride() {
+		return secondary.getLT() > 0.5;
+	}
+	
+	public boolean getHoodOverride() {
+		return secondary.getRT() > 0.5;
 	}
 
 	/**
