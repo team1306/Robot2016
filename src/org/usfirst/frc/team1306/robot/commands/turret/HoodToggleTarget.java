@@ -1,23 +1,18 @@
-package org.usfirst.frc.team1306.robot.commands.intake;
+package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
  *
  */
-public class Roll extends CommandBase {
+public class HoodToggleTarget extends CommandBase {
 
-    public Roll() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(intake);
-    	requires(indexer);
+    public HoodToggleTarget() {
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.startRollers();
-    	indexer.driveMotor();
+    	hood.toggleTarget();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,7 +31,5 @@ public class Roll extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	intake.stopRollers();
-    	indexer.stop();
     }
 }

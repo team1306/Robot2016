@@ -17,6 +17,7 @@ public class DriveTank extends CommandBase {
 	}
 
 	protected void initialize() {
+		drivetrain.shiftDown();
 	}
 
 	/**

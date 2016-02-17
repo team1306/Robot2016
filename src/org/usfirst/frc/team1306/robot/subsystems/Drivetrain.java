@@ -20,10 +20,8 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon[] motors;
 	private final CANTalon leftMotor1;
 	private final CANTalon leftMotor2;
-	private final CANTalon leftMotor3;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
-	private final CANTalon rightMotor3;
 
 	private final DoubleSolenoid leftShifter;
 	private final DoubleSolenoid rightShifter;
@@ -32,14 +30,12 @@ public class Drivetrain extends Subsystem {
 
 		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
-		leftMotor3 = new CANTalon(RobotMap.leftTalon3Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
 		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
-		rightMotor3 = new CANTalon(RobotMap.rightTalon3Port);
 
-		motors = new CANTalon[] { leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3 };
-		setupMotors(leftMotor1, leftMotor2, leftMotor3);
-		setupMotors(rightMotor1, rightMotor2, rightMotor3);
+		motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
+		setupMotors(leftMotor1, leftMotor2);
+		setupMotors(rightMotor1, rightMotor2);
 
 		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
 
@@ -60,11 +56,6 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		/*
-		 * leftVel = leftVel * maxSpeed; rightVel = rightVel * maxSpeed;
-		 */
-
 		leftMotor1.set(-1.0 * leftVel);
 		rightMotor1.set(rightVel);
 	}
@@ -103,17 +94,15 @@ public class Drivetrain extends Subsystem {
 
 	/**
 	 * Configure all of the Talons with one as the PID controlled master and the
-	 * others as following slaves. This also configures the parity of the output
+	 * other as a following slave. This also configures the parity of the output
 	 * and the sensor value
 	 * 
 	 * @param master
 	 *            PID controlled main Talon
-	 * @param slave1
+	 * @param slave
 	 *            First follower controller
-	 * @param slave2
-	 *            Second follower controller
 	 */
-	private void setupMotors(CANTalon master, CANTalon slave1, CANTalon slave2) {
+	private void setupMotors(CANTalon master, CANTalon slave) {
 		/*
 		 * master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		 * master.changeControlMode(TalonControlMode.Speed);
@@ -123,10 +112,8 @@ public class Drivetrain extends Subsystem {
 		master.set(0.0);
 		master.enable();
 
-		slave1.changeControlMode(TalonControlMode.Follower);
-		slave1.set(master.getDeviceID());
-		slave2.changeControlMode(TalonControlMode.Follower);
-		slave2.set(master.getDeviceID());
+		//slave.changeControlMode(TalonControlMode.Follower);
+		//slave.set(master.getDeviceID());
 	}
 
 	/**
@@ -147,8 +134,8 @@ public class Drivetrain extends Subsystem {
 
 	/**
 	 * Get the value passed to the motor controller with the given index. (ie
-	 * leftMotor1 = 0, leftMotor2 = 1, leftMotor3 = 2, rightMotor1 = 3,
-	 * rightMotor2 = 4, rightMotor3 = 5)
+	 * leftMotor1 = 0, leftMotor2 = 1, rightMotor1 = 2,
+	 * rightMotor2 = 3)
 	 * 
 	 * @param motor
 	 *            Index of the Talon to read

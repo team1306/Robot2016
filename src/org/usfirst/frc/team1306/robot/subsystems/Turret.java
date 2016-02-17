@@ -3,43 +3,45 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The turret that controls the heading of the shooter relative to the robot.
- * This subsystem has methods for controlling both the position and the velocity
- * of the motor.
+ * This PIDSubsystem takes the camera image as feedback, and adjusts the turret
+ * heading to match.
  * 
- * @author Finn Voichick
+ * @author Finn Voichick, James Tautges
  */
-public class Turret extends Subsystem {
+public class Turret extends PIDSubsystem {
 
 	private final CANTalon turretTalon;
 
 	/**
-	 * Creates a new turret and enables PID position control using a quadrature
-	 * encoder.
+	 * Creates a new turret and enables PID position control using the camera
+	 * feedback.
 	 */
 	public Turret() {
+		super("Turret PID", Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);
+		setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
 
-		// Configure the turret Talon with an encoder and position control
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
-		turretTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(turretTalon.get());
-		turretTalon.enable();
-
+		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		turretTalon.enableBrakeMode(false);
+		setSetpoint(0.0);
+		enable();
 	}
 
 	/**
-	 * Sets the default command for the turret to ResetTarget.
+	 * Sets the default command for the turret to ResetTurret.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new ResetTurret());
 	}
 
 	/**
@@ -48,55 +50,55 @@ public class Turret extends Subsystem {
 	 * @param velocity
 	 *            the new velocity
 	 */
-
-	public void setVel(double velocity) {
-		turretTalon.changeControlMode(TalonControlMode.Speed);
-		turretTalon.set(velocity * Constants.TURRET_MAX_SPEED);
+	public void setVel(double speed) {
+		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+		SmartDashboard.putNumber("turret vel", turretTalon.get());
+		SmartDashboard.putString("turret mode", turretTalon.getControlMode().toString());
+		SmartDashboard.putNumber("Relative Position", turretTalon.getEncPosition());
+		SmartDashboard.putNumber("Turret Velocity", turretTalon.getEncPosition());
+		SmartDashboard.putString("Encoder Status",
+				turretTalon.isSensorPresent(FeedbackDevice.CtreMagEncoder_Relative).toString());
+		turretTalon.set(speed);
 	}
 
 	/**
-	 * 
-	 * Set the target position for the turret. 0 is straight forward, and the
-	 * angle is measured in degrees.
+	 * Set the target position for the turret to straight forward. The turret
+	 * will then use its PID position control (using an encoder) to point
+	 * forward.
 	 * 
 	 * @param position
 	 *            The intended heading of the turret relative to the robot.
 	 */
-	public void setTarget(double position) {
+	public void setTurretForward() {
+		disable();
 		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(position * Constants.TURRET_TICKS_PER_DEGREE);
+		turretTalon.set(0.0);
+		turretTalon.enable();
 	}
 
 	/**
-	 * Set the target position for the turret, relative to its current position.
-	 * Measured in degrees.
+	 * Gets the input from the camera that gives the angle of the target
+	 * relative to the current position. This is the difference between the
+	 * intended position and the current position. Because this is already the
+	 * error, the setpoint stays at zero.
 	 * 
-	 * @param angle
-	 *            The intended angular displacement.
+	 * @return The position of the target relative to the robot, or 0.0 if it
+	 *         can't be seen.
 	 */
-	public void setTargetRelative(double angle) {
-		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(turretTalon.get() + angle * Constants.TURRET_TICKS_PER_DEGREE);
+	protected double returnPIDInput() {
+		double yaw = Vision.getData().getYaw();
+		boolean inRange = Vision.canSeeTarget();
+		if (inRange) {
+			return -yaw;
+		} else {
+			return getSetpoint();
+		}
 	}
 
 	/**
-	 * Stop the motor by setting its target position to its current position.
+	 * Sets the velocity of the turret based on the output of the PID loop.
 	 */
-	public void stop() {
-		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(turretTalon.get());
+	protected void usePIDOutput(double output) {
+		setVel(output);
 	}
-
-	/**
-	 * Finds whether the turret is on target. The turret is on target if it is
-	 * within the TURRET_TOLERANCE specified in Constants. If the turret is
-	 * being controlled manually, it can't be considered on target.
-	 * 
-	 * @return true if the turret is on target, otherwise false.
-	 */
-	public boolean onTarget() {
-		return turretTalon.getControlMode().equals(TalonControlMode.Position)
-				&& turretTalon.getError() < Constants.TURRET_TOLERANCE;
-	}
-
 }

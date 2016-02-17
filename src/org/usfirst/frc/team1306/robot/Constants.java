@@ -11,30 +11,46 @@ public class Constants {
 	// drive constants
 	// measured in encoder ticks per 1ms^2
 	public final static double MAX_ACCELERATION = 0.01;
-	public final static double MAX_SPEED = 500.0;
+	public final static double MAX_SPEED = 1.0; // placeholder
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
 	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
-	public final static double TURRET_TOLERANCE = 1.0; // placeholder
+	public final static double TURRET_TOLERANCE = 2.0; // placeholder
+
+	public final static double TURRET_P = 0.02;
+	public final static double TURRET_I = 0.001; // 0.001
+	public final static double TURRET_D = 0.0;
+
+	// shooter constants
+	public final static double SHOOTER_MAX_SPEED = 0.7; // placeholder
+	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
-	public final static double HOOD_VOLTS_PER_DEGREE = 0.1; // placeholder
+	public final static double HOOD_0_POS = 0.0; // placeholder
+	public final static double HOOD_90_POS = 1.0; // placeholder;
 	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
+
+	// indexer constants
+	public final static double INDEXER_POWER = 0.75;
 
 	// intake constants
 	public final static double INTAKE_LENGTH = 14.0; // placeholder
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
-	public final static double INTAKE_LEFT_ARM_0_POS = 0.0; // placeholder
-	public final static double INTAKE_LEFT_ARM_90_POS = 1.0; // placeholder
-	public final static double INTAKE_RIGHT_ARM_0_POS = 0.0; // placeholder
-	public final static double INTAKE_RIGHT_ARM_90_POS = 1.0; // placeholder
+	// intake arm constants
+	public final static double INTAKE_LEFT_ARM_0_POS = 65.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 493.0;
+	public final static double INTAKE_RIGHT_ARM_0_POS = 822.0;
+	public final static double INTAKE_RIGHT_ARM_90_POS = 408.0;
+	public final static double INTAKE_PICKUP_POS = 10.0;
+	public final static double INTAKE_VERTICAL_POS = 90.0;
+	public final static double INTAKE_DROP_THRESHOLD = 45.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
 
 	// vision constants
-	public final static double VISION_PERIOD = 0.2;
+	public final static double VISION_PERIOD = 0.1;
 }

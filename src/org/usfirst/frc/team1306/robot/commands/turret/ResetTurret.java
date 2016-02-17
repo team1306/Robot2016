@@ -13,12 +13,13 @@ public class ResetTurret extends CommandBase {
 
 	/**
 	 * Creates a new SnapForward command. The turret and hood are required
-	 * because this command can't run at the same time as AutoTarget or
+	 * because this command can't run at the same time as Target or
 	 * ManualTarget.
 	 */
 	public ResetTurret() {
 		requires(turret);
 		requires(hood);
+		requires(shooter);
 	}
 
 	/**
@@ -28,8 +29,9 @@ public class ResetTurret extends CommandBase {
 	 * needs to be set once.
 	 */
 	protected void initialize() {
-		turret.setTarget(0.0);
+		turret.setTurretForward();
 		hood.flatten();
+		shooter.spinDown();
 	}
 
 	/**

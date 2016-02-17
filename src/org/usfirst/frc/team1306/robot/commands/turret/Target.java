@@ -1,6 +1,11 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.vision.Vision;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A command that automatically aims the turret at the tower goal. It repeatedly
@@ -10,18 +15,15 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * 
  * @author Finn Voichick
  */
-public class AutoTarget extends CommandBase {
-
-	/** The timestamp of the most recent vision data */
-	private double recentTimestamp;
+public class Target extends CommandBase {
 
 	/**
-	 * Creates a new AutoTarget command. The turret is required because this
-	 * command can't run at the same time as ManualTarget or SnapForward.
+	 * Creates a new Target command. The turret is required because this command
+	 * can't run at the same time as ResetTurret.
 	 */
-	public AutoTarget() {
+	public Target() {
 		requires(turret);
-		recentTimestamp = 0;
+		requires(hood);
 	}
 
 	/**
@@ -29,6 +31,10 @@ public class AutoTarget extends CommandBase {
 	 * nothing.
 	 */
 	protected void initialize() {
+		turret.disable();
+		if (hood.isAimingLow()) {
+			hood.toggleTarget();
+		}
 	}
 
 	/**
@@ -36,13 +42,21 @@ public class AutoTarget extends CommandBase {
 	 * seen, it sets the target there.
 	 */
 	protected void execute() {
-		if (vision.canSeeTarget() && !oi.getManualOverride()) {
-			if (vision.getData().getTimestamp() > recentTimestamp) {
-				turret.setTargetRelative(vision.getData().getYaw());
-				recentTimestamp = vision.getData().getTimestamp();
-			}
-		} else if (oi.getTurretVel() > 0 || oi.getManualOverride()) {
+		SmartDashboard.putNumber("running Target", Timer.getFPGATimestamp());
+		if (Vision.canSeeTarget() && !oi.getTurretOverrride()) {
+			turret.enable();
+		} else {
+			turret.disable();
 			turret.setVel(oi.getTurretVel());
+		}
+		if ((Vision.canSeeTarget() || hood.isAimingLow()) && !oi.getHoodOverride()) {
+			if (hood.isAimingLow()) {
+				hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+			} else {
+				hood.setHeight(Vision.getData().getPitch());
+			}
+		} else {
+			hood.setVel(oi.getHoodVel());
 		}
 	}
 
@@ -60,6 +74,7 @@ public class AutoTarget extends CommandBase {
 	 * Called once after isFinished returns true. This command never does end.
 	 */
 	protected void end() {
+		turret.setVel(0.0);
 	}
 
 	/**
@@ -68,5 +83,6 @@ public class AutoTarget extends CommandBase {
 	 * transfers control, so no new target needs to be set.
 	 */
 	protected void interrupted() {
+		end();
 	}
 }

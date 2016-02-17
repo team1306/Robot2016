@@ -17,10 +17,8 @@ public class RobotMap {
 	// drivetrain controllers ports
 	public static int leftTalon1Port = 1;
 	public static int leftTalon2Port = 2;
-	public static int leftTalon3Port = 3;
 	public static int rightTalon1Port = 4;
 	public static int rightTalon2Port = 5;
-	public static int rightTalon3Port = 6;
 
 	public static int leftShifterPortA = 0;
 	public static int leftShifterPortB = 1;
@@ -28,13 +26,13 @@ public class RobotMap {
 	public static int rightShifterPortB = 3;
 
 	// shooter and turret controller ports
-	public static int flyWheelTalonPort = 7;
-	public static int hoodTalonPort = 8;
-	public static int turretTalonPort = 9;
+	public static int flyWheelTalonPort = 9;
+	public static int hoodTalonPort = 11;
+	public static int turretTalonPort = 10;
 
 	// intake control ports
-	public static int intakeMotor1Port = 10;
-	public static int intakeMotor2Port = 11;
+	public static int intakeLeftMotorPort = 8;
+	public static int intakeRightMotorPort = 7;
 
 	public static int intakeRoller1Port = 0;
 	public static int intakeRoller2Port = 1;
@@ -43,11 +41,14 @@ public class RobotMap {
 	public static int intakeSol1PortB = 5;
 	public static int intakeSol2PortA = 6;
 	public static int intakeSol2PortB = 7;
+	
+	// indexer ports
+	public static int indexerPort = 2;
 
 	// intake sensor ports
-	public static int intakeLimitPort = 1;
+	public static int indexerLimitPort = 9;
 
 	// arm control ports
-	public static int armPort = 2;
+	public static int armPort = 3;
 
 }

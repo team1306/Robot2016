@@ -5,9 +5,9 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  *
  */
-public class Roll extends CommandBase {
+public class StopRoll extends CommandBase {
 
-    public Roll() {
+    public StopRoll() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(intake);
@@ -16,8 +16,8 @@ public class Roll extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.startRollers();
-    	indexer.driveMotor();
+    	intake.stopRollers();
+    	indexer.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,7 +36,5 @@ public class Roll extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	intake.stopRollers();
-    	indexer.stop();
     }
 }
