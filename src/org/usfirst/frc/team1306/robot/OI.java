@@ -3,11 +3,11 @@ package org.usfirst.frc.team1306.robot;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
-import org.usfirst.frc.team1306.robot.commands.intake.Roll;
+import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
-import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -37,6 +36,7 @@ public class OI {
 	private final Button buttonB;
 	private final Button buttonX;
 	private final Button buttonY;
+	private final Button buttonStart;
 	private final Button bumperL;
 	private final Trigger dPadUp;
 	private final Trigger dPadRight;
@@ -54,6 +54,7 @@ public class OI {
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
+		buttonStart = new JoystickButton(xbox, XboxController.START);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
@@ -65,13 +66,16 @@ public class OI {
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
+		buttonB.whenPressed(new IntakeArmPickup());
 		buttonB.whenPressed(new ResetTurret());
+		buttonX.whenPressed(new IntakeArmDown());
+		buttonX.whenPressed(new SpinUp());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new RollUntilPickup());
-		// bumperL.whenPressed(new ShiftDown());
-		// buttonY.whileHeld(new Roll());
-		// buttonY.whenReleased(new StopRoll());
+		buttonStart.whenPressed(new HoodToggleTarget());
+		bumperL.whenPressed(new ResetTurret());
+		bumperL.whenPressed(new Pass());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
@@ -119,8 +123,7 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		SmartDashboard.putNumber("get turret vel", secondary.getRT() - secondary.getLT());
-		return secondary.getRT() - secondary.getLT();
+		return deadband(secondary.getX(Hand.kLeft));
 	}
 
 	public double getHoodVel() {

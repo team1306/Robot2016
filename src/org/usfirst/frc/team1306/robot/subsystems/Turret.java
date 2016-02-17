@@ -33,7 +33,7 @@ public class Turret extends PIDSubsystem {
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.set(turretTalon.get());
+		turretTalon.enableBrakeMode(false);
 		setSetpoint(0.0);
 		enable();
 	}

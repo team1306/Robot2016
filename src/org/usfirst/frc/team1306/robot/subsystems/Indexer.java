@@ -35,6 +35,10 @@ public class Indexer extends Subsystem {
     	motor.disable();
     }
     
+    public void reverse() {
+    	motor.set(-Constants.INDEXER_POWER);
+    }
+    
     public boolean hasBall() {
     	return !ballSwitch.get();
     }

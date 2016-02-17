@@ -59,6 +59,11 @@ public class Intake extends Subsystem {
 		roller1.set(0.0);
 		roller2.set(0.0);
 	}
+	
+	public void reverse() {
+		roller1.set(-1.0);
+		roller2.set(-1.0);
+	}
 
 	/**
 	 * Toggle the tusk state

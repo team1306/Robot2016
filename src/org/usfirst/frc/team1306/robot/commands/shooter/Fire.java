@@ -55,7 +55,7 @@ public class Fire extends CommandBase {
 	 * speed.
 	 */
 	protected boolean isFinished() {
-		return !indexer.hasBall();//fired;// && shooter.onTarget();
+		return fired && shooter.onTarget();
 	}
 
 	/**
@@ -64,7 +64,6 @@ public class Fire extends CommandBase {
 	 */
 	protected void end() {
 		shooter.spinDown();
-		indexer.stop();
 	}
 
 	/**
