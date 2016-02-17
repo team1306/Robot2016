@@ -42,7 +42,6 @@ public class Turret extends PIDSubsystem {
 	 * Sets the default command for the turret to ResetTurret.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new ResetTurret());
 	}
 
 	/**

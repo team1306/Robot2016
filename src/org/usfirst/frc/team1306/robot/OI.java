@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1306.robot;
 
+import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
+import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
@@ -44,6 +46,9 @@ public class OI {
 
 	private final Button buttonA2;
 	private final Button buttonB2;
+	private final Button buttonX2;
+	private final Button buttonL2;
+	private final Button buttonR2;
 
 	// Initialize everything
 	public OI() {
@@ -59,6 +64,9 @@ public class OI {
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
+		buttonX2 = new JoystickButton(secondary, XboxController.X);
+		buttonL2 = new JoystickButton(secondary, XboxController.LB);
+		buttonR2 = new JoystickButton(secondary, XboxController.RB);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
@@ -82,6 +90,8 @@ public class OI {
 
 		buttonA2.whenPressed(new SpinUp());
 		buttonB2.whenPressed(new Fire());
+		buttonL2.whenPressed(new ShiftDown());
+		buttonR2.whenPressed(new ShiftUp());
 	}
 
 	/**
@@ -133,7 +143,7 @@ public class OI {
 	public boolean getTurretOverrride() {
 		return secondary.getLT() > 0.5;
 	}
-	
+
 	public boolean getHoodOverride() {
 		return secondary.getRT() > 0.5;
 	}
