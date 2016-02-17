@@ -54,15 +54,12 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		double aveVel = (leftMotor1.get() + rightMotor1.get()) / 2.0 / Constants.MAX_SPEED;
-		if (isHighGear()) {
-			if (aveVel / Constants.GEAR_RATIO < Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
-				shiftDown();
-			}
-		} else {
-			if (aveVel / Constants.GEAR_RATIO > Constants.RISING_SHIFT_SPEED_THRESHOLD) {
-				shiftUp();
-			}
+		double aveVel = (Math.abs(leftMotor1.get()) + Math.abs(rightMotor1.get())) / 2.0 / Constants.MAX_SPEED;
+		if (aveVel / Constants.GEAR_RATIO < Constants.FALLING_SHIFT_SPEED_THRESHOLD) {
+			shiftDown();
+		}
+		if (aveVel / Constants.GEAR_RATIO > Constants.RISING_SHIFT_SPEED_THRESHOLD) {
+			shiftUp();
 		}
 		if (isHighGear()) {
 			leftMotor1.set(-leftVel * Constants.MAX_SPEED);
