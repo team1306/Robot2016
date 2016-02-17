@@ -50,8 +50,11 @@ public class Hood extends Subsystem {
 	 */
 	public void setHeight(double position) {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(Constants.HOOD_0_POS
-				+ position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
+		hoodTalon.set(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
+	}
+
+	public double getHeight() {
+		return 90.0 * (hoodTalon.getPosition() - Constants.HOOD_0_POS) / (Constants.HOOD_90_POS - Constants.HOOD_0_POS);
 	}
 
 	public void setVel(double velocity) {
@@ -66,11 +69,11 @@ public class Hood extends Subsystem {
 	public void flatten() {
 		setHeight(90.0);
 	}
-	
+
 	public void toggleTarget() {
 		aimingLow = !aimingLow;
 	}
-	
+
 	public boolean isAimingLow() {
 		return aimingLow;
 	}

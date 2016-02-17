@@ -64,6 +64,10 @@ public class Shooter extends Subsystem {
 	public void spinDown() {
 		set(0.0);
 	}
+	
+	public double getSpeed() {
+		return flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
+	}
 
 	/**
 	 * Return whether or not the measured speed is within tolerance of our

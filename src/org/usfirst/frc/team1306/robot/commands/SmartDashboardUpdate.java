@@ -36,6 +36,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("trigger", oi.getStraightVel());
 		
 		SmartDashboard.putBoolean("has ball", indexer.hasBall());
+		SmartDashboard.putNumber("hood angle", hood.getHeight());
+		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 
 		VisionData data = Vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());
