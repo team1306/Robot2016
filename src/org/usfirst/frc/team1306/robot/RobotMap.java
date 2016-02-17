@@ -26,8 +26,8 @@ public class RobotMap {
 	public static int rightShifterPortB = 3;
 
 	// shooter and turret controller ports
-	public static int flyWheelTalonPort = 9; // TODO figure out this port
-	public static int hoodTalonPort = 11; // TODO figure out this port
+	public static int flyWheelTalonPort = 9;
+	public static int hoodTalonPort = 11;
 	public static int turretTalonPort = 10;
 
 	// intake control ports

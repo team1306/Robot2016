@@ -36,7 +36,7 @@ public class Indexer extends Subsystem {
     }
     
     public boolean hasBall() {
-    	return ballSwitch.get();
+    	return !ballSwitch.get();
     }
 }
 

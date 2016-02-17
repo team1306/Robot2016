@@ -44,7 +44,7 @@ public class RollUntilPickup extends CommandBase {
 	 * @return true if the indexer picked up a ball, otherwise false.
 	 */
 	protected boolean isFinished() {
-		return !indexer.hasBall();
+		return indexer.hasBall();
 	}
 
 	/**

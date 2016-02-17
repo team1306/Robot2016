@@ -4,6 +4,7 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.intake.Roll;
+import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
@@ -29,7 +30,7 @@ public class OI {
 
 	// Driver controls
 	private final XboxController xbox;
-	private final XboxController targetingStick;
+	private final XboxController secondary;
 
 	// Buttons and triggers
 	private final Button buttonA;
@@ -37,29 +38,26 @@ public class OI {
 	private final Button buttonX;
 	private final Button buttonY;
 	private final Button bumperL;
-	private final Button bumperR;
 	private final Trigger dPadUp;
 	private final Trigger dPadRight;
 	private final Trigger dPadDown;
-	
+
 	private final Button buttonA2;
 	private final Button buttonB2;
 
 	// Initialize everything
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
-		targetingStick = new XboxController(RobotMap.secondaryPort);
+		secondary = new XboxController(RobotMap.secondaryPort);
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
-		bumperR = new JoystickButton(xbox, XboxController.RB);
-		
-		buttonA2 = new JoystickButton(targetingStick, XboxController.A);
-		buttonB2 = new JoystickButton(targetingStick, XboxController.B);
 
+		buttonA2 = new JoystickButton(secondary, XboxController.A);
+		buttonB2 = new JoystickButton(secondary, XboxController.B);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
@@ -69,10 +67,11 @@ public class OI {
 		buttonA.whenPressed(new Fire());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new Target());
-		//buttonY.whenPressed(new HoodToggleTarget());
-		//bumperL.whenPressed(new ShiftDown());
-		buttonY.whileHeld(new Roll());
-		buttonY.whenReleased(new StopRoll());
+		buttonY.whenPressed(new ResetTurret());
+		buttonY.whenPressed(new RollUntilPickup());
+		// bumperL.whenPressed(new ShiftDown());
+		// buttonY.whileHeld(new Roll());
+		// buttonY.whenReleased(new StopRoll());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
@@ -120,16 +119,16 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		SmartDashboard.putNumber("get turret vel", targetingStick.getRT() - targetingStick.getLT());
-		return targetingStick.getRT() - targetingStick.getLT();
+		SmartDashboard.putNumber("get turret vel", secondary.getRT() - secondary.getLT());
+		return secondary.getRT() - secondary.getLT();
 	}
-	
+
 	public double getHoodVel() {
-		return deadband(targetingStick.getY(Hand.kRight));
+		return deadband(secondary.getY(Hand.kRight));
 	}
 
 	public boolean getManualOverride() {
-		return targetingStick.getRawButton(XboxController.BACK);
+		return secondary.getRawButton(XboxController.BACK);
 	}
 
 	/**
