@@ -7,18 +7,23 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Subsystem representing the shooter and its controllers
+ * Subsystem representing the shooter and its controllers. "Shooter" in this
+ * case means the flywheel.
  * 
- * @author James Tautges
+ * @author Finn Voichick, James Tautges
  */
 public class Shooter extends Subsystem {
 
 	private CANTalon flywheel;
 
-	private double target = 0;
-
+	/**
+	 * Constructs a new shooter that uses a single encoder as its feedback
+	 * device. It controls for speed, making sure that the flywheel is spinning
+	 * at the same speed each time it fires.
+	 */
 	public Shooter() {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
 
@@ -26,7 +31,9 @@ public class Shooter extends Subsystem {
 		flywheel.reverseSensor(true);
 
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		flywheel.changeControlMode(TalonControlMode.Speed);
+		flywheel.setSafetyEnabled(false);
+		flywheel.changeControlMode(TalonControlMode.PercentVbus);
+		flywheel.enableBrakeMode(false);
 		flywheel.enable();
 	}
 
@@ -34,32 +41,32 @@ public class Shooter extends Subsystem {
 	}
 
 	/**
-	 * Set the target speed for the flywheel Talon. This value should be in
-	 * ticks per 10ms
+	 * Set the target speed for the flywheel Talon, on a scale from 0.0 to 1.0.
 	 * 
 	 * @param speed
 	 *            Speed to set the Talon
 	 */
-
-	public void spinTo(double speed) {
-		flywheel.set(speed);
-		target = speed;
+	public void set(double speed) {
+		flywheel.set(Math.abs(speed) * Constants.SHOOTER_MAX_SPEED);
 	}
 
 	/**
 	 * Set the Talon to full speed
 	 */
-
 	public void spinUp() {
-		spinTo(1.0);
+		set(1.0);
+		SmartDashboard.putNumber("flywheel enc", flywheel.getEncVelocity());
 	}
 
 	/**
 	 * Stop the flywheel Talon
 	 */
-
 	public void spinDown() {
-		spinTo(0.0);
+		set(0.0);
+	}
+	
+	public double getSpeed() {
+		return flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
 	}
 
 	/**
@@ -69,9 +76,8 @@ public class Shooter extends Subsystem {
 	 * @return Whether or not the measured speed is within tolerance of the
 	 *         target
 	 */
-
-	public boolean isSpunUp() {
-		return Math.abs(flywheel.getEncVelocity() - target) < Constants.HOOD_TOLERANCE;
+	public boolean onTarget() {
+		return Math.abs(flywheel.getError()) < Constants.SHOOTER_TOLERANCE;
 	}
 
 }

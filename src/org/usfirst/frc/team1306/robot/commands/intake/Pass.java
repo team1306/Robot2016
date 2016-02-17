@@ -5,19 +5,20 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  *
  */
-public class Roll extends CommandBase {
+public class Pass extends CommandBase {
 
-    public Roll() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(intake);
-    	requires(indexer);
+    public Pass() {
+        requires(intake);
+        requires(indexer);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.startRollers();
-    	indexer.driveMotor();
+    	if (intakeArm.getCurrentCommand() instanceof IntakeArmDown) {
+    		new IntakeArmPickup().start();
+    	}
+    	intake.reverse();
+    	indexer.reverse();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,7 +27,7 @@ public class Roll extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -36,7 +37,5 @@ public class Roll extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	intake.stopRollers();
-    	indexer.stop();
     }
 }

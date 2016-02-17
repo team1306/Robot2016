@@ -2,14 +2,24 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.Pass;
+import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.AutoTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.commands.turret.Target;
+import org.usfirst.frc.team1306.robot.triggers.DPadDown;
+import org.usfirst.frc.team1306.robot.triggers.DPadRight;
+import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,9 +38,17 @@ public class OI {
 	private final Button buttonB;
 	private final Button buttonX;
 	private final Button buttonY;
+	private final Button buttonStart;
 	private final Button bumperL;
-	private final Button bumperR;
-	private final Button secondaryA;
+	private final Trigger dPadUp;
+	private final Trigger dPadRight;
+	private final Trigger dPadDown;
+
+	private final Button buttonA2;
+	private final Button buttonB2;
+	private final Button buttonX2;
+	private final Button buttonL2;
+	private final Button buttonR2;
 
 	// Initialize everything
 	public OI() {
@@ -41,19 +59,39 @@ public class OI {
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
+		buttonStart = new JoystickButton(xbox, XboxController.START);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
-		bumperR = new JoystickButton(xbox, XboxController.RB);
 
-		secondaryA = new JoystickButton(secondary, XboxController.A);
+		buttonA2 = new JoystickButton(secondary, XboxController.A);
+		buttonB2 = new JoystickButton(secondary, XboxController.B);
+		buttonX2 = new JoystickButton(secondary, XboxController.X);
+		buttonL2 = new JoystickButton(secondary, XboxController.LB);
+		buttonR2 = new JoystickButton(secondary, XboxController.RB);
+
+		dPadUp = new DPadUp(xbox);
+		dPadRight = new DPadRight(xbox);
+		dPadDown = new DPadDown(xbox);
 
 		// Bind input devices to commands
-		buttonA.whenPressed(new AutoTarget());
-		buttonB.whenPressed(new SpinUp());
-		buttonX.whenPressed(new ResetTurret());
-		buttonY.whenPressed(new Fire());
-		bumperL.whenPressed(new ShiftDown());
-		bumperR.whenPressed(new ShiftUp());
-		secondaryA.whenPressed(new AutoTarget());
+		buttonA.whenPressed(new Fire());
+		buttonB.whenPressed(new IntakeArmPickup());
+		buttonB.whenPressed(new ResetTurret());
+		buttonX.whenPressed(new IntakeArmDown());
+		buttonX.whenPressed(new SpinUp());
+		buttonX.whenPressed(new Target());
+		buttonY.whenPressed(new ResetTurret());
+		buttonY.whenPressed(new RollUntilPickup());
+		buttonStart.whenPressed(new HoodToggleTarget());
+		bumperL.whenPressed(new ResetTurret());
+		bumperL.whenPressed(new Pass());
+		dPadUp.whenActive(new IntakeArmVertical());
+		dPadRight.whenActive(new IntakeArmPickup());
+		dPadDown.whenActive(new IntakeArmDown());
+
+		buttonA2.whenPressed(new SpinUp());
+		buttonB2.whenPressed(new Fire());
+		buttonL2.whenPressed(new ShiftDown());
+		buttonR2.whenPressed(new ShiftUp());
 	}
 
 	/**
@@ -95,11 +133,19 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return secondary.getRT() - secondary.getLT();
+		return deadband(secondary.getX(Hand.kLeft));
 	}
 
-	public boolean getManualOverride() {
-		return secondary.getRawButton(XboxController.START);
+	public double getHoodVel() {
+		return deadband(secondary.getY(Hand.kRight));
+	}
+
+	public boolean getTurretOverrride() {
+		return secondary.getLT() > 0.5;
+	}
+
+	public boolean getHoodOverride() {
+		return secondary.getRT() > 0.5;
 	}
 
 	/**

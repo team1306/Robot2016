@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1306.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team1306.robot.vision.Vision;
+import org.usfirst.frc.team1306.robot.vision.VisionData;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,6 +33,14 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
 		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
 
+		SmartDashboard.putNumber("trigger", oi.getStraightVel());
+		
+		SmartDashboard.putBoolean("has ball", indexer.hasBall());
+		SmartDashboard.putNumber("hood angle", hood.getHeight());
+		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
+
+		VisionData data = Vision.getData();
+		SmartDashboard.putNumber("latera", data.getYaw());
 	}
 
 	protected boolean isFinished() {

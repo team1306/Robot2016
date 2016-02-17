@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An Xbox controller. This is a relatively minor extension of Joystick that
@@ -83,6 +84,11 @@ public class XboxController extends Joystick {
 	 */
 	public double getRT() {
 		return getRawAxis(3);
+	}
+	
+	public int getPOV() {
+		SmartDashboard.putNumber("pov", super.getPOV());
+		return super.getPOV();
 	}
 
 	/** The A button index */

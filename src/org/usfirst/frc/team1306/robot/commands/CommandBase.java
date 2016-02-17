@@ -3,11 +3,12 @@ package org.usfirst.frc.team1306.robot.commands;
 import org.usfirst.frc.team1306.robot.OI;
 import org.usfirst.frc.team1306.robot.subsystems.Arm;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team1306.robot.subsystems.Intake;
 import org.usfirst.frc.team1306.robot.subsystems.Hood;
+import org.usfirst.frc.team1306.robot.subsystems.Indexer;
+import org.usfirst.frc.team1306.robot.subsystems.Intake;
+import org.usfirst.frc.team1306.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team1306.robot.subsystems.Shooter;
 import org.usfirst.frc.team1306.robot.subsystems.Turret;
-import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,19 +26,21 @@ public abstract class CommandBase extends Command {
 	protected static Drivetrain drivetrain;
 	protected static Shooter shooter;
 	protected static Turret turret;
+	protected static Indexer indexer;
 	protected static Intake intake;
+	protected static IntakeArm intakeArm;
 	protected static Arm arm;
 	protected static Hood hood;
-	protected static Vision vision;
 
 	public static void init() {
 		drivetrain = new Drivetrain();
 		shooter = new Shooter();
 		turret = new Turret();
+		indexer = new Indexer();
 		intake = new Intake();
+		intakeArm = new IntakeArm();
 		arm = new Arm();
 		hood = new Hood();
-		vision = new Vision();
 		oi = new OI();
 	}
 
