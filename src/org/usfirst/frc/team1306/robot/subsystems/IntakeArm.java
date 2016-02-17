@@ -2,13 +2,11 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A Subsystem that controls the intake arm. This arm can be lowered, allowing
@@ -79,16 +77,13 @@ public class IntakeArm extends Subsystem {
 		return (right + left) / 2.0;
 	}
 
-	public void setVel(double vel) {
-		leftMotor.changeControlMode(TalonControlMode.PercentVbus);
-		rightMotor.changeControlMode(TalonControlMode.PercentVbus);
-		leftMotor.set(vel);
-		rightMotor.set(vel);
-	}
-
 	public void releaseBrakes() {
 		leftMotor.enableBrakeMode(false);
 		rightMotor.enableBrakeMode(false);
+		leftMotor.changeControlMode(TalonControlMode.PercentVbus);
+		rightMotor.changeControlMode(TalonControlMode.PercentVbus);
+		leftMotor.set(0.0);
+		rightMotor.set(0.0);
 	}
 
 	public double getCurrent() {

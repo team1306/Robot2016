@@ -14,7 +14,9 @@ public class IntakeArmDown extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		intakeArm.setPosition(Constants.INTAKE_PORTCULLIS_POS);
+		if (intakeArm.getPosition() > Constants.INTAKE_DROP_THRESHOLD) {
+			intakeArm.setPosition(Constants.INTAKE_PICKUP_POS);
+		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -23,11 +25,12 @@ public class IntakeArmDown extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return intakeArm.getPosition() <= Constants.INTAKE_DROP_THRESHOLD;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		intakeArm.releaseBrakes();
 	}
 
 	// Called when another command which requires one or more of the same
