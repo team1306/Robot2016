@@ -32,8 +32,8 @@ public class IntakeArm extends Subsystem {
 
 		leftMotor = new CANTalon(RobotMap.intakeLeftMotorPort);
 		rightMotor = new CANTalon(RobotMap.intakeRightMotorPort);
-		leftMotor.enableBrakeMode(false); // TODO remove this
-		rightMotor.enableBrakeMode(false); // TODO remove this
+		leftMotor.enableBrakeMode(false);
+		rightMotor.enableBrakeMode(false);
 		leftMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		rightMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		leftMotor.changeControlMode(TalonControlMode.Position);
@@ -50,7 +50,6 @@ public class IntakeArm extends Subsystem {
 	 * the arm is vertical at the beginning of the match).
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new IntakeArmVertical());
 	}
 
 	/**
@@ -62,15 +61,36 @@ public class IntakeArm extends Subsystem {
 	 *            The new setpoint for the arm.
 	 */
 	public void setPosition(double angle) {
-		SmartDashboard.putNumber("intake arm error", leftMotor.getError());
 		leftMotor.changeControlMode(TalonControlMode.Position);
 		rightMotor.changeControlMode(TalonControlMode.Position);
+		leftMotor.enableBrakeMode(true);
+		rightMotor.enableBrakeMode(true);
 		leftMotor.set(Constants.INTAKE_LEFT_ARM_0_POS
 				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0);
 		rightMotor.set(Constants.INTAKE_RIGHT_ARM_0_POS
 				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
 	}
-	
+
+	public double getPosition() {
+		double left = 90.0 * (leftMotor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
+				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
+		double right = 90.0 * (rightMotor.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
+				/ (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS);
+		return (right + left) / 2.0;
+	}
+
+	public void setVel(double vel) {
+		leftMotor.changeControlMode(TalonControlMode.PercentVbus);
+		rightMotor.changeControlMode(TalonControlMode.PercentVbus);
+		leftMotor.set(vel);
+		rightMotor.set(vel);
+	}
+
+	public void releaseBrakes() {
+		leftMotor.enableBrakeMode(false);
+		rightMotor.enableBrakeMode(false);
+	}
+
 	public double getCurrent() {
 		return leftMotor.getOutputCurrent() + rightMotor.getOutputCurrent();
 	}
