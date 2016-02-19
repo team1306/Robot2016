@@ -80,10 +80,11 @@ public class Vision {
 				String[] numbers = data.split(",");
 				pitch = Double.parseDouble(numbers[0]);
 				yaw = Double.parseDouble(numbers[1]);
-				distance = Double.parseDouble(numbers[2]);
+				distance = 1 / pitch;
 
 				// convert units
 				yaw = -yaw / 10;
+				pitch = pitch * 1000;
 			} else {
 				isConnected = false;
 				if (connectionTimer.hasPeriodPassed(1.0)) {
