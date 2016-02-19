@@ -43,8 +43,7 @@ public class Drivetrain extends Subsystem {
 		leftShifter = new DoubleSolenoid(0, 1);
 		rightShifter = new DoubleSolenoid(2, 3);
 
-		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
+		shiftDown();
 
 	}
 
@@ -109,7 +108,7 @@ public class Drivetrain extends Subsystem {
 		 * master.changeControlMode(TalonControlMode.Speed);
 		 * master.reverseSensor(true);
 		 */
-		master.changeControlMode(TalonControlMode.PercentVbus);
+		master.changeControlMode(TalonControlMode.Speed);
 		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		master.set(0.0);
 		master.enable();
@@ -125,6 +124,8 @@ public class Drivetrain extends Subsystem {
 	public void shiftUp() {
 		leftShifter.set(DoubleSolenoid.Value.kReverse);
 		rightShifter.set(DoubleSolenoid.Value.kReverse);
+		leftMotor1.setProfile(1);
+		rightMotor1.setProfile(1);
 	}
 
 	/**

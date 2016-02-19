@@ -11,7 +11,7 @@ public class Constants {
 	// drive constants
 	// measured in encoder ticks per 1ms^2
 	public final static double MAX_ACCELERATION = 0.01;
-	public final static double MAX_SPEED = 1.0; // placeholder
+	public final static double MAX_SPEED = 7000; // placeholder
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
