@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The hood on the shooter. This controls the angle at which the ball shoots.
@@ -49,6 +50,8 @@ public class Hood extends Subsystem {
 	 *            the new position of the hood
 	 */
 	public void setHeight(double position) {
+		SmartDashboard.putNumber("hood set height", position);
+		SmartDashboard.putNumber("hood error", hoodTalon.getError());
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
 	}

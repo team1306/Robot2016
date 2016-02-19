@@ -23,13 +23,13 @@ public class Constants {
 	public final static double TURRET_D = 0.0;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 0.7; // placeholder
+	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
 	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
-	public final static double HOOD_0_POS = 0.0; // placeholder
-	public final static double HOOD_90_POS = 1.0; // placeholder;
-	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
+	public final static double HOOD_0_POS = 5.0; // placeholder
+	public final static double HOOD_90_POS = 524.0; // placeholder;
+	public final static double HOOD_LOW_GOAL_POSITION = 45.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 
 	// indexer constants
@@ -45,7 +45,7 @@ public class Constants {
 	public final static double INTAKE_RIGHT_ARM_0_POS = 822.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 408.0;
 	public final static double INTAKE_PICKUP_POS = 10.0;
-	public final static double INTAKE_VERTICAL_POS = 90.0;
+	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 45.0;
 
 	// OI constants
