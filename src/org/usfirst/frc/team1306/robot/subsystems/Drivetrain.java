@@ -5,6 +5,7 @@ import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.DriveTank;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -109,11 +110,13 @@ public class Drivetrain extends Subsystem {
 		 * master.reverseSensor(true);
 		 */
 		master.changeControlMode(TalonControlMode.PercentVbus);
+		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		master.set(0.0);
 		master.enable();
 
-		//slave.changeControlMode(TalonControlMode.Follower);
-		//slave.set(master.getDeviceID());
+		slave.changeControlMode(TalonControlMode.Follower);
+		slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		slave.set(master.getDeviceID());
 	}
 
 	/**
@@ -130,6 +133,8 @@ public class Drivetrain extends Subsystem {
 	public void shiftDown() {
 		leftShifter.set(DoubleSolenoid.Value.kForward);
 		rightShifter.set(DoubleSolenoid.Value.kForward);
+		leftMotor1.setProfile(0);
+		rightMotor1.setProfile(0);
 	}
 
 	/**
