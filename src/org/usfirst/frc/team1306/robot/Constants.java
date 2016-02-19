@@ -54,5 +54,6 @@ public class Constants {
 	// vision constants
 	public final static double VISION_PERIOD = 0.1;
 	public final static double DISTANCE_CONVERSION = 1.0; // placeholder
+	public final static double DEGREES_ABOVE_TARGET = 5.0;
 
 }
