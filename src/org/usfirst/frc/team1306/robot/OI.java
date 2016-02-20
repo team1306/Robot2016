@@ -7,6 +7,7 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
@@ -74,15 +75,18 @@ public class OI {
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
-		buttonB.whenPressed(new IntakeArmPickup());
+		buttonB.whenPressed(new IntakeArmVertical());
+		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new IntakeArmDown());
 		buttonX.whenPressed(new SpinUp());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new ResetTurret());
+		buttonY.whenPressed(new IntakeArmPickup());
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonStart.whenPressed(new HoodToggleTarget());
 		bumperL.whenPressed(new ResetTurret());
+		
 		bumperL.whenPressed(new Pass());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());

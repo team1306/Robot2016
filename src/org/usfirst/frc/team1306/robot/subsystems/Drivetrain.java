@@ -56,6 +56,8 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
+		leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
+		rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
 		leftMotor1.set(-1.0 * leftVel);
 		rightMotor1.set(rightVel);
 	}

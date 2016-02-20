@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeArm extends Subsystem {
 
 	/** The talon that lifts the left side of the arm. */
-	private final CANTalon leftMotor;
+	private final CANTalon motor;
 	/** The talon that lifts the right side of the arm. */
-	private final CANTalon rightMotor;
+	private final CANTalon slave;
 
 	/**
 	 * Constructs a new IntakeArm with two motors. Each Talon is connected to a
@@ -29,16 +29,14 @@ public class IntakeArm extends Subsystem {
 	 */
 	public IntakeArm() {
 
-		leftMotor = new CANTalon(RobotMap.intakeLeftMotorPort);
-		rightMotor = new CANTalon(RobotMap.intakeRightMotorPort);
-		leftMotor.enableBrakeMode(false);
-		rightMotor.enableBrakeMode(false);
-		leftMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
-		rightMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
-		leftMotor.changeControlMode(TalonControlMode.Position);
-		rightMotor.changeControlMode(TalonControlMode.Position);
-		leftMotor.enable();
-		rightMotor.enable();
+		motor = new CANTalon(RobotMap.intakeLeftMotorPort);
+		slave = new CANTalon(RobotMap.intakeRightMotorPort);
+		motor.setFeedbackDevice(FeedbackDevice.AnalogPot);
+		motor.changeControlMode(TalonControlMode.Position);
+		motor.enable();
+		slave.changeControlMode(TalonControlMode.Follower);
+		slave.set(motor.getDeviceID());
+		slave.reverseOutput(true);
 		setPosition(getPosition());
 
 	}
@@ -59,41 +57,36 @@ public class IntakeArm extends Subsystem {
 	 *            The new setpoint for the arm.
 	 */
 	public void setPosition(double angle) {
-		leftMotor.changeControlMode(TalonControlMode.Position);
-		rightMotor.changeControlMode(TalonControlMode.Position);
-		leftMotor.enableBrakeMode(true);
-		rightMotor.enableBrakeMode(true);
-		leftMotor.set(Constants.INTAKE_LEFT_ARM_0_POS
-				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0);
-		rightMotor.set(Constants.INTAKE_RIGHT_ARM_0_POS
-				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
-	}
-
-	public double getLeftPosition() {
-		return 90.0 * (leftMotor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
-				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
-	}
-
-	public double getRightPosition() {
-		return 90.0 * (rightMotor.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
-				/ (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS);
+		motor.changeControlMode(TalonControlMode.Position);
+		motor.enableBrakeMode(true);
+		double left = Constants.INTAKE_LEFT_ARM_0_POS
+				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0;
+//		double right = -(Constants.INTAKE_RIGHT_ARM_0_POS
+//				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
+//		motor.set((left + right) / 2.0);
+		motor.set(left);
 	}
 
 	public double getPosition() {
-		return (getLeftPosition() + getRightPosition()) / 2.0;
+		double left = 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
+				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
+//		double right = 90.0 * (slave.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
+//				/ (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS);
+//		return (left + right) / 2.0;
+		return left;
 	}
 
 	public void releaseBrakes() {
-		leftMotor.enableBrakeMode(false);
-		rightMotor.enableBrakeMode(false);
-		leftMotor.changeControlMode(TalonControlMode.PercentVbus);
-		rightMotor.changeControlMode(TalonControlMode.PercentVbus);
-		leftMotor.set(0.0);
-		rightMotor.set(0.0);
+		motor.enableBrakeMode(false);
+		slave.enableBrakeMode(false);
+		motor.changeControlMode(TalonControlMode.PercentVbus);
+		slave.changeControlMode(TalonControlMode.PercentVbus);
+		motor.set(0.0);
+		slave.set(0.0);
 	}
 
 	public double getCurrent() {
-		return leftMotor.getOutputCurrent() + rightMotor.getOutputCurrent();
+		return motor.getOutputCurrent() + slave.getOutputCurrent();
 	}
 
 }

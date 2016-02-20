@@ -42,8 +42,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 
-		SmartDashboard.putNumber("intake arm left", intakeArm.getLeftPosition());
-		SmartDashboard.putNumber("intake arm right", intakeArm.getRightPosition());
+		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
+		SmartDashboard.putNumber("intake arm current", intakeArm.getCurrent());
 
 		VisionData data = Vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());
