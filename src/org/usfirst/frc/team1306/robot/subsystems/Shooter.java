@@ -30,7 +30,7 @@ public class Shooter extends Subsystem {
 		flywheel.reverseOutput(true);
 		flywheel.reverseSensor(true);
 
-		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		flywheel.setFeedbackDevice(FeedbackDevice.EncRising);
 		flywheel.setSafetyEnabled(false);
 		flywheel.changeControlMode(TalonControlMode.PercentVbus);
 		flywheel.enableBrakeMode(false);
