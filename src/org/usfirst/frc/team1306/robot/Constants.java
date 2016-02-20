@@ -40,11 +40,11 @@ public class Constants {
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
 	// intake arm constants
-	public final static double INTAKE_LEFT_ARM_0_POS = 65.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 493.0;
-	public final static double INTAKE_RIGHT_ARM_0_POS = 822.0;
-	public final static double INTAKE_RIGHT_ARM_90_POS = 408.0;
-	public final static double INTAKE_PICKUP_POS = 10.0;
+	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 513.0;
+	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
+	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
+	public final static double INTAKE_PICKUP_POS = 5.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 45.0;
 

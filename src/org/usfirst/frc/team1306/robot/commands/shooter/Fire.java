@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.commands.shooter;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * A Command to fire a ball. This command assumes that the shooter has already
  * spun up. Running this command will then use the indexer to push the ball into
@@ -15,6 +17,7 @@ public class Fire extends CommandBase {
 
 	/** A variable to track whether or not the ball has been pulled in. */
 	private boolean fired;
+	private double initTimestamp;
 
 	/**
 	 * Constructs a new Fire Command. It runs both the shooter and the indexer,
@@ -31,6 +34,7 @@ public class Fire extends CommandBase {
 	 */
 	protected void initialize() {
 		fired = false;
+		initTimestamp = Timer.getFPGATimestamp();
 		shooter.spinUp();
 		indexer.driveMotor();
 	}
@@ -43,10 +47,10 @@ public class Fire extends CommandBase {
 	protected void execute() {
 		shooter.spinUp();
 		indexer.driveMotor();
-		if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
-			indexer.stop();
-			fired = true;
-		}
+//		if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
+//			indexer.stop();
+//			fired = true;
+//		}
 	}
 
 	/**
@@ -55,7 +59,8 @@ public class Fire extends CommandBase {
 	 * speed.
 	 */
 	protected boolean isFinished() {
-		return fired && shooter.onTarget();
+//		return fired && shooter.onTarget();
+		return Timer.getFPGATimestamp() - initTimestamp > 3.0;
 	}
 
 	/**

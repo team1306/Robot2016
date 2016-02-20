@@ -19,6 +19,9 @@ public class Pass extends CommandBase {
     	}
     	intake.reverse();
     	indexer.reverse();
+//    	if (intake.getCurrentCommand().isRunning() && intake.getCurrentCommand() instanceof Pass) {
+//    		new StopRoll().start();
+//    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
