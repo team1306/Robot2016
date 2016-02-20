@@ -49,11 +49,14 @@ public class Target extends CommandBase {
 			turret.disable();
 			turret.setVel(oi.getTurretVel());
 		}
+		SmartDashboard.putBoolean("can see target", Vision.canSeeTarget());
+		SmartDashboard.putBoolean("aiming low", hood.isAimingLow());
+		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
 		if ((Vision.canSeeTarget() || hood.isAimingLow()) && !oi.getHoodOverride()) {
 			if (hood.isAimingLow()) {
 				hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
 			} else {
-				hood.setHeight(Vision.getData().getPitch());
+				hood.setHeight(Vision.getData().getPitch() + Constants.DEGREES_ABOVE_TARGET);
 			}
 		} else {
 			hood.setVel(oi.getHoodVel());

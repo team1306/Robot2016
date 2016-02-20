@@ -12,7 +12,7 @@ public class ToggleTusks extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.toggleTuskState();
+//    	intake.toggleTuskState();
     }
 
     // Called repeatedly when this Command is scheduled to run

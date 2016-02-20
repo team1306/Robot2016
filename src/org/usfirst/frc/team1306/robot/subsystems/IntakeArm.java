@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A Subsystem that controls the intake arm. This arm can be lowered, allowing
@@ -36,10 +37,9 @@ public class IntakeArm extends Subsystem {
 		rightMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		leftMotor.changeControlMode(TalonControlMode.Position);
 		rightMotor.changeControlMode(TalonControlMode.Position);
-		leftMotor.set(leftMotor.get());
-		rightMotor.set(rightMotor.get());
 		leftMotor.enable();
 		rightMotor.enable();
+		setPosition(getPosition());
 
 	}
 
@@ -69,12 +69,18 @@ public class IntakeArm extends Subsystem {
 				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
 	}
 
-	public double getPosition() {
-		double left = 90.0 * (leftMotor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
+	public double getLeftPosition() {
+		return 90.0 * (leftMotor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
 				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
-		double right = 90.0 * (rightMotor.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
+	}
+
+	public double getRightPosition() {
+		return 90.0 * (rightMotor.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
 				/ (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS);
-		return (right + left) / 2.0;
+	}
+
+	public double getPosition() {
+		return (getLeftPosition() + getRightPosition()) / 2.0;
 	}
 
 	public void releaseBrakes() {

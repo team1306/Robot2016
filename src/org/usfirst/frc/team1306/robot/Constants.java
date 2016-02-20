@@ -11,7 +11,7 @@ public class Constants {
 	// drive constants
 	// measured in encoder ticks per 1ms^2
 	public final static double MAX_ACCELERATION = 0.01;
-	public final static double MAX_SPEED = 1.0; // placeholder
+	public final static double MAX_SPEED = 7000; // placeholder
 
 	// turret constants
 	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
@@ -23,13 +23,13 @@ public class Constants {
 	public final static double TURRET_D = 0.0;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 0.7; // placeholder
+	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
 	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
 
 	// hood constants
-	public final static double HOOD_0_POS = 0.0; // placeholder
-	public final static double HOOD_90_POS = 1.0; // placeholder;
-	public final static double HOOD_LOW_GOAL_POSITION = 10.0; // placeholder
+	public final static double HOOD_0_POS = 5.0; // placeholder
+	public final static double HOOD_90_POS = 524.0; // placeholder;
+	public final static double HOOD_LOW_GOAL_POSITION = 45.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 
 	// indexer constants
@@ -40,12 +40,12 @@ public class Constants {
 	public final static double TUSK_LENGTH = 5.0; // placeholder
 
 	// intake arm constants
-	public final static double INTAKE_LEFT_ARM_0_POS = 65.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 493.0;
-	public final static double INTAKE_RIGHT_ARM_0_POS = 822.0;
-	public final static double INTAKE_RIGHT_ARM_90_POS = 408.0;
-	public final static double INTAKE_PICKUP_POS = 10.0;
-	public final static double INTAKE_VERTICAL_POS = 90.0;
+	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 513.0;
+	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
+	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
+	public final static double INTAKE_PICKUP_POS = 5.0;
+	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 45.0;
 
 	// OI constants
@@ -53,4 +53,7 @@ public class Constants {
 
 	// vision constants
 	public final static double VISION_PERIOD = 0.1;
+	public final static double DISTANCE_CONVERSION = 1.0; // placeholder
+	public final static double DEGREES_ABOVE_TARGET = 5.0;
+
 }

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1306.robot.vision;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -80,10 +79,11 @@ public class Vision {
 				String[] numbers = data.split(",");
 				pitch = Double.parseDouble(numbers[0]);
 				yaw = Double.parseDouble(numbers[1]);
-				distance = Double.parseDouble(numbers[2]);
+				distance = 1 / pitch;
 
 				// convert units
 				yaw = -yaw / 10;
+				distance = distance * Constants.DISTANCE_CONVERSION;
 			} else {
 				isConnected = false;
 				if (connectionTimer.hasPeriodPassed(1.0)) {
