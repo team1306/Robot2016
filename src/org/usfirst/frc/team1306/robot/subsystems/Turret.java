@@ -6,6 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -86,19 +87,21 @@ public class Turret extends PIDSubsystem {
 	 *         can't be seen.
 	 */
 	protected double returnPIDInput() {
+		SmartDashboard.putNumber("returning pid input", Timer.getFPGATimestamp());
 		double yaw = Vision.getData().getYaw();
-		boolean inRange = Vision.canSeeTarget();
-		if (inRange) {
+//		boolean inRange = Vision.canSeeTarget();
+//		if (inRange) {
 			return -yaw;
-		} else {
-			return getSetpoint();
-		}
+//		} else {
+//			return getSetpoint();
+//		}
 	}
 
 	/**
 	 * Sets the velocity of the turret based on the output of the PID loop.
 	 */
 	protected void usePIDOutput(double output) {
+		SmartDashboard.putNumber("using pid output", Timer.getFPGATimestamp());
 		setVel(output);
 	}
 }

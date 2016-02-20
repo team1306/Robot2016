@@ -68,6 +68,10 @@ public class Shooter extends Subsystem {
 	public double getSpeed() {
 		return flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
 	}
+	
+	public double getCurrent() {
+		return flywheel.getOutputCurrent();
+	}
 
 	/**
 	 * Return whether or not the measured speed is within tolerance of our

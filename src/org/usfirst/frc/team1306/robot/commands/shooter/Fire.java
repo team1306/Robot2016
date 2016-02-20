@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands.shooter;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -16,8 +17,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class Fire extends CommandBase {
 
 	/** A variable to track whether or not the ball has been pulled in. */
-	private boolean fired;
-	private double initTimestamp;
+	// private boolean fired;
+	private Timer timer;
 
 	/**
 	 * Constructs a new Fire Command. It runs both the shooter and the indexer,
@@ -33,8 +34,8 @@ public class Fire extends CommandBase {
 	 * the shooter keeps spinning and begins driving the indexer.
 	 */
 	protected void initialize() {
-		fired = false;
-		initTimestamp = Timer.getFPGATimestamp();
+		timer = new Timer();
+		// fired = false;
 		shooter.spinUp();
 		indexer.driveMotor();
 	}
@@ -47,10 +48,10 @@ public class Fire extends CommandBase {
 	protected void execute() {
 		shooter.spinUp();
 		indexer.driveMotor();
-//		if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
-//			indexer.stop();
-//			fired = true;
-//		}
+		// if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
+		// indexer.stop();
+		// fired = true;
+		// }
 	}
 
 	/**
@@ -59,8 +60,8 @@ public class Fire extends CommandBase {
 	 * speed.
 	 */
 	protected boolean isFinished() {
-//		return fired && shooter.onTarget();
-		return Timer.getFPGATimestamp() - initTimestamp > 3.0;
+		// return fired && shooter.onTarget();
+		return timer.hasPeriodPassed(2.0);
 	}
 
 	/**
@@ -68,7 +69,9 @@ public class Fire extends CommandBase {
 	 * after firing.
 	 */
 	protected void end() {
+		indexer.stop();
 		shooter.spinDown();
+		new ResetTurret().start();
 	}
 
 	/**

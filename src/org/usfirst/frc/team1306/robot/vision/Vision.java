@@ -123,7 +123,7 @@ public class Vision {
 	 * @return true if a target is detected, otherwise false
 	 */
 	public static boolean canSeeTarget() {
-		return getData().getDistance() > 0.01;
+		return recentData != null && recentData.getDistance() > 0.0;
 	}
 
 	// TODO put these constants in Constants

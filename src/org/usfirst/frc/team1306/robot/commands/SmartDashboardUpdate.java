@@ -41,6 +41,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("has ball", indexer.hasBall());
 		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
+		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
 		SmartDashboard.putNumber("intake arm current", intakeArm.getCurrent());
