@@ -40,7 +40,9 @@ public class OI {
 	private final Button buttonX;
 	private final Button buttonY;
 	private final Button buttonStart;
+	private final Button buttonBack;
 	private final Button bumperL;
+	private final Button bumperR;
 	private final Trigger dPadUp;
 	private final Trigger dPadRight;
 	private final Trigger dPadDown;
@@ -61,7 +63,9 @@ public class OI {
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
 		buttonStart = new JoystickButton(xbox, XboxController.START);
+		buttonBack = new JoystickButton(xbox, XboxController.BACK);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
+		bumperR = new JoystickButton(xbox, XboxController.RB);
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
@@ -75,7 +79,6 @@ public class OI {
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
-		buttonB.whenPressed(new IntakeArmVertical());
 		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new IntakeArmDown());
@@ -85,9 +88,13 @@ public class OI {
 		buttonY.whenPressed(new IntakeArmPickup());
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonStart.whenPressed(new HoodToggleTarget());
-		bumperL.whenPressed(new ResetTurret());
-		
-		bumperL.whenPressed(new Pass());
+		buttonBack.whenPressed(new ResetTurret());
+		buttonBack.whenPressed(new Pass());
+//		bumperL.whenPressed(new ResetTurret());
+//		
+//		bumperL.whenPressed(new Pass());
+		bumperL.whenPressed(new ShiftDown());
+		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
 		dPadDown.whenActive(new IntakeArmDown());
