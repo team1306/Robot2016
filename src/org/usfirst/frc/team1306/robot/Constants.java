@@ -19,7 +19,7 @@ public class Constants {
 	public final static double TURRET_TOLERANCE = 0.0; // placeholder
 
 	public final static double TURRET_P = 0.02;
-	public final static double TURRET_I = 0.001; // 0.001
+	public final static double TURRET_I = 0.0; // 0.001
 	public final static double TURRET_D = 0.0;
 
 	// shooter constants
