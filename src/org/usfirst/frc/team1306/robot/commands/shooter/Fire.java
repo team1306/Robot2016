@@ -35,6 +35,7 @@ public class Fire extends CommandBase {
 	 */
 	protected void initialize() {
 		timer = new Timer();
+		timer.start();
 		// fired = false;
 		shooter.spinUp();
 		indexer.driveMotor();

@@ -21,6 +21,9 @@ public class Constants {
 	public final static double TURRET_P = 0.02;
 	public final static double TURRET_I = 0.0; // 0.001
 	public final static double TURRET_D = 0.0;
+	
+	public final static double TURRET_EDGE = 12000;
+	public final static double TURRET_SCAN_THRESHOLD = 11000;
 
 	// shooter constants
 	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
@@ -47,6 +50,7 @@ public class Constants {
 	public final static double INTAKE_PICKUP_POS = 5.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 15.0;
+	public final static double INTAKE_DOWN_POS = -15.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;

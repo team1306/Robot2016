@@ -1,20 +1,22 @@
-package org.usfirst.frc.team1306.robot.commands.intake;
+package org.usfirst.frc.team1306.robot.commands.autonomous;
 
-import org.usfirst.frc.team1306.robot.Constants;
-import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class IntakeArmDown extends CommandBase {
+public class WaitFiveSeconds extends Command {
+	
+	private Timer timer;
 
-	public IntakeArmDown() {
-		requires(intakeArm);
+	public WaitFiveSeconds() {
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		intakeArm.setPosition(Constants.INTAKE_DOWN_POS);
+		timer = new Timer();
+		timer.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -23,7 +25,7 @@ public class IntakeArmDown extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return timer.hasPeriodPassed(5.0);
 	}
 
 	// Called once after isFinished returns true

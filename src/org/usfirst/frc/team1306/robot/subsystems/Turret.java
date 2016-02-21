@@ -64,8 +64,28 @@ public class Turret extends PIDSubsystem {
 	 *            The intended heading of the turret relative to the robot.
 	 */
 	public void setTurretForward() {
+		setPosition(0.0);
+	}
+	
+	public void setRight() {
+		setPosition(Constants.TURRET_EDGE);
+	}
+	
+	public void setLeft() {
+		setPosition(-Constants.TURRET_EDGE);
+	}
+	
+	public boolean isRight() {
+		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
+	}
+	
+	public boolean isLeft() {
+		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
+	}
+	
+	private void setPosition(double position) {
 		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(0.0);
+		turretTalon.set(position);
 		turretTalon.enable();
 	}
 
