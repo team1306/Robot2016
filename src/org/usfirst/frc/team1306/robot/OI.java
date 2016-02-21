@@ -81,8 +81,8 @@ public class OI {
 		buttonA.whenPressed(new Fire());
 		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
-		buttonX.whenPressed(new IntakeArmDown());
-		buttonX.whenPressed(new SpinUp());
+//		buttonX.whenPressed(new IntakeArmDown());
+//		buttonX.whenPressed(new SpinUp());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new IntakeArmPickup());

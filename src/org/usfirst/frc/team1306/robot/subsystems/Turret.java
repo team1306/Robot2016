@@ -2,13 +2,13 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.commands.turret.TurretPIDHelp;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,14 +29,14 @@ public class Turret extends PIDSubsystem {
 	 */
 	public Turret() {
 		super("Turret PID", Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);
-		setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
+		//setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
 
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.enableBrakeMode(false);
 		setSetpoint(0.0);
-		enable();
+		//enable();
 	}
 
 	/**
@@ -102,6 +102,7 @@ public class Turret extends PIDSubsystem {
 	 */
 	protected void usePIDOutput(double output) {
 		SmartDashboard.putNumber("using pid output", Timer.getFPGATimestamp());
-		setVel(output);
+		turretTalon.set(output);
+		//setVel(output);
 	}
 }

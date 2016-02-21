@@ -48,6 +48,7 @@ public class Target extends CommandBase {
 		SmartDashboard.putBoolean("canSeeTarget", canSeeTarget);
 //		if (canSeeTarget && !oi.getTurretOverrride()) {
 			turret.enable();
+			turret.setSetpoint(0.0);
 //		} else {
 //			turret.disable();
 //			turret.setVel(oi.getTurretVel());
