@@ -44,14 +44,13 @@ public class Target extends CommandBase {
 	 */
 	protected void execute() {
 		boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
-		SmartDashboard.putBoolean("canSeeTarget", canSeeTarget);
-//		if (canSeeTarget && !oi.getTurretOverrride()) {
+		if (canSeeTarget && !oi.getTurretOverrride()) {
 			turret.enable();
 			turret.setSetpoint(0.0);
-//		} else {
-//			turret.disable();
-//			turret.setVel(oi.getTurretVel());
-//		}
+		} else {
+			turret.disable();
+			turret.setVel(oi.getTurretVel());
+		}
 		SmartDashboard.putBoolean("aiming low", hood.isAimingLow());
 		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
 		if (hood.isAimingLow()) {
@@ -86,6 +85,7 @@ public class Target extends CommandBase {
 	 * transfers control, so no new target needs to be set.
 	 */
 	protected void interrupted() {
+		turret.disable();
 		end();
 	}
 }

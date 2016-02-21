@@ -79,7 +79,6 @@ public class Turret extends PIDSubsystem {
 	 *         can't be seen.
 	 */
 	protected double returnPIDInput() {
-		SmartDashboard.putNumber("returning pid input", Timer.getFPGATimestamp());
 		double yaw = Vision.getData().getYaw();
 //		boolean inRange = Vision.canSeeTarget();
 //		if (inRange) {
@@ -93,7 +92,6 @@ public class Turret extends PIDSubsystem {
 	 * Sets the velocity of the turret based on the output of the PID loop.
 	 */
 	protected void usePIDOutput(double output) {
-		SmartDashboard.putNumber("using pid output", Timer.getFPGATimestamp());
 		turretTalon.set(output);
 		//setVel(output);
 	}
