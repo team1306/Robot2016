@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Indexer extends Subsystem {
     
     private final SpeedController motor;
-    private final DigitalInput ballSwitch;
+    private final DigitalInput ballSwitch1;
+    private final DigitalInput ballSwitch2;
     
     public Indexer() {
     	motor = new Talon(RobotMap.indexerPort);
     	motor.setInverted(true);
-    	ballSwitch = new DigitalInput(RobotMap.indexerLimitPort);
+    	ballSwitch1 = new DigitalInput(RobotMap.indexerLimitPort1);
+    	ballSwitch2 = new DigitalInput(RobotMap.indexerLimitPort2);
     }
 
     public void initDefaultCommand() {
@@ -40,7 +42,7 @@ public class Indexer extends Subsystem {
     }
     
     public boolean hasBall() {
-    	return !ballSwitch.get();
+    	return !ballSwitch1.get() || ballSwitch2.get();
     }
 }
 
