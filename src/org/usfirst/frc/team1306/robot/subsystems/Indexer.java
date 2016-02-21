@@ -42,7 +42,7 @@ public class Indexer extends Subsystem {
     }
     
     public boolean hasBall() {
-    	return !ballSwitch1.get() || ballSwitch2.get();
+    	return !ballSwitch1.get() || !ballSwitch2.get();
     }
 }
 
