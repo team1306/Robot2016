@@ -53,7 +53,7 @@ public class Hood extends Subsystem {
 		SmartDashboard.putNumber("hood set height", position);
 		SmartDashboard.putNumber("hood error", hoodTalon.getError());
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0);
+		hoodTalon.set(safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
 
 	public double getHeight() {
@@ -84,6 +84,10 @@ public class Hood extends Subsystem {
 	public boolean onTarget() {
 		return hoodTalon.getControlMode().equals(TalonControlMode.Position)
 				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE;
+	}
+	
+	private double safetyCheck(double input) {
+		return Math.min(Math.max(input, Constants.HOOD_0_POS), Constants.HOOD_90_POS);
 	}
 
 }
