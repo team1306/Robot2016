@@ -1,11 +1,15 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The turret that controls the heading of the shooter relative to the robot.
@@ -14,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  * @author Finn Voichick, James Tautges
  */
-public class Turret extends Subsystem {
+public class Turret extends PIDSubsystem {
 
 	private final CANTalon turretTalon;
 
@@ -23,11 +27,15 @@ public class Turret extends Subsystem {
 	 * feedback.
 	 */
 	public Turret() {
+		super("Turret PID", Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);
+		//setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
 
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.enableBrakeMode(false);
+		setSetpoint(0.0);
+		//enable();
 	}
 
 	/**
@@ -61,4 +69,32 @@ public class Turret extends Subsystem {
 		turretTalon.enable();
 	}
 
+	/**
+	 * Gets the input from the camera that gives the angle of the target
+	 * relative to the current position. This is the difference between the
+	 * intended position and the current position. Because this is already the
+	 * error, the setpoint stays at zero.
+	 * 
+	 * @return The position of the target relative to the robot, or 0.0 if it
+	 *         can't be seen.
+	 */
+	protected double returnPIDInput() {
+		SmartDashboard.putNumber("returning pid input", Timer.getFPGATimestamp());
+		double yaw = Vision.getData().getYaw();
+//		boolean inRange = Vision.canSeeTarget();
+//		if (inRange) {
+			return -yaw;
+//		} else {
+//			return getSetpoint();
+//		}
+	}
+
+	/**
+	 * Sets the velocity of the turret based on the output of the PID loop.
+	 */
+	protected void usePIDOutput(double output) {
+		SmartDashboard.putNumber("using pid output", Timer.getFPGATimestamp());
+		turretTalon.set(output);
+		//setVel(output);
+	}
 }
