@@ -73,7 +73,7 @@ public class Hood extends Subsystem {
 
 	public void setVel(double velocity) {
 		hoodTalon.changeControlMode(TalonControlMode.PercentVbus);
-		hoodTalon.set(velocity);
+		hoodTalon.set(-velocity);
 	}
 
 	/**
