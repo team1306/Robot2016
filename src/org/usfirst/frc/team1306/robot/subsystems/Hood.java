@@ -55,6 +55,17 @@ public class Hood extends Subsystem {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
+	
+	public void setDistance(double distance) {
+		hoodTalon.changeControlMode(TalonControlMode.Position);
+		double angle;
+		if (distance <= 8.0) {
+			angle = 2.75708 * Math.pow(distance, 2) - 44.14092 * distance + 516.94793;
+		} else {
+			angle = 350;
+		}
+		hoodTalon.set(safetyCheck(angle));
+	}
 
 	public double getHeight() {
 		return 90.0 * (hoodTalon.getPosition() - Constants.HOOD_0_POS) / (Constants.HOOD_90_POS - Constants.HOOD_0_POS);

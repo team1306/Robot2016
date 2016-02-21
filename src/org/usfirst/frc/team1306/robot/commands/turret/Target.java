@@ -55,11 +55,12 @@ public class Target extends CommandBase {
 		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
 //		if (hood.isAimingLow()) {
 //			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-//		} else if (canSeeTarget && !oi.getHoodOverride()) {
-//			hood.setHeight(Vision.getData().getPitch() + Constants.DEGREES_ABOVE_TARGET);
-//		} else {
+//		} 
+		if (canSeeTarget && !oi.getHoodOverride()) {
+			hood.setDistance(Vision.getData().getPitch());
+		} else {
 			hood.setVel(oi.getHoodVel());
-//		}
+		}
 	}
 
 	/**
