@@ -19,7 +19,7 @@ public class Constants {
 	public final static double TURRET_TOLERANCE = 0.0; // placeholder
 
 	public final static double TURRET_P = 0.02;
-	public final static double TURRET_I = 0.0; // 0.001
+	public final static double TURRET_I = 0.001; // 0.001
 	public final static double TURRET_D = 0.0;
 	
 	public final static double TURRET_EDGE = 12000;
@@ -31,7 +31,7 @@ public class Constants {
 
 	// hood constants
 	public final static double HOOD_0_POS = 5.0; // placeholder
-	public final static double HOOD_90_POS = 747.0; // placeholder;
+	public final static double HOOD_90_POS = 714.0; // placeholder;
 	public final static double HOOD_LOW_GOAL_POSITION = 45.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 
@@ -44,13 +44,13 @@ public class Constants {
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 513.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 540.0;
 	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
 	public final static double INTAKE_PICKUP_POS = 5.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 15.0;
-	public final static double INTAKE_DOWN_POS = -15.0;
+	public final static double INTAKE_DOWN_POS = 10.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
