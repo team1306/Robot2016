@@ -27,8 +27,8 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
 
-		flywheel.reverseOutput(true);
-		flywheel.reverseSensor(true);
+//		flywheel.reverseOutput(false);
+//		flywheel.reverseSensor(true);
 
 		flywheel.setFeedbackDevice(FeedbackDevice.EncRising);
 		flywheel.setSafetyEnabled(false);
@@ -47,14 +47,14 @@ public class Shooter extends Subsystem {
 	 *            Speed to set the Talon
 	 */
 	public void set(double speed) {
-		flywheel.set(Math.abs(speed) * Constants.SHOOTER_MAX_SPEED);
+		flywheel.set(speed * Constants.SHOOTER_MAX_SPEED);
 	}
 
 	/**
 	 * Set the Talon to full speed
 	 */
 	public void spinUp() {
-		set(0.9);
+		set(-0.9);
 		SmartDashboard.putNumber("flywheel enc", flywheel.getEncVelocity());
 	}
 
