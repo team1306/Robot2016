@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.intake.Pass;
@@ -81,7 +81,7 @@ public class OI {
 		buttonA.whenPressed(new Fire());
 		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
-		buttonX.whenPressed(new IntakeArmDown());
+		buttonX.whenPressed(new IntakeArmRest());
 		buttonX.whenPressed(new SpinUp());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new ResetTurret());
@@ -97,7 +97,7 @@ public class OI {
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
-		dPadDown.whenActive(new IntakeArmDown());
+		dPadDown.whenActive(new IntakeArmRest());
 
 		buttonA2.whenPressed(new SpinUp());
 		buttonB2.whenPressed(new Fire());

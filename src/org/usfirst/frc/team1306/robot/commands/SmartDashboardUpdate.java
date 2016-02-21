@@ -45,6 +45,8 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
 		SmartDashboard.putNumber("intake arm current", intakeArm.getCurrent());
+		
+		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 
 		VisionData data = Vision.getData();
 		SmartDashboard.putNumber("latera", data.getYaw());

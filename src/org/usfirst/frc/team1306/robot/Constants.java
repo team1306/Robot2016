@@ -28,7 +28,7 @@ public class Constants {
 
 	// hood constants
 	public final static double HOOD_0_POS = 5.0; // placeholder
-	public final static double HOOD_90_POS = 524.0; // placeholder;
+	public final static double HOOD_90_POS = 747.0; // placeholder;
 	public final static double HOOD_LOW_GOAL_POSITION = 45.0; // placeholder
 	public final static double HOOD_TOLERANCE = 1.0; // placeholder
 

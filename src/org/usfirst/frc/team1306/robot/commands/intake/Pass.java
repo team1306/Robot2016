@@ -14,7 +14,7 @@ public class Pass extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (intakeArm.getCurrentCommand() instanceof IntakeArmDown) {
+    	if (intakeArm.getCurrentCommand() instanceof IntakeArmRest) {
     		new IntakeArmPickup().start();
     	}
     	intake.reverse();
