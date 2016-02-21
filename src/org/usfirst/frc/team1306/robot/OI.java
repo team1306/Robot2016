@@ -2,8 +2,9 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
+import org.usfirst.frc.team1306.robot.triggers.DPadLeft;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
 
@@ -45,6 +47,7 @@ public class OI {
 	private final Button bumperR;
 	private final Trigger dPadUp;
 	private final Trigger dPadRight;
+	private final Trigger dPadLeft;
 	private final Trigger dPadDown;
 
 	private final Button buttonA2;
@@ -75,6 +78,7 @@ public class OI {
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
+		dPadLeft = new DPadLeft(xbox);
 		dPadDown = new DPadDown(xbox);
 
 		// Bind input devices to commands
@@ -82,7 +86,7 @@ public class OI {
 		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new IntakeArmRest());
-		//buttonX.whenPressed(new SpinUp());
+		buttonX.whenPressed(new SpinUp());
 		buttonX.whenPressed(new Target());
 		buttonY.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new IntakeArmPickup());
@@ -97,6 +101,7 @@ public class OI {
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
 		dPadRight.whenActive(new IntakeArmPickup());
+		dPadLeft.whenActive(new IntakeArmDown());
 		dPadDown.whenActive(new IntakeArmRest());
 
 		buttonA2.whenPressed(new SpinUp());
