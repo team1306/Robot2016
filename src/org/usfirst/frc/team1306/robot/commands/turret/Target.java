@@ -53,13 +53,13 @@ public class Target extends CommandBase {
 		}
 		SmartDashboard.putBoolean("aiming low", hood.isAimingLow());
 		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
-		if (hood.isAimingLow()) {
-			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-		} else if (canSeeTarget && !oi.getHoodOverride()) {
-			hood.setHeight(Vision.getData().getPitch() + Constants.DEGREES_ABOVE_TARGET);
-		} else {
+//		if (hood.isAimingLow()) {
+//			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+//		} else if (canSeeTarget && !oi.getHoodOverride()) {
+//			hood.setHeight(Vision.getData().getPitch() + Constants.DEGREES_ABOVE_TARGET);
+//		} else {
 			hood.setVel(oi.getHoodVel());
-		}
+//		}
 	}
 
 	/**
