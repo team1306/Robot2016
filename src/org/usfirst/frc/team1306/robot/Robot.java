@@ -3,7 +3,6 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
-import org.usfirst.frc.team1306.robot.commands.TalonTest;
 import org.usfirst.frc.team1306.robot.commands.autonomous.DriveAimShoot;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 

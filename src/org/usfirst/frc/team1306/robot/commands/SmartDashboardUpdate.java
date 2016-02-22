@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
 import org.usfirst.frc.team1306.robot.vision.Vision;
-import org.usfirst.frc.team1306.robot.vision.VisionData;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
