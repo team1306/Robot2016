@@ -18,7 +18,7 @@ public class Constants {
 	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
 	public final static double TURRET_TOLERANCE = 0.0; // placeholder
 
-	public final static double TURRET_P = 0.02;
+	public final static double TURRET_P = 0.015;
 	public final static double TURRET_I = 0.001; // 0.001
 	public final static double TURRET_D = 0.0;
 	
@@ -47,10 +47,10 @@ public class Constants {
 	public final static double INTAKE_LEFT_ARM_90_POS = 540.0;
 	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
-	public final static double INTAKE_PICKUP_POS = 5.0;
+	public final static double INTAKE_PICKUP_POS = 10.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 15.0;
-	public final static double INTAKE_DOWN_POS = 10.0;
+	public final static double INTAKE_DOWN_POS = -20.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;

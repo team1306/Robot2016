@@ -118,14 +118,15 @@ public class Drivetrain extends Subsystem {
 		slave.changeControlMode(TalonControlMode.Follower);
 		slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		slave.set(master.getDeviceID());
+		slave.enable();
 	}
 
 	/**
 	 * Put both motors into high gear
 	 */
 	public void shiftUp() {
-		leftShifter.set(DoubleSolenoid.Value.kReverse);
-		rightShifter.set(DoubleSolenoid.Value.kReverse);
+		leftShifter.set(DoubleSolenoid.Value.kForward);
+		rightShifter.set(DoubleSolenoid.Value.kForward);
 		leftMotor1.setProfile(1);
 		rightMotor1.setProfile(1);
 	}
@@ -134,8 +135,8 @@ public class Drivetrain extends Subsystem {
 	 * Put both motors into low gear
 	 */
 	public void shiftDown() {
-		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
+		leftShifter.set(DoubleSolenoid.Value.kReverse);
+		rightShifter.set(DoubleSolenoid.Value.kReverse);
 		leftMotor1.setProfile(0);
 		rightMotor1.setProfile(0);
 	}

@@ -54,7 +54,7 @@ public class Shooter extends Subsystem {
 	 * Set the Talon to full speed
 	 */
 	public void spinUp() {
-		set(-0.9);
+		set(-1.0);
 		SmartDashboard.putNumber("flywheel enc", flywheel.getEncVelocity());
 	}
 

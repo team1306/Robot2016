@@ -37,7 +37,8 @@ public class IntakeArm extends Subsystem {
 		slave.changeControlMode(TalonControlMode.Follower);
 		slave.set(motor.getDeviceID());
 		slave.reverseOutput(true);
-		setPosition(getPosition());
+		slave.enable();
+		//setPosition(getPosition());
 
 	}
 

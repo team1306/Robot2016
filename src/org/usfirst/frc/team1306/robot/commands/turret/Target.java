@@ -56,8 +56,13 @@ public class Target extends CommandBase {
 //		if (hood.isAimingLow()) {
 //			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
 //		} 
+//		if (!oi.getHoodOverride()) {
+//			hood.setHeight(45.0);
+//		} else {
+//			hood.setVel(oi.getHoodVel());
+//		}
 		if (canSeeTarget && !oi.getHoodOverride()) {
-			hood.setDistance(Vision.getData().getPitch());
+			hood.setDistance(Vision.getData().getDistance());
 		} else {
 			hood.setVel(oi.getHoodVel());
 		}

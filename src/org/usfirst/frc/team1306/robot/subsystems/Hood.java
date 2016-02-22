@@ -29,7 +29,7 @@ public class Hood extends Subsystem {
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(hoodTalon.get());
+		//hoodTalon.set(hoodTalon.get());
 		hoodTalon.enable();
 
 	}
@@ -60,10 +60,11 @@ public class Hood extends Subsystem {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		double angle;
 		if (distance <= 8.0) {
-			angle = 2.75708 * Math.pow(distance, 2) - 44.14092 * distance + 516.94793;
+			angle = 2.75708 * Math.pow(distance, 2) - 44.14092 * distance + 515;
 		} else {
-			angle = 350;
+			angle = 370;
 		}
+		SmartDashboard.putNumber("setting hood angle", angle);
 		hoodTalon.set(safetyCheck(angle));
 	}
 

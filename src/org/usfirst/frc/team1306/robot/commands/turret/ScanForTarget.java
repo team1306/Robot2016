@@ -17,15 +17,15 @@ public class ScanForTarget extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	turret.setRight();
+    	turret.setVel(0.2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (turret.isRight()) {
-    		turret.setLeft();
+    		turret.setVel(0.2);
     	} else if (turret.isLeft()) {
-    		turret.setRight();
+    		turret.setVel(-0.2);
     	}
     }
 

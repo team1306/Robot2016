@@ -25,11 +25,12 @@ public class DriveThreeSeconds extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	drivetrain.driveTank(0.75, 0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.hasPeriodPassed(3.0);
+        return timer.hasPeriodPassed(3.5);
     }
 
     // Called once after isFinished returns true
