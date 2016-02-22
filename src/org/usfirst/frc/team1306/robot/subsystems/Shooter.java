@@ -30,7 +30,7 @@ public class Shooter extends Subsystem {
 //		flywheel.reverseOutput(false);
 //		flywheel.reverseSensor(true);
 
-		flywheel.setFeedbackDevice(FeedbackDevice.EncRising);
+		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
 		flywheel.changeControlMode(TalonControlMode.PercentVbus);
 		flywheel.enableBrakeMode(false);
@@ -47,14 +47,14 @@ public class Shooter extends Subsystem {
 	 *            Speed to set the Talon
 	 */
 	public void set(double speed) {
-		flywheel.set(speed * Constants.SHOOTER_MAX_SPEED);
+		flywheel.set(-speed * Constants.SHOOTER_MAX_SPEED);
 	}
 
 	/**
 	 * Set the Talon to full speed
 	 */
 	public void spinUp() {
-		set(-1.0);
+		set(1.0);
 		SmartDashboard.putNumber("flywheel enc", flywheel.getEncVelocity());
 	}
 
