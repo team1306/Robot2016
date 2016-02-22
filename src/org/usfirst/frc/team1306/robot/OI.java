@@ -117,7 +117,7 @@ public class OI {
 	 * @return Y axis value of main right joystick
 	 */
 	public double getRightVel() {
-		return deadband(xbox.getY(Hand.kRight));
+		return Math.pow(deadband(xbox.getY(Hand.kRight)), Constants.JOYSTICK_POWER);
 	}
 
 	/**
@@ -127,11 +127,11 @@ public class OI {
 	 * @return Y axis value of main right joystick
 	 */
 	public double getLeftVel() {
-		return deadband(xbox.getY(Hand.kLeft));
+		return Math.pow(deadband(xbox.getY(Hand.kLeft)), Constants.JOYSTICK_POWER);
 	}
 
 	public double getStraightVel() {
-		return xbox.getRT() - xbox.getLT();
+		return Math.pow(xbox.getRT() - xbox.getLT(), Constants.JOYSTICK_POWER);
 	}
 
 	/**
