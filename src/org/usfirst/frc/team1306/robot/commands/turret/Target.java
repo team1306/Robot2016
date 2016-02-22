@@ -24,6 +24,7 @@ public class Target extends CommandBase {
 	public Target() {
 		requires(turret);
 		requires(hood);
+		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
 	}
 
 	/**
@@ -62,7 +63,8 @@ public class Target extends CommandBase {
 //			hood.setVel(oi.getHoodVel());
 //		}
 		if (canSeeTarget && !oi.getHoodOverride()) {
-			hood.setDistance(Vision.getData().getDistance());
+//			hood.setDistance(Vision.getData().getDistance());
+			hood.setHeight(SmartDashboard.getNumber("set hood height"));
 		} else {
 			hood.setVel(oi.getHoodVel());
 		}
