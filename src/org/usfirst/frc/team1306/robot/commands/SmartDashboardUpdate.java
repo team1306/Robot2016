@@ -27,31 +27,19 @@ public class SmartDashboardUpdate extends CommandBase {
 	// that other commands aren't accessing it
 	protected void execute() {
 		// Values useful for PID debugging
-		SmartDashboard.putNumber("timestamp", Timer.getFPGATimestamp());
+		SmartDashboard.putNumber("Game Time", Timer.getMatchTime());
 		
-		SmartDashboard.putNumber("leftMotor1.get()", drivetrain.get(0));
-		SmartDashboard.putNumber("leftMotor1.getError()", drivetrain.get(0) + drivetrain.getEncVelocity(0));
-		SmartDashboard.putNumber("Encoder velocity", drivetrain.getEncVelocity(0));
-
-		SmartDashboard.putNumber("rightMotor1.get()", drivetrain.get(2));
-		SmartDashboard.putNumber("rightMotor1.getError()", drivetrain.getError(2));
-
-		SmartDashboard.putNumber("trigger", oi.getStraightVel());
-
 		SmartDashboard.putBoolean("has ball", indexer.hasBall());
 		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
-		SmartDashboard.putNumber("intake arm current", intakeArm.getCurrent());
 		
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 		
 		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
 
-		VisionData data = Vision.getData();
-		SmartDashboard.putNumber("latera", data.getYaw());
 	}
 
 	protected boolean isFinished() {

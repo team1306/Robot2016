@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1306.robot.subsystems;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.DriveTank;
 
@@ -9,7 +8,6 @@ import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The subsystem representing the drivetrain and its motors
@@ -38,8 +36,6 @@ public class Drivetrain extends Subsystem {
 		setupMotors(leftMotor1, leftMotor2);
 		setupMotors(rightMotor1, rightMotor2);
 
-		SmartDashboard.putNumber("maxSpeed", Constants.MAX_SPEED);
-
 		leftShifter = new DoubleSolenoid(0, 1);
 		rightShifter = new DoubleSolenoid(2, 3);
 
@@ -59,23 +55,6 @@ public class Drivetrain extends Subsystem {
 		leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
 		rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
 		leftMotor1.set(-1.0 * leftVel);
-		rightMotor1.set(rightVel);
-	}
-
-	/**
-	 * Takes values from -1.0 to 1.0 for velocity and rotation
-	 * 
-	 * @param velocity
-	 *            Base speed forward
-	 * @param rotation
-	 *            Additional rotational rate
-	 */
-	public void driveHybrid(double velocity, double rotation) {
-		double maxSpeed = SmartDashboard.getNumber("maxSpeed");
-		double leftVel = maxSpeed * (velocity + rotation);
-		double rightVel = maxSpeed * (velocity - rotation);
-
-		leftMotor1.set(leftVel);
 		rightMotor1.set(rightVel);
 	}
 
