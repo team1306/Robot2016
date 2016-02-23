@@ -58,7 +58,7 @@ public class Shooter extends Subsystem {
 	}
 
 	public double getSpeed() {
-		return flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
+		return -flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
 	}
 
 	public double getCurrent() {
@@ -73,7 +73,7 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
-		return flywheel.getSpeed() > Constants.SHOOTER_TOLERANCE / 2.0
+		return flywheel.getSpeed() > Constants.SHOOTER_MAX_SPEED / 2.0
 				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
 	}
 
