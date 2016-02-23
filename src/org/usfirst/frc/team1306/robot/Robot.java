@@ -3,7 +3,7 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
-import org.usfirst.frc.team1306.robot.commands.autonomous.DriveAimShoot;
+import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 	 */
 
 	public void autonomousInit() {
-		autonomousCommand = new DriveAimShoot();
+		autonomousCommand = new LowBarAuto();
 
 		// String autoSelected = SmartDashboard.getString("Auto Selector",
 		// "Default");

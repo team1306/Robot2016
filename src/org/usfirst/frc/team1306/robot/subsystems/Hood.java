@@ -86,6 +86,14 @@ public class Hood extends Subsystem {
 		setHeight(90.0);
 	}
 
+	public boolean isFlat() {
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && hoodTalon.getSetpoint() == 90.0;
+	}
+	
+	public boolean isManuallyControlled() {
+		return hoodTalon.getControlMode().equals(TalonControlMode.PercentVbus);
+	}
+
 	public void setTarget(HoodTarget target) {
 		this.target = target;
 	}

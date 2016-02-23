@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.autonomous;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -7,11 +8,11 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
-public class DriveThreeSeconds extends CommandBase {
+public class DriveUnderLowBar extends CommandBase {
 
 	private Timer timer;
 	
-    public DriveThreeSeconds() {
+    public DriveUnderLowBar() {
         requires(drivetrain);
     }
 
@@ -19,17 +20,16 @@ public class DriveThreeSeconds extends CommandBase {
     protected void initialize() {
     	timer = new Timer();
     	timer.start();
-    	drivetrain.driveTank(0.75, 0.75);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drivetrain.driveTank(0.75, 0.75);
+    	drivetrain.driveTank(Constants.LOW_BAR_POWER, Constants.LOW_BAR_POWER);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.hasPeriodPassed(3.5);
+        return timer.hasPeriodPassed(Constants.LOW_BAR_TIME);
     }
 
     // Called once after isFinished returns true

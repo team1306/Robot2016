@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class DriveAimShoot extends CommandGroup {
+public class LowBarAuto extends CommandGroup {
 
-	public DriveAimShoot() {
+	public LowBarAuto() {
 		addSequential(new IntakeArmRest());
-		addSequential(new DriveThreeSeconds());
+		addSequential(new DriveUnderLowBar());
 		addParallel(new SpinUp());
 		addSequential(new ScanForTarget());
 		addParallel(new Target());
-		addSequential(new WaitFiveSeconds());
+		addSequential(new WaitSevenSeconds());
 		addSequential(new Fire());
 	}
 }

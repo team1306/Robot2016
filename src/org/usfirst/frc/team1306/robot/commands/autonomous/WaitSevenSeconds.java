@@ -6,16 +6,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class WaitFiveSeconds extends Command {
+public class WaitSevenSeconds extends Command {
 	
-	private Timer timer;
+	private final Timer timer;
 
-	public WaitFiveSeconds() {
+	public WaitSevenSeconds() {
+		timer = new Timer();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		timer = new Timer();
+		timer.reset();
 		timer.start();
 	}
 

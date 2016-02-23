@@ -63,5 +63,11 @@ public class Constants {
 	public final static double VISION_PERIOD = 0.1;
 	public final static double DISTANCE_CONVERSION = 1000.0; // placeholder
 	public final static double DEGREES_ABOVE_TARGET = 5.0;
+	
+	// autonomous constants
+	public final static double LOW_BAR_POWER = 0.75;
+	public final static double TERRAIN_POWER = 0.9;
+	public final static double LOW_BAR_TIME = 3.5;
+	public final static double TERRAIN_TIME = 3.0;
 
 }
