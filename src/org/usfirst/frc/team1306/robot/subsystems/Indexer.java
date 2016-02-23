@@ -9,40 +9,65 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Represents the robot's indexer. This is what holds the balls in the turret
+ * before firing them, like a preliminary stage between intake and shooter.
+ * 
+ * @author Finn Voichick
  */
 public class Indexer extends Subsystem {
-    
-    private final SpeedController motor;
-    private final DigitalInput ballSwitch1;
-    private final DigitalInput ballSwitch2;
-    
-    public Indexer() {
-    	motor = new Talon(RobotMap.indexerPort);
-    	motor.setInverted(true);
-    	ballSwitch1 = new DigitalInput(RobotMap.indexerLimitPort1);
-    	ballSwitch2 = new DigitalInput(RobotMap.indexerLimitPort2);
-    }
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-    public void driveMotor() {
-    	motor.set(Constants.INDEXER_POWER);
-    }
-    
-    public void stop() {
-    	motor.disable();
-    }
-    
-    public void reverse() {
-    	motor.set(-Constants.INDEXER_POWER);
-    }
-    
-    public boolean hasBall() {
-    	return !ballSwitch1.get() || !ballSwitch2.get();
-    }
+	/** The speed controller that moves the intake wheels. */
+	private final SpeedController motor;
+	/** One of the limit switches that detects a ball. */
+	private final DigitalInput ballSwitch1;
+	/** The limit switch on the other side */
+	private final DigitalInput ballSwitch2;
+
+	/**
+	 * Constructs an Indexer, initializing the speedcontroller and limit
+	 * switches.
+	 */
+	public Indexer() {
+		motor = new Talon(RobotMap.indexerPort);
+		motor.setInverted(true);
+		ballSwitch1 = new DigitalInput(RobotMap.indexerLimitPort1);
+		ballSwitch2 = new DigitalInput(RobotMap.indexerLimitPort2);
+	}
+
+	/**
+	 * Sets the default command for the Indexer. Nothing is done to the indexer
+	 * until commands are called, so no default command must be specified.
+	 */
+	public void initDefaultCommand() {
+	}
+
+	/**
+	 * Drives the intake motor at the power specified in Constants.
+	 */
+	public void driveMotor() {
+		motor.set(Constants.INDEXER_POWER);
+	}
+
+	/**
+	 * Stops the intake motor.
+	 */
+	public void stop() {
+		motor.disable();
+	}
+
+	/**
+	 * Reverse drives the intake motor at the power specified in Constants.
+	 */
+	public void reverse() {
+		motor.set(-Constants.INDEXER_POWER);
+	}
+
+	/**
+	 * Checks whether the indexer has a ball.
+	 * 
+	 * @return true if the indexer has a ball, otherwise false.
+	 */
+	public boolean hasBall() {
+		return !ballSwitch1.get() || !ballSwitch2.get();
+	}
 }
-
