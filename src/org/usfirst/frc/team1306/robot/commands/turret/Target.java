@@ -67,7 +67,7 @@ public class Target extends CommandBase {
 	}
 
 	/**
-	 * Make this return true when this Command no longer needs to run execute().
+	 * Returns true when this Command no longer needs to run execute().
 	 * This command only ends when it's interrupted.
 	 * 
 	 * @return false
