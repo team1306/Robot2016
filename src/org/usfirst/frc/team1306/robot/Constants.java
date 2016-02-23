@@ -8,9 +8,9 @@ package org.usfirst.frc.team1306.robot;
  */
 
 public class Constants {
-	
+
 	public final static double JOYSTICK_POWER = 1.0;
-	
+
 	// drive constants
 	// measured in encoder ticks per 1ms^2
 	public final static double MAX_ACCELERATION = 0.01;
@@ -22,9 +22,10 @@ public class Constants {
 	public final static double TURRET_P = 0.015;
 	public final static double TURRET_I = 0.0008; // 0.001
 	public final static double TURRET_D = 0.0;
-	
+
 	public final static double TURRET_EDGE = 12000;
 	public final static double TURRET_SCAN_THRESHOLD = 11000;
+	public final static double TURRET_SCAN_SPEED = 0.2;
 
 	// shooter constants
 	public final static double SHOOTER_MAX_SPEED = 23400.0;
@@ -63,7 +64,7 @@ public class Constants {
 	public final static double VISION_PERIOD = 0.1;
 	public final static double DISTANCE_CONVERSION = 1000.0; // placeholder
 	public final static double DEGREES_ABOVE_TARGET = 5.0;
-	
+
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;
 	public final static double TERRAIN_POWER = 0.9;

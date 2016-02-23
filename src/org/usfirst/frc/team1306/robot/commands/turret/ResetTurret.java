@@ -6,17 +6,17 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 
 /**
  * Sets the Turret to point directly forward (encoder position zero), and lowers
- * the hood so that the robot can fit under the low bar. This command will
- * continue until interrupted, either by manual or automatic targeting.
+ * the hood so that the robot can fit under the low bar. This also spins down
+ * the shooter because it is used after firing. This command will continue until
+ * interrupted when the robot enters targeting mode.
  * 
  * @author Finn Voichick
  */
 public class ResetTurret extends CommandBase {
 
 	/**
-	 * Creates a new SnapForward command. The turret and hood are required
-	 * because this command can't run at the same time as Target or
-	 * ManualTarget.
+	 * Creates a new ResetTurret command. The turret and hood are required
+	 * because this command can't run at the same time as Target or Fire.
 	 */
 	public ResetTurret() {
 		requires(turret);
@@ -28,7 +28,9 @@ public class ResetTurret extends CommandBase {
 	 * Called just before this Command runs the first time. This is where the
 	 * turret's target is set to zero and the hood is lowered all the way.
 	 * Because the PID calculations are done on the CANTalon, the target only
-	 * needs to be set once.
+	 * needs to be set once. If the intake arm is up, another command is started
+	 * that lowers it to resting position. This is to ensure that the turret
+	 * doesn't hit the intake arm as it turns.
 	 */
 	protected void initialize() {
 		turret.setTurretForward();
@@ -65,7 +67,7 @@ public class ResetTurret extends CommandBase {
 	/**
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Nothing happens because it simply
-	 * transfers control, so no new velocity needs to be set.
+	 * transfers control, so no new position or velocity needs to be set.
 	 */
 	protected void interrupted() {
 	}

@@ -7,10 +7,9 @@ import org.usfirst.frc.team1306.robot.vision.Vision;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * A command that automatically aims the turret at the tower goal. It repeatedly
- * (5 times per second) gets data about where the target is, then uses the
- * CANTalon's internal PID loop to point there, always updating its intended
- * target.
+ * A command that aims the turret at the tower goal. If the target can be seen,
+ * it enables automatic turret and hood targeting. The hood and turret positions
+ * can also be manually overridden, or the hood can be set to a certain angle.
  * 
  * @author Finn Voichick
  */
@@ -18,7 +17,7 @@ public class Target extends CommandBase {
 
 	/**
 	 * Creates a new Target command. The turret is required because this command
-	 * can't run at the same time as ResetTurret.
+	 * can't run at the same time as anything that requires these subsystems.
 	 */
 	public Target() {
 		requires(turret);
@@ -26,8 +25,9 @@ public class Target extends CommandBase {
 	}
 
 	/**
-	 * Called just before this Command runs the first time. Currently does
-	 * nothing.
+	 * Called just before this Command runs the first time. Puts the hood into
+	 * automatic targeting mode and resets the turret PID controller (to reset
+	 * the integral to zero).
 	 */
 	protected void initialize() {
 		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
@@ -37,7 +37,10 @@ public class Target extends CommandBase {
 
 	/**
 	 * Called repeatedly when this Command is scheduled to run. If the target is
-	 * seen, it sets the target there.
+	 * seen, it enables the Turret PIDSubsystem and sets the hood angle
+	 * accordingly. Otherwise, allows for manual control. If the hood's target
+	 * is set to something other than automatic, it will go to its set position
+	 * instead.
 	 */
 	protected void execute() {
 		boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
@@ -48,7 +51,6 @@ public class Target extends CommandBase {
 			turret.getPIDController().reset();
 			turret.setVel(oi.getTurretVel());
 		}
-		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else if (hood.getTarget().equals(HoodTarget.LOW)) {
@@ -56,6 +58,7 @@ public class Target extends CommandBase {
 		} else if (hood.getTarget().equals(HoodTarget.HIGH)) {
 			hood.setHeight(Constants.HOOD_HIGH_POSITION);
 		} else if (canSeeTarget) {
+			// TODO re-add automatic targeting when the math is done
 			// hood.setDistance(Vision.getData().getDistance());
 			hood.setHeight(SmartDashboard.getNumber("set hood height"));
 		} else {
@@ -77,16 +80,16 @@ public class Target extends CommandBase {
 	 * Called once after isFinished returns true. This command never does end.
 	 */
 	protected void end() {
+		turret.getPIDController().reset();
 		turret.setVel(0.0);
 	}
 
 	/**
 	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run. Nothing happens because it simply
-	 * transfers control, so no new target needs to be set.
+	 * subsystems is scheduled to run. It disables the PID controller and sets
+	 * the turret's velocity to zero.
 	 */
 	protected void interrupted() {
-		turret.disable();
 		end();
 	}
 }
