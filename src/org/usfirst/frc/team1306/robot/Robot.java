@@ -4,6 +4,7 @@ package org.usfirst.frc.team1306.robot;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
+import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,24 +27,25 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	Command smartdashboard;
-	SendableChooser chooser;
+	SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		// Sonce we write some auto programs, we need to add them here
-		chooser = new SendableChooser();
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		// Since we write some auto programs, we need to add them here
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Low Bar", new LowBarAuto());
+		autoChooser.addObject("Class B or D", new TerrainAuto());
+		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// CommandBase.init() initializes all the subsystems and oi. This needs
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
 		Vision.init();
-		
+
 		// Start the debugging log command
 		smartdashboard = new SmartDashboardUpdate();
 		smartdashboard.start();
@@ -73,21 +75,9 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
-
 	public void autonomousInit() {
-		autonomousCommand = new LowBarAuto();
 
-		// String autoSelected = SmartDashboard.getString("Auto Selector",
-		// "Default");
-		// switch(autoSelected) {
-		// case "My Auto":
-		// autonomousCommand = new MyAutoCommand();
-		// break;
-		// case "Default Auto":
-		// default:
-		// autonomousCommand = new ExampleCommand();
-		// break;
-		// }
+		autonomousCommand = (Command) autoChooser.getSelected();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
