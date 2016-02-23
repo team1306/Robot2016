@@ -17,26 +17,26 @@ public class Constants {
 	public final static double MAX_SPEED = 7000; // placeholder
 
 	// turret constants
-	public final static double TURRET_MAX_SPEED = 1.0; // placeholder
-	public final static double TURRET_TICKS_PER_DEGREE = 100.0;
-	public final static double TURRET_TOLERANCE = 0.0; // placeholder
+	public final static double TURRET_VISION_TOLERANCE = 20.0;
 
-	public final static double TURRET_P = 0.01;
-	public final static double TURRET_I = 0.001; // 0.001
+	public final static double TURRET_P = 0.015;
+	public final static double TURRET_I = 0.0008; // 0.001
 	public final static double TURRET_D = 0.0;
 	
 	public final static double TURRET_EDGE = 12000;
 	public final static double TURRET_SCAN_THRESHOLD = 11000;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 1.0; // placeholder
-	public final static double SHOOTER_TOLERANCE = 0.05; // placeholder
+	public final static double SHOOTER_MAX_SPEED = 23400.0;
+	public final static int SHOOTER_TOLERANCE = 129; // 0.5% tolerance
+	public final static double SHOOTER_SET_SPEED = 0.95;
 
 	// hood constants
-	public final static double HOOD_0_POS = 108.0; // placeholder
-	public final static double HOOD_90_POS = 895.0; // placeholder;
-	public final static double HOOD_LOW_GOAL_POSITION = 45.0; // placeholder
-	public final static double HOOD_TOLERANCE = 1.0; // placeholder
+	public final static double HOOD_0_POS = 58.0;
+	public final static double HOOD_90_POS = 800.0;
+	public final static double HOOD_LOW_GOAL_POSITION = 10;
+	public final static double HOOD_TOLERANCE = 8.0;
+	public final static double HOOD_MAX_VOLTAGE = 6.0;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.75;

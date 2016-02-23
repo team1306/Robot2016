@@ -28,14 +28,14 @@ public class Turret extends PIDSubsystem {
 	 */
 	public Turret() {
 		super("Turret PID", Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);
-		//setAbsoluteTolerance(Constants.TURRET_TOLERANCE);
+		setAbsoluteTolerance(Constants.TURRET_VISION_TOLERANCE);
 
 		turretTalon = new CANTalon(RobotMap.turretTalonPort);
 		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.enableBrakeMode(false);
 		setSetpoint(0.0);
-		//enable();
+
 	}
 
 	/**

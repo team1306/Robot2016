@@ -119,6 +119,14 @@ public class Drivetrain extends Subsystem {
 		leftMotor1.setProfile(0);
 		rightMotor1.setProfile(0);
 	}
+	
+	public double getLeftCurrent() {
+		return leftMotor1.getOutputCurrent() + leftMotor2.getOutputCurrent();
+	}
+	
+	public double getRightCurrent() {
+		return rightMotor1.getOutputCurrent() + rightMotor2.getOutputCurrent();
+	}
 
 	/**
 	 * Get the value passed to the motor controller with the given index. (ie

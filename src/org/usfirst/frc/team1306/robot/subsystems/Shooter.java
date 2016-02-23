@@ -27,48 +27,40 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
 
-//		flywheel.reverseOutput(false);
-//		flywheel.reverseSensor(true);
+		// flywheel.reverseOutput(false);
+		// flywheel.reverseSensor(true);
 
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
-		flywheel.changeControlMode(TalonControlMode.PercentVbus);
 		flywheel.enableBrakeMode(false);
+		flywheel.setAllowableClosedLoopErr(Constants.SHOOTER_TOLERANCE);
 		flywheel.enable();
+		spinDown();
 	}
 
 	public void initDefaultCommand() {
 	}
 
 	/**
-	 * Set the target speed for the flywheel Talon, on a scale from 0.0 to 1.0.
-	 * 
-	 * @param speed
-	 *            Speed to set the Talon
-	 */
-	public void set(double speed) {
-		flywheel.set(-speed * Constants.SHOOTER_MAX_SPEED);
-	}
-
-	/**
 	 * Set the Talon to full speed
 	 */
 	public void spinUp() {
-		set(1.0);
-		SmartDashboard.putNumber("flywheel enc", flywheel.getEncVelocity());
+		flywheel.changeControlMode(TalonControlMode.Speed);
+		flywheel.set(-Constants.SHOOTER_SET_SPEED * Constants.SHOOTER_MAX_SPEED);
 	}
 
 	/**
 	 * Stop the flywheel Talon
 	 */
 	public void spinDown() {
-		set(0.0);
+		flywheel.changeControlMode(TalonControlMode.PercentVbus);
+		flywheel.set(0.0);
 	}
-	
+
 	public double getSpeed() {
 		return flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
 	}
-	
+
 	public double getCurrent() {
 		return flywheel.getOutputCurrent();
 	}
@@ -80,8 +72,9 @@ public class Shooter extends Subsystem {
 	 * @return Whether or not the measured speed is within tolerance of the
 	 *         target
 	 */
-	public boolean onTarget() {
-		return Math.abs(flywheel.getError()) < Constants.SHOOTER_TOLERANCE;
+	public boolean isSpunUp() {
+		return flywheel.getSpeed() > Constants.SHOOTER_TOLERANCE / 2.0
+				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
 	}
 
 }

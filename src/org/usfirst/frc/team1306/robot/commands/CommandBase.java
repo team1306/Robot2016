@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
 import org.usfirst.frc.team1306.robot.OI;
-import org.usfirst.frc.team1306.robot.subsystems.Arm;
 import org.usfirst.frc.team1306.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1306.robot.subsystems.Hood;
 import org.usfirst.frc.team1306.robot.subsystems.Indexer;
@@ -29,7 +28,6 @@ public abstract class CommandBase extends Command {
 	protected static Indexer indexer;
 	protected static Intake intake;
 	protected static IntakeArm intakeArm;
-	protected static Arm arm;
 	protected static Hood hood;
 
 	public static void init() {
@@ -39,7 +37,6 @@ public abstract class CommandBase extends Command {
 		indexer = new Indexer();
 		intake = new Intake();
 		intakeArm = new IntakeArm();
-		arm = new Arm();
 		hood = new Hood();
 		oi = new OI();
 	}

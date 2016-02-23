@@ -27,17 +27,24 @@ public class SmartDashboardUpdate extends CommandBase {
 	protected void execute() {
 		// Values useful for PID debugging
 		SmartDashboard.putNumber("Game Time", Timer.getMatchTime());
-		
-		SmartDashboard.putBoolean("has ball", indexer.hasBall());
+
 		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
-		
+
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
-		
+
+		SmartDashboard.putBoolean("Ball", indexer.hasBall());
 		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
+		SmartDashboard.putBoolean("Shooter", shooter.isSpunUp());
+		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
+		SmartDashboard.putBoolean("Hood", hood.onTarget());
+		
+		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
+		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
+//		SmartDashboard.putBoolean("Hood Current", hood.getCurrent() > );
 
 	}
 

@@ -24,7 +24,6 @@ public class Target extends CommandBase {
 	public Target() {
 		requires(turret);
 		requires(hood);
-		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
 	}
 
 	/**
@@ -32,10 +31,12 @@ public class Target extends CommandBase {
 	 * nothing.
 	 */
 	protected void initialize() {
+		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
 		// turret.disable();
 		if (hood.isAimingLow()) {
 			hood.toggleTarget();
 		}
+		turret.getPIDController().reset();
 		// turret.enable();
 	}
 
@@ -49,7 +50,7 @@ public class Target extends CommandBase {
 			turret.enable();
 			turret.setSetpoint(0.0);
 		} else {
-			turret.disable();
+			turret.getPIDController().reset();
 			turret.setVel(oi.getTurretVel());
 		}
 		SmartDashboard.putBoolean("aiming low", hood.isAimingLow());

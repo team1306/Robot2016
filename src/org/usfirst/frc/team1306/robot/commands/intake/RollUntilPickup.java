@@ -57,6 +57,7 @@ public class RollUntilPickup extends CommandBase {
 	protected void end() {
 		intake.stopRollers();
 		indexer.stop();
+		new IntakeArmRest().start();
 	}
 
 	/**

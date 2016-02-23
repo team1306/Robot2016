@@ -27,9 +27,10 @@ public class Hood extends Subsystem {
 
 		aimingLow = false;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
+		hoodTalon.configMaxOutputVoltage(Constants.HOOD_MAX_VOLTAGE);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		//hoodTalon.set(hoodTalon.get());
+		// hoodTalon.set(hoodTalon.get());
 		hoodTalon.enable();
 
 	}
@@ -50,12 +51,11 @@ public class Hood extends Subsystem {
 	 *            the new position of the hood
 	 */
 	public void setHeight(double position) {
-		SmartDashboard.putNumber("hood set height", position);
-		SmartDashboard.putNumber("hood error", hoodTalon.getError());
 		hoodTalon.changeControlMode(TalonControlMode.Position);
-		hoodTalon.set(safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
+		hoodTalon.set(
+				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
-	
+
 	public void setDistance(double distance) {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		double angle;
@@ -94,10 +94,14 @@ public class Hood extends Subsystem {
 	}
 
 	public boolean onTarget() {
-		return hoodTalon.getControlMode().equals(TalonControlMode.Position)
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && hoodTalon.getSetpoint() < 90.0
 				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE;
 	}
-	
+
+	public double getCurrent() {
+		return hoodTalon.getOutputCurrent();
+	}
+
 	private double safetyCheck(double input) {
 		return Math.min(Math.max(input, Constants.HOOD_0_POS), Constants.HOOD_90_POS);
 	}
