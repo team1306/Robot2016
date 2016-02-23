@@ -4,7 +4,6 @@ import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -32,12 +31,8 @@ public class Target extends CommandBase {
 	 */
 	protected void initialize() {
 		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
-		// turret.disable();
-		if (hood.isAimingLow()) {
-			hood.toggleTarget();
-		}
+		hood.setTarget(HoodTarget.AUTO);
 		turret.getPIDController().reset();
-		// turret.enable();
 	}
 
 	/**
@@ -53,18 +48,15 @@ public class Target extends CommandBase {
 			turret.getPIDController().reset();
 			turret.setVel(oi.getTurretVel());
 		}
-		SmartDashboard.putBoolean("aiming low", hood.isAimingLow());
 		SmartDashboard.putBoolean("hood override", oi.getHoodOverride());
-//		if (hood.isAimingLow()) {
-//			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-//		} 
-//		if (!oi.getHoodOverride()) {
-//			hood.setHeight(45.0);
-//		} else {
-//			hood.setVel(oi.getHoodVel());
-//		}
-		if (canSeeTarget && !oi.getHoodOverride()) {
-//			hood.setDistance(Vision.getData().getDistance());
+		if (oi.getHoodOverride()) {
+			hood.setVel(oi.getHoodVel());
+		} else if (hood.getTarget().equals(HoodTarget.LOW)) {
+			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
+		} else if (hood.getTarget().equals(HoodTarget.HIGH)) {
+			hood.setHeight(Constants.HOOD_HIGH_POSITION);
+		} else if (canSeeTarget) {
+			// hood.setDistance(Vision.getData().getDistance());
 			hood.setHeight(SmartDashboard.getNumber("set hood height"));
 		} else {
 			hood.setVel(oi.getHoodVel());

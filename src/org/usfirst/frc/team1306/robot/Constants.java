@@ -35,6 +35,7 @@ public class Constants {
 	public final static double HOOD_0_POS = 58.0;
 	public final static double HOOD_90_POS = 800.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
+	public final static double HOOD_HIGH_POSITION = 45;
 	public final static double HOOD_TOLERANCE = 8.0;
 	public final static double HOOD_MAX_VOLTAGE = 6.0;
 

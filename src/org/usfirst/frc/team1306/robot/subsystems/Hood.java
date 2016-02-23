@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -18,14 +19,14 @@ public class Hood extends Subsystem {
 
 	/** The motor that moves the hood */
 	private final CANTalon hoodTalon;
-	private boolean aimingLow;
+	private HoodTarget target;
 
 	/**
 	 * Constructs a Hood and enables PID position control.
 	 */
 	public Hood() {
 
-		aimingLow = false;
+		target = HoodTarget.AUTO;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.configMaxOutputVoltage(Constants.HOOD_MAX_VOLTAGE);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
@@ -85,12 +86,12 @@ public class Hood extends Subsystem {
 		setHeight(90.0);
 	}
 
-	public void toggleTarget() {
-		aimingLow = !aimingLow;
+	public void setTarget(HoodTarget target) {
+		this.target = target;
 	}
 
-	public boolean isAimingLow() {
-		return aimingLow;
+	public HoodTarget getTarget() {
+		return target;
 	}
 
 	public boolean onTarget() {

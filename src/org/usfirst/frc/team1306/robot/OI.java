@@ -11,7 +11,9 @@ import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodToggleTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetAuto;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetHigh;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDown;
@@ -41,7 +43,6 @@ public class OI {
 	private final Button buttonB;
 	private final Button buttonX;
 	private final Button buttonY;
-	private final Button buttonStart;
 	private final Button buttonBack;
 	private final Button bumperL;
 	private final Button bumperR;
@@ -52,9 +53,7 @@ public class OI {
 
 	private final Button buttonA2;
 	private final Button buttonB2;
-	private final Button buttonX2;
-	private final Button buttonL2;
-	private final Button buttonR2;
+	private final Button buttonY2;
 
 	// Initialize everything
 	public OI() {
@@ -65,16 +64,14 @@ public class OI {
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
-		buttonStart = new JoystickButton(xbox, XboxController.START);
+		new JoystickButton(xbox, XboxController.START);
 		buttonBack = new JoystickButton(xbox, XboxController.BACK);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 		bumperR = new JoystickButton(xbox, XboxController.RB);
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
-		buttonX2 = new JoystickButton(secondary, XboxController.X);
-		buttonL2 = new JoystickButton(secondary, XboxController.LB);
-		buttonR2 = new JoystickButton(secondary, XboxController.RB);
+		buttonY2 = new JoystickButton(secondary, XboxController.Y);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
@@ -91,12 +88,8 @@ public class OI {
 		buttonY.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new IntakeArmPickup());
 		buttonY.whenPressed(new RollUntilPickup());
-		buttonStart.whenPressed(new HoodToggleTarget());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
-//		bumperL.whenPressed(new ResetTurret());
-//		
-//		bumperL.whenPressed(new Pass());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
@@ -104,10 +97,9 @@ public class OI {
 		dPadLeft.whenActive(new IntakeArmDown());
 		dPadDown.whenActive(new IntakeArmRest());
 
-		buttonA2.whenPressed(new SpinUp());
-		buttonB2.whenPressed(new Fire());
-		buttonL2.whenPressed(new ShiftDown());
-		buttonR2.whenPressed(new ShiftUp());
+		buttonA2.whenPressed(new HoodSetTargetAuto());
+		buttonB2.whenPressed(new HoodSetTargetLow());
+		buttonY2.whenPressed(new HoodSetTargetHigh());
 	}
 
 	/**
