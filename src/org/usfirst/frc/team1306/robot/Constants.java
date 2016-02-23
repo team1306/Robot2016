@@ -54,7 +54,7 @@ public class Constants {
 	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
 	public final static double INTAKE_PICKUP_POS = 10.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
-	public final static double INTAKE_DROP_THRESHOLD = 15.0;
+	public final static double INTAKE_DROP_THRESHOLD = 30.0;
 	public final static double INTAKE_DOWN_POS = -20.0;
 
 	// OI constants
