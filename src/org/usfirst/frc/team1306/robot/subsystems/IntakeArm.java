@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A Subsystem that controls the intake arm. This arm can be lowered, allowing
- * it to contact the ball. Both sides are controlled individually because there
- * wasn't a good place to put a single axle.
+ * it to contact the ball. The left side is controlled using PID position
+ * control, and the right motor is its slave.
  * 
  * @author Finn Voichick
  */
@@ -24,8 +23,10 @@ public class IntakeArm extends Subsystem {
 	private final CANTalon slave;
 
 	/**
-	 * Constructs a new IntakeArm with two motors. Each Talon is connected to a
-	 * potentiometer which is used for PID position control.
+	 * Constructs a new IntakeArm with two motors. The left Talon is connected
+	 * to a potentiometer which is used for PID position control. The right
+	 * motor (the slave) is reversed because it is facing the opposite
+	 * direction.
 	 */
 	public IntakeArm() {
 
@@ -38,13 +39,12 @@ public class IntakeArm extends Subsystem {
 		slave.set(motor.getDeviceID());
 		slave.reverseOutput(true);
 		slave.enable();
-		//setPosition(getPosition());
 
 	}
 
 	/**
-	 * Sets the default command for the IntakeArm to IntakeArmVertical (because
-	 * the arm is vertical at the beginning of the match).
+	 * Sets the default command for the IntakeArm. Nothing is done to the intake
+	 * arm until commands are called, so no default command must be specified.
 	 */
 	public void initDefaultCommand() {
 	}
@@ -60,23 +60,25 @@ public class IntakeArm extends Subsystem {
 	public void setPosition(double angle) {
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.enableBrakeMode(true);
-		double left = Constants.INTAKE_LEFT_ARM_0_POS
+		double position = Constants.INTAKE_LEFT_ARM_0_POS
 				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0;
-//		double right = -(Constants.INTAKE_RIGHT_ARM_0_POS
-//				+ angle * (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS) / 90.0);
-//		motor.set((left + right) / 2.0);
-		motor.set(left);
+		motor.set(position);
 	}
 
+	/**
+	 * Gets the position of the intake arm on the same scale as setPosition.
+	 * 
+	 * @return the current angle of the intake arm
+	 */
 	public double getPosition() {
-		double left = 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
+		return 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
 				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
-//		double right = 90.0 * (slave.getPosition() - Constants.INTAKE_RIGHT_ARM_0_POS)
-//				/ (Constants.INTAKE_RIGHT_ARM_90_POS - Constants.INTAKE_RIGHT_ARM_0_POS);
-//		return (left + right) / 2.0;
-		return left;
 	}
 
+	/**
+	 * Releases brakes on the intake motors. The motors are put into coast mode
+	 * with zero throttle.
+	 */
 	public void releaseBrakes() {
 		motor.enableBrakeMode(false);
 		slave.enableBrakeMode(false);
@@ -86,6 +88,11 @@ public class IntakeArm extends Subsystem {
 		slave.set(0.0);
 	}
 
+	/**
+	 * Gets the sum of the amperages going through the two motors.
+	 * 
+	 * @return the sum of the current going through the two motors.
+	 */
 	public double getCurrent() {
 		return motor.getOutputCurrent() + slave.getOutputCurrent();
 	}
