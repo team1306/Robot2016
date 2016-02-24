@@ -7,6 +7,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * A Command to put the intake arm in its resting position. If the arm is coming
  * down from a vertical position, it releases the brakes once it gets to a
  * certain point.
+ * 
+ * @author Finn Voichick
  */
 public class IntakeArmRest extends CommandBase {
 

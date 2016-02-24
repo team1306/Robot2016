@@ -19,7 +19,7 @@ public class LowBarAuto extends CommandGroup {
 		addParallel(new SpinUp());
 		addSequential(new ScanForTarget());
 		addParallel(new Target());
-		addSequential(new WaitSevenSeconds());
+		addSequential(new WaitFourSeconds());
 		addSequential(new Fire());
 	}
 }

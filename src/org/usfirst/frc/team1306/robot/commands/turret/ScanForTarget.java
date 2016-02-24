@@ -33,9 +33,9 @@ public class ScanForTarget extends CommandBase {
 	 */
 	protected void execute() {
 		if (turret.isRight()) {
-			turret.setVel(-Constants.TURRET_SCAN_SPEED);
-		} else if (turret.isLeft()) {
 			turret.setVel(Constants.TURRET_SCAN_SPEED);
+		} else if (turret.isLeft()) {
+			turret.setVel(-Constants.TURRET_SCAN_SPEED);
 		}
 	}
 

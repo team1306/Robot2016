@@ -6,6 +6,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  * A Command to lower the intake arm below its resting position. It uses the
  * Talon's internal PID loop.
+ * 
+ * @author Finn Voichick
  */
 public class IntakeArmDown extends CommandBase {
 

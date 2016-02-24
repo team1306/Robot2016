@@ -28,7 +28,6 @@ public class Hood extends Subsystem {
 
 		target = HoodTarget.AUTO;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
-		hoodTalon.configMaxOutputVoltage(Constants.HOOD_MAX_VOLTAGE);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.enable();
@@ -154,7 +153,7 @@ public class Hood extends Subsystem {
 	 * @return true if the hood is on target, otherwise false.
 	 */
 	public boolean onTarget() {
-		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && hoodTalon.getSetpoint() < 90.0
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0
 				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE;
 	}
 

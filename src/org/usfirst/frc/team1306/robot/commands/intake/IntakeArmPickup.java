@@ -6,6 +6,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  * A Command to put the intake arm in its horizontal position. It uses the
  * Talon's internal PID loop.
+ * 
+ * @author Finn Voichick
  */
 public class IntakeArmPickup extends CommandBase {
 

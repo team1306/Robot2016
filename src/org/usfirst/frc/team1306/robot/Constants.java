@@ -17,10 +17,10 @@ public class Constants {
 	public final static double MAX_SPEED = 7000; // placeholder
 
 	// turret constants
-	public final static double TURRET_VISION_TOLERANCE = 20.0;
+	public final static double TURRET_VISION_TOLERANCE = 1.0;
 
 	public final static double TURRET_P = 0.015;
-	public final static double TURRET_I = 0.0008; // 0.001
+	public final static double TURRET_I = 0.001; // 0.001
 	public final static double TURRET_D = 0.0;
 
 	public final static double TURRET_EDGE = 12000;
@@ -29,16 +29,15 @@ public class Constants {
 
 	// shooter constants
 	public final static double SHOOTER_MAX_SPEED = 23400.0;
-	public final static int SHOOTER_TOLERANCE = 129; // 0.5% tolerance
+	public final static int SHOOTER_TOLERANCE = 117; // 0.5% tolerance
 	public final static double SHOOTER_SET_SPEED = 0.95;
 
 	// hood constants
 	public final static double HOOD_0_POS = 58.0;
-	public final static double HOOD_90_POS = 800.0;
+	public final static double HOOD_90_POS = 779.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
-	public final static double HOOD_HIGH_POSITION = 45;
+	public final static double HOOD_HIGH_POSITION = 75.0;
 	public final static double HOOD_TOLERANCE = 8.0;
-	public final static double HOOD_MAX_VOLTAGE = 6.0;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.75;
@@ -68,7 +67,13 @@ public class Constants {
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;
 	public final static double TERRAIN_POWER = 0.9;
+	public final static double MOAT_POWER = 1.0;
+	public final static double WALL_POWER = 1.0;
+	public final static double RAMPARTS_POWER = 1.0;
 	public final static double LOW_BAR_TIME = 3.5;
-	public final static double TERRAIN_TIME = 3.0;
+	public final static double TERRAIN_TIME = 2.5;
+	public final static double MOAT_TIME = 2.75;
+	public final static double WALL_TIME = 2.75;
+	public final static double RAMPARTS_TIME = 2.75;
 
 }

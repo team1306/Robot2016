@@ -91,8 +91,7 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
-		return flywheel.getSpeed() > Constants.SHOOTER_MAX_SPEED / 2.0
-				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
+		return getSpeed() > 0.5 && Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
 	}
 
 }

@@ -6,6 +6,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  * A Command to raise the intake arm to its vertical position. It uses the
  * Talon's internal PID loop.
+ * 
+ * @author Finn Voichick
  */
 public class IntakeArmVertical extends CommandBase {
 

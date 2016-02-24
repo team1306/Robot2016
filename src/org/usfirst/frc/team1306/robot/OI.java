@@ -11,6 +11,7 @@ import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
+import org.usfirst.frc.team1306.robot.commands.turret.BatterTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetAuto;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetHigh;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
@@ -44,6 +45,7 @@ public class OI {
 	private final Button buttonX;
 	private final Button buttonY;
 	private final Button buttonBack;
+	private final Button buttonStart;
 	private final Button bumperL;
 	private final Button bumperR;
 	private final Trigger dPadUp;
@@ -66,6 +68,7 @@ public class OI {
 		buttonY = new JoystickButton(xbox, XboxController.Y);
 		new JoystickButton(xbox, XboxController.START);
 		buttonBack = new JoystickButton(xbox, XboxController.BACK);
+		buttonStart = new JoystickButton(xbox, XboxController.START);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
 		bumperR = new JoystickButton(xbox, XboxController.RB);
 
@@ -90,6 +93,9 @@ public class OI {
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
+		buttonStart.whenPressed(new IntakeArmVertical());
+		buttonStart.whenPressed(new BatterTarget());
+		buttonStart.whenPressed(new SpinUp());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());

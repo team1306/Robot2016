@@ -34,17 +34,17 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		// Since we write some auto programs, we need to add them here
-		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Low Bar", new LowBarAuto());
-		autoChooser.addObject("Class B or D", new TerrainAuto());
-		SmartDashboard.putData("Auto mode", autoChooser);
-
 		// CommandBase.init() initializes all the subsystems and oi. This needs
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
 		Vision.init();
+
+		// Since we write some auto programs, we need to add them here
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Low Bar", new LowBarAuto());
+		autoChooser.addObject("Class B or D", new TerrainAuto());
+		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// Start the debugging log command
 		smartdashboard = new SmartDashboardUpdate();
