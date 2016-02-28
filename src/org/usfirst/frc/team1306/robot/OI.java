@@ -13,7 +13,6 @@ import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetAuto;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetHigh;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
@@ -55,7 +54,6 @@ public class OI {
 
 	private final Button buttonA2;
 	private final Button buttonB2;
-	private final Button buttonY2;
 
 	// Initialize everything
 	public OI() {
@@ -74,7 +72,6 @@ public class OI {
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
-		buttonY2 = new JoystickButton(secondary, XboxController.Y);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
@@ -105,7 +102,6 @@ public class OI {
 
 		buttonA2.whenPressed(new HoodSetTargetAuto());
 		buttonB2.whenPressed(new HoodSetTargetLow());
-		buttonY2.whenPressed(new HoodSetTargetHigh());
 	}
 
 	/**

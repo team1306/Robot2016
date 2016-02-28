@@ -19,9 +19,6 @@ public class Intake extends Subsystem {
 	/** The other roller speed controller. */
 	private final SpeedController roller2;
 
-	// private final DoubleSolenoid leftIntakeSol;
-	// private final DoubleSolenoid rightIntakeSol;
-
 	/**
 	 * Constructs an the intake with both rollers.
 	 */
@@ -30,11 +27,6 @@ public class Intake extends Subsystem {
 		roller1.setInverted(true);
 		roller2 = new Talon(RobotMap.intakeRoller2Port);
 		roller2.setInverted(true);
-
-		// leftIntakeSol = new DoubleSolenoid(RobotMap.intakeSol1PortA,
-		// RobotMap.intakeSol1PortB);
-		// rightIntakeSol = new DoubleSolenoid(RobotMap.intakeSol2PortA,
-		// RobotMap.intakeSol2PortB);
 
 	}
 
@@ -79,41 +71,5 @@ public class Intake extends Subsystem {
 		roller1.set(-1.0);
 		roller2.set(-1.0);
 	}
-
-	// This code for the tusks isn't used, but may be re-added if pneumatic
-	// tusks are later added.
-	//
-	//
-	// /**
-	// * Toggle the tusk state
-	// */
-	// public void toggleTuskState() {
-	// if (leftIntakeSol.get() == DoubleSolenoid.Value.kForward) {
-	// retractTusks();
-	// } else {
-	// extendTusks();
-	// }
-	// }
-	//
-	// /**
-	// * Actuate the solenoids to extend the tusks
-	// */
-	// public void extendTusks() {
-	// if (15 - Constants.INTAKE_LENGTH * Math.cos(getAngle()) <
-	// Constants.TUSK_LENGTH) {
-	// leftIntakeSol.set(DoubleSolenoid.Value.kForward);
-	// rightIntakeSol.set(DoubleSolenoid.Value.kForward);
-	// } else {
-	// retractTusks();
-	// }
-	// }
-	//
-	// /**
-	// * Actuate the solenoids to retract the tusks
-	// */
-	// public void retractTusks() {
-	// leftIntakeSol.set(DoubleSolenoid.Value.kReverse);
-	// rightIntakeSol.set(DoubleSolenoid.Value.kReverse);
-	// }
 
 }

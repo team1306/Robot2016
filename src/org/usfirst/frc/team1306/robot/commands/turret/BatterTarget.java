@@ -2,7 +2,6 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,8 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class BatterTarget extends CommandBase {
 
 	/**
-	 * Creates a new Target command. The turret is required because this command
-	 * can't run at the same time as anything that requires these subsystems.
+	 * Creates a new BatterTarget command. The turret is required because this
+	 * command can't run at the same time as anything that requires these
+	 * subsystems.
 	 */
 	public BatterTarget() {
 		requires(turret);
@@ -31,17 +31,14 @@ public class BatterTarget extends CommandBase {
 	 */
 	protected void initialize() {
 		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
-		hood.setTarget(HoodTarget.AUTO);
 		turret.getPIDController().reset();
 		turret.setTurretForward();
 	}
 
 	/**
-	 * Called repeatedly when this Command is scheduled to run. If the target is
-	 * seen, it enables the Turret PIDSubsystem and sets the hood angle
-	 * accordingly. Otherwise, allows for manual control. If the hood's target
-	 * is set to something other than automatic, it will go to its set position
-	 * instead.
+	 * Called repeatedly when this Command is scheduled to run. Allows for
+	 * manual hood override, but will otherwise just go to the set high
+	 * position.
 	 */
 	protected void execute() {
 		if (oi.getHoodOverride()) {

@@ -55,8 +55,6 @@ public class Target extends CommandBase {
 			hood.setVel(oi.getHoodVel());
 		} else if (hood.getTarget().equals(HoodTarget.LOW)) {
 			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-		} else if (hood.getTarget().equals(HoodTarget.HIGH)) {
-			hood.setHeight(Constants.HOOD_HIGH_POSITION);
 		} else if (canSeeTarget) {
 			// TODO re-add automatic targeting when the math is done
 			// hood.setDistance(Vision.getData().getDistance());
@@ -67,8 +65,8 @@ public class Target extends CommandBase {
 	}
 
 	/**
-	 * Returns true when this Command no longer needs to run execute().
-	 * This command only ends when it's interrupted.
+	 * Returns true when this Command no longer needs to run execute(). This
+	 * command only ends when it's interrupted.
 	 * 
 	 * @return false
 	 */

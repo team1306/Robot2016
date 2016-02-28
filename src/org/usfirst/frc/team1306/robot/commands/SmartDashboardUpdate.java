@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import org.usfirst.frc.team1306.robot.commands.turret.BatterTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
@@ -42,24 +43,24 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Shooter", shooter.isSpunUp());
 		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
-		
+
 		String aim;
 		if (hood.isFlat()) {
 			aim = "No";
 		} else if (hood.isManuallyControlled()) {
 			aim = "Manual";
+		} else if (hood.getCurrentCommand() instanceof BatterTarget) {
+			aim = "High";
 		} else if (hood.getTarget().equals(HoodTarget.AUTO)) {
 			aim = "Auto";
-		} else if (hood.getTarget().equals(HoodTarget.HIGH)) {
-			aim = "High";
 		} else {
 			aim = "Low";
 		}
 		SmartDashboard.putString("Aiming", aim);
-		
+
 		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
 		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
-//		SmartDashboard.putBoolean("Hood Current", hood.getCurrent() > );
+		// SmartDashboard.putBoolean("Hood Current", hood.getCurrent() > );
 
 	}
 
