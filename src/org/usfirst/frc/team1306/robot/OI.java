@@ -64,7 +64,6 @@ public class OI {
 		buttonB = new JoystickButton(xbox, XboxController.B);
 		buttonX = new JoystickButton(xbox, XboxController.X);
 		buttonY = new JoystickButton(xbox, XboxController.Y);
-		new JoystickButton(xbox, XboxController.START);
 		buttonBack = new JoystickButton(xbox, XboxController.BACK);
 		buttonStart = new JoystickButton(xbox, XboxController.START);
 		bumperL = new JoystickButton(xbox, XboxController.LB);
