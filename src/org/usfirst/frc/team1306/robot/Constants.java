@@ -9,18 +9,17 @@ package org.usfirst.frc.team1306.robot;
 
 public class Constants {
 
-	public final static double JOYSTICK_POWER = 1.0;
-
 	// drive constants
 	// measured in encoder ticks per 1ms^2
-	public final static double MAX_ACCELERATION = 0.01;
-	public final static double MAX_SPEED = 7000; // placeholder
+	// commented out because drive encoders aren't currently used
+	// public final static double MAX_ACCELERATION = 0.01;
+	// public final static double MAX_SPEED = 7000;
 
 	// turret constants
 	public final static double TURRET_VISION_TOLERANCE = 1.0;
 
 	public final static double TURRET_P = 0.015;
-	public final static double TURRET_I = 0.001; // 0.001
+	public final static double TURRET_I = 0.001;
 	public final static double TURRET_D = 0.0;
 
 	public final static double TURRET_EDGE = 12000;
@@ -36,15 +35,11 @@ public class Constants {
 	public final static double HOOD_0_POS = 58.0;
 	public final static double HOOD_90_POS = 779.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
-	public final static double HOOD_HIGH_POSITION = 75.0;
+	public final static double HOOD_BATTER_POSITION = 75.0;
 	public final static double HOOD_TOLERANCE = 8.0;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.75;
-
-	// intake constants
-	public final static double INTAKE_LENGTH = 14.0; // placeholder
-	public final static double TUSK_LENGTH = 5.0; // placeholder
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
@@ -58,11 +53,10 @@ public class Constants {
 
 	// OI constants
 	public final static double DEADBAND = 0.15;
+	public final static double JOYSTICK_POWER = 1.0;
 
 	// vision constants
 	public final static double VISION_PERIOD = 0.1;
-	public final static double DISTANCE_CONVERSION = 1000.0; // placeholder
-	public final static double DEGREES_ABOVE_TARGET = 5.0;
 
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;

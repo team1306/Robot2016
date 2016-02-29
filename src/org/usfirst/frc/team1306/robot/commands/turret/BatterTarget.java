@@ -44,7 +44,7 @@ public class BatterTarget extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setHeight(Constants.HOOD_HIGH_POSITION);
+			hood.setHeight(Constants.HOOD_BATTER_POSITION);
 		}
 	}
 
