@@ -6,7 +6,6 @@ import org.usfirst.frc.team1306.robot.commands.drivetrain.DriveTank;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,9 +20,8 @@ public class Drivetrain extends Subsystem {
 	private final CANTalon leftMotor2;
 	private final CANTalon rightMotor1;
 	private final CANTalon rightMotor2;
-
-	private final DoubleSolenoid leftShifter;
-	private final DoubleSolenoid rightShifter;
+	
+	private double shiftRatio;
 
 	public Drivetrain() {
 
@@ -31,15 +29,13 @@ public class Drivetrain extends Subsystem {
 		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
 		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
 		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
+		shiftRatio = 100;
 
 		motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
 		setupMotors(leftMotor1, leftMotor2);
 		setupMotors(rightMotor1, rightMotor2);
 
-		leftShifter = new DoubleSolenoid(0, 1);
-		rightShifter = new DoubleSolenoid(2, 3);
-
-		shiftDown();
+		//shiftDown();
 
 	}
 
@@ -54,8 +50,8 @@ public class Drivetrain extends Subsystem {
 	public void driveTank(double leftVel, double rightVel) {
 		leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
 		rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
-		leftMotor1.set(-leftVel);
-		rightMotor1.set(rightVel);
+		leftMotor1.set(-leftVel * shiftRatio);
+		rightMotor1.set(rightVel * shiftRatio);
 	}
 
 	/**
@@ -104,20 +100,14 @@ public class Drivetrain extends Subsystem {
 	 * Put both motors into high gear.
 	 */
 	public void shiftUp() {
-		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
-		leftMotor1.setProfile(1);
-		rightMotor1.setProfile(1);
+		shiftRatio = 1.0;
 	}
 
 	/**
 	 * Put both motors into low gear.
 	 */
 	public void shiftDown() {
-		leftShifter.set(DoubleSolenoid.Value.kReverse);
-		rightShifter.set(DoubleSolenoid.Value.kReverse);
-		leftMotor1.setProfile(0);
-		rightMotor1.setProfile(0);
+		shiftRatio = 0.5;
 	}
 
 	/**
