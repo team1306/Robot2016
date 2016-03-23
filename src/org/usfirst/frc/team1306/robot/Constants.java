@@ -35,6 +35,9 @@ public class Constants {
 	public final static double HOOD_0_POS = 58.0;
 	public final static double HOOD_90_POS = 779.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
+	public final static double HOOD_NEW_BALL_POSITION = 53;
+	public final static double HOOD_MEDIUM_BALL_POSITION = 54;
+	public final static double HOOD_OLD_BALL_POSITION = 55;
 	public final static double HOOD_BATTER_POSITION = 75.0;
 	public final static double HOOD_TOLERANCE = 8.0;
 

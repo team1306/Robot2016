@@ -1,9 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
@@ -30,7 +27,6 @@ public class BatterTarget extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
 		turret.getPIDController().reset();
 		turret.setTurretForward();
 	}
@@ -44,7 +40,8 @@ public class BatterTarget extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setHeight(Constants.HOOD_BATTER_POSITION);
+			hood.setTarget(HoodTarget.BATTER);
+			hood.setHeight(hood.getTarget().getHeight());
 		}
 	}
 

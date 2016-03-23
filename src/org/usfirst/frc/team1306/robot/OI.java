@@ -12,7 +12,9 @@ import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTarget;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetAuto;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetMedium;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetNew;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetOld;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
@@ -54,6 +56,8 @@ public class OI {
 
 	private final Button buttonA2;
 	private final Button buttonB2;
+	private final Button buttonX2;
+	private final Button buttonY2;
 
 	// Initialize everything
 	public OI() {
@@ -71,6 +75,8 @@ public class OI {
 
 		buttonA2 = new JoystickButton(secondary, XboxController.A);
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
+		buttonX2 = new JoystickButton(secondary, XboxController.X);
+		buttonY2 = new JoystickButton(secondary, XboxController.Y);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
@@ -99,8 +105,10 @@ public class OI {
 		dPadLeft.whenActive(new IntakeArmDown());
 		dPadDown.whenActive(new IntakeArmRest());
 
-		buttonA2.whenPressed(new HoodSetTargetAuto());
-		buttonB2.whenPressed(new HoodSetTargetLow());
+		buttonA2.whenPressed(new HoodSetTargetLow());
+		buttonB2.whenPressed(new HoodSetTargetOld());
+		buttonX2.whenPressed(new HoodSetTargetNew());
+		buttonY2.whenPressed(new HoodSetTargetMedium());
 	}
 
 	/**

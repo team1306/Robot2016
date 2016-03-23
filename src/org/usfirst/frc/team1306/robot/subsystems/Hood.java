@@ -26,7 +26,7 @@ public class Hood extends Subsystem {
 	 */
 	public Hood() {
 
-		target = HoodTarget.AUTO;
+		target = HoodTarget.MEDIUM;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -105,6 +105,7 @@ public class Hood extends Subsystem {
 	 */
 	public void flatten() {
 		setHeight(90.0);
+		setTarget(HoodTarget.FLAT);
 	}
 
 	/**

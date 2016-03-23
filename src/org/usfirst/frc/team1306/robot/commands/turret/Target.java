@@ -1,10 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.vision.Vision;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
@@ -30,8 +27,7 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		SmartDashboard.putNumber("set hood height", SmartDashboard.getNumber("set hood height", 45.0));
-		hood.setTarget(HoodTarget.AUTO);
+		hood.setTarget(HoodTarget.MEDIUM);
 		turret.getPIDController().reset();
 	}
 
@@ -53,14 +49,8 @@ public class Target extends CommandBase {
 		}
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
-		} else if (hood.getTarget().equals(HoodTarget.LOW)) {
-			hood.setHeight(Constants.HOOD_LOW_GOAL_POSITION);
-		} else if (canSeeTarget) {
-			// TODO re-add automatic targeting when the math is done
-			// hood.setDistance(Vision.getData().getDistance());
-			hood.setHeight(SmartDashboard.getNumber("set hood height"));
 		} else {
-			hood.setVel(oi.getHoodVel());
+			hood.setHeight(hood.getTarget().getHeight());
 		}
 	}
 
