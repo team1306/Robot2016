@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.vision.Vision;
+//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -101,7 +101,8 @@ public class Turret extends PIDSubsystem {
 	 *         can't be seen.
 	 */
 	protected double returnPIDInput() {
-		return -Vision.getData().getYaw();
+//		return -Vision.getData().getYaw();
+		return 0.0;
 	}
 
 	/**

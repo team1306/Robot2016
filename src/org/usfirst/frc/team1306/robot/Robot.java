@@ -6,7 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
 import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
 import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
-import org.usfirst.frc.team1306.robot.vision.Vision;
+//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
-		Vision.init();
+//		Vision.init();
 
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
@@ -81,8 +81,8 @@ public class Robot extends IterativeRobot {
 
 		autonomousCommand = (Command) autoChooser.getSelected();
 
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		//if (autonomousCommand != null)
+			//autonomousCommand.start();
 	}
 
 	/**

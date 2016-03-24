@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-import org.usfirst.frc.team1306.robot.vision.Vision;
+//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
@@ -39,7 +39,8 @@ public class Target extends CommandBase {
 	 * instead.
 	 */
 	protected void execute() {
-		boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
+//		boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
+		boolean canSeeTarget = false;
 		if (canSeeTarget && !oi.getTurretOverrride()) {
 			turret.enable();
 			turret.setSetpoint(0.0);
