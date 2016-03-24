@@ -15,7 +15,9 @@ public class HoodSetTargetLow extends CommandBase {
 	 * one-time action, so the target is set here.
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.LOW);
+		if (hood.getCurrentCommand() instanceof Target) {
+			hood.setTarget(HoodTarget.LOW);
+		}
 	}
 
 	/**

@@ -13,7 +13,9 @@ public class HoodSetTargetMedium extends CommandBase {
 	 * one-time action, so the target is set here.
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.MEDIUM);
+		if (hood.getCurrentCommand() instanceof Target) {
+			hood.setTarget(HoodTarget.MEDIUM);
+		}
 	}
 
 	/**
