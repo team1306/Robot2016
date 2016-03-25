@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-import org.usfirst.frc.team1306.robot.vision.Vision;
+//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 /**
  * A command that scans for a target. This is used in autonomous mode.
@@ -44,8 +44,8 @@ public class ScanForTarget extends CommandBase {
 	 * case, it's finished scanning when it can see the target.
 	 */
 	protected boolean isFinished() {
-		return Vision.canSeeTarget();
-//		return true;
+//		return Vision.canSeeTarget();
+		return true;
 	}
 
 	/**

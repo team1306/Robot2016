@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
@@ -10,13 +9,14 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * 
  * @author Finn Voichick
  */
-public class Target extends CommandBase {
+public class BatterTargetClose extends CommandBase {
 
 	/**
-	 * Creates a new Target command. The turret is required because this command
-	 * can't run at the same time as anything that requires these subsystems.
+	 * Creates a new BatterTarget command. The turret is required because this
+	 * command can't run at the same time as anything that requires these
+	 * subsystems.
 	 */
-	public Target() {
+	public BatterTargetClose() {
 		requires(turret);
 		requires(hood);
 	}
@@ -27,25 +27,20 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.MEDIUM);
 		turret.getPIDController().reset();
+		turret.setTurretForward();
 	}
 
 	/**
-	 * Called repeatedly when this Command is scheduled to run. If the target is
-	 * seen, it enables the Turret PIDSubsystem and sets the hood angle
-	 * accordingly. Otherwise, allows for manual control. If the hood's target
-	 * is set to something other than automatic, it will go to its set position
-	 * instead.
+	 * Called repeatedly when this Command is scheduled to run. Allows for
+	 * manual hood override, but will otherwise just go to the set high
+	 * position.
 	 */
 	protected void execute() {
-		// boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
-		boolean canSeeTarget = false;
-		turret.getPIDController().reset();
-		turret.setVel(oi.getTurretVel());
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
+			hood.setTarget(HoodTarget.BATTER_CLOSE);
 			hood.setHeight(hood.getTarget().getHeight());
 		}
 	}
@@ -64,8 +59,6 @@ public class Target extends CommandBase {
 	 * Called once after isFinished returns true. This command never does end.
 	 */
 	protected void end() {
-		turret.getPIDController().reset();
-		turret.setVel(0.0);
 	}
 
 	/**
@@ -74,6 +67,5 @@ public class Target extends CommandBase {
 	 * the turret's velocity to zero.
 	 */
 	protected void interrupted() {
-		end();
 	}
 }

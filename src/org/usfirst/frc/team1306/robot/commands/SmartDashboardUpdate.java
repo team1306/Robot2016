@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
-import org.usfirst.frc.team1306.robot.vision.Vision;
+//import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,12 +34,12 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
 
-		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
+//		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 		
-		SmartDashboard.putBoolean("Vision", Vision.isConnected());
+//		SmartDashboard.putBoolean("Vision", Vision.isConnected());
 
 		SmartDashboard.putBoolean("Ball", indexer.hasBall());
-		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
+//		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
 		SmartDashboard.putBoolean("Shooter", shooter.isSpunUp());
 		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
 		SmartDashboard.putBoolean("Hood", hood.onTarget());

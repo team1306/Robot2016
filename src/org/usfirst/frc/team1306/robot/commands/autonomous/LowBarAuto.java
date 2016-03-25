@@ -16,10 +16,10 @@ public class LowBarAuto extends CommandGroup {
 	public LowBarAuto() {
 		addSequential(new IntakeArmRest());
 		addSequential(new DriveUnderLowBar());
-		addParallel(new SpinUp());
-		addSequential(new ScanForTarget());
-		addParallel(new Target());
-		addSequential(new WaitFourSeconds());
-		addSequential(new Fire());
+//		addParallel(new SpinUp());
+//		addSequential(new ScanForTarget());
+//		addParallel(new Target());
+//		addSequential(new WaitFourSeconds());
+//		addSequential(new Fire());
 	}
 }

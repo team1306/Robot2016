@@ -32,13 +32,14 @@ public class Constants {
 	public final static double SHOOTER_SET_SPEED = 0.95;
 
 	// hood constants
-	public final static double HOOD_0_POS = 58.0;
-	public final static double HOOD_90_POS = 779.0;
+	public final static double HOOD_0_POS = 80.0;
+	public final static double HOOD_90_POS = 800.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
-	public final static double HOOD_NEW_BALL_POSITION = 53;
-	public final static double HOOD_MEDIUM_BALL_POSITION = 54;
-	public final static double HOOD_OLD_BALL_POSITION = 55;
-	public final static double HOOD_BATTER_POSITION = 75.0;
+	public final static double HOOD_NEW_BALL_POSITION = 49.5;
+	public final static double HOOD_MEDIUM_BALL_POSITION = 50.5;
+	public final static double HOOD_OLD_BALL_POSITION = 51.5;
+	public final static double HOOD_BATTER_CLOSE_POSITION = 69.0;
+	public final static double HOOD_BATTER_FAR_POSITION = 62.5;
 	public final static double HOOD_TOLERANCE = 8.0;
 
 	// indexer constants
@@ -49,10 +50,10 @@ public class Constants {
 	public final static double INTAKE_LEFT_ARM_90_POS = 540.0;
 	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
-	public final static double INTAKE_PICKUP_POS = 10.0;
+	public final static double INTAKE_PICKUP_POS = 15.0;
 	public final static double INTAKE_VERTICAL_POS = 85.0;
 	public final static double INTAKE_DROP_THRESHOLD = 30.0;
-	public final static double INTAKE_DOWN_POS = -20.0;
+	public final static double INTAKE_DOWN_POS = -30.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;

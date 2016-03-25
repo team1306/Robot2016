@@ -11,7 +11,8 @@ import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.BatterTarget;
+import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetClose;
+import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetFar;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetMedium;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetNew;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetOld;
@@ -58,6 +59,12 @@ public class OI {
 	private final Button buttonB2;
 	private final Button buttonX2;
 	private final Button buttonY2;
+	
+	private final Trigger dPad2Up;
+	private final Trigger dPad2Right;
+	private final Trigger dPad2Down;
+	
+	private final Button bumperR2;
 
 	// Initialize everything
 	public OI() {
@@ -77,11 +84,17 @@ public class OI {
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
 		buttonX2 = new JoystickButton(secondary, XboxController.X);
 		buttonY2 = new JoystickButton(secondary, XboxController.Y);
+		
+		bumperR2 = new JoystickButton(secondary, XboxController.RB);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
 		dPadLeft = new DPadLeft(xbox);
 		dPadDown = new DPadDown(xbox);
+		
+		dPad2Up = new DPadUp(xbox);
+		dPad2Right = new DPadRight(xbox);
+		dPad2Down = new DPadDown(xbox);
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
@@ -95,8 +108,7 @@ public class OI {
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
-		buttonStart.whenPressed(new IntakeArmVertical());
-		buttonStart.whenPressed(new BatterTarget());
+		buttonStart.whenPressed(new BatterTargetClose());
 		buttonStart.whenPressed(new SpinUp());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
@@ -109,6 +121,15 @@ public class OI {
 		buttonB2.whenPressed(new HoodSetTargetOld());
 		buttonX2.whenPressed(new HoodSetTargetNew());
 		buttonY2.whenPressed(new HoodSetTargetMedium());
+		bumperR2.whenPressed(new Fire());
+		
+		dPad2Up.whenActive(new BatterTargetClose());
+		dPad2Up.whenActive(new SpinUp());
+		dPad2Right.whenActive(new BatterTargetFar());
+		dPad2Right.whenActive(new SpinUp());
+		dPad2Down.whenActive(new IntakeArmRest());
+		dPad2Down.whenActive(new Target());
+		dPad2Down.whenActive(new SpinUp());
 	}
 
 	/**
@@ -150,19 +171,19 @@ public class OI {
 	}
 
 	public double getTurretVel() {
-		return deadband(secondary.getX(Hand.kLeft));
+		return deadband(secondary.getX(Hand.kRight));
 	}
 
 	public double getHoodVel() {
-		return deadband(secondary.getY(Hand.kRight));
+		return deadband(secondary.getY(Hand.kLeft));
 	}
 
-	public boolean getTurretOverrride() {
-		return secondary.getLT() > 0.5;
-	}
+//	public boolean getTurretOverrride() {
+//		return secondary.getLT() > 0.5;
+//	}
 
 	public boolean getHoodOverride() {
-		return secondary.getRT() > 0.5;
+		return secondary.getLT() > 0.5;
 	}
 
 	/**
