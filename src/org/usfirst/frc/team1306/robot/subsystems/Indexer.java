@@ -59,7 +59,7 @@ public class Indexer extends Subsystem {
 	 * Reverse drives the intake motor at the power specified in Constants.
 	 */
 	public void reverse() {
-		motor.set(-Constants.INDEXER_POWER);
+		motor.set(-1.0);
 	}
 
 	/**

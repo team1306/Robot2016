@@ -27,7 +27,7 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.MEDIUM);
+		hood.setTarget(HoodTarget.NORMAL);
 		turret.getPIDController().reset();
 	}
 
@@ -46,7 +46,7 @@ public class Target extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setHeight(hood.getTarget().getHeight());
+			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

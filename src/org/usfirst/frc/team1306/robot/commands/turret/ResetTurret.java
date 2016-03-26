@@ -36,9 +36,9 @@ public class ResetTurret extends CommandBase {
 		turret.setTurretForward();
 		hood.flatten();
 		shooter.spinDown();
-		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
-			new IntakeArmRest().start();
-		}
+//		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+//			new IntakeArmRest().start();
+//		}
 	}
 
 	/**

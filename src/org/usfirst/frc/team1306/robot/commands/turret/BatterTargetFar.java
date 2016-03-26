@@ -40,8 +40,8 @@ public class BatterTargetFar extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setTarget(HoodTarget.BATTER_CLOSE);
-			hood.setHeight(hood.getTarget().getHeight());
+			hood.setTarget(HoodTarget.BATTER_FAR);
+			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

@@ -6,16 +6,14 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * A command for setting the hood to target automatically. Making this a command
  * allows it to be linked to buttons on the secondary controller.
  */
-public class HoodSetTargetMedium extends CommandBase {
+public class HoodSetQualityMedium extends CommandBase {
 
 	/**
 	 * Called just before this Command runs the first time. This command is a
 	 * one-time action, so the target is set here.
 	 */
 	protected void initialize() {
-		if (hood.getCurrentCommand() instanceof Target) {
-			hood.setTarget(HoodTarget.MEDIUM);
-		}
+			hood.setQuality(BallQuality.MEDIUM);
 	}
 
 	/**

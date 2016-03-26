@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.turret.BallQuality;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -20,13 +21,15 @@ public class Hood extends Subsystem {
 	/** The motor that moves the hood */
 	private final CANTalon hoodTalon;
 	private HoodTarget target;
+	private BallQuality quality;
 
 	/**
 	 * Constructs a Hood and enables PID position control.
 	 */
 	public Hood() {
 
-		target = HoodTarget.MEDIUM;
+		target = HoodTarget.NORMAL;
+		quality = quality.MEDIUM;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -53,6 +56,14 @@ public class Hood extends Subsystem {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(
 				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
+	}
+	
+	public void setQuality(BallQuality quality) {
+		this.quality = quality;
+	}
+	
+	public BallQuality getQuality() {
+		return quality;
 	}
 
 	/**

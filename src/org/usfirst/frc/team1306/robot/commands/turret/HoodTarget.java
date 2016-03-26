@@ -13,9 +13,9 @@ import org.usfirst.frc.team1306.robot.Constants;
  */
 public enum HoodTarget {
 
-	FLAT(90.0, "Flat"), LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), NEW(Constants.HOOD_NEW_BALL_POSITION, "New Ball"), OLD(
-			Constants.HOOD_OLD_BALL_POSITION, "Old Ball"), MEDIUM(Constants.HOOD_MEDIUM_BALL_POSITION, "Medium Ball"), BATTER_FAR(Constants.HOOD_BATTER_FAR_POSITION, "Batter Edge"), BATTER_CLOSE(
-					Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Close");
+	FLAT(90.0, "Flat"), LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), NORMAL(Constants.HOOD_NORMAL_TARGET_POSITION,
+			"Normal Shot"), BATTER_FAR(Constants.HOOD_BATTER_FAR_POSITION,
+					"Batter Shot Edge"), BATTER_CLOSE(Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Shot Close");
 
 	private final double height;
 	private final String name;
@@ -23,7 +23,7 @@ public enum HoodTarget {
 	public double getHeight() {
 		return height;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;

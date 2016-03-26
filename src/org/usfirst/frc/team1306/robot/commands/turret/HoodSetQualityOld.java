@@ -5,16 +5,14 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  *
  */
-public class HoodSetTargetNew extends CommandBase {
+public class HoodSetQualityOld extends CommandBase {
 
-	public HoodSetTargetNew() {
+	public HoodSetQualityOld() {
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (hood.getCurrentCommand() instanceof Target) {
-			hood.setTarget(HoodTarget.NEW);
-		}
+			hood.setQuality(BallQuality.OLD);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
