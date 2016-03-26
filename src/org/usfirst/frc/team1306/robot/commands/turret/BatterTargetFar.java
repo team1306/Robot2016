@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
  * it enables automatic turret and hood targeting. The hood and turret positions
@@ -19,6 +21,7 @@ public class BatterTargetFar extends CommandBase {
 	public BatterTargetFar() {
 		requires(turret);
 		requires(hood);
+		SmartDashboard.putNumber("hood set height", HoodTarget.BATTER_FAR.getHeight());
 	}
 
 	/**
@@ -40,8 +43,9 @@ public class BatterTargetFar extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
+			double height = SmartDashboard.getNumber("hood set height");
 			hood.setTarget(HoodTarget.BATTER_FAR);
-			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
+			hood.setHeight(height + hood.getQuality().difference());
 		}
 	}
 
