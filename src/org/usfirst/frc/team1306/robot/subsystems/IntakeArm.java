@@ -81,11 +81,11 @@ public class IntakeArm extends Subsystem {
 	 */
 	public void releaseBrakes() {
 		motor.enableBrakeMode(false);
-		slave.enableBrakeMode(false);
+//		slave.enableBrakeMode(false);
 		motor.changeControlMode(TalonControlMode.PercentVbus);
-		slave.changeControlMode(TalonControlMode.PercentVbus);
+//		slave.changeControlMode(TalonControlMode.PercentVbus);
 		motor.set(0.0);
-		slave.set(0.0);
+//		slave.set(0.0);
 	}
 
 	/**

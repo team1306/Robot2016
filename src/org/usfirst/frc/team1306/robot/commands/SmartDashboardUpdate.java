@@ -33,6 +33,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
+		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
 
 //		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 		

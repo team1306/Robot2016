@@ -45,7 +45,7 @@ public class Constants {
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 540.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 390.0;
 	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
 	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
 	public final static double INTAKE_PICKUP_POS = 11.0;
