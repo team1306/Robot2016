@@ -18,12 +18,12 @@ public class ObstacleAuto extends CommandGroup {
 
 		addParallel(new IntakeArmVertical());
 		addSequential(new DriveOverObstacle());
-		addParallel(new SpinUp());
-		addSequential(new IntakeArmRest());
-		addSequential(new ScanForTarget());
-		addParallel(new Target());
-		addSequential(new WaitFourSeconds());
-		addSequential(new Fire());
+//		addParallel(new SpinUp());
+//		addSequential(new IntakeArmRest());
+//		addSequential(new ScanForTarget());
+//		addParallel(new Target());
+//		addSequential(new WaitFourSeconds());
+//		addSequential(new Fire());
 
 	}
 }

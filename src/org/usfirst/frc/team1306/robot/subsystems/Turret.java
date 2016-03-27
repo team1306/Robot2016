@@ -57,7 +57,7 @@ public class Turret extends PIDSubsystem {
 	 */
 	public void setVel(double speed) {
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.set(-speed);
+		turretTalon.set(-0.2*speed);
 	}
 
 	/**

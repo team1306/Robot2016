@@ -106,6 +106,7 @@
 //			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
 //			out = new PrintWriter(jetson.getOutputStream());
 //			isConnected = true;
+//			SmartDashboard.putString("error", "no error");
 //			out.println('a');
 //			SmartDashboard.putBoolean("Connected", true);
 //		} catch (Exception e) {
@@ -132,7 +133,7 @@
 //	// TODO put these constants in Constants
 //
 //	/** The ip address and port number of the jetson */
-//	private final static String hostName = "169.254.100.19";
+//	private final static String hostName = "10.13.6.19";
 //	private final static int portNumber = 5802;
 //
 //}

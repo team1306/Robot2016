@@ -9,16 +9,16 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * 
  * @author Finn Voichick
  */
-public class BatterTarget extends CommandBase {
+public class BatterTargetClose extends CommandBase {
 
 	/**
 	 * Creates a new BatterTarget command. The turret is required because this
 	 * command can't run at the same time as anything that requires these
 	 * subsystems.
 	 */
-	public BatterTarget() {
+	public BatterTargetClose() {
 		requires(turret);
-		requires(hood);
+//		requires(hood);
 	}
 
 	/**
@@ -38,10 +38,10 @@ public class BatterTarget extends CommandBase {
 	 */
 	protected void execute() {
 		if (oi.getHoodOverride()) {
-			hood.setVel(oi.getHoodVel());
+//			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setTarget(HoodTarget.BATTER);
-			hood.setHeight(hood.getTarget().getHeight());
+//			hood.setTarget(HoodTarget.BATTER_CLOSE);
+//			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

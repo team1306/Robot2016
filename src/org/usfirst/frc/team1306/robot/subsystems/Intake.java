@@ -15,18 +15,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 
 	/** One of the speed controllers that moves the intake. */
-	private final SpeedController roller1;
+	private final SpeedController lateralRoller;
 	/** The other roller speed controller. */
-	private final SpeedController roller2;
+	private final SpeedController intakeRoller;
 
 	/**
 	 * Constructs an the intake with both rollers.
 	 */
 	public Intake() {
-		roller1 = new Talon(RobotMap.intakeRoller1Port);
-		roller1.setInverted(true);
-		roller2 = new Talon(RobotMap.intakeRoller2Port);
-		roller2.setInverted(true);
+		lateralRoller = new Talon(RobotMap.intakeRoller1Port);
+		intakeRoller = new Talon(RobotMap.intakeRoller2Port);
+		intakeRoller.setInverted(true);
 
 	}
 
@@ -41,7 +40,7 @@ public class Intake extends Subsystem {
 	 * Toggle the rollers. This is never used.
 	 */
 	public void toggleRollers() {
-		if (roller1.get() > 0) {
+		if (lateralRoller.get() > 0) {
 			stopRollers();
 		} else {
 			startRollers();
@@ -52,24 +51,24 @@ public class Intake extends Subsystem {
 	 * Set the rollers spinning. This direction will pull balls in.
 	 */
 	public void startRollers() {
-		roller1.set(1.0);
-		roller2.set(1.0);
+		lateralRoller.set(1.0);
+		intakeRoller.set(1.0);
 	}
 
 	/**
 	 * Stop the rollers spinning.
 	 */
 	public void stopRollers() {
-		roller1.set(0.0);
-		roller2.set(0.0);
+		lateralRoller.set(0.0);
+		intakeRoller.set(0.0);
 	}
 
 	/**
 	 * Reverse the rollers. This will push balls out.
 	 */
 	public void reverse() {
-		roller1.set(-1.0);
-		roller2.set(-1.0);
+		lateralRoller.set(1.0);
+		intakeRoller.set(-1.0);
 	}
 
 }

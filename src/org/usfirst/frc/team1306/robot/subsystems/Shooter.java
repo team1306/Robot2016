@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Subsystem representing the shooter and its controllers. "Shooter" in this
@@ -30,6 +31,9 @@ public class Shooter extends Subsystem {
 
 		// flywheel.reverseOutput(false);
 		// flywheel.reverseSensor(true);
+		
+		SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
+		
 
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
@@ -51,8 +55,10 @@ public class Shooter extends Subsystem {
 	 * velocity so that it doesn't drop over the course of a match
 	 */
 	public void spinUp() {
+		double speed = SmartDashboard.getNumber("flywheel power");
 		flywheel.changeControlMode(TalonControlMode.Speed);
-		flywheel.set(-Constants.SHOOTER_SET_SPEED * Constants.SHOOTER_MAX_SPEED);
+//		flywheel.set(-Constants.SHOOTER_SET_SPEED * Constants.SHOOTER_MAX_SPEED);
+		flywheel.set(-speed * Constants.SHOOTER_MAX_SPEED);
 	}
 
 	/**
