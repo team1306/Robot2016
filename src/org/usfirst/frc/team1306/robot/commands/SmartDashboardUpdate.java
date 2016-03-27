@@ -28,7 +28,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		// Values useful for PID debugging
 		SmartDashboard.putNumber("Game Time", Timer.getMatchTime());
 
-		SmartDashboard.putNumber("hood angle", hood.getHeight());
+//		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
@@ -43,10 +43,10 @@ public class SmartDashboardUpdate extends CommandBase {
 //		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
 		SmartDashboard.putBoolean("Shooter", shooter.isSpunUp());
 		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
-		SmartDashboard.putBoolean("Hood", hood.onTarget());
+//		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
-		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget().toString());
-		SmartDashboard.putString("Quality", hood.getQuality().toString());
+//		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget().toString());
+//		SmartDashboard.putString("Quality", hood.getQuality().toString());
 
 		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
 		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);

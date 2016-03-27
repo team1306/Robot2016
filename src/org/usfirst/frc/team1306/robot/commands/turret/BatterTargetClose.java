@@ -18,7 +18,7 @@ public class BatterTargetClose extends CommandBase {
 	 */
 	public BatterTargetClose() {
 		requires(turret);
-		requires(hood);
+//		requires(hood);
 	}
 
 	/**
@@ -38,10 +38,10 @@ public class BatterTargetClose extends CommandBase {
 	 */
 	protected void execute() {
 		if (oi.getHoodOverride()) {
-			hood.setVel(oi.getHoodVel());
+//			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setTarget(HoodTarget.BATTER_CLOSE);
-			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
+//			hood.setTarget(HoodTarget.BATTER_CLOSE);
+//			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

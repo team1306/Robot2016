@@ -20,7 +20,7 @@ public class BatterTargetFar extends CommandBase {
 	 */
 	public BatterTargetFar() {
 		requires(turret);
-		requires(hood);
+//		requires(hood);
 		SmartDashboard.putNumber("hood set height", HoodTarget.BATTER_FAR.getHeight());
 	}
 
@@ -41,11 +41,11 @@ public class BatterTargetFar extends CommandBase {
 	 */
 	protected void execute() {
 		if (oi.getHoodOverride()) {
-			hood.setVel(oi.getHoodVel());
+//			hood.setVel(oi.getHoodVel());
 		} else {
 			double height = SmartDashboard.getNumber("hood set height");
-			hood.setTarget(HoodTarget.BATTER_FAR);
-			hood.setHeight(height + hood.getQuality().difference());
+//			hood.setTarget(HoodTarget.BATTER_FAR);
+//			hood.setHeight(height + hood.getQuality().difference());
 		}
 	}
 

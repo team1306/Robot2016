@@ -18,7 +18,7 @@ public class Target extends CommandBase {
 	 */
 	public Target() {
 		requires(turret);
-		requires(hood);
+//		requires(hood);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.NORMAL);
+//		hood.setTarget(HoodTarget.NORMAL);
 		turret.getPIDController().reset();
 	}
 
@@ -44,9 +44,9 @@ public class Target extends CommandBase {
 		turret.getPIDController().reset();
 		turret.setVel(oi.getTurretVel());
 		if (oi.getHoodOverride()) {
-			hood.setVel(oi.getHoodVel());
+//			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
+//			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

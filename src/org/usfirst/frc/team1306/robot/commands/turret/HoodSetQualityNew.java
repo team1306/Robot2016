@@ -12,7 +12,7 @@ public class HoodSetQualityNew extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-			hood.setQuality(BallQuality.NEW);
+//			hood.setQuality(BallQuality.NEW);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
