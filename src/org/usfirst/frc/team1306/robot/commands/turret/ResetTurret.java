@@ -20,7 +20,7 @@ public class ResetTurret extends CommandBase {
 	 */
 	public ResetTurret() {
 		requires(turret);
-//		requires(hood);
+		requires(hood);
 		requires(shooter);
 	}
 
@@ -34,11 +34,11 @@ public class ResetTurret extends CommandBase {
 	 */
 	protected void initialize() {
 		turret.setTurretForward();
-//		hood.flatten();
+		hood.flatten();
 		shooter.spinDown();
-//		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
-//			new IntakeArmRest().start();
-//		}
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			new IntakeArmRest().start();
+		}
 	}
 
 	/**

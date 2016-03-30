@@ -6,7 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
 import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
 import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
 import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
-//import org.usfirst.frc.team1306.robot.vision.Vision;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
 
-//		Vision.init();
+		Vision.init();
 
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
