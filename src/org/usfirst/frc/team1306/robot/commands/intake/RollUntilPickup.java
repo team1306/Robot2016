@@ -27,9 +27,6 @@ public class RollUntilPickup extends CommandBase {
 	protected void initialize() {
 		intake.startRollers();
 		indexer.driveMotor();
-//		if (intake.getCurrentCommand().isRunning() && intake.getCurrentCommand() instanceof RollUntilPickup) {
-//			new StopRoll().start();
-//		}
 	}
 
 	/**
@@ -38,6 +35,11 @@ public class RollUntilPickup extends CommandBase {
 	 * already been set.
 	 */
 	protected void execute() {
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			intake.stopRollers();
+		} else {
+			intake.startRollers();
+		}
 	}
 
 	/**

@@ -17,18 +17,16 @@ public class Pass extends CommandBase {
 		if (intakeArm.getCurrentCommand() instanceof IntakeArmRest) {
 			new IntakeArmPickup().start();
 		}
-		if (!(intakeArm.getCurrentCommand() instanceof IntakeArmVertical)) {
-			intake.reverse();
-		}
 		indexer.reverse();
-		// if (intake.getCurrentCommand().isRunning() &&
-		// intake.getCurrentCommand() instanceof Pass) {
-		// new StopRoll().start();
-		// }
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			intake.stopRollers();
+		} else {
+			intake.startRollers();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
