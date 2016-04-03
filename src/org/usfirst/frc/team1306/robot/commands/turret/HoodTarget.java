@@ -13,9 +13,9 @@ import org.usfirst.frc.team1306.robot.Constants;
  */
 public enum HoodTarget {
 
-	FLAT(90.0, "Flat"), LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), NORMAL(Constants.HOOD_NORMAL_TARGET_POSITION,
+	LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), NORMAL(Constants.HOOD_NORMAL_TARGET_POSITION,
 			"Normal Shot"), BATTER_FAR(Constants.HOOD_BATTER_FAR_POSITION,
-					"Batter Shot Edge"), BATTER_CLOSE(Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Shot Close");
+					"Batter Edge Shot"), BATTER_CLOSE(Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Shot");
 
 	private final double height;
 	private final String name;

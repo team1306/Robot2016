@@ -2,7 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
-import org.usfirst.frc.team1306.robot.commands.turret.BallQuality;
+import org.usfirst.frc.team1306.robot.commands.turret.Adjustment;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -21,15 +21,15 @@ public class Hood extends Subsystem {
 	/** The motor that moves the hood */
 	private final CANTalon hoodTalon;
 	private HoodTarget target;
-	private BallQuality quality;
+	private Adjustment adjustment;
 
 	/**
 	 * Constructs a Hood and enables PID position control.
 	 */
 	public Hood() {
 
-		target = HoodTarget.NORMAL;
-		quality = quality.MEDIUM;
+		adjustment = Adjustment.NONE;
+		target = null;
 		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
@@ -52,18 +52,18 @@ public class Hood extends Subsystem {
 	 * @param position
 	 *            the new position of the hood
 	 */
-	public void setHeight(double position) {
+	private void setAngle(double position) {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(
 				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
 	
-	public void setQuality(BallQuality quality) {
-		this.quality = quality;
+	public void setAdjustment(Adjustment quality) {
+		this.adjustment = quality;
 	}
 	
-	public BallQuality getQuality() {
-		return quality;
+	public Adjustment getAdjustment() {
+		return adjustment;
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class Hood extends Subsystem {
 	 * robot will fit under the low bar.
 	 */
 	public void flatten() {
-		setHeight(90.0);
-		setTarget(HoodTarget.FLAT);
+		target = null;
+		setAngle(90.0);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class Hood extends Subsystem {
 	 * @return true if the hood is down, otherwise false.
 	 */
 	public boolean isFlat() {
-		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && hoodTalon.getSetpoint() == 90.0;
+		return target == null;
 	}
 
 	/**
@@ -147,6 +147,8 @@ public class Hood extends Subsystem {
 	 */
 	public void setTarget(HoodTarget target) {
 		this.target = target;
+		double height = SmartDashboard.getNumber("hood set height");
+		setAngle(height + adjustment.difference());
 	}
 
 	/**

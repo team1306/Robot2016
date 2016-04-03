@@ -43,9 +43,7 @@ public class BatterTargetFar extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			double height = SmartDashboard.getNumber("hood set height");
 			hood.setTarget(HoodTarget.BATTER_FAR);
-			hood.setHeight(height + hood.getQuality().difference());
 		}
 	}
 

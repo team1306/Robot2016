@@ -13,7 +13,7 @@ public class HoodSetQualityMedium extends CommandBase {
 	 * one-time action, so the target is set here.
 	 */
 	protected void initialize() {
-			hood.setQuality(BallQuality.MEDIUM);
+			hood.setAdjustment(Adjustment.NONE);
 	}
 
 	/**

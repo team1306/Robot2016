@@ -41,7 +41,6 @@ public class BatterTargetClose extends CommandBase {
 			hood.setVel(oi.getHoodVel());
 		} else {
 			hood.setTarget(HoodTarget.BATTER_CLOSE);
-			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
 		}
 	}
 

@@ -106,7 +106,7 @@ public class OI {
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
-		buttonStart.whenPressed(new BatterTargetClose());
+		buttonStart.whenPressed(new Target());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());

@@ -46,7 +46,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget().toString());
-		SmartDashboard.putString("Quality", hood.getQuality().toString());
+		SmartDashboard.putString("Quality", hood.getAdjustment().toString());
 
 		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
 		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
