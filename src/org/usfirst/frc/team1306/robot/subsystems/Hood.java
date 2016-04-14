@@ -147,6 +147,7 @@ public class Hood extends Subsystem {
 	 */
 	public void setTarget(HoodTarget target) {
 		this.target = target;
+		SmartDashboard.putNumber("hood set height", SmartDashboard.getNumber("hood set height", HoodTarget.NORMAL.getHeight()));
 		double height = SmartDashboard.getNumber("hood set height");
 		setAngle(height + adjustment.difference());
 	}
@@ -168,7 +169,7 @@ public class Hood extends Subsystem {
 	 */
 	public boolean onTarget() {
 		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0
-				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE;
+				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE * Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
 	}
 
 	/**

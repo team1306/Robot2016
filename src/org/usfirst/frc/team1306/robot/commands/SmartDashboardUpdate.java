@@ -32,8 +32,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
-		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
-		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
+//		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
+//		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
 
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 		
@@ -42,14 +42,14 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Ball", indexer.hasBall());
 		SmartDashboard.putBoolean("Visibility", Vision.canSeeTarget());
 		SmartDashboard.putBoolean("Shooter", shooter.isSpunUp());
-		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
+//		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
-		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget().toString());
+		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
 		SmartDashboard.putString("Quality", hood.getAdjustment().toString());
 
-		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
-		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
+//		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
+//		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
 
 	}
 

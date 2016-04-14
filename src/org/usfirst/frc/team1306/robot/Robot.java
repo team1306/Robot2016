@@ -3,9 +3,9 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
-import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
+//import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
+//import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
+//import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -52,9 +52,9 @@ public class Robot extends IterativeRobot {
 
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Low Bar", new LowBarAuto());
-		autoChooser.addObject("Rough Terrain", new TerrainAuto());
-		autoChooser.addObject("Moat, Wall, or Ramparts", new ObstacleAuto());
+//		autoChooser.addDefault("Low Bar", new LowBarAuto());
+//		autoChooser.addObject("Rough Terrain", new TerrainAuto());
+//		autoChooser.addObject("Moat, Wall, or Ramparts", new ObstacleAuto());
 		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// Start the debugging log command

@@ -3,6 +3,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.CANSpeedController.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -19,6 +20,7 @@ public class Shooter extends Subsystem {
 
 	/** The Talon SRX that controls the flywheel motor. */
 	private CANTalon flywheel;
+	private boolean lowSpin;
 
 	/**
 	 * Constructs a new shooter that uses a quadrature encoder as its feedback
@@ -28,12 +30,12 @@ public class Shooter extends Subsystem {
 	 */
 	public Shooter() {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
+		lowSpin = false;
 
 		// flywheel.reverseOutput(false);
 		// flywheel.reverseSensor(true);
-		
+
 		SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
-		
 
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
@@ -57,8 +59,11 @@ public class Shooter extends Subsystem {
 	public void spinUp() {
 		double speed = SmartDashboard.getNumber("flywheel power");
 		flywheel.changeControlMode(TalonControlMode.Speed);
-//		flywheel.set(-Constants.SHOOTER_SET_SPEED * Constants.SHOOTER_MAX_SPEED);
-		flywheel.set(-speed * Constants.SHOOTER_MAX_SPEED);
+		// flywheel.set(-Constants.SHOOTER_SET_SPEED *
+		// Constants.SHOOTER_MAX_SPEED);
+		flywheel.set(-speed * Constants.SHOOTER_CONVERSION_FACTOR);
+		// flywheel.changeControlMode(TalonControlMode.PercentVbus);
+		// flywheel.set(-1.0);
 	}
 
 	/**
@@ -66,8 +71,17 @@ public class Shooter extends Subsystem {
 	 * coast to a stop.
 	 */
 	public void spinDown() {
-		flywheel.changeControlMode(TalonControlMode.PercentVbus);
-		flywheel.set(0.0);
+//		if (lowSpin && flywheel.getSpeed() < ) {
+//			flywheel.changeControlMode(TalonControlMode.Speed);
+//			flywheel.set(-Constants.SHOOTER_LOW_SPIN * Constants.SHOOTER_CONVERSION_FACTOR);
+//		} else {
+			flywheel.changeControlMode(TalonControlMode.PercentVbus);
+			flywheel.set(0.0);
+//		}
+	}
+
+	public void setLowSpin(boolean lowSpin) {
+		this.lowSpin = lowSpin;
 	}
 
 	/**
@@ -76,7 +90,7 @@ public class Shooter extends Subsystem {
 	 * @return the current flywheel speed.
 	 */
 	public double getSpeed() {
-		return -flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
+		return -flywheel.getSpeed() / Constants.SHOOTER_CONVERSION_FACTOR;
 	}
 
 	/**
@@ -97,7 +111,8 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
-		return getSpeed() > 0.5 && Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
+		return flywheel.getControlMode().equals(TalonControlMode.Speed) && getSpeed() > 0.5
+				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Target extends CommandBase {
 	 * can't run at the same time as anything that requires these subsystems.
 	 */
 	public Target() {
-		requires(turret);
+//		requires(turret);
 		requires(hood);
 	}
 
@@ -27,7 +27,7 @@ public class Target extends CommandBase {
 	 */
 	protected void initialize() {
 		hood.setTarget(HoodTarget.NORMAL);
-		turret.getPIDController().reset();
+//		turret.getPIDController().reset();
 	}
 
 	/**
@@ -38,8 +38,8 @@ public class Target extends CommandBase {
 	 * instead.
 	 */
 	protected void execute() {
-		turret.getPIDController().reset();
-		turret.setVel(oi.getTurretVel());
+//		turret.getPIDController().reset();
+//		turret.setVel(oi.getTurretVel());
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
@@ -61,8 +61,8 @@ public class Target extends CommandBase {
 	 * Called once after isFinished returns true. This command never does end.
 	 */
 	protected void end() {
-		turret.getPIDController().reset();
-		turret.setVel(0.0);
+//		turret.getPIDController().reset();
+//		turret.setVel(0.0);
 	}
 
 	/**

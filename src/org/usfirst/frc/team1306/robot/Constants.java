@@ -27,9 +27,10 @@ public class Constants {
 	public final static double TURRET_SCAN_SPEED = 0.2;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 23400.0;
-	public final static int SHOOTER_TOLERANCE = 117; // 0.5% tolerance
-	public final static double SHOOTER_SET_SPEED = 0.95;
+	public final static double SHOOTER_CONVERSION_FACTOR = 3.413333333;
+	public final static int SHOOTER_TOLERANCE = 150; // 0.5% tolerance
+	public final static double SHOOTER_SET_SPEED = 9000;
+	public final static double SHOOTER_LOW_SPIN = 3000;
 
 	// hood constants
 	public final static double HOOD_0_POS = 80.0;
@@ -38,10 +39,10 @@ public class Constants {
 	public final static double HOOD_NORMAL_TARGET_POSITION = 50.5;
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
-	public final static double HOOD_TOLERANCE = 8.0;
+	public final static double HOOD_TOLERANCE = 0.25;
 
 	// indexer constants
-	public final static double INDEXER_POWER = 0.75;
+	public final static double INDEXER_POWER = 0.6;
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;

@@ -47,7 +47,11 @@ public class Fire extends CommandBase {
 	 * setting fired to true.
 	 */
 	protected void execute() {
+//		if (indexer.hasBall()) {
 		shooter.spinUp();
+//		} else {
+//			shooter.spinDown();
+//		}
 		indexer.driveMotor();
 		// if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
 		// indexer.stop();

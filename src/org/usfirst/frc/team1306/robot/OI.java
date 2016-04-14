@@ -1,18 +1,10 @@
 package org.usfirst.frc.team1306.robot;
 
-import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
-import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
-import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
-import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
+import org.usfirst.frc.team1306.robot.commands.shooter.LowSpinOff;
+import org.usfirst.frc.team1306.robot.commands.shooter.LowSpinOn;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
-import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetClose;
-import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetFar;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityMedium;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityNew;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityOld;
@@ -59,6 +51,8 @@ public class OI {
 	private final Button buttonB2;
 	private final Button buttonX2;
 	private final Button buttonY2;
+	private final Button buttonStart2;
+	private final Button buttonBack2;
 	
 	private final Trigger dPad2Up;
 	private final Trigger dPad2Right;
@@ -84,6 +78,8 @@ public class OI {
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
 		buttonX2 = new JoystickButton(secondary, XboxController.X);
 		buttonY2 = new JoystickButton(secondary, XboxController.Y);
+		buttonStart2 = new JoystickButton(secondary, XboxController.START);
+		buttonBack2 = new JoystickButton(secondary, XboxController.BACK);
 		
 		bumperR2 = new JoystickButton(secondary, XboxController.RB);
 
@@ -98,30 +94,32 @@ public class OI {
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
-		buttonB.whenPressed(new StopRoll());
+//		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new SpinUp());
 		buttonY.whenPressed(new ResetTurret());
-		buttonY.whenPressed(new IntakeArmPickup());
+//		buttonY.whenPressed(new IntakeArmPickup());
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
-		buttonBack.whenPressed(new Pass());
+//		buttonBack.whenPressed(new Pass());
 		buttonStart.whenPressed(new Target());
-		bumperL.whenPressed(new ShiftDown());
-		bumperR.whenPressed(new ShiftUp());
-		dPadUp.whenActive(new IntakeArmVertical());
-		dPadRight.whenActive(new IntakeArmPickup());
-		dPadLeft.whenActive(new IntakeArmDown());
-		dPadDown.whenActive(new IntakeArmRest());
+//		bumperL.whenPressed(new ShiftDown());
+//		bumperR.whenPressed(new ShiftUp());
+//		dPadUp.whenActive(new IntakeArmVertical());
+//		dPadRight.whenActive(new IntakeArmPickup());
+//		dPadLeft.whenActive(new IntakeArmDown());
+//		dPadDown.whenActive(new IntakeArmRest());
 
 		buttonA2.whenPressed(new HoodSetTargetLow());
 		buttonB2.whenPressed(new HoodSetQualityOld());
 		buttonX2.whenPressed(new HoodSetQualityNew());
 		buttonY2.whenPressed(new HoodSetQualityMedium());
+		buttonStart2.whenPressed(new LowSpinOn());
+		buttonBack2.whenPressed(new LowSpinOff());
 		bumperR2.whenPressed(new Fire());
 		
-		dPad2Up.whenActive(new BatterTargetClose());
-		dPad2Right.whenActive(new BatterTargetFar());
+//		dPad2Up.whenActive(new BatterTargetClose());
+//		dPad2Right.whenActive(new BatterTargetFar());
 		dPad2Down.whenActive(new Target());
 	}
 
