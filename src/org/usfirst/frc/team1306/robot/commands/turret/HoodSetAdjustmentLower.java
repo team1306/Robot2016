@@ -5,9 +5,9 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 /**
  *
  */
-public class HoodSetQualityNew extends CommandBase {
+public class HoodSetAdjustmentLower extends CommandBase {
 
-	public HoodSetQualityNew() {
+	public HoodSetAdjustmentLower() {
 	}
 
 	// Called just before this Command runs the first time

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-//import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
-//import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 
 /**
  * Sets the Turret to point directly forward (encoder position zero), and lowers
@@ -19,7 +19,7 @@ public class ResetTurret extends CommandBase {
 	 * because this command can't run at the same time as Target or Fire.
 	 */
 	public ResetTurret() {
-//		requires(turret);
+		requires(turret);
 		requires(hood);
 		requires(shooter);
 	}
@@ -33,12 +33,12 @@ public class ResetTurret extends CommandBase {
 	 * doesn't hit the intake arm as it turns.
 	 */
 	protected void initialize() {
-//		turret.setTurretForward();
+		turret.setTurretForward();
 		hood.flatten();
 		shooter.spinDown();
-//		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
-//			new IntakeArmRest().start();
-//		}
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			new IntakeArmRest().start();
+		}
 	}
 
 	/**

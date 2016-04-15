@@ -16,7 +16,7 @@ public class RollUntilPickup extends CommandBase {
 	 * turning to pick up a ball.
 	 */
 	public RollUntilPickup() {
-//		requires(intake);
+		requires(intake);
 		requires(indexer);
 	}
 
@@ -25,7 +25,6 @@ public class RollUntilPickup extends CommandBase {
 	 * rollers and indexer are started.
 	 */
 	protected void initialize() {
-//		intake.startRollers();
 		indexer.driveMotor();
 	}
 
@@ -35,11 +34,11 @@ public class RollUntilPickup extends CommandBase {
 	 * already been set.
 	 */
 	protected void execute() {
-//		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
-//			intake.stopRollers();
-//		} else {
-//			intake.startRollers();
-//		}
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			intake.stopRollers();
+		} else {
+			intake.startRollers();
+		}
 	}
 
 	/**
@@ -57,9 +56,9 @@ public class RollUntilPickup extends CommandBase {
 	 * stopped.
 	 */
 	protected void end() {
-//		intake.stopRollers();
+		intake.stopRollers();
 		indexer.stop();
-//		new IntakeArmRest().start();
+		new IntakeArmRest().start();
 	}
 
 	/**

@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class Fire extends CommandBase {
 
 	/** A variable to track whether or not the ball has been pulled in. */
-	// private boolean fired;
 	private Timer timer;
 
 	/**
@@ -36,7 +35,6 @@ public class Fire extends CommandBase {
 	protected void initialize() {
 		timer = new Timer();
 		timer.start();
-		// fired = false;
 		shooter.spinUp();
 		indexer.driveMotor();
 	}
@@ -47,16 +45,8 @@ public class Fire extends CommandBase {
 	 * setting fired to true.
 	 */
 	protected void execute() {
-//		if (indexer.hasBall()) {
 		shooter.spinUp();
-//		} else {
-//			shooter.spinDown();
-//		}
 		indexer.driveMotor();
-		// if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
-		// indexer.stop();
-		// fired = true;
-		// }
 	}
 
 	/**
@@ -65,7 +55,6 @@ public class Fire extends CommandBase {
 	 * speed.
 	 */
 	protected boolean isFinished() {
-		// return fired && shooter.onTarget();
 		return timer.hasPeriodPassed(2.0);
 	}
 

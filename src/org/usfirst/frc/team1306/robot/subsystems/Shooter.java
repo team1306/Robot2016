@@ -40,7 +40,6 @@ public class Shooter extends Subsystem {
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
 		flywheel.enableBrakeMode(false);
-		flywheel.setAllowableClosedLoopErr(Constants.SHOOTER_TOLERANCE);
 		flywheel.enable();
 		spinDown();
 	}
@@ -57,6 +56,10 @@ public class Shooter extends Subsystem {
 	 * velocity so that it doesn't drop over the course of a match
 	 */
 	public void spinUp() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return;
+		}
 		double speed = SmartDashboard.getNumber("flywheel power");
 		flywheel.changeControlMode(TalonControlMode.Speed);
 		// flywheel.set(-Constants.SHOOTER_SET_SPEED *
@@ -90,6 +93,10 @@ public class Shooter extends Subsystem {
 	 * @return the current flywheel speed.
 	 */
 	public double getSpeed() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return 0.0;
+		}
 		return -flywheel.getSpeed() / Constants.SHOOTER_CONVERSION_FACTOR;
 	}
 
@@ -100,6 +107,10 @@ public class Shooter extends Subsystem {
 	 * @return the output current of the flywheel Talon.
 	 */
 	public double getCurrent() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return 0.0;
+		}
 		return flywheel.getOutputCurrent();
 	}
 
@@ -111,6 +122,10 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return false;
+		}
 		return flywheel.getControlMode().equals(TalonControlMode.Speed) && getSpeed() > 0.5
 				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
 	}

@@ -66,6 +66,10 @@ public class Turret extends PIDSubsystem {
 	 * forward.
 	 */
 	public void setTurretForward() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return;
+		}
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(0.0);
 		turretTalon.enable();
@@ -78,6 +82,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the right, otherwise false.
 	 */
 	public boolean isRight() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return false;
+		}
 		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
 	}
 
@@ -88,6 +96,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the left, otherwise false.
 	 */
 	public boolean isLeft() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return false;
+		}
 		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 

@@ -6,7 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * A command for setting the hood to target automatically. Making this a command
  * allows it to be linked to buttons on the secondary controller.
  */
-public class HoodSetQualityMedium extends CommandBase {
+public class HoodSetAdjustmentNone extends CommandBase {
 
 	/**
 	 * Called just before this Command runs the first time. This command is a
