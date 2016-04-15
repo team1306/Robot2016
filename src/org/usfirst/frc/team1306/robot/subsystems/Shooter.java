@@ -3,7 +3,6 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CANSpeedController.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -62,7 +61,7 @@ public class Shooter extends Subsystem {
 		}
 		double speed = SmartDashboard.getNumber("flywheel power");
 		flywheel.changeControlMode(TalonControlMode.Speed);
-		flywheel.set(-speed * Constants.SHOOTER_CONVERSION_FACTOR);
+		flywheel.set(speed * Constants.SHOOTER_CONVERSION_FACTOR);
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class Shooter extends Subsystem {
 	public void spinDown() {
 		if (lowSpin && flywheel.getSpeed() < Constants.SHOOTER_LOW_SPIN + Constants.SHOOTER_TOLERANCE) {
 			flywheel.changeControlMode(TalonControlMode.Speed);
-			flywheel.set(-Constants.SHOOTER_LOW_SPIN * Constants.SHOOTER_CONVERSION_FACTOR);
+			flywheel.set(Constants.SHOOTER_LOW_SPIN * Constants.SHOOTER_CONVERSION_FACTOR);
 		} else {
 			flywheel.changeControlMode(TalonControlMode.PercentVbus);
 			flywheel.set(0.0);
@@ -93,7 +92,7 @@ public class Shooter extends Subsystem {
 			System.err.println("Flywheel Talon disconnected");
 			return 0.0;
 		}
-		return -flywheel.getSpeed() / Constants.SHOOTER_CONVERSION_FACTOR;
+		return flywheel.getSpeed() / Constants.SHOOTER_CONVERSION_FACTOR;
 	}
 
 	/**
