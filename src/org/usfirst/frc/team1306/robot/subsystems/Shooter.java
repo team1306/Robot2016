@@ -32,8 +32,8 @@ public class Shooter extends Subsystem {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
 		lowSpin = false;
 
-		// flywheel.reverseOutput(false);
-		// flywheel.reverseSensor(true);
+		flywheel.reverseSensor(true);
+		flywheel.reverseOutput(true);
 
 		SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
 
