@@ -28,7 +28,7 @@ public class Constants {
 
 	// shooter constants
 	public final static double SHOOTER_CONVERSION_FACTOR = 3.413333333;
-	public final static int SHOOTER_TOLERANCE = 150; // 0.5% tolerance
+	public final static int SHOOTER_TOLERANCE = 50;
 	public final static double SHOOTER_SET_SPEED = 9000;
 	public final static double SHOOTER_LOW_SPIN = 3000;
 
