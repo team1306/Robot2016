@@ -59,6 +59,8 @@ public class Constants {
 	public final static double JOYSTICK_POWER = 1.0;
 
 	// vision constants
+	public final static String VISION_HOSTNAME = "10.13.6.19";
+	public final static int VISION_PORT_NUMBER = 5802;
 	public final static double VISION_PERIOD = 0.1;
 	public final static double MIN_DISTANCE = 7.0;
 	public final static double MAX_DISTANCE = 10.0;

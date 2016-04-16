@@ -102,7 +102,7 @@ public class Vision {
 
 	private static void connectToJetson() {
 		try {
-			jetson = new Socket(hostName, portNumber);
+			jetson = new Socket(Constants.VISION_HOSTNAME, Constants.VISION_PORT_NUMBER);
 			in = new BufferedReader(new InputStreamReader(jetson.getInputStream()));
 			out = new PrintWriter(jetson.getOutputStream());
 			isConnected = true;
@@ -135,11 +135,5 @@ public class Vision {
 		// TODO convert this to feet
 		return distance;
 	}
-
-	// TODO put these constants in Constants
-
-	/** The ip address and port number of the jetson */
-	private final static String hostName = "10.13.6.19";
-	private final static int portNumber = 5802;
 
 }
