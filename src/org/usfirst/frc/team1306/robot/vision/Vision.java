@@ -129,6 +129,12 @@ public class Vision {
 	public static boolean isConnected() {
 		return isConnected;
 	}
+	
+	public static double distanceFeet() {
+		double distance = getData().getDistance();
+		// TODO convert this to feet
+		return distance;
+	}
 
 	// TODO put these constants in Constants
 

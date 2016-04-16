@@ -27,7 +27,7 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-		hood.setTarget(HoodTarget.NORMAL);
+		hood.setTarget(HoodTarget.AUTO);
 		turret.getPIDController().reset();
 	}
 
@@ -53,7 +53,7 @@ public class Target extends CommandBase {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
 		} else {
-			hood.setTarget(HoodTarget.NORMAL);
+			hood.setTarget(HoodTarget.AUTO);
 		}
 	}
 

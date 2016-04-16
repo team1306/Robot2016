@@ -4,6 +4,7 @@ import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.turret.Adjustment;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -61,11 +62,11 @@ public class Hood extends Subsystem {
 		hoodTalon.set(
 				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
-	
+
 	public void setAdjustment(Adjustment quality) {
 		this.adjustment = quality;
 	}
-	
+
 	public Adjustment getAdjustment() {
 		return adjustment;
 	}
@@ -80,16 +81,10 @@ public class Hood extends Subsystem {
 	 * @param distance
 	 *            The distance from the target calculated by the Jetson.
 	 */
-	public void setDistance(double distance) {
-		hoodTalon.changeControlMode(TalonControlMode.Position);
-		double angle;
-		if (distance <= 8.0) {
-			angle = 2.75708 * Math.pow(distance, 2) - 44.14092 * distance + 515;
-		} else {
-			angle = 370;
-		}
-		SmartDashboard.putNumber("setting hood angle", angle);
-		hoodTalon.set(safetyCheck(angle));
+	private double getAngleForDistance(double distance) {
+		// TODO find this calculation
+		double angle = 90.0;
+		return angle;
 	}
 
 	/**
@@ -155,9 +150,23 @@ public class Hood extends Subsystem {
 	 */
 	public void setTarget(HoodTarget target) {
 		this.target = target;
-		SmartDashboard.putNumber("hood set height", SmartDashboard.getNumber("hood set height", HoodTarget.NORMAL.getHeight()));
-		double height = SmartDashboard.getNumber("hood set height");
-		setAngle(height + adjustment.difference());
+		if (target == null) {
+			flatten();
+		} else {
+			double height;
+			if (target.equals(HoodTarget.AUTO)) {
+				if (Vision.canSeeTarget()) {
+					height = getAngleForDistance(Vision.distanceFeet());
+				} else {
+					SmartDashboard.putNumber("hood set height",
+							SmartDashboard.getNumber("hood set height", HoodTarget.AUTO.getHeight()));
+					height = SmartDashboard.getNumber("hood set height");
+				}
+			} else {
+				height = target.getHeight();
+			}
+			setAngle(height + adjustment.difference());
+		}
 	}
 
 	/**
@@ -180,8 +189,8 @@ public class Hood extends Subsystem {
 			System.err.println("Hood Talon disconnected");
 			return false;
 		}
-		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0
-				&& hoodTalon.getError() < Constants.HOOD_TOLERANCE * Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0 && hoodTalon
+				.getError() < Constants.HOOD_TOLERANCE * Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
 	}
 
 	/**
