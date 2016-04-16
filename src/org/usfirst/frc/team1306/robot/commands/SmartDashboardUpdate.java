@@ -27,7 +27,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	// that other commands aren't accessing it
 	protected void execute() {
 		// Values useful for PID debugging
-		SmartDashboard.putNumber("Game Time", Timer.getMatchTime());
+		SmartDashboard.putNumber("Game Time", Math.floor(Timer.getMatchTime()));
 
 		SmartDashboard.putNumber("hood angle", hood.getHeight());
 		SmartDashboard.putNumber("shooter speed", shooter.getSpeed());
@@ -47,7 +47,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
-		SmartDashboard.putString("Distance", roundToNearestHalf(Vision.distanceFeet()) + " ft");
+		SmartDashboard.putString("Distance", displayFeet(Vision.distanceFeet()));
 		String inRange;
 		if (!Vision.isConnected()) {
 			inRange = "Vision disconnected";
@@ -77,7 +77,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	protected void interrupted() {
 	}
 
-	private static double roundToNearestHalf(double number) {
-		return Math.round(number * 2.0) / 2.0;
+	private static String displayFeet(double feet) {
+		return Math.floor(feet + 1.0/24.0) + " ft " + Math.floor(feet * 12 + 0.5) % 12 + " in";
 	}
 }
