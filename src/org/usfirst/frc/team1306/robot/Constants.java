@@ -60,6 +60,8 @@ public class Constants {
 
 	// vision constants
 	public final static double VISION_PERIOD = 0.1;
+	public final static double MIN_DISTANCE = 7.0;
+	public final static double MAX_DISTANCE = 10.0;
 
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;

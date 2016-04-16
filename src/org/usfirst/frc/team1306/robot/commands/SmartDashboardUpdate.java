@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -33,10 +34,11 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
-		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
+		SmartDashboard.putString("intake command",
+				intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
 
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
-		
+
 		SmartDashboard.putBoolean("Vision", Vision.isConnected());
 
 		SmartDashboard.putBoolean("Ball", indexer.hasBall());
@@ -45,11 +47,23 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Turret", turret.getPIDController().isEnabled() && turret.onTarget());
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
+		SmartDashboard.putString("Distance", roundToNearestHalf(Vision.distanceFeet()) + " ft");
+		String inRange;
+		if (!Vision.isConnected()) {
+			inRange = "Vision disconnected";
+		} else if (!Vision.canSeeTarget()) {
+			inRange = "Can't see target";
+		} else if (Vision.distanceFeet() > Constants.MAX_DISTANCE) {
+			inRange = "Get closer";
+		} else if (Vision.distanceFeet() < Constants.MIN_DISTANCE) {
+			inRange = "Too close";
+		} else {
+			inRange = "In range";
+		}
+		SmartDashboard.putString("In Range", inRange);
+
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
 		SmartDashboard.putString("Quality", hood.getAdjustment().toString());
-
-		SmartDashboard.putBoolean("Left Drivetrain Current", drivetrain.getLeftCurrent() > 90.0);
-		SmartDashboard.putBoolean("Right Drivetrain Current", drivetrain.getRightCurrent() > 90.0);
 
 	}
 
@@ -61,5 +75,9 @@ public class SmartDashboardUpdate extends CommandBase {
 	}
 
 	protected void interrupted() {
+	}
+
+	private static double roundToNearestHalf(double number) {
+		return Math.round(number * 2.0) / 2.0;
 	}
 }
