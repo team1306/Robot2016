@@ -22,20 +22,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * documentation.
  * 
- * @author James Tautges
+ * @author Finn Voichick, James Tautges
  */
 public class Robot extends IterativeRobot {
 
+	/** The command run during the autonomous period. */
 	Command autonomousCommand;
+	/** The command that always updates the SmartDashboard with information. */
 	Command smartdashboard;
+	/** How the drivers can choose the autonomous program before each match. */
 	SendableChooser autoChooser;
-    CameraServer server;
-    
-
+	/** The CameraServer that sends camera images to the driver station. */
+	CameraServer server;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,10 +46,10 @@ public class Robot extends IterativeRobot {
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
-		
-        server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
+
+		server = CameraServer.getInstance();
+		server.setQuality(50);
+		server.startAutomaticCapture("cam0");
 
 		Vision.init();
 
@@ -70,13 +70,14 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
 	 */
 	public void disabledInit() {
 
 	}
 
+	/**
+	 * This function is called periodically while the robot is disabled.
+	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -107,13 +108,16 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	/**
+	 * This function is called once each time the robot enters Teleop mode. It
+	 * makes sure that the autonomous stops running when teleop starts running.
+	 */
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (autonomousCommand != null)
+
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+		}
+
 	}
 
 	/**
