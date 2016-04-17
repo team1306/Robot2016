@@ -6,12 +6,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class WaitFourSeconds extends Command {
+public class Wait extends Command {
 	
 	private final Timer timer;
+	private final double seconds;
 
-	public WaitFourSeconds() {
+	public Wait(double seconds) {
 		timer = new Timer();
+		this.seconds = seconds;
 	}
 
 	// Called just before this Command runs the first time
@@ -26,7 +28,7 @@ public class WaitFourSeconds extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(4.0);
+		return timer.hasPeriodPassed(seconds);
 	}
 
 	// Called once after isFinished returns true

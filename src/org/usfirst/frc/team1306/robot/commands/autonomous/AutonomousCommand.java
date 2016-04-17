@@ -28,7 +28,7 @@ public class AutonomousCommand extends CommandGroup {
 			addParallel(new SpinUp());
 			addSequential(new ScanForTarget());
 			addParallel(new Target());
-			addSequential(new WaitFourSeconds());
+			addSequential(new Wait());
 			addSequential(new Fire());
 		}
 
