@@ -3,12 +3,8 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
-import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAutoFire;
-import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAutoFire;
-import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAutoFire;
+import org.usfirst.frc.team1306.robot.commands.autonomous.AutonomousCommand;
+import org.usfirst.frc.team1306.robot.commands.autonomous.DefenseType;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -55,12 +51,13 @@ public class Robot extends IterativeRobot {
 
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
-		autoChooser.addObject("Low Bar without Shot", new LowBarAuto());
-		autoChooser.addObject("Rough Terrain without Shot", new TerrainAuto());
-		autoChooser.addObject("Moat, Wall, or Ramparts without Shot", new ObstacleAuto());
-		autoChooser.addDefault("Low Bar with Shot", new LowBarAutoFire());
-		autoChooser.addObject("Rough Terrain with Shot", new TerrainAutoFire());
-		autoChooser.addObject("Moat, Wall, or Ramparts with Shot", new ObstacleAutoFire());
+		autoChooser.addObject("Low Bar - Don't Shoot", new AutonomousCommand(DefenseType.LOWBAR, false));
+		autoChooser.addObject("Rough Terrain - Don't Shoot", new AutonomousCommand(DefenseType.TERRAIN, false));
+		autoChooser.addObject("Moat, Wall, or Ramparts - Don't Shoot",
+				new AutonomousCommand(DefenseType.OBSTACLE, false));
+		autoChooser.addDefault("Low Bar - Fire", new AutonomousCommand(DefenseType.LOWBAR, true));
+		autoChooser.addObject("Rough Terrain - Fire", new AutonomousCommand(DefenseType.TERRAIN, true));
+		autoChooser.addObject("Moat, Wall, or Ramparts - Fire", new AutonomousCommand(DefenseType.OBSTACLE, true));
 		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// Start the debugging log command

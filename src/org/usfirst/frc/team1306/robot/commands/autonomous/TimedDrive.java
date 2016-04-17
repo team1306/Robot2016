@@ -1,26 +1,31 @@
 package org.usfirst.frc.team1306.robot.commands.autonomous;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * A command that drives the robot over a Rough Terrain obstacle and stops. It
- * is time-based.
+ * A command that drives the robot straight forward for a certain amount of
+ * time.
  * 
  * @author Finn Voichick
  */
-public class DriveOverTerrain extends CommandBase {
+public class TimedDrive extends CommandBase {
 
+	/** The power for the motors, on a scale from -1.0 to 1.0. */
+	private final double throttle;
+	/** The amount of time to drive before stopping, in seconds. */
+	private final double time;
 	/** The timer that controls how long the robot drives before stopping */
 	private final Timer timer;
 
 	/**
-	 * Constructs a new DriveOverTerrain command. Initializes the timer and
+	 * Constructs a new TimedDrive command. Initializes the timer and
 	 * requires the drivetrain.
 	 */
-	public DriveOverTerrain() {
+	public TimedDrive(double throttle, double time) {
+		this.throttle = throttle;
+		this.time = time;
 		timer = new Timer();
 		requires(drivetrain);
 	}
@@ -39,7 +44,7 @@ public class DriveOverTerrain extends CommandBase {
 	 * motors at the designated throttle.
 	 */
 	protected void execute() {
-		drivetrain.driveTank(Constants.TERRAIN_POWER, Constants.TERRAIN_POWER);
+		drivetrain.driveTank(throttle, throttle);
 	}
 
 	/**
@@ -47,7 +52,7 @@ public class DriveOverTerrain extends CommandBase {
 	 * command ends after a designated amount of time.
 	 */
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(Constants.TERRAIN_TIME);
+		return timer.hasPeriodPassed(time);
 	}
 
 	/**

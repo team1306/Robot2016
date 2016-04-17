@@ -12,18 +12,25 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ObstacleAutoFire extends CommandGroup {
+public class AutonomousCommand extends CommandGroup {
 
-	public ObstacleAutoFire() {
+	public AutonomousCommand(DefenseType defenseType, boolean fire) {
 
-		addParallel(new IntakeArmVertical());
-		addSequential(new DriveOverObstacle());
-		addParallel(new SpinUp());
-		addSequential(new IntakeArmRest());
-		addSequential(new ScanForTarget());
-		addParallel(new Target());
-		addSequential(new WaitFourSeconds());
-		addSequential(new Fire());
+		if (defenseType.equals(DefenseType.LOWBAR)) {
+			addSequential(new IntakeArmRest());
+		} else {
+			addParallel(new IntakeArmVertical());
+		}
+
+		addSequential(defenseType.getDriveCommand());
+
+		if (fire) {
+			addParallel(new SpinUp());
+			addSequential(new ScanForTarget());
+			addParallel(new Target());
+			addSequential(new WaitFourSeconds());
+			addSequential(new Fire());
+		}
 
 	}
 }
