@@ -82,9 +82,10 @@ public class Hood extends Subsystem {
 	 *            The distance from the target calculated by the Jetson.
 	 */
 	private double getAngleForDistance(double distance) {
-		// TODO find this calculation
-		double angle = 90.0;
-		return angle;
+
+		return Constants.HOOD_AUTOTARGET_A * distance * distance + Constants.HOOD_AUTOTARGET_B * distance
+				+ Constants.HOOD_AUTOTARGET_C;
+
 	}
 
 	/**

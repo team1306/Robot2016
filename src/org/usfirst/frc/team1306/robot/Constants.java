@@ -40,6 +40,9 @@ public class Constants {
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
 	public final static double HOOD_TOLERANCE = 0.25;
+	public final static double HOOD_AUTOTARGET_A = 0.8571;
+	public final static double HOOD_AUTOTARGET_B = -14.7;
+	public final static double HOOD_AUTOTARGET_C = 110.82;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
