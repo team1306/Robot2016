@@ -46,6 +46,7 @@ public class Constants {
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
+	public final static double PRESSURE_THRESHOLD = 1.0; // TODO placeholder
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;

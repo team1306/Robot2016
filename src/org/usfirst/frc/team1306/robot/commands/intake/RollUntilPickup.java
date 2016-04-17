@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.intake;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
@@ -9,6 +10,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * @author Finn Voichick
  */
 public class RollUntilPickup extends CommandBase {
+
+	private double maxCompression;
 
 	/**
 	 * Creates a new RollUntilPickup command that requires the intake and the
@@ -25,6 +28,7 @@ public class RollUntilPickup extends CommandBase {
 	 * rollers and indexer are started.
 	 */
 	protected void initialize() {
+		maxCompression = 0.0;
 		indexer.driveMotor();
 	}
 
@@ -34,11 +38,15 @@ public class RollUntilPickup extends CommandBase {
 	 * already been set.
 	 */
 	protected void execute() {
+
+		maxCompression = Math.max(maxCompression, indexer.getCompression());
+
 		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
 			intake.stopRollers();
 		} else {
 			intake.startRollers();
 		}
+
 	}
 
 	/**
@@ -58,6 +66,13 @@ public class RollUntilPickup extends CommandBase {
 	protected void end() {
 		intake.stopRollers();
 		indexer.stop();
+
+		if (maxCompression > Constants.PRESSURE_THRESHOLD) {
+			indexer.setQuality(BallQuality.NEW);
+		} else {
+			indexer.setQuality(BallQuality.OLD);
+		}
+
 		new IntakeArmRest().start();
 	}
 
