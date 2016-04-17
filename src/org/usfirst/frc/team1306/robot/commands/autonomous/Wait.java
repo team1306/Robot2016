@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class Wait extends Command {
-	
+
 	private final Timer timer;
 	private final double seconds;
 

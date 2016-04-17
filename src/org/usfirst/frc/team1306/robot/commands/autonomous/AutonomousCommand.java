@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.autonomous;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
@@ -28,7 +29,7 @@ public class AutonomousCommand extends CommandGroup {
 			addParallel(new SpinUp());
 			addSequential(new ScanForTarget());
 			addParallel(new Target());
-			addSequential(new Wait());
+			addSequential(new Wait(Constants.TARGET_TIME));
 			addSequential(new Fire());
 		}
 
