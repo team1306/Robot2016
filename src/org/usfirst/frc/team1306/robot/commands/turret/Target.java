@@ -42,7 +42,7 @@ public class Target extends CommandBase {
 
 		boolean canSeeTarget = Vision.canSeeTarget();
 
-		if (canSeeTarget && !oi.getHoodOverride()) {
+		if (canSeeTarget && !oi.getTurretOverrride()) {
 			turret.enable();
 			turret.setSetpoint(0.0);
 		} else {

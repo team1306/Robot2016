@@ -32,10 +32,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This class, the Operator Interface, is the glue that binds the controls on
+ * the physical operator interface to the commands and command groups that allow
+ * control of the robot.
  * 
- * @author James Tautges, Finn Voichick
+ * @author Finn Voichick, James Tautges
  */
 public class OI {
 
@@ -63,14 +64,16 @@ public class OI {
 	private final Button buttonY2;
 	private final Button buttonStart2;
 	private final Button buttonBack2;
-	
+
 	private final Trigger dPad2Up;
 	private final Trigger dPad2Right;
 	private final Trigger dPad2Down;
-	
+
 	private final Button bumperR2;
 
-	// Initialize everything
+	/**
+	 * Initializes the controllers and maps individual buttons to commands.
+	 */
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
 		secondary = new XboxController(RobotMap.secondaryPort);
@@ -90,14 +93,14 @@ public class OI {
 		buttonY2 = new JoystickButton(secondary, XboxController.Y);
 		buttonStart2 = new JoystickButton(secondary, XboxController.START);
 		buttonBack2 = new JoystickButton(secondary, XboxController.BACK);
-		
+
 		bumperR2 = new JoystickButton(secondary, XboxController.RB);
 
 		dPadUp = new DPadUp(xbox);
 		dPadRight = new DPadRight(xbox);
 		dPadLeft = new DPadLeft(xbox);
 		dPadDown = new DPadDown(xbox);
-		
+
 		dPad2Up = new DPadUp(secondary);
 		dPad2Right = new DPadRight(secondary);
 		dPad2Down = new DPadDown(secondary);
@@ -127,7 +130,7 @@ public class OI {
 		buttonStart2.whenPressed(new LowSpinOn());
 		buttonBack2.whenPressed(new LowSpinOff());
 		bumperR2.whenPressed(new Fire());
-		
+
 		dPad2Up.whenActive(new BatterTargetClose());
 		dPad2Right.whenActive(new BatterTargetFar());
 		dPad2Down.whenActive(new Target());
@@ -135,7 +138,8 @@ public class OI {
 
 	/**
 	 * Return the value of the Y axis of the main right joystick after applying
-	 * a deadband
+	 * a deadband. It is put to a power in case a variable responsiveness is
+	 * desired.
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
@@ -144,8 +148,9 @@ public class OI {
 	}
 
 	/**
-	 * Return the value of the Y axis of the main right joystick after applying
-	 * a deadband
+	 * Return the value of the Y axis of the main left joystick after applying a
+	 * deadband. It is put to a power in case a variable responsiveness is
+	 * desired.
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
@@ -153,36 +158,66 @@ public class OI {
 		return Math.pow(deadband(xbox.getY(Hand.kLeft)), Constants.JOYSTICK_POWER);
 	}
 
+	/**
+	 * Gets the intended straightline velocity of the robot, on a scale from
+	 * -1.0 to 1.0. This is controlled by the triggers. It is put to a power in
+	 * case a variable responsiveness is desired.
+	 * 
+	 * @return
+	 */
 	public double getStraightVel() {
 		return Math.pow(xbox.getRT() - xbox.getLT(), Constants.JOYSTICK_POWER);
 	}
 
 	/**
-	 * Return the X axis value of the main left joystick after applying a
-	 * deadband
+	 * Gets the D-Pad of the main Xbox controller, measured in degrees.
 	 * 
-	 * @return X axis value of the main left joystick
+	 * @return
 	 */
-	public double getLeftX() {
-		return deadband(xbox.getX(Hand.kLeft));
-	}
-
 	public int getPOV() {
 		return xbox.getPOV();
 	}
 
+	/**
+	 * Gets the intended velocity of the turret. This is controlled by the right
+	 * joystick on the secondary controller only when targeting is manually
+	 * overridden.
+	 * 
+	 * @return the overridden velocity of the turret.
+	 */
 	public double getTurretVel() {
 		return deadband(secondary.getX(Hand.kRight));
 	}
 
+	/**
+	 * Gets the intended velocity of the hood. This is controlled by the left
+	 * joystick on the secondary controller only when targeting is manually
+	 * overridden.
+	 * 
+	 * @return the overridden velocity of the hood.
+	 */
 	public double getHoodVel() {
 		return deadband(secondary.getY(Hand.kLeft));
 	}
 
-//	public boolean getTurretOverrride() {
-//		return secondary.getLT() > 0.5;
-//	}
-
+	/**
+	 * Gets whether the turret is overridden. The turret is overridden when the
+	 * right trigger is pressed.
+	 * 
+	 * @return true if the turret should be manually overridden, otherwise
+	 *         false.
+	 */
+	public boolean getTurretOverrride() {
+		return secondary.getRT() > 0.5;
+	}
+	
+	/**
+	 * Gets whether the hood is overridden. The hood is overridden when the
+	 * secondary left trigger is pressed.
+	 * 
+	 * @return true if the hood should be manually overridden, otherwise
+	 *         false.
+	 */
 	public boolean getHoodOverride() {
 		return secondary.getLT() > 0.5;
 	}
@@ -190,7 +225,7 @@ public class OI {
 	/**
 	 * Apply a deadband to the given value. This means that the value graph is
 	 * split around zero a certain amount. This fixes the imprecise zeroing of
-	 * xbox joysticks
+	 * Xbox joysticks.
 	 * 
 	 * @param value
 	 *            Value to deadband

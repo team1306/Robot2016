@@ -73,10 +73,9 @@ public class Hood extends Subsystem {
 
 	/**
 	 * Set the height of the hood based on the distance from the target. The
-	 * distance is in arbitrary units returned from the Jetson. This does the
-	 * math to find the ideal hood angle using an equation determined using
-	 * regression on some tested distances, and then sets the hood where it
-	 * needs to go.
+	 * distance is feet. This does the math to find the ideal hood angle using
+	 * an equation determined using regression on some tested distances, and
+	 * then sets the hood where it needs to go.
 	 * 
 	 * @param distance
 	 *            The distance from the target calculated by the Jetson.
