@@ -6,41 +6,63 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * A command that drives the robot over a Rough Terrain obstacle and stops. It
+ * is time-based.
+ * 
+ * @author Finn Voichick
  */
 public class DriveOverTerrain extends CommandBase {
-	
+
+	/** The timer that controls how long the robot drives before stopping */
 	private final Timer timer;
 
-    public DriveOverTerrain() {
-        timer = new Timer();
-        requires(drivetrain);
-    }
+	/**
+	 * Constructs a new DriveOverTerrain command. Initializes the timer and
+	 * requires the drivetrain.
+	 */
+	public DriveOverTerrain() {
+		timer = new Timer();
+		requires(drivetrain);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	timer.reset();
-    	timer.start();
-    }
+	/**
+	 * Called just before this Command runs the first time. Here, the timer is
+	 * started.
+	 */
+	protected void initialize() {
+		timer.reset();
+		timer.start();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	drivetrain.driveTank(Constants.TERRAIN_POWER, Constants.TERRAIN_POWER);
-    }
+	/**
+	 * Called repeatedly when this Command is scheduled to run. It runs both
+	 * motors at the designated throttle.
+	 */
+	protected void execute() {
+		drivetrain.driveTank(Constants.TERRAIN_POWER, Constants.TERRAIN_POWER);
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return timer.hasPeriodPassed(Constants.TERRAIN_TIME);
-    }
+	/**
+	 * Returns true when this Command no longer needs to run execute(). This
+	 * command ends after a designated amount of time.
+	 */
+	protected boolean isFinished() {
+		return timer.hasPeriodPassed(Constants.TERRAIN_TIME);
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	drivetrain.stop();
-    }
+	/**
+	 * Called once after isFinished returns true. Stops the drivetrain.
+	 */
+	protected void end() {
+		drivetrain.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	/**
+	 * Called when another command which requires one or more of the same
+	 * subsystems is scheduled to run. Stops the drivetrain so that whatever is
+	 * interrupting can use it.
+	 */
+	protected void interrupted() {
+		end();
+	}
 }
