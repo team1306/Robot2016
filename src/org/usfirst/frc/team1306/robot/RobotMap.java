@@ -48,8 +48,6 @@ public class RobotMap {
 	// intake sensor ports
 	public static int indexerLimitPort1 = 0;
 	public static int indexerLimitPort2 = 1;
-
-	// arm control ports
-	public static int armPort = 3;
+	public static int pressurePadPort = 0; // TODO placeholder
 
 }

@@ -19,6 +19,7 @@ public class Shooter extends Subsystem {
 
 	/** The Talon SRX that controls the flywheel motor. */
 	private CANTalon flywheel;
+	private boolean lowSpin;
 
 	/**
 	 * Constructs a new shooter that uses a quadrature encoder as its feedback
@@ -28,17 +29,16 @@ public class Shooter extends Subsystem {
 	 */
 	public Shooter() {
 		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
+		lowSpin = false;
 
-		// flywheel.reverseOutput(false);
-		// flywheel.reverseSensor(true);
-		
+		flywheel.reverseSensor(true);
+		flywheel.reverseOutput(true);
+
 		SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
-		
 
 		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		flywheel.setSafetyEnabled(false);
 		flywheel.enableBrakeMode(false);
-		flywheel.setAllowableClosedLoopErr(Constants.SHOOTER_TOLERANCE);
 		flywheel.enable();
 		spinDown();
 	}
@@ -51,32 +51,51 @@ public class Shooter extends Subsystem {
 	}
 
 	/**
-	 * Set the Talon to its set speed. In this case, it's 95% of the maximum
-	 * velocity so that it doesn't drop over the course of a match
+	 * Set the Talon to its set speed. This is less than the maximum velocity
+	 * because it needs to be able to get to this velocity quickly. Also, it
+	 * needs to be consistent and unaffected by battery power.
 	 */
 	public void spinUp() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return;
+		}
 		double speed = SmartDashboard.getNumber("flywheel power");
 		flywheel.changeControlMode(TalonControlMode.Speed);
-//		flywheel.set(-Constants.SHOOTER_SET_SPEED * Constants.SHOOTER_MAX_SPEED);
-		flywheel.set(-speed * Constants.SHOOTER_MAX_SPEED);
+		flywheel.set(speed * Constants.SHOOTER_CONVERSION_FACTOR);
 	}
 
 	/**
 	 * Stop the flywheel Talon. It is put into PercentVbus mode and allowed to
-	 * coast to a stop.
+	 * coast to a stop. If it's in low spin mode, then it only coasts to a
+	 * slower speed. Note: if in low spin mode, the spinDown method must be
+	 * called repeatedly.
 	 */
 	public void spinDown() {
-		flywheel.changeControlMode(TalonControlMode.PercentVbus);
-		flywheel.set(0.0);
+		if (lowSpin && flywheel.getSpeed() < Constants.SHOOTER_LOW_SPIN + Constants.SHOOTER_TOLERANCE) {
+			flywheel.changeControlMode(TalonControlMode.Speed);
+			flywheel.set(Constants.SHOOTER_LOW_SPIN * Constants.SHOOTER_CONVERSION_FACTOR);
+		} else {
+			flywheel.changeControlMode(TalonControlMode.PercentVbus);
+			flywheel.set(0.0);
+		}
+	}
+
+	public void setLowSpin(boolean lowSpin) {
+		this.lowSpin = lowSpin;
 	}
 
 	/**
-	 * Gets the current speed of the flywheel, on a scale from 0.0 to 1.0.
+	 * Gets the current speed of the flywheel in rotations per minute.
 	 * 
 	 * @return the current flywheel speed.
 	 */
 	public double getSpeed() {
-		return -flywheel.getSpeed() / Constants.SHOOTER_MAX_SPEED;
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return 0.0;
+		}
+		return flywheel.getSpeed() / Constants.SHOOTER_CONVERSION_FACTOR;
 	}
 
 	/**
@@ -86,6 +105,10 @@ public class Shooter extends Subsystem {
 	 * @return the output current of the flywheel Talon.
 	 */
 	public double getCurrent() {
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return 0.0;
+		}
 		return flywheel.getOutputCurrent();
 	}
 
@@ -97,7 +120,12 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
-		return getSpeed() > 0.5 && Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE;
+		if (!flywheel.isEnabled()) {
+			System.err.println("Flywheel Talon disconnected");
+			return false;
+		}
+		return flywheel.getControlMode().equals(TalonControlMode.Speed)
+				&& Math.abs(flywheel.getError()) <= Constants.SHOOTER_TOLERANCE * Constants.SHOOTER_CONVERSION_FACTOR;
 	}
 
 }

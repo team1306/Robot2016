@@ -10,19 +10,19 @@ import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
+import org.usfirst.frc.team1306.robot.commands.shooter.LowSpinOff;
+import org.usfirst.frc.team1306.robot.commands.shooter.LowSpinOn;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetClose;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetFar;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityMedium;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityNew;
-import org.usfirst.frc.team1306.robot.commands.turret.HoodSetQualityOld;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentHigher;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentLower;
+import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentNone;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
-import org.usfirst.frc.team1306.robot.triggers.DPadDown;
-import org.usfirst.frc.team1306.robot.triggers.DPadLeft;
-import org.usfirst.frc.team1306.robot.triggers.DPadRight;
-import org.usfirst.frc.team1306.robot.triggers.DPadUp;
+import org.usfirst.frc.team1306.robot.triggers.DPadDirection;
+import org.usfirst.frc.team1306.robot.triggers.DPadPress;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -30,10 +30,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This class, the Operator Interface, is the glue that binds the controls on
+ * the physical operator interface to the commands and command groups that allow
+ * control of the robot.
  * 
- * @author James Tautges, Finn Voichick
+ * @author Finn Voichick, James Tautges
  */
 public class OI {
 
@@ -59,14 +60,18 @@ public class OI {
 	private final Button buttonB2;
 	private final Button buttonX2;
 	private final Button buttonY2;
-	
+	private final Button buttonStart2;
+	private final Button buttonBack2;
+
 	private final Trigger dPad2Up;
 	private final Trigger dPad2Right;
 	private final Trigger dPad2Down;
-	
+
 	private final Button bumperR2;
 
-	// Initialize everything
+	/**
+	 * Initializes the controllers and maps individual buttons to commands.
+	 */
 	public OI() {
 		xbox = new XboxController(RobotMap.xboxPort);
 		secondary = new XboxController(RobotMap.secondaryPort);
@@ -84,17 +89,19 @@ public class OI {
 		buttonB2 = new JoystickButton(secondary, XboxController.B);
 		buttonX2 = new JoystickButton(secondary, XboxController.X);
 		buttonY2 = new JoystickButton(secondary, XboxController.Y);
-		
+		buttonStart2 = new JoystickButton(secondary, XboxController.START);
+		buttonBack2 = new JoystickButton(secondary, XboxController.BACK);
+
 		bumperR2 = new JoystickButton(secondary, XboxController.RB);
 
-		dPadUp = new DPadUp(xbox);
-		dPadRight = new DPadRight(xbox);
-		dPadLeft = new DPadLeft(xbox);
-		dPadDown = new DPadDown(xbox);
-		
-		dPad2Up = new DPadUp(secondary);
-		dPad2Right = new DPadRight(secondary);
-		dPad2Down = new DPadDown(secondary);
+		dPadUp = new DPadPress(xbox, DPadDirection.UP);
+		dPadRight = new DPadPress(xbox, DPadDirection.RIGHT);
+		dPadLeft = new DPadPress(xbox, DPadDirection.LEFT);
+		dPadDown = new DPadPress(xbox, DPadDirection.DOWN);
+
+		dPad2Up = new DPadPress(secondary, DPadDirection.UP);
+		dPad2Right = new DPadPress(secondary, DPadDirection.RIGHT);
+		dPad2Down = new DPadPress(secondary, DPadDirection.DOWN);
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
@@ -106,7 +113,7 @@ public class OI {
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
-		buttonStart.whenPressed(new BatterTargetClose());
+		buttonStart.whenPressed(new Target());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
 		dPadUp.whenActive(new IntakeArmVertical());
@@ -115,11 +122,13 @@ public class OI {
 		dPadDown.whenActive(new IntakeArmRest());
 
 		buttonA2.whenPressed(new HoodSetTargetLow());
-		buttonB2.whenPressed(new HoodSetQualityOld());
-		buttonX2.whenPressed(new HoodSetQualityNew());
-		buttonY2.whenPressed(new HoodSetQualityMedium());
+		buttonB2.whenPressed(new HoodSetAdjustmentHigher());
+		buttonX2.whenPressed(new HoodSetAdjustmentLower());
+		buttonY2.whenPressed(new HoodSetAdjustmentNone());
+		buttonStart2.whenPressed(new LowSpinOn());
+		buttonBack2.whenPressed(new LowSpinOff());
 		bumperR2.whenPressed(new Fire());
-		
+
 		dPad2Up.whenActive(new BatterTargetClose());
 		dPad2Right.whenActive(new BatterTargetFar());
 		dPad2Down.whenActive(new Target());
@@ -127,7 +136,8 @@ public class OI {
 
 	/**
 	 * Return the value of the Y axis of the main right joystick after applying
-	 * a deadband
+	 * a deadband. It is put to a power in case a variable responsiveness is
+	 * desired.
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
@@ -136,8 +146,9 @@ public class OI {
 	}
 
 	/**
-	 * Return the value of the Y axis of the main right joystick after applying
-	 * a deadband
+	 * Return the value of the Y axis of the main left joystick after applying a
+	 * deadband. It is put to a power in case a variable responsiveness is
+	 * desired.
 	 * 
 	 * @return Y axis value of main right joystick
 	 */
@@ -145,36 +156,65 @@ public class OI {
 		return Math.pow(deadband(xbox.getY(Hand.kLeft)), Constants.JOYSTICK_POWER);
 	}
 
+	/**
+	 * Gets the intended straightline velocity of the robot, on a scale from
+	 * -1.0 to 1.0. This is controlled by the triggers. It is put to a power in
+	 * case a variable responsiveness is desired.
+	 * 
+	 * @return
+	 */
 	public double getStraightVel() {
 		return Math.pow(xbox.getRT() - xbox.getLT(), Constants.JOYSTICK_POWER);
 	}
 
 	/**
-	 * Return the X axis value of the main left joystick after applying a
-	 * deadband
+	 * Gets the D-Pad of the main Xbox controller, measured in degrees.
 	 * 
-	 * @return X axis value of the main left joystick
+	 * @return
 	 */
-	public double getLeftX() {
-		return deadband(xbox.getX(Hand.kLeft));
-	}
-
 	public int getPOV() {
 		return xbox.getPOV();
 	}
 
+	/**
+	 * Gets the intended velocity of the turret. This is controlled by the right
+	 * joystick on the secondary controller only when targeting is manually
+	 * overridden.
+	 * 
+	 * @return the overridden velocity of the turret.
+	 */
 	public double getTurretVel() {
 		return deadband(secondary.getX(Hand.kRight));
 	}
 
+	/**
+	 * Gets the intended velocity of the hood. This is controlled by the left
+	 * joystick on the secondary controller only when targeting is manually
+	 * overridden.
+	 * 
+	 * @return the overridden velocity of the hood.
+	 */
 	public double getHoodVel() {
 		return deadband(secondary.getY(Hand.kLeft));
 	}
 
-//	public boolean getTurretOverrride() {
-//		return secondary.getLT() > 0.5;
-//	}
+	/**
+	 * Gets whether the turret is overridden. The turret is overridden when the
+	 * right trigger is pressed.
+	 * 
+	 * @return true if the turret should be manually overridden, otherwise
+	 *         false.
+	 */
+	public boolean getTurretOverrride() {
+		return secondary.getRT() > 0.5;
+	}
 
+	/**
+	 * Gets whether the hood is overridden. The hood is overridden when the
+	 * secondary left trigger is pressed.
+	 * 
+	 * @return true if the hood should be manually overridden, otherwise false.
+	 */
 	public boolean getHoodOverride() {
 		return secondary.getLT() > 0.5;
 	}
@@ -182,7 +222,7 @@ public class OI {
 	/**
 	 * Apply a deadband to the given value. This means that the value graph is
 	 * split around zero a certain amount. This fixes the imprecise zeroing of
-	 * xbox joysticks
+	 * Xbox joysticks.
 	 * 
 	 * @param value
 	 *            Value to deadband

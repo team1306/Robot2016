@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * This Subsystem controls only the rollers on the intake arm, not the intake
- * arm itself. It has methods for bringing balls in and out of the robot. This
- * class has a lot of code that is commented out because it is still unsure
- * whether our robot will end up having pneumatic tusks.
+ * arm itself. It has methods for bringing balls in and out of the robot.
  */
 public class Intake extends Subsystem {
 
@@ -34,17 +32,6 @@ public class Intake extends Subsystem {
 	 * until commands are called, so no default command must be specified.
 	 */
 	public void initDefaultCommand() {
-	}
-
-	/**
-	 * Toggle the rollers. This is never used.
-	 */
-	public void toggleRollers() {
-		if (lateralRoller.get() > 0) {
-			stopRollers();
-		} else {
-			startRollers();
-		}
 	}
 
 	/**

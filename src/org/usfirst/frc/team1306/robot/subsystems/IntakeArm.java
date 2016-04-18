@@ -58,6 +58,10 @@ public class IntakeArm extends Subsystem {
 	 *            The new setpoint for the arm.
 	 */
 	public void setPosition(double angle) {
+		if (!motor.isEnabled()) {
+			System.err.println("Intake Arm Talon disconnected");
+			return;
+		}
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.enableBrakeMode(true);
 		double position = Constants.INTAKE_LEFT_ARM_0_POS
@@ -71,6 +75,10 @@ public class IntakeArm extends Subsystem {
 	 * @return the current angle of the intake arm
 	 */
 	public double getPosition() {
+		if (!motor.isEnabled()) {
+			System.err.println("Intake Arm Talon disconnected");
+			return 0.0;
+		}
 		return 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
 				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
 	}
@@ -81,11 +89,8 @@ public class IntakeArm extends Subsystem {
 	 */
 	public void releaseBrakes() {
 		motor.enableBrakeMode(false);
-//		slave.enableBrakeMode(false);
 		motor.changeControlMode(TalonControlMode.PercentVbus);
-//		slave.changeControlMode(TalonControlMode.PercentVbus);
 		motor.set(0.0);
-//		slave.set(0.0);
 	}
 
 	/**

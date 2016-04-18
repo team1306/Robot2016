@@ -12,12 +12,14 @@ public class HoodSetTargetLow extends CommandBase {
 
 	/**
 	 * Called just before this Command runs the first time. This command is a
-	 * one-time action, so the target is set here.
+	 * one-time action, so the target is set here. It requires that the hood's
+	 * current command is Target so that it doesn't accidentally move the hood
+	 * up at an inappropriate time.
 	 */
 	protected void initialize() {
-//		if (hood.getCurrentCommand() instanceof Target) {
-//			hood.setTarget(HoodTarget.LOW);
-//		}
+		if (hood.getCurrentCommand() instanceof Target) {
+			hood.setTarget(HoodTarget.LOW);
+		}
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
-public enum BallQuality {
+public enum Adjustment {
 
-	NEW(-2, "Lower"), MEDIUM(0, "Normal"), OLD(2, "Higher");
+	LOWER(-2, "Lower"), NONE(0, "Normal"), HIGHER(2, "Higher");
 	
 	private final double difference;
 	private final String name;
@@ -15,7 +15,7 @@ public enum BallQuality {
 		return name;
 	}
 	
-	private BallQuality(double difference, String name) {
+	private Adjustment(double difference, String name) {
 		this.difference = difference;
 		this.name = name;
 	}

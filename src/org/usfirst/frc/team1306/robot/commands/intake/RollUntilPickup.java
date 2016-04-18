@@ -1,6 +1,9 @@
 package org.usfirst.frc.team1306.robot.commands.intake;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This command starts the rollers and runs them until a ball is picked up. It
@@ -9,6 +12,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * @author Finn Voichick
  */
 public class RollUntilPickup extends CommandBase {
+
+	private double maxCompression;
 
 	/**
 	 * Creates a new RollUntilPickup command that requires the intake and the
@@ -22,22 +27,30 @@ public class RollUntilPickup extends CommandBase {
 
 	/**
 	 * Called just before this Command runs the first time. This is where the
-	 * rollers and indexer are started.
+	 * indexer is started.
 	 */
 	protected void initialize() {
-		intake.startRollers();
+		maxCompression = 0.0;
 		indexer.driveMotor();
-//		if (intake.getCurrentCommand().isRunning() && intake.getCurrentCommand() instanceof RollUntilPickup) {
-//			new StopRoll().start();
-//		}
 	}
 
 	/**
-	 * Called repeatedly when this Command is scheduled to run. Nothing happens
-	 * here because the speed of the intake rollers and indexer motor has
-	 * already been set.
+	 * Called repeatedly when this Command is scheduled to run. Here, the intake
+	 * rollers are driven only if the intake arm is down, because otherwise
+	 * they're pointless. This allows the driver to move the intake arm up and
+	 * down while intaking a ball.
 	 */
 	protected void execute() {
+
+		maxCompression = Math.max(maxCompression, indexer.getCompression());
+		SmartDashboard.putNumber("max compression", maxCompression);
+
+		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+			intake.stopRollers();
+		} else {
+			intake.startRollers();
+		}
+
 	}
 
 	/**
@@ -52,11 +65,19 @@ public class RollUntilPickup extends CommandBase {
 
 	/**
 	 * Called once after isFinished returns true. At this point, both motors are
-	 * stopped.
+	 * stopped. Also, the intake arm is put in a resting position because it no
+	 * longer needs to be powered.
 	 */
 	protected void end() {
 		intake.stopRollers();
 		indexer.stop();
+
+		if (maxCompression > Constants.PRESSURE_THRESHOLD) {
+			indexer.setQuality(BallQuality.NEW);
+		} else {
+			indexer.setQuality(BallQuality.OLD);
+		}
+
 		new IntakeArmRest().start();
 	}
 

@@ -3,45 +3,40 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * A command that aims the turret at the tower goal. If the target can be seen,
- * it enables automatic turret and hood targeting. The hood and turret positions
- * can also be manually overridden, or the hood can be set to a certain angle.
+ * A command that aims the turret at the tower goal from up on the batter. The
+ * turret is set straight forward and the hood is set to a specific angle.
  * 
  * @author Finn Voichick
  */
 public class BatterTargetClose extends CommandBase {
 
 	/**
-	 * Creates a new BatterTarget command. The turret is required because this
-	 * command can't run at the same time as anything that requires these
-	 * subsystems.
+	 * Creates a new BatterTargetClose command. The turret and hood are required
+	 * because this command can't run at the same time as anything that requires
+	 * these subsystems.
 	 */
 	public BatterTargetClose() {
 		requires(turret);
-//		requires(hood);
+		requires(hood);
 	}
 
 	/**
-	 * Called just before this Command runs the first time. Puts the hood into
-	 * automatic targeting mode and resets the turret PID controller (to reset
-	 * the integral to zero).
+	 * Called just before this Command runs the first time. Sets the turret
+	 * pointing straight forward.
 	 */
 	protected void initialize() {
-		turret.getPIDController().reset();
 		turret.setTurretForward();
 	}
 
 	/**
 	 * Called repeatedly when this Command is scheduled to run. Allows for
-	 * manual hood override, but will otherwise just go to the set high
-	 * position.
+	 * manual hood override, but will otherwise just go to the set position.
 	 */
 	protected void execute() {
 		if (oi.getHoodOverride()) {
-//			hood.setVel(oi.getHoodVel());
+			hood.setVel(oi.getHoodVel());
 		} else {
-//			hood.setTarget(HoodTarget.BATTER_CLOSE);
-//			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
+			hood.setTarget(HoodTarget.BATTER_CLOSE);
 		}
 	}
 
@@ -63,8 +58,8 @@ public class BatterTargetClose extends CommandBase {
 
 	/**
 	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run. It disables the PID controller and sets
-	 * the turret's velocity to zero.
+	 * subsystems is scheduled to run. Nothing needs to happen when this command
+	 * is interrupted.
 	 */
 	protected void interrupted() {
 	}

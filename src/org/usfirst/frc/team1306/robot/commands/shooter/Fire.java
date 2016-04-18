@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1306.robot.commands.shooter;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
@@ -8,23 +9,23 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * A Command to fire a ball. This command assumes that the shooter has already
  * spun up. Running this command will then use the indexer to push the ball into
- * the shooter flywheel, after which both of the will turn off. The indexer
- * stops turning when the flywheel's speed drops (when the ball is pulled in)
- * and the shooter stops spinning when it returns to full speed.
+ * the shooter flywheel, after which both of the will turn off. There is a timed
+ * delay for the motors to stop.
  * 
  * @author Finn Voichick
  */
 public class Fire extends CommandBase {
 
-	/** A variable to track whether or not the ball has been pulled in. */
-	// private boolean fired;
+	/** A Timer that waits until the ball has been fired. */
 	private Timer timer;
 
 	/**
 	 * Constructs a new Fire Command. It runs both the shooter and the indexer,
-	 * so both subsystems are required.
+	 * so both subsystems are required. It doesn't require the turret or hood
+	 * because they are controlled separately by the Target command.
 	 */
 	public Fire() {
+		timer = new Timer();
 		requires(shooter);
 		requires(indexer);
 	}
@@ -34,9 +35,8 @@ public class Fire extends CommandBase {
 	 * the shooter keeps spinning and begins driving the indexer.
 	 */
 	protected void initialize() {
-		timer = new Timer();
+		timer.reset();
 		timer.start();
-		// fired = false;
 		shooter.spinUp();
 		indexer.driveMotor();
 	}
@@ -49,25 +49,18 @@ public class Fire extends CommandBase {
 	protected void execute() {
 		shooter.spinUp();
 		indexer.driveMotor();
-		// if (!fired && !indexer.hasBall() && !shooter.onTarget()) {
-		// indexer.stop();
-		// fired = true;
-		// }
 	}
 
 	/**
 	 * Returns true when this Command no longer needs to run execute(). In this
-	 * case, the shooter must have pulled in the ball and returned to its full
-	 * speed.
+	 * case, the period of time required by the timer must have passed.
 	 */
 	protected boolean isFinished() {
-		// return fired && shooter.onTarget();
-		return timer.hasPeriodPassed(2.0);
+		return timer.hasPeriodPassed(Constants.SHOT_TIME);
 	}
 
 	/**
-	 * Called once after isFinished returns true. This stops the flywheel motor
-	 * after firing.
+	 * Called once after isFinished returns true. This stops the motors.
 	 */
 	protected void end() {
 		indexer.stop();

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
-//import org.usfirst.frc.team1306.robot.vision.Vision;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 /**
  * A command that aims the turret at the tower goal. If the target can be seen,
@@ -18,7 +18,7 @@ public class Target extends CommandBase {
 	 */
 	public Target() {
 		requires(turret);
-//		requires(hood);
+		requires(hood);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class Target extends CommandBase {
 	 * the integral to zero).
 	 */
 	protected void initialize() {
-//		hood.setTarget(HoodTarget.NORMAL);
+		hood.setTarget(HoodTarget.AUTO);
 		turret.getPIDController().reset();
 	}
 
@@ -39,14 +39,21 @@ public class Target extends CommandBase {
 	 * instead.
 	 */
 	protected void execute() {
-		// boolean canSeeTarget = Vision.getData().getDistance() > 0.0;
-		boolean canSeeTarget = false;
-		turret.getPIDController().reset();
-		turret.setVel(oi.getTurretVel());
-		if (oi.getHoodOverride()) {
-//			hood.setVel(oi.getHoodVel());
+
+		boolean canSeeTarget = Vision.canSeeTarget();
+
+		if (canSeeTarget && !oi.getTurretOverrride()) {
+			turret.enable();
+			turret.setSetpoint(0.0);
 		} else {
-//			hood.setHeight(hood.getTarget().getHeight() + hood.getQuality().difference());
+			turret.getPIDController().reset();
+			turret.setVel(oi.getTurretVel());
+		}
+
+		if (oi.getHoodOverride()) {
+			hood.setVel(oi.getHoodVel());
+		} else if (hood.getTarget().equals(HoodTarget.AUTO)) {
+			hood.setTarget(HoodTarget.AUTO);
 		}
 	}
 

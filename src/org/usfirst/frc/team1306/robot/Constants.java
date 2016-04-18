@@ -27,10 +27,11 @@ public class Constants {
 	public final static double TURRET_SCAN_SPEED = 0.2;
 
 	// shooter constants
-	public final static double SHOOTER_MAX_SPEED = 23400.0;
-	public final static int SHOOTER_TOLERANCE = 117; // 0.5% tolerance
-	public final static double SHOOTER_SET_SPEED = 0.95;
-
+	public final static double SHOOTER_CONVERSION_FACTOR = 3.413333333;
+	public final static int SHOOTER_TOLERANCE = 50;
+	public final static double SHOOTER_SET_SPEED = 9000;
+	public final static double SHOOTER_LOW_SPIN = 3000;
+	public final static double SHOT_TIME = 2.0;
 	// hood constants
 	public final static double HOOD_0_POS = 80.0;
 	public final static double HOOD_90_POS = 800.0;
@@ -38,10 +39,14 @@ public class Constants {
 	public final static double HOOD_NORMAL_TARGET_POSITION = 50.5;
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
-	public final static double HOOD_TOLERANCE = 8.0;
+	public final static double HOOD_TOLERANCE = 0.25;
+	public final static double HOOD_AUTOTARGET_A = 0.8571;
+	public final static double HOOD_AUTOTARGET_B = -14.7;
+	public final static double HOOD_AUTOTARGET_C = 110.82;
 
 	// indexer constants
-	public final static double INDEXER_POWER = 0.75;
+	public final static double INDEXER_POWER = 0.6;
+	public final static double PRESSURE_THRESHOLD = 1.0; // TODO placeholder
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
@@ -58,7 +63,11 @@ public class Constants {
 	public final static double JOYSTICK_POWER = 1.0;
 
 	// vision constants
+	public final static String VISION_HOSTNAME = "10.13.6.19";
+	public final static int VISION_PORT_NUMBER = 5802;
 	public final static double VISION_PERIOD = 0.1;
+	public final static double MIN_DISTANCE = 7.0;
+	public final static double MAX_DISTANCE = 10.0;
 
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;
@@ -67,5 +76,6 @@ public class Constants {
 	public final static double LOW_BAR_TIME = 3.5;
 	public final static double TERRAIN_TIME = 2.5;
 	public final static double OBSTACLE_TIME = 2.75;
+	public final static double TARGET_TIME = 4.0;
 
 }

@@ -6,6 +6,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * A command that spins the shooter up to full speed. This command is meant to
  * be used in conjunction with the Target command so that the shooter is spun up
  * by the time the Fire command is run.
+ * 
+ * @author Finn Voichick
  */
 public class SpinUp extends CommandBase {
 
@@ -33,8 +35,8 @@ public class SpinUp extends CommandBase {
 	}
 
 	/**
-	 * Returns true when this Command no longer needs to run execute().
-	 * This command only ends when it's interrupted.
+	 * Returns true when this Command no longer needs to run execute(). This
+	 * command only ends when it's interrupted.
 	 * 
 	 * @return false
 	 */
@@ -51,7 +53,7 @@ public class SpinUp extends CommandBase {
 	/**
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Nothing happens because it simply
-	 * transfers control, so no new velocity needs to be set. 
+	 * transfers control, so no new velocity needs to be set.
 	 */
 	protected void interrupted() {
 	}

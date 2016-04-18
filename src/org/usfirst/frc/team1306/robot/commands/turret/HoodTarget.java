@@ -3,32 +3,37 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 import org.usfirst.frc.team1306.robot.Constants;
 
 /**
- * An enum that contains the three different hood targeting mode. AUTO means
- * that the hood is automatically targeting using the Vision targets. LOW means
- * that it's at a set position that aims for the low goal. HIGH means that it's
- * at a set high position, used for when Vision targeting isn't working or
- * another robot is defending us.
+ * An enum that contains the three different hood targeting mode. LOW means that
+ * it's at a set position that aims for the low goal. AUTO means that the hood
+ * is automatically targeting using the Vision targets. BATTER_FAR means that
+ * it's at a set position aiming from the batter edge, and BATTER_CLOSE means
+ * that it's at a set position up on the batter.
  * 
  * @author Finn Voichick
  */
 public enum HoodTarget {
 
-	FLAT(90.0, "Flat"), LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), NORMAL(Constants.HOOD_NORMAL_TARGET_POSITION,
+	LOW(Constants.HOOD_LOW_GOAL_POSITION, "Low Goal"), AUTO(Constants.HOOD_NORMAL_TARGET_POSITION,
 			"Normal Shot"), BATTER_FAR(Constants.HOOD_BATTER_FAR_POSITION,
-					"Batter Shot Edge"), BATTER_CLOSE(Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Shot Close");
+					"Batter Edge Shot"), BATTER_CLOSE(Constants.HOOD_BATTER_CLOSE_POSITION, "Batter Shot");
 
+	/** The set angle for the hood for this target. */
 	private final double height;
+	/** The name of this target on the SmartDashboard. */
 	private final String name;
 
+	/** Gets the set angle for the hood for this target. */
 	public double getHeight() {
 		return height;
 	}
 
+	/** Gets the name of this target for the SmartDashboard. */
 	@Override
 	public String toString() {
 		return name;
 	}
 
+	/** Constructs a HoodTarget with the given height and name */
 	private HoodTarget(double height, String name) {
 		this.height = height;
 		this.name = name;

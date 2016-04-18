@@ -84,15 +84,8 @@ public class Drivetrain extends Subsystem {
 	 *            First follower controller.
 	 */
 	private void setupMotors(CANTalon master, CANTalon slave) {
-		/*
-		 * master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		 * master.changeControlMode(TalonControlMode.Speed);
-		 * master.reverseSensor(true);
-		 */
-		master.changeControlMode(TalonControlMode.Speed);
-		master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		master.changeControlMode(TalonControlMode.PercentVbus);
 		master.set(0.0);
-		master.enable();
 
 		slave.changeControlMode(TalonControlMode.Follower);
 		slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);

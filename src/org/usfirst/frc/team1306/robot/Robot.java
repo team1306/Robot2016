@@ -3,10 +3,9 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.SmartDashboardUpdate;
-import org.usfirst.frc.team1306.robot.commands.autonomous.LowBarAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.ObstacleAuto;
-import org.usfirst.frc.team1306.robot.commands.autonomous.TerrainAuto;
-//import org.usfirst.frc.team1306.robot.vision.Vision;
+import org.usfirst.frc.team1306.robot.commands.autonomous.AutonomousCommand;
+import org.usfirst.frc.team1306.robot.commands.autonomous.DefenseType;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -19,20 +18,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * documentation.
  * 
- * @author James Tautges
+ * @author Finn Voichick, James Tautges
  */
 public class Robot extends IterativeRobot {
 
+	/** The command run during the autonomous period. */
 	Command autonomousCommand;
+	/** The command that always updates the SmartDashboard with information. */
 	Command smartdashboard;
+	/** How the drivers can choose the autonomous program before each match. */
 	SendableChooser autoChooser;
-    CameraServer server;
-    
-
+	/** The CameraServer that sends camera images to the driver station. */
+	CameraServer server;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -43,18 +42,22 @@ public class Robot extends IterativeRobot {
 		// to happen before anything else so that the other commands have things
 		// to access
 		CommandBase.init();
-		
-        server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
 
-//		Vision.init();
+		server = CameraServer.getInstance();
+		server.setQuality(50);
+		server.startAutomaticCapture("cam0");
+
+		Vision.init();
 
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Low Bar", new LowBarAuto());
-		autoChooser.addObject("Rough Terrain", new TerrainAuto());
-		autoChooser.addObject("Moat, Wall, or Ramparts", new ObstacleAuto());
+		autoChooser.addObject("Low Bar - Don't Shoot", new AutonomousCommand(DefenseType.LOWBAR, false));
+		autoChooser.addObject("Rough Terrain - Don't Shoot", new AutonomousCommand(DefenseType.TERRAIN, false));
+		autoChooser.addObject("Moat, Wall, or Ramparts - Don't Shoot",
+				new AutonomousCommand(DefenseType.OBSTACLE, false));
+		autoChooser.addDefault("Low Bar - Fire", new AutonomousCommand(DefenseType.LOWBAR, true));
+		autoChooser.addObject("Rough Terrain - Fire", new AutonomousCommand(DefenseType.TERRAIN, true));
+		autoChooser.addObject("Moat, Wall, or Ramparts - Fire", new AutonomousCommand(DefenseType.OBSTACLE, true));
 		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// Start the debugging log command
@@ -64,13 +67,14 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
 	 */
 	public void disabledInit() {
 
 	}
 
+	/**
+	 * This function is called periodically while the robot is disabled.
+	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -101,13 +105,16 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	/**
+	 * This function is called once each time the robot enters Teleop mode. It
+	 * makes sure that the autonomous stops running when teleop starts running.
+	 */
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (autonomousCommand != null)
+
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+		}
+
 	}
 
 	/**

@@ -3,6 +3,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 //import org.usfirst.frc.team1306.robot.vision.Vision;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -66,6 +67,13 @@ public class Turret extends PIDSubsystem {
 	 * forward.
 	 */
 	public void setTurretForward() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return;
+		}
+		
+		getPIDController().reset();
+		
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(0.0);
 		turretTalon.enable();
@@ -78,6 +86,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the right, otherwise false.
 	 */
 	public boolean isRight() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return false;
+		}
 		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
 	}
 
@@ -88,6 +100,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the left, otherwise false.
 	 */
 	public boolean isLeft() {
+		if (!turretTalon.isEnabled()) {
+			System.err.println("Turret Talon disconnected");
+			return false;
+		}
 		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 
@@ -101,8 +117,7 @@ public class Turret extends PIDSubsystem {
 	 *         can't be seen.
 	 */
 	protected double returnPIDInput() {
-//		return -Vision.getData().getYaw();
-		return 0.0;
+		return -Vision.getData().getYaw();
 	}
 
 	/**

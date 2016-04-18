@@ -12,7 +12,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 public class IntakeArmVertical extends CommandBase {
 
 	/**
-	 * Constructs an IntakeArmDown Command that requires the IntakeArm.
+	 * Constructs an IntakeArmVertical Command that requires the IntakeArm.
 	 */
 	public IntakeArmVertical() {
 		requires(intakeArm);
