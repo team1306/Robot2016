@@ -21,7 +21,8 @@ import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentNone;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
-import org.usfirst.frc.team1306.robot.triggers.DPadDown;
+import org.usfirst.frc.team1306.robot.triggers.DPadPress;
+import org.usfirst.frc.team1306.robot.triggers.DPadDirection;
 import org.usfirst.frc.team1306.robot.triggers.DPadLeft;
 import org.usfirst.frc.team1306.robot.triggers.DPadRight;
 import org.usfirst.frc.team1306.robot.triggers.DPadUp;
@@ -96,14 +97,14 @@ public class OI {
 
 		bumperR2 = new JoystickButton(secondary, XboxController.RB);
 
-		dPadUp = new DPadUp(xbox);
-		dPadRight = new DPadRight(xbox);
-		dPadLeft = new DPadLeft(xbox);
-		dPadDown = new DPadDown(xbox);
+		dPadUp = new DPadPress(xbox, DPadDirection.UP);
+		dPadRight = new DPadPress(xbox, DPadDirection.RIGHT);
+		dPadLeft = new DPadPress(xbox, DPadDirection.LEFT);
+		dPadDown = new DPadPress(xbox, DPadDirection.DOWN);
 
-		dPad2Up = new DPadUp(secondary);
-		dPad2Right = new DPadRight(secondary);
-		dPad2Down = new DPadDown(secondary);
+		dPad2Up = new DPadPress(secondary, DPadDirection.UP);
+		dPad2Right = new DPadPress(secondary, DPadDirection.RIGHT);
+		dPad2Down = new DPadPress(secondary, DPadDirection.DOWN);
 
 		// Bind input devices to commands
 		buttonA.whenPressed(new Fire());
@@ -210,13 +211,12 @@ public class OI {
 	public boolean getTurretOverrride() {
 		return secondary.getRT() > 0.5;
 	}
-	
+
 	/**
 	 * Gets whether the hood is overridden. The hood is overridden when the
 	 * secondary left trigger is pressed.
 	 * 
-	 * @return true if the hood should be manually overridden, otherwise
-	 *         false.
+	 * @return true if the hood should be manually overridden, otherwise false.
 	 */
 	public boolean getHoodOverride() {
 		return secondary.getLT() > 0.5;
