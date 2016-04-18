@@ -11,10 +11,20 @@ import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * A general command that can be configured for all autonomous programs.
+ * 
+ * @author Finn Voichick
  */
 public class AutonomousCommand extends CommandGroup {
 
+	/**
+	 * Constructs an AutonomousCommand with the given settings.
+	 * 
+	 * @param defenseType
+	 *            the type of defense to traverse.
+	 * @param fire
+	 *            whether or not to fire after moving.
+	 */
 	public AutonomousCommand(DefenseType defenseType, boolean fire) {
 
 		if (defenseType.equals(DefenseType.LOWBAR)) {
