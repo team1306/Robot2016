@@ -52,7 +52,7 @@ public class Target extends CommandBase {
 
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
-		} else {
+		} else if (hood.getTarget().equals(HoodTarget.AUTO)) {
 			hood.setTarget(HoodTarget.AUTO);
 		}
 	}
