@@ -21,11 +21,8 @@ import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentNone;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
-import org.usfirst.frc.team1306.robot.triggers.DPadPress;
 import org.usfirst.frc.team1306.robot.triggers.DPadDirection;
-import org.usfirst.frc.team1306.robot.triggers.DPadLeft;
-import org.usfirst.frc.team1306.robot.triggers.DPadRight;
-import org.usfirst.frc.team1306.robot.triggers.DPadUp;
+import org.usfirst.frc.team1306.robot.triggers.DPadPress;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
