@@ -13,7 +13,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 public class IntakeArmRest extends CommandBase {
 
 	/**
-	 * Constructs an IntakeArmDown Command that requires the IntakeArm.
+	 * Constructs an IntakeArmRest Command that requires the IntakeArm.
 	 */
 	public IntakeArmRest() {
 		requires(intakeArm);

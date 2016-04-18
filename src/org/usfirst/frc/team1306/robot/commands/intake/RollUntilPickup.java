@@ -27,7 +27,7 @@ public class RollUntilPickup extends CommandBase {
 
 	/**
 	 * Called just before this Command runs the first time. This is where the
-	 * rollers and indexer are started.
+	 * indexer is started.
 	 */
 	protected void initialize() {
 		maxCompression = 0.0;
@@ -35,9 +35,10 @@ public class RollUntilPickup extends CommandBase {
 	}
 
 	/**
-	 * Called repeatedly when this Command is scheduled to run. Nothing happens
-	 * here because the speed of the intake rollers and indexer motor has
-	 * already been set.
+	 * Called repeatedly when this Command is scheduled to run. Here, the intake
+	 * rollers are driven only if the intake arm is down, because otherwise
+	 * they're pointless. This allows the driver to move the intake arm up and
+	 * down while intaking a ball.
 	 */
 	protected void execute() {
 
@@ -64,7 +65,8 @@ public class RollUntilPickup extends CommandBase {
 
 	/**
 	 * Called once after isFinished returns true. At this point, both motors are
-	 * stopped.
+	 * stopped. Also, the intake arm is put in a resting position because it no
+	 * longer needs to be powered.
 	 */
 	protected void end() {
 		intake.stopRollers();
