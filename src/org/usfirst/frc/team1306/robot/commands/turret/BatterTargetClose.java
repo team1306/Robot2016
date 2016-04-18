@@ -25,7 +25,6 @@ public class BatterTargetClose extends CommandBase {
 	 * pointing straight forward.
 	 */
 	protected void initialize() {
-		turret.getPIDController().reset();
 		turret.setTurretForward();
 	}
 

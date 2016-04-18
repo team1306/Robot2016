@@ -71,6 +71,9 @@ public class Turret extends PIDSubsystem {
 			System.err.println("Turret Talon disconnected");
 			return;
 		}
+		
+		getPIDController().reset();
+		
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(0.0);
 		turretTalon.enable();

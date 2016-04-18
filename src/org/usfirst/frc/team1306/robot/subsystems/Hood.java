@@ -21,7 +21,9 @@ public class Hood extends Subsystem {
 
 	/** The motor that moves the hood */
 	private final CANTalon hoodTalon;
+	/** The current target for the Hood. This is null if the hood is flat. */
 	private HoodTarget target;
+	/** The adjustment for the set hood angle. */
 	private Adjustment adjustment;
 
 	/**
@@ -58,15 +60,29 @@ public class Hood extends Subsystem {
 			System.err.println("Hood Talon disconnected");
 			return;
 		}
+
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.set(
 				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
 	}
 
-	public void setAdjustment(Adjustment quality) {
-		this.adjustment = quality;
+	/**
+	 * Sets the adjustment on the hood. Used to shift all angles (except flat)
+	 * by the required amount.
+	 * 
+	 * @param adjustment
+	 *            the new adjustment
+	 */
+	public void setAdjustment(Adjustment adjustment) {
+		this.adjustment = adjustment;
 	}
 
+	/**
+	 * Gets the current adjustment setting on the hood. Used for letting the
+	 * drivers know on the SmartDashboard.
+	 * 
+	 * @return the currently set adjustment.
+	 */
 	public Adjustment getAdjustment() {
 		return adjustment;
 	}
@@ -103,7 +119,7 @@ public class Hood extends Subsystem {
 	}
 
 	/**
-	 * Directly set the velocity of the hood, using PercentVbus mode.
+	 * Directly set the throttle of the hood, using PercentVbus mode.
 	 * 
 	 * @param velocity
 	 *            the hood motor's throttle.
@@ -135,7 +151,7 @@ public class Hood extends Subsystem {
 	/**
 	 * Checks to see whether the hood is being manually controlled.
 	 * 
-	 * @return true if the hood is being manually controlled, otherwise false
+	 * @return true if the hood is being manually controlled, otherwise false.
 	 */
 	public boolean isManuallyControlled() {
 		return hoodTalon.getControlMode().equals(TalonControlMode.PercentVbus);
@@ -170,9 +186,9 @@ public class Hood extends Subsystem {
 	}
 
 	/**
-	 * Gets the hood's target: AUTO, LOW, or HIGH.
+	 * Gets where the hood is currently targeted.
 	 * 
-	 * @return the hoods target.
+	 * @return the hood's target, or null if it's flat.
 	 */
 	public HoodTarget getTarget() {
 		return target;
@@ -181,6 +197,7 @@ public class Hood extends Subsystem {
 	/**
 	 * Determines whether the hood's position is on target. This makes sure the
 	 * hood Talon is in the correct mode and its error is within the tolerance.
+	 * Used by the drivers so they know when they can shoot.
 	 * 
 	 * @return true if the hood is on target, otherwise false.
 	 */
@@ -189,6 +206,7 @@ public class Hood extends Subsystem {
 			System.err.println("Hood Talon disconnected");
 			return false;
 		}
+
 		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0 && hoodTalon
 				.getError() < Constants.HOOD_TOLERANCE * Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
 	}

@@ -31,7 +31,7 @@ public class Indexer extends Subsystem {
 	private BallQuality quality;
 
 	/**
-	 * Constructs an Indexer, initializing the speedcontroller and limit
+	 * Constructs an Indexer, initializing the SpeedController and limit
 	 * switches.
 	 */
 	public Indexer() {

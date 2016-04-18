@@ -35,7 +35,6 @@ public class ResetTurret extends CommandBase {
 	protected void initialize() {
 		turret.setTurretForward();
 		hood.flatten();
-		shooter.spinDown();
 		// TODO Figure out if the turret can turn with the intake arm up
 		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
 			new IntakeArmRest().start();
@@ -47,6 +46,7 @@ public class ResetTurret extends CommandBase {
 	 * because nothing needs to happen repeatedly.
 	 */
 	protected void execute() {
+		shooter.spinDown();
 	}
 
 	/**

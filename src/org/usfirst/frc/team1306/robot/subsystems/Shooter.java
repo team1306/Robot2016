@@ -51,8 +51,9 @@ public class Shooter extends Subsystem {
 	}
 
 	/**
-	 * Set the Talon to its set speed. In this case, it's 95% of the maximum
-	 * velocity so that it doesn't drop over the course of a match
+	 * Set the Talon to its set speed. This is less than the maximum velocity
+	 * because it needs to be able to get to this velocity quickly. Also, it
+	 * needs to be consistent and unaffected by battery power.
 	 */
 	public void spinUp() {
 		if (!flywheel.isEnabled()) {
@@ -66,7 +67,9 @@ public class Shooter extends Subsystem {
 
 	/**
 	 * Stop the flywheel Talon. It is put into PercentVbus mode and allowed to
-	 * coast to a stop.
+	 * coast to a stop. If it's in low spin mode, then it only coasts to a
+	 * slower speed. Note: if in low spin mode, the spinDown method must be
+	 * called repeatedly.
 	 */
 	public void spinDown() {
 		if (lowSpin && flywheel.getSpeed() < Constants.SHOOTER_LOW_SPIN + Constants.SHOOTER_TOLERANCE) {
@@ -83,7 +86,7 @@ public class Shooter extends Subsystem {
 	}
 
 	/**
-	 * Gets the current speed of the flywheel, on a scale from 0.0 to 1.0.
+	 * Gets the current speed of the flywheel in rotations per minute.
 	 * 
 	 * @return the current flywheel speed.
 	 */
