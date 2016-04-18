@@ -10,17 +10,11 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public final class VisionData {
 
-	/**
-	 * The pitch of the center of the target in degrees, relative to the
-	 * horizontal.
-	 */
+	/** The pitch of the center of the target in arbitrary units. */
 	private final double pitch;
-	/**
-	 * The yaw of the center of the target in degrees, relative to the heading
-	 * of the turret.
-	 */
+	/** The yaw of the center of the target in arbitrary units. */
 	private final double yaw;
-	/** The straight-line distance to the target, in inches. */
+	/** The straight-line distance to the target, in arbitrary units. */
 	private final double distance;
 	/** The time that these calculations were made. */
 	private final double timestamp;
@@ -46,8 +40,7 @@ public final class VisionData {
 	}
 
 	/**
-	 * Gets the pitch of the center of the target in degrees, relative to the
-	 * horizontal.
+	 * Gets the pitch of the center of the target in arbitrary units.
 	 * 
 	 * @return the pitch of the center of the target.
 	 */
@@ -56,8 +49,7 @@ public final class VisionData {
 	}
 
 	/**
-	 * Gets the yaw of the center of the target in degrees, relative to the
-	 * heading of the turret.
+	 * Gets the yaw of the center of the target in arbitrary units.
 	 * 
 	 * @return the yaw of the center of the target.
 	 */
@@ -66,7 +58,7 @@ public final class VisionData {
 	}
 
 	/**
-	 * Gets the straight-line distance to the target, in inches.
+	 * Gets the straight-line distance to the target, in arbitrary units.
 	 * 
 	 * @return the distance to the target.
 	 */

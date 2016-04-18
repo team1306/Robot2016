@@ -2,8 +2,6 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * A command that aims the turret at the tower goal from the edge of the batter
  * (the front wheels of the robot are touching the batter). The turret is set
