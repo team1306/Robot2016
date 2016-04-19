@@ -1,20 +1,23 @@
 package org.usfirst.frc.team1306.robot.commands.intake;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * A Command to raise the intake arm to its vertical position. It uses the
- * Talon's internal PID loop.
+ * A Command to move the intake arm to a given position. It uses the Talon's
+ * internal PID loop.
  * 
  * @author Finn Voichick
  */
-public class IntakeArmVertical extends CommandBase {
+public class IntakeArmMove extends CommandBase {
+
+	/** The position to move the arm to. */
+	private final IntakePosition position;
 
 	/**
-	 * Constructs an IntakeArmVertical Command that requires the IntakeArm.
+	 * Constructs an IntakeArmMove Command that requires the IntakeArm.
 	 */
-	public IntakeArmVertical() {
+	public IntakeArmMove(IntakePosition position) {
+		this.position = position;
 		requires(intakeArm);
 	}
 
@@ -23,7 +26,7 @@ public class IntakeArmVertical extends CommandBase {
 	 * arm's new position is set.
 	 */
 	protected void initialize() {
-		intakeArm.setPosition(Constants.INTAKE_VERTICAL_POS);
+		intakeArm.setPosition(position);
 	}
 
 	/**

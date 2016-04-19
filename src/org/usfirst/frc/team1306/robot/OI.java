@@ -2,10 +2,9 @@ package org.usfirst.frc.team1306.robot;
 
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftDown;
 import org.usfirst.frc.team1306.robot.commands.drivetrain.ShiftUp;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmDown;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmPickup;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmMove;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team1306.robot.commands.intake.Pass;
 import org.usfirst.frc.team1306.robot.commands.intake.RollUntilPickup;
 import org.usfirst.frc.team1306.robot.commands.intake.StopRoll;
@@ -109,16 +108,16 @@ public class OI {
 		buttonB.whenPressed(new ResetTurret());
 		buttonX.whenPressed(new SpinUp());
 		buttonY.whenPressed(new ResetTurret());
-		buttonY.whenPressed(new IntakeArmPickup());
+		buttonY.whenPressed(new IntakeArmMove(IntakePosition.PICKUP));
 		buttonY.whenPressed(new RollUntilPickup());
 		buttonBack.whenPressed(new ResetTurret());
 		buttonBack.whenPressed(new Pass());
 		buttonStart.whenPressed(new Target());
 		bumperL.whenPressed(new ShiftDown());
 		bumperR.whenPressed(new ShiftUp());
-		dPadUp.whenActive(new IntakeArmVertical());
-		dPadRight.whenActive(new IntakeArmPickup());
-		dPadLeft.whenActive(new IntakeArmDown());
+		dPadUp.whenActive(new IntakeArmMove(IntakePosition.VERTICAL));
+		dPadRight.whenActive(new IntakeArmMove(IntakePosition.PICKUP));
+		dPadLeft.whenActive(new IntakeArmMove(IntakePosition.DOWN));
 		dPadDown.whenActive(new IntakeArmRest());
 
 		buttonA2.whenPressed(new HoodSetTargetLow());

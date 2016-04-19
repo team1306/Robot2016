@@ -2,7 +2,6 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
 
 /**
  * Sets the Turret to point directly forward (encoder position zero), and lowers
@@ -36,7 +35,7 @@ public class ResetTurret extends CommandBase {
 		turret.setTurretForward();
 		hood.flatten();
 		// TODO Figure out if the turret can turn with the intake arm up
-		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+		if (intakeArm.isVertical()) {
 			new IntakeArmRest().start();
 		}
 	}

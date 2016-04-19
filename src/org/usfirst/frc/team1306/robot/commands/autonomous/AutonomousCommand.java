@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1306.robot.commands.autonomous;
 
 import org.usfirst.frc.team1306.robot.Constants;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmMove;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
-import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmVertical;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.ScanForTarget;
@@ -30,7 +31,7 @@ public class AutonomousCommand extends CommandGroup {
 		if (defenseType.equals(DefenseType.LOWBAR)) {
 			addSequential(new IntakeArmRest());
 		} else {
-			addParallel(new IntakeArmVertical());
+			addParallel(new IntakeArmMove(IntakePosition.VERTICAL));
 		}
 
 		addSequential(defenseType.getDriveCommand());

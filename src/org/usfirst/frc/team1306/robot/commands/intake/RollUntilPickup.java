@@ -45,7 +45,7 @@ public class RollUntilPickup extends CommandBase {
 		maxCompression = Math.max(maxCompression, indexer.getCompression());
 		SmartDashboard.putNumber("max compression", maxCompression);
 
-		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+		if (intakeArm.isVertical()) {
 			intake.stopRollers();
 		} else {
 			intake.startRollers();

@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.intake.IntakePosition;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -57,16 +58,16 @@ public class IntakeArm extends Subsystem {
 	 * @param angle
 	 *            The new setpoint for the arm.
 	 */
-	public void setPosition(double angle) {
+	public void setPosition(IntakePosition position) {
 		if (!motor.isEnabled()) {
 			System.err.println("Intake Arm Talon disconnected");
 			return;
 		}
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.enableBrakeMode(true);
-		double position = Constants.INTAKE_LEFT_ARM_0_POS
-				+ angle * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0;
-		motor.set(position);
+		double setpoint = Constants.INTAKE_LEFT_ARM_0_POS
+				+ position.getPosition() * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0;
+		motor.set(setpoint);
 	}
 
 	/**
@@ -81,6 +82,18 @@ public class IntakeArm extends Subsystem {
 		}
 		return 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
 				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
+	}
+
+	/**
+	 * Gets whether the intake arm is vertical. If it's vertical, it the turret
+	 * shouldn't turn and the rollers shouldn't spin.
+	 * 
+	 * @return true if the intake arm is vertical, otherwise false.
+	 */
+	public boolean isVertical() {
+
+		return getPosition() > Constants.INTAKE_ROLL_THRESHOLD;
+
 	}
 
 	/**

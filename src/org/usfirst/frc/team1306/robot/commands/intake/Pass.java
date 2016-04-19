@@ -15,14 +15,14 @@ public class Pass extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		if (intakeArm.getCurrentCommand() instanceof IntakeArmRest) {
-			new IntakeArmPickup().start();
+			new IntakeArmMove(IntakePosition.PICKUP).start();
 		}
 		indexer.reverse();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
+		if (intakeArm.isVertical()) {
 			intake.stopRollers();
 		} else {
 			intake.startRollers();

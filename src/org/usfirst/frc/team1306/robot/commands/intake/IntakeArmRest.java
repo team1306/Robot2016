@@ -25,7 +25,7 @@ public class IntakeArmRest extends CommandBase {
 	 */
 	protected void initialize() {
 		if (intakeArm.getPosition() > Constants.INTAKE_DROP_THRESHOLD) {
-			intakeArm.setPosition(Constants.INTAKE_PICKUP_POS);
+			intakeArm.setPosition(IntakePosition.PICKUP);
 		}
 	}
 
