@@ -3,6 +3,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -22,6 +23,8 @@ public class Indexer extends Subsystem {
 	private final DigitalInput ballSwitch1;
 	/** The limit switch on the other side */
 	private final DigitalInput ballSwitch2;
+	/** The pressure pad that tests ball compression. */
+	private final AnalogInput pressurePad;
 
 	/**
 	 * Constructs an Indexer, initializing the speedcontroller and limit
@@ -32,6 +35,8 @@ public class Indexer extends Subsystem {
 		motor.setInverted(true);
 		ballSwitch1 = new DigitalInput(RobotMap.indexerLimitPort1);
 		ballSwitch2 = new DigitalInput(RobotMap.indexerLimitPort2);
+		pressurePad = new AnalogInput(RobotMap.pressurePadPort);
+		pressurePad.setAverageBits(10);
 	}
 
 	/**
@@ -69,5 +74,9 @@ public class Indexer extends Subsystem {
 	 */
 	public boolean hasBall() {
 		return !ballSwitch1.get() || !ballSwitch2.get();
+	}
+
+	public double getCompression() {
+		return pressurePad.getAverageVoltage();
 	}
 }

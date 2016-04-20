@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.commands.intake;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * This command starts the rollers and runs them until a ball is picked up. It
  * uses the Intake and Indexer subsystems.
@@ -9,6 +11,8 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * @author Finn Voichick
  */
 public class RollUntilPickup extends CommandBase {
+	
+	private double maxCompression;
 
 	/**
 	 * Creates a new RollUntilPickup command that requires the intake and the
@@ -25,6 +29,7 @@ public class RollUntilPickup extends CommandBase {
 	 * rollers and indexer are started.
 	 */
 	protected void initialize() {
+		maxCompression = 0.0;
 //		intake.startRollers();
 		indexer.driveMotor();
 	}
@@ -35,6 +40,10 @@ public class RollUntilPickup extends CommandBase {
 	 * already been set.
 	 */
 	protected void execute() {
+		
+		maxCompression = Math.max(maxCompression, indexer.getCompression());
+		SmartDashboard.putNumber("compression", maxCompression);
+		
 //		if (intakeArm.getCurrentCommand() instanceof IntakeArmVertical) {
 //			intake.stopRollers();
 //		} else {

@@ -41,13 +41,14 @@ public class RobotMap {
 	public static int intakeSol1PortB = 5;
 	public static int intakeSol2PortA = 6;
 	public static int intakeSol2PortB = 7;
-	
+
 	// indexer ports
 	public static int indexerPort = 2;
 
 	// intake sensor ports
 	public static int indexerLimitPort1 = 0;
 	public static int indexerLimitPort2 = 1;
+	public static int pressurePadPort = 0;
 
 	// arm control ports
 	public static int armPort = 3;
