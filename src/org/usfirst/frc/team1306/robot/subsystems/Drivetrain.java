@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
 
+	private final static boolean ENABLED = false;
+
 	private final CANTalon[] motors;
 	private final CANTalon leftMotor1;
 	private final CANTalon leftMotor2;
@@ -26,21 +28,31 @@ public class Drivetrain extends Subsystem {
 	private final DoubleSolenoid rightShifter;
 
 	public Drivetrain() {
+		if (ENABLED) {
 
-		leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
-		leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
-		rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
-		rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
+			leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
+			leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
+			rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
+			rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
 
-		motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
-		setupMotors(leftMotor1, leftMotor2);
-		setupMotors(rightMotor1, rightMotor2);
+			motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
+			setupMotors(leftMotor1, leftMotor2);
+			setupMotors(rightMotor1, rightMotor2);
 
-		leftShifter = new DoubleSolenoid(0, 1);
-		rightShifter = new DoubleSolenoid(2, 3);
+			leftShifter = new DoubleSolenoid(0, 1);
+			rightShifter = new DoubleSolenoid(2, 3);
 
-		shiftDown();
+			shiftDown();
 
+		} else {
+			leftMotor1 = null;
+			leftMotor2 = null;
+			rightMotor1 = null;
+			rightMotor2 = null;
+			motors = null;
+			leftShifter = null;
+			rightShifter = null;
+		}
 	}
 
 	/**
@@ -52,25 +64,37 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
-		rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
-		leftMotor1.set(-leftVel);
-		rightMotor1.set(rightVel);
+		if (ENABLED) {
+
+			leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
+			rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
+			leftMotor1.set(-leftVel);
+			rightMotor1.set(rightVel);
+
+		}
 	}
 
 	/**
 	 * Sets zero speed to all motors.
 	 */
 	public void stop() {
-		leftMotor1.set(0.0);
-		rightMotor1.set(0.0);
+		if (ENABLED) {
+
+			leftMotor1.set(0.0);
+			rightMotor1.set(0.0);
+
+		}
 	}
 
 	/**
 	 * Start the default tank drive command to start driving.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveTank());
+		if (ENABLED) {
+
+			setDefaultCommand(new DriveTank());
+
+		}
 	}
 
 	/**
@@ -84,33 +108,45 @@ public class Drivetrain extends Subsystem {
 	 *            First follower controller.
 	 */
 	private void setupMotors(CANTalon master, CANTalon slave) {
-		master.changeControlMode(TalonControlMode.PercentVbus);
-		master.set(0.0);
+		if (ENABLED) {
 
-		slave.changeControlMode(TalonControlMode.Follower);
-		slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		slave.set(master.getDeviceID());
-		slave.enable();
+			master.changeControlMode(TalonControlMode.PercentVbus);
+			master.set(0.0);
+
+			slave.changeControlMode(TalonControlMode.Follower);
+			slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+			slave.set(master.getDeviceID());
+			slave.enable();
+
+		}
 	}
 
 	/**
 	 * Put both motors into high gear.
 	 */
 	public void shiftUp() {
-		leftShifter.set(DoubleSolenoid.Value.kForward);
-		rightShifter.set(DoubleSolenoid.Value.kForward);
-		leftMotor1.setProfile(1);
-		rightMotor1.setProfile(1);
+		if (ENABLED) {
+
+			leftShifter.set(DoubleSolenoid.Value.kForward);
+			rightShifter.set(DoubleSolenoid.Value.kForward);
+			leftMotor1.setProfile(1);
+			rightMotor1.setProfile(1);
+
+		}
 	}
 
 	/**
 	 * Put both motors into low gear.
 	 */
 	public void shiftDown() {
-		leftShifter.set(DoubleSolenoid.Value.kReverse);
-		rightShifter.set(DoubleSolenoid.Value.kReverse);
-		leftMotor1.setProfile(0);
-		rightMotor1.setProfile(0);
+		if (ENABLED) {
+
+			leftShifter.set(DoubleSolenoid.Value.kReverse);
+			rightShifter.set(DoubleSolenoid.Value.kReverse);
+			leftMotor1.setProfile(0);
+			rightMotor1.setProfile(0);
+
+		}
 	}
 
 	/**
@@ -120,7 +156,13 @@ public class Drivetrain extends Subsystem {
 	 * @return the sum of the current going through the left two motors.
 	 */
 	public double getLeftCurrent() {
-		return leftMotor1.getOutputCurrent() + leftMotor2.getOutputCurrent();
+		if (ENABLED) {
+
+			return leftMotor1.getOutputCurrent() + leftMotor2.getOutputCurrent();
+
+		} else {
+			return 0.0;
+		}
 	}
 
 	/**
@@ -130,7 +172,13 @@ public class Drivetrain extends Subsystem {
 	 * @return the sum of the current going through the right two motors.
 	 */
 	public double getRightCurrent() {
-		return rightMotor1.getOutputCurrent() + rightMotor2.getOutputCurrent();
+		if (ENABLED) {
+
+			return rightMotor1.getOutputCurrent() + rightMotor2.getOutputCurrent();
+
+		} else {
+			return 0.0;
+		}
 	}
 
 	/**
@@ -143,7 +191,13 @@ public class Drivetrain extends Subsystem {
 	 * @return Value set to the given Talon.
 	 */
 	public double get(int motor) {
-		return motors[motor].get();
+		if (ENABLED) {
+
+			return motors[motor].get();
+
+		} else {
+			return 0.0;
+		}
 	}
 
 	/**
@@ -156,7 +210,13 @@ public class Drivetrain extends Subsystem {
 	 * @return PID error of given Talon.
 	 */
 	public double getError(int motor) {
-		return motors[motor].getError();
+		if (ENABLED) {
+
+			return motors[motor].getError();
+
+		} else {
+			return 0.0;
+		}
 	}
 
 	/**
@@ -167,7 +227,13 @@ public class Drivetrain extends Subsystem {
 	 * @return Encoder velocity in ticks per 10ms.
 	 */
 	public double getEncVelocity(int motor) {
-		return motors[motor].getEncVelocity();
+		if (ENABLED) {
+
+			return motors[motor].getEncVelocity();
+
+		} else {
+			return 0.0;
+		}
 	}
 
 }
