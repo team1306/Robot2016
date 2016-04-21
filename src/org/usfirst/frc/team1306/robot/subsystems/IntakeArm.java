@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeArm extends Subsystem {
 
+	private static final boolean ENABLED = false;
+
 	/** The talon that lifts the left side of the arm. */
 	private final CANTalon motor;
 	/** The talon that lifts the right side of the arm. */
@@ -30,17 +32,22 @@ public class IntakeArm extends Subsystem {
 	 * direction.
 	 */
 	public IntakeArm() {
+		if (ENABLED) {
 
-		motor = new CANTalon(RobotMap.intakeLeftMotorPort);
-		slave = new CANTalon(RobotMap.intakeRightMotorPort);
-		motor.setFeedbackDevice(FeedbackDevice.AnalogPot);
-		motor.changeControlMode(TalonControlMode.Position);
-		motor.enable();
-		slave.changeControlMode(TalonControlMode.Follower);
-		slave.set(motor.getDeviceID());
-		slave.reverseOutput(true);
-		slave.enable();
+			motor = new CANTalon(RobotMap.intakeLeftMotorPort);
+			slave = new CANTalon(RobotMap.intakeRightMotorPort);
+			motor.setFeedbackDevice(FeedbackDevice.AnalogPot);
+			motor.changeControlMode(TalonControlMode.Position);
+			motor.enable();
+			slave.changeControlMode(TalonControlMode.Follower);
+			slave.set(motor.getDeviceID());
+			slave.reverseOutput(true);
+			slave.enable();
 
+		} else {
+			motor = null;
+			slave = null;
+		}
 	}
 
 	/**
@@ -59,15 +66,16 @@ public class IntakeArm extends Subsystem {
 	 *            The new setpoint for the arm.
 	 */
 	public void setPosition(IntakePosition position) {
-		if (!motor.isEnabled()) {
-			System.err.println("Intake Arm Talon disconnected");
+		if (!ENABLED) {
 			return;
 		}
+
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.enableBrakeMode(true);
 		double setpoint = Constants.INTAKE_LEFT_ARM_0_POS
 				+ position.getPosition() * (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS) / 90.0;
 		motor.set(setpoint);
+
 	}
 
 	/**
@@ -76,12 +84,13 @@ public class IntakeArm extends Subsystem {
 	 * @return the current angle of the intake arm
 	 */
 	public double getPosition() {
-		if (!motor.isEnabled()) {
-			System.err.println("Intake Arm Talon disconnected");
+		if (!ENABLED) {
 			return 0.0;
 		}
+
 		return 90.0 * (motor.getPosition() - Constants.INTAKE_LEFT_ARM_0_POS)
 				/ (Constants.INTAKE_LEFT_ARM_90_POS - Constants.INTAKE_LEFT_ARM_0_POS);
+
 	}
 
 	/**
@@ -91,6 +100,9 @@ public class IntakeArm extends Subsystem {
 	 * @return true if the intake arm is vertical, otherwise false.
 	 */
 	public boolean isVertical() {
+		if (!ENABLED) {
+			return false;
+		}
 
 		return getPosition() > Constants.INTAKE_ROLL_THRESHOLD;
 
@@ -101,9 +113,14 @@ public class IntakeArm extends Subsystem {
 	 * with zero throttle.
 	 */
 	public void releaseBrakes() {
+		if (!ENABLED) {
+			return;
+		}
+
 		motor.enableBrakeMode(false);
 		motor.changeControlMode(TalonControlMode.PercentVbus);
 		motor.set(0.0);
+
 	}
 
 	/**
@@ -112,7 +129,12 @@ public class IntakeArm extends Subsystem {
 	 * @return the sum of the current going through the two motors.
 	 */
 	public double getCurrent() {
+		if (!ENABLED) {
+			return 0.0;
+		}
+
 		return motor.getOutputCurrent() + slave.getOutputCurrent();
+
 	}
 
 }

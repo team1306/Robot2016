@@ -64,37 +64,40 @@ public class Drivetrain extends Subsystem {
 	 *            Speed of right motor
 	 */
 	public void driveTank(double leftVel, double rightVel) {
-		if (ENABLED) {
-
-			leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
-			rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
-			leftMotor1.set(-leftVel);
-			rightMotor1.set(rightVel);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		leftMotor1.changeControlMode(TalonControlMode.PercentVbus);
+		rightMotor1.changeControlMode(TalonControlMode.PercentVbus);
+		leftMotor1.set(-leftVel);
+		rightMotor1.set(rightVel);
+
 	}
 
 	/**
 	 * Sets zero speed to all motors.
 	 */
 	public void stop() {
-		if (ENABLED) {
-
-			leftMotor1.set(0.0);
-			rightMotor1.set(0.0);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		leftMotor1.set(0.0);
+		rightMotor1.set(0.0);
+
 	}
 
 	/**
 	 * Start the default tank drive command to start driving.
 	 */
 	public void initDefaultCommand() {
-		if (ENABLED) {
-
-			setDefaultCommand(new DriveTank());
-
+		if (!ENABLED) {
+			return;
 		}
+
+		setDefaultCommand(new DriveTank());
+
 	}
 
 	/**
@@ -108,45 +111,48 @@ public class Drivetrain extends Subsystem {
 	 *            First follower controller.
 	 */
 	private void setupMotors(CANTalon master, CANTalon slave) {
-		if (ENABLED) {
-
-			master.changeControlMode(TalonControlMode.PercentVbus);
-			master.set(0.0);
-
-			slave.changeControlMode(TalonControlMode.Follower);
-			slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-			slave.set(master.getDeviceID());
-			slave.enable();
-
+		if (!ENABLED) {
+			return;
 		}
+
+		master.changeControlMode(TalonControlMode.PercentVbus);
+		master.set(0.0);
+
+		slave.changeControlMode(TalonControlMode.Follower);
+		slave.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		slave.set(master.getDeviceID());
+		slave.enable();
+
 	}
 
 	/**
 	 * Put both motors into high gear.
 	 */
 	public void shiftUp() {
-		if (ENABLED) {
-
-			leftShifter.set(DoubleSolenoid.Value.kForward);
-			rightShifter.set(DoubleSolenoid.Value.kForward);
-			leftMotor1.setProfile(1);
-			rightMotor1.setProfile(1);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		leftShifter.set(DoubleSolenoid.Value.kForward);
+		rightShifter.set(DoubleSolenoid.Value.kForward);
+		leftMotor1.setProfile(1);
+		rightMotor1.setProfile(1);
+
 	}
 
 	/**
 	 * Put both motors into low gear.
 	 */
 	public void shiftDown() {
-		if (ENABLED) {
-
-			leftShifter.set(DoubleSolenoid.Value.kReverse);
-			rightShifter.set(DoubleSolenoid.Value.kReverse);
-			leftMotor1.setProfile(0);
-			rightMotor1.setProfile(0);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		leftShifter.set(DoubleSolenoid.Value.kReverse);
+		rightShifter.set(DoubleSolenoid.Value.kReverse);
+		leftMotor1.setProfile(0);
+		rightMotor1.setProfile(0);
+
 	}
 
 	/**
@@ -156,13 +162,12 @@ public class Drivetrain extends Subsystem {
 	 * @return the sum of the current going through the left two motors.
 	 */
 	public double getLeftCurrent() {
-		if (ENABLED) {
-
-			return leftMotor1.getOutputCurrent() + leftMotor2.getOutputCurrent();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return leftMotor1.getOutputCurrent() + leftMotor2.getOutputCurrent();
+
 	}
 
 	/**
@@ -172,13 +177,12 @@ public class Drivetrain extends Subsystem {
 	 * @return the sum of the current going through the right two motors.
 	 */
 	public double getRightCurrent() {
-		if (ENABLED) {
-
-			return rightMotor1.getOutputCurrent() + rightMotor2.getOutputCurrent();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return rightMotor1.getOutputCurrent() + rightMotor2.getOutputCurrent();
+
 	}
 
 	/**
@@ -191,13 +195,12 @@ public class Drivetrain extends Subsystem {
 	 * @return Value set to the given Talon.
 	 */
 	public double get(int motor) {
-		if (ENABLED) {
-
-			return motors[motor].get();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return motors[motor].get();
+
 	}
 
 	/**
@@ -210,13 +213,12 @@ public class Drivetrain extends Subsystem {
 	 * @return PID error of given Talon.
 	 */
 	public double getError(int motor) {
-		if (ENABLED) {
-
-			return motors[motor].getError();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return motors[motor].getError();
+
 	}
 
 	/**
@@ -227,13 +229,12 @@ public class Drivetrain extends Subsystem {
 	 * @return Encoder velocity in ticks per 10ms.
 	 */
 	public double getEncVelocity(int motor) {
-		if (ENABLED) {
-
-			return motors[motor].getEncVelocity();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return motors[motor].getEncVelocity();
+
 	}
 
 }

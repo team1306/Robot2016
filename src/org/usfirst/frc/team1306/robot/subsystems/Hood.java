@@ -32,16 +32,17 @@ public class Hood extends Subsystem {
 	 * Constructs a Hood and enables PID position control.
 	 */
 	public Hood() {
-		if (ENABLED) {
-
-			adjustment = Adjustment.NONE;
-			target = null;
-			hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
-			hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
-			hoodTalon.changeControlMode(TalonControlMode.Position);
-			hoodTalon.enable();
-
+		if (!ENABLED) {
+			return;
 		}
+
+		adjustment = Adjustment.NONE;
+		target = null;
+		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
+		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
+		hoodTalon.changeControlMode(TalonControlMode.Position);
+		hoodTalon.enable();
+
 	}
 
 	/**
@@ -60,13 +61,14 @@ public class Hood extends Subsystem {
 	 *            the new position of the hood
 	 */
 	private void setAngle(double position) {
-		if (ENABLED) {
-
-			hoodTalon.changeControlMode(TalonControlMode.Position);
-			hoodTalon.set(safetyCheck(
-					Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
-
+		if (!ENABLED) {
+			return;
 		}
+
+		hoodTalon.changeControlMode(TalonControlMode.Position);
+		hoodTalon.set(
+				safetyCheck(Constants.HOOD_0_POS + position * (Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0));
+
 	}
 
 	/**
@@ -77,11 +79,12 @@ public class Hood extends Subsystem {
 	 *            the new adjustment
 	 */
 	public void setAdjustment(Adjustment adjustment) {
-		if (ENABLED) {
-
-			this.adjustment = adjustment;
-
+		if (!ENABLED) {
+			return;
 		}
+
+		this.adjustment = adjustment;
+
 	}
 
 	/**
@@ -91,13 +94,12 @@ public class Hood extends Subsystem {
 	 * @return the currently set adjustment.
 	 */
 	public Adjustment getAdjustment() {
-		if (ENABLED) {
-
-			return adjustment;
-
-		} else {
+		if (!ENABLED) {
 			return null;
 		}
+
+		return adjustment;
+
 	}
 
 	/**
@@ -110,14 +112,13 @@ public class Hood extends Subsystem {
 	 *            The distance from the target calculated by the Jetson.
 	 */
 	private double getAngleForDistance(double distance) {
-		if (ENABLED) {
-
-			return Constants.HOOD_AUTOTARGET_A * distance * distance + Constants.HOOD_AUTOTARGET_B * distance
-					+ Constants.HOOD_AUTOTARGET_C;
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return Constants.HOOD_AUTOTARGET_A * distance * distance + Constants.HOOD_AUTOTARGET_B * distance
+				+ Constants.HOOD_AUTOTARGET_C;
+
 	}
 
 	/**
@@ -128,14 +129,12 @@ public class Hood extends Subsystem {
 	 * @return the angle of the ball's trajectory.
 	 */
 	public double getHeight() {
-		if (ENABLED) {
-
-			return 90.0 * (hoodTalon.getPosition() - Constants.HOOD_0_POS)
-					/ (Constants.HOOD_90_POS - Constants.HOOD_0_POS);
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return 90.0 * (hoodTalon.getPosition() - Constants.HOOD_0_POS) / (Constants.HOOD_90_POS - Constants.HOOD_0_POS);
+
 	}
 
 	/**
@@ -145,12 +144,13 @@ public class Hood extends Subsystem {
 	 *            the hood motor's throttle.
 	 */
 	public void setVel(double velocity) {
-		if (ENABLED) {
-
-			hoodTalon.changeControlMode(TalonControlMode.PercentVbus);
-			hoodTalon.set(-velocity);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		hoodTalon.changeControlMode(TalonControlMode.PercentVbus);
+		hoodTalon.set(-velocity);
+
 	}
 
 	/**
@@ -158,12 +158,13 @@ public class Hood extends Subsystem {
 	 * robot will fit under the low bar.
 	 */
 	public void flatten() {
-		if (ENABLED) {
-
-			target = null;
-			setAngle(90.0);
-
+		if (!ENABLED) {
+			return;
 		}
+
+		target = null;
+		setAngle(90.0);
+
 	}
 
 	/**
@@ -173,13 +174,12 @@ public class Hood extends Subsystem {
 	 * @return true if the hood is down, otherwise false.
 	 */
 	public boolean isFlat() {
-		if (ENABLED) {
-
-			return target == null;
-
-		} else {
+		if (!ENABLED) {
 			return false;
 		}
+
+		return target == null;
+
 	}
 
 	/**
@@ -188,13 +188,12 @@ public class Hood extends Subsystem {
 	 * @return true if the hood is being manually controlled, otherwise false.
 	 */
 	public boolean isManuallyControlled() {
-		if (ENABLED) {
-
-			return hoodTalon.getControlMode().equals(TalonControlMode.PercentVbus);
-
-		} else {
+		if (!ENABLED) {
 			return false;
 		}
+
+		return hoodTalon.getControlMode().equals(TalonControlMode.PercentVbus);
+
 	}
 
 	/**
@@ -205,28 +204,29 @@ public class Hood extends Subsystem {
 	 *            the hood's target.
 	 */
 	public void setTarget(HoodTarget target) {
-		if (ENABLED) {
-
-			this.target = target;
-			if (target == null) {
-				flatten();
-			} else {
-				double height;
-				if (target.equals(HoodTarget.AUTO)) {
-					if (Vision.canSeeTarget()) {
-						height = getAngleForDistance(Vision.distanceFeet());
-					} else {
-						SmartDashboard.putNumber("hood set height",
-								SmartDashboard.getNumber("hood set height", HoodTarget.AUTO.getHeight()));
-						height = SmartDashboard.getNumber("hood set height");
-					}
-				} else {
-					height = target.getHeight();
-				}
-				setAngle(height + adjustment.difference());
-			}
-
+		if (!ENABLED) {
+			return;
 		}
+
+		this.target = target;
+		if (target == null) {
+			flatten();
+		} else {
+			double height;
+			if (target.equals(HoodTarget.AUTO)) {
+				if (Vision.canSeeTarget()) {
+					height = getAngleForDistance(Vision.distanceFeet());
+				} else {
+					SmartDashboard.putNumber("hood set height",
+							SmartDashboard.getNumber("hood set height", HoodTarget.AUTO.getHeight()));
+					height = SmartDashboard.getNumber("hood set height");
+				}
+			} else {
+				height = target.getHeight();
+			}
+			setAngle(height + adjustment.difference());
+		}
+
 	}
 
 	/**
@@ -235,13 +235,12 @@ public class Hood extends Subsystem {
 	 * @return the hood's target, or null if it's flat.
 	 */
 	public HoodTarget getTarget() {
-		if (ENABLED) {
-
-			return target;
-
-		} else {
+		if (!ENABLED) {
 			return null;
 		}
+
+		return target;
+
 	}
 
 	/**
@@ -252,15 +251,13 @@ public class Hood extends Subsystem {
 	 * @return true if the hood is on target, otherwise false.
 	 */
 	public boolean onTarget() {
-		if (ENABLED) {
-
-			return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0
-					&& hoodTalon.getError() < Constants.HOOD_TOLERANCE
-							* Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
-
-		} else {
+		if (!ENABLED) {
 			return false;
 		}
+
+		return hoodTalon.getControlMode().equals(TalonControlMode.Position) && getHeight() < 85.0 && hoodTalon
+				.getError() < Constants.HOOD_TOLERANCE * Math.abs(Constants.HOOD_90_POS - Constants.HOOD_0_POS) / 90.0;
+
 	}
 
 	/**
@@ -269,13 +266,12 @@ public class Hood extends Subsystem {
 	 * @return The output current of the hood Talon.
 	 */
 	public double getCurrent() {
-		if (ENABLED) {
-
-			return hoodTalon.getOutputCurrent();
-
-		} else {
+		if (!ENABLED) {
 			return 0.0;
 		}
+
+		return hoodTalon.getOutputCurrent();
+
 	}
 
 	/**

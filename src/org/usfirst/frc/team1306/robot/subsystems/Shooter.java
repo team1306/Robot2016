@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Shooter extends Subsystem {
 
+	private final static boolean ENABLED = true;
+
 	/** The Talon SRX that controls the flywheel motor. */
-	private CANTalon flywheel;
+	private final CANTalon flywheel;
 	private boolean lowSpin;
 
 	/**
@@ -28,19 +30,25 @@ public class Shooter extends Subsystem {
 	 * controlling for speed when the speed is within a certain range.
 	 */
 	public Shooter() {
-		flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
-		lowSpin = false;
+		if (ENABLED) {
 
-		flywheel.reverseSensor(true);
-		flywheel.reverseOutput(true);
+			flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
+			lowSpin = false;
 
-		SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
+			flywheel.reverseSensor(true);
+			flywheel.reverseOutput(true);
 
-		flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		flywheel.setSafetyEnabled(false);
-		flywheel.enableBrakeMode(false);
-		flywheel.enable();
-		spinDown();
+			SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
+
+			flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+			flywheel.setSafetyEnabled(false);
+			flywheel.enableBrakeMode(false);
+			flywheel.enable();
+			spinDown();
+
+		} else {
+			flywheel = null;
+		}
 	}
 
 	/**
@@ -56,6 +64,10 @@ public class Shooter extends Subsystem {
 	 * needs to be consistent and unaffected by battery power.
 	 */
 	public void spinUp() {
+		if (!ENABLED) {
+			return;
+		}
+
 		if (!flywheel.isEnabled()) {
 			System.err.println("Flywheel Talon disconnected");
 			return;
@@ -72,6 +84,10 @@ public class Shooter extends Subsystem {
 	 * called repeatedly.
 	 */
 	public void spinDown() {
+		if (!ENABLED) {
+			return;
+		}
+
 		if (lowSpin && flywheel.getSpeed() < Constants.SHOOTER_LOW_SPIN + Constants.SHOOTER_TOLERANCE) {
 			flywheel.changeControlMode(TalonControlMode.Speed);
 			flywheel.set(Constants.SHOOTER_LOW_SPIN * Constants.SHOOTER_CONVERSION_FACTOR);
@@ -82,6 +98,10 @@ public class Shooter extends Subsystem {
 	}
 
 	public void setLowSpin(boolean lowSpin) {
+		if (!ENABLED) {
+			return;
+		}
+
 		this.lowSpin = lowSpin;
 	}
 
@@ -91,6 +111,10 @@ public class Shooter extends Subsystem {
 	 * @return the current flywheel speed.
 	 */
 	public double getSpeed() {
+		if (!ENABLED) {
+			return 0.0;
+		}
+
 		if (!flywheel.isEnabled()) {
 			System.err.println("Flywheel Talon disconnected");
 			return 0.0;
@@ -105,6 +129,10 @@ public class Shooter extends Subsystem {
 	 * @return the output current of the flywheel Talon.
 	 */
 	public double getCurrent() {
+		if (!ENABLED) {
+			return 0.0;
+		}
+
 		if (!flywheel.isEnabled()) {
 			System.err.println("Flywheel Talon disconnected");
 			return 0.0;
@@ -120,6 +148,10 @@ public class Shooter extends Subsystem {
 	 *         target
 	 */
 	public boolean isSpunUp() {
+		if (!ENABLED) {
+			return false;
+		}
+
 		if (!flywheel.isEnabled()) {
 			System.err.println("Flywheel Talon disconnected");
 			return false;

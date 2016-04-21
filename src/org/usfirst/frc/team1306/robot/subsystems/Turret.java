@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Turret extends PIDSubsystem {
 
+	private final static boolean ENABLED = false;
+
 	/** The Talon SRX that controls the turret motor. */
 	private final CANTalon turretTalon;
 
@@ -31,15 +33,22 @@ public class Turret extends PIDSubsystem {
 	 * the right settings.
 	 */
 	public Turret() {
+
 		super("Turret PID", Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);
-		setAbsoluteTolerance(Constants.TURRET_VISION_TOLERANCE);
 
-		turretTalon = new CANTalon(RobotMap.turretTalonPort);
-		turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.enableBrakeMode(false);
-		setSetpoint(0.0);
+		if (ENABLED) {
 
+			setAbsoluteTolerance(Constants.TURRET_VISION_TOLERANCE);
+
+			turretTalon = new CANTalon(RobotMap.turretTalonPort);
+			turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+			turretTalon.changeControlMode(TalonControlMode.PercentVbus);
+			turretTalon.enableBrakeMode(false);
+			setSetpoint(0.0);
+
+		} else {
+			turretTalon = null;
+		}
 	}
 
 	/**
@@ -57,8 +66,12 @@ public class Turret extends PIDSubsystem {
 	 *            the new velocity.
 	 */
 	public void setVel(double speed) {
+		if (!ENABLED) {
+			return;
+		}
+
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.set(-0.2*speed);
+		turretTalon.set(-0.2 * speed);
 	}
 
 	/**
@@ -67,13 +80,17 @@ public class Turret extends PIDSubsystem {
 	 * forward.
 	 */
 	public void setTurretForward() {
+		if (!ENABLED) {
+			return;
+		}
+
 		if (!turretTalon.isEnabled()) {
 			System.err.println("Turret Talon disconnected");
 			return;
 		}
-		
+
 		getPIDController().reset();
-		
+
 		turretTalon.changeControlMode(TalonControlMode.Position);
 		turretTalon.set(0.0);
 		turretTalon.enable();
@@ -86,6 +103,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the right, otherwise false.
 	 */
 	public boolean isRight() {
+		if (!ENABLED) {
+			return false;
+		}
+
 		if (!turretTalon.isEnabled()) {
 			System.err.println("Turret Talon disconnected");
 			return false;
@@ -100,6 +121,10 @@ public class Turret extends PIDSubsystem {
 	 * @return true if the turret is far to the left, otherwise false.
 	 */
 	public boolean isLeft() {
+		if (!ENABLED) {
+			return false;
+		}
+
 		if (!turretTalon.isEnabled()) {
 			System.err.println("Turret Talon disconnected");
 			return false;
@@ -117,6 +142,10 @@ public class Turret extends PIDSubsystem {
 	 *         can't be seen.
 	 */
 	protected double returnPIDInput() {
+		if (!ENABLED) {
+			return 0.0;
+		}
+
 		return -Vision.getData().getYaw();
 	}
 
@@ -124,6 +153,10 @@ public class Turret extends PIDSubsystem {
 	 * Sets the velocity of the turret based on the output of the PID loop.
 	 */
 	protected void usePIDOutput(double output) {
+		if (!ENABLED) {
+			return;
+		}
+
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.set(output);
 	}
