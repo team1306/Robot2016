@@ -6,6 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.intake.IntakeArmRest;
 import org.usfirst.frc.team1306.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team1306.robot.commands.shooter.Fire;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
+import org.usfirst.frc.team1306.robot.commands.turret.RaiseHood;
 import org.usfirst.frc.team1306.robot.commands.turret.ScanForTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 
@@ -38,6 +39,7 @@ public class AutonomousCommand extends CommandGroup {
 
 		if (fire) {
 			addParallel(new SpinUp());
+			addParallel(new RaiseHood());
 			addSequential(new ScanForTarget());
 			addParallel(new Target());
 			addSequential(new Wait(Constants.TARGET_TIME));

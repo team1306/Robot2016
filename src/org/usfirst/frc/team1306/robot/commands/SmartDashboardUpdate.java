@@ -47,8 +47,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putNumber("shooter current", shooter.getCurrent());
 
 		SmartDashboard.putNumber("intake arm pos", intakeArm.getPosition());
-		SmartDashboard.putString("intake command",
-				intakeArm.getCurrentCommand() == null ? "null" : intakeArm.getCurrentCommand().toString());
+		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() + "");
 
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
 
@@ -76,7 +75,8 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putString("In Range", inRange);
 
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
-		SmartDashboard.putString("Quality", hood.getAdjustment().toString());
+		SmartDashboard.putString("Adjustment", hood.getAdjustment().toString() + "");
+		SmartDashboard.putString("Scan Direction", turret.getScanDirection().toString());
 
 	}
 

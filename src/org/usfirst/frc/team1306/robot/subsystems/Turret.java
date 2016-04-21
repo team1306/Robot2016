@@ -2,6 +2,7 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.turret.ScanDirection;
 //import org.usfirst.frc.team1306.robot.vision.Vision;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
@@ -27,6 +28,7 @@ public class Turret extends PIDSubsystem {
 
 	/** The Talon SRX that controls the turret motor. */
 	private final CANTalon turretTalon;
+	private ScanDirection scanDirection;
 
 	/**
 	 * Creates a new turret with the PID constants set in the Constants file and
@@ -45,6 +47,8 @@ public class Turret extends PIDSubsystem {
 			turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 			turretTalon.enableBrakeMode(false);
 			setSetpoint(0.0);
+
+			scanDirection = ScanDirection.LEFT;
 
 		} else {
 			turretTalon = null;
@@ -132,6 +136,14 @@ public class Turret extends PIDSubsystem {
 		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 
+	public void setScanDirection(ScanDirection scanDirection) {
+		this.scanDirection = scanDirection;
+	}
+
+	public ScanDirection getScanDirection() {
+		return scanDirection;
+	}
+
 	/**
 	 * Gets the input from the camera that gives the angle of the target
 	 * relative to the current position. This is the difference between the
@@ -160,4 +172,5 @@ public class Turret extends PIDSubsystem {
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 		turretTalon.set(output);
 	}
+
 }

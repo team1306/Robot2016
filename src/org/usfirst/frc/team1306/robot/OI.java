@@ -14,11 +14,13 @@ import org.usfirst.frc.team1306.robot.commands.shooter.LowSpinOn;
 import org.usfirst.frc.team1306.robot.commands.shooter.SpinUp;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetClose;
 import org.usfirst.frc.team1306.robot.commands.turret.BatterTargetFar;
+import org.usfirst.frc.team1306.robot.commands.turret.ChangeScanDirection;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentHigher;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentLower;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentNone;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.commands.turret.ScanDirection;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDirection;
 import org.usfirst.frc.team1306.robot.triggers.DPadPress;
@@ -67,6 +69,7 @@ public class OI {
 	private final Trigger dPad2Down;
 
 	private final Button bumperR2;
+	private final Button bumperL2;
 
 	/**
 	 * Initializes the controllers and maps individual buttons to commands.
@@ -92,6 +95,7 @@ public class OI {
 		buttonBack2 = new JoystickButton(secondary, XboxController.BACK);
 
 		bumperR2 = new JoystickButton(secondary, XboxController.RB);
+		bumperL2 = new JoystickButton(secondary, XboxController.LB);
 
 		dPadUp = new DPadPress(xbox, DPadDirection.UP);
 		dPadRight = new DPadPress(xbox, DPadDirection.RIGHT);
@@ -126,7 +130,8 @@ public class OI {
 		buttonY2.whenPressed(new HoodSetAdjustmentNone());
 		buttonStart2.whenPressed(new LowSpinOn());
 		buttonBack2.whenPressed(new LowSpinOff());
-		bumperR2.whenPressed(new Fire());
+		bumperR2.whenPressed(new ChangeScanDirection(ScanDirection.RIGHT));
+		bumperL2.whenPressed(new ChangeScanDirection(ScanDirection.LEFT));
 
 		dPad2Up.whenActive(new BatterTargetClose());
 		dPad2Right.whenActive(new BatterTargetFar());

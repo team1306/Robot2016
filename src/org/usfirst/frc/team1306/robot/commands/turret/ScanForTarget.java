@@ -24,7 +24,11 @@ public class ScanForTarget extends CommandBase {
 	 * originally set to a low power so that it doesn't gain too much momentum.
 	 */
 	protected void initialize() {
-		turret.setVel(Constants.TURRET_SCAN_SPEED);
+		if (turret.getScanDirection().equals(ScanDirection.LEFT)) {
+			turret.setVel(-Constants.TURRET_SCAN_SPEED);
+		} else {
+			turret.setVel(Constants.TURRET_SCAN_SPEED);
+		}
 	}
 
 	/**
@@ -33,9 +37,9 @@ public class ScanForTarget extends CommandBase {
 	 */
 	protected void execute() {
 		if (turret.isRight()) {
-			turret.setVel(Constants.TURRET_SCAN_SPEED);
-		} else if (turret.isLeft()) {
 			turret.setVel(-Constants.TURRET_SCAN_SPEED);
+		} else if (turret.isLeft()) {
+			turret.setVel(Constants.TURRET_SCAN_SPEED);
 		}
 	}
 
