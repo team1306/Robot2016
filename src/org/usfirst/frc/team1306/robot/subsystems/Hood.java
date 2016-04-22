@@ -38,7 +38,7 @@ public class Hood extends Subsystem {
 
 		adjustment = Adjustment.NONE;
 		target = null;
-		hoodTalon = new CANTalon(RobotMap.hoodTalonPort);
+		hoodTalon = new CANTalon(RobotMap.HOOD_TALON_PORT);
 		hoodTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.enable();

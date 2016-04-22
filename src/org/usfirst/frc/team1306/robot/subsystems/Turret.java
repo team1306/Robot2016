@@ -42,7 +42,7 @@ public class Turret extends PIDSubsystem {
 
 			setAbsoluteTolerance(Constants.TURRET_VISION_TOLERANCE);
 
-			turretTalon = new CANTalon(RobotMap.turretTalonPort);
+			turretTalon = new CANTalon(RobotMap.TURRET_TALON_PORT);
 			turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 			turretTalon.changeControlMode(TalonControlMode.PercentVbus);
 			turretTalon.enableBrakeMode(false);

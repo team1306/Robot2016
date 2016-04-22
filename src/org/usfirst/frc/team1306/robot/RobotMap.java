@@ -11,43 +11,38 @@ package org.usfirst.frc.team1306.robot;
 public class RobotMap {
 
 	// oi ports
-	public static int xboxPort = 0;
-	public static int secondaryPort = 1;
+	public static final int XBOX_PORT = 0;
+	public static final int SECONDARY_PORT = 1;
 
 	// drivetrain controllers ports
-	public static int leftTalon1Port = 1;
-	public static int leftTalon2Port = 2;
-	public static int rightTalon1Port = 4;
-	public static int rightTalon2Port = 5;
+	public static final int LEFT_TALON_1_PORT = 1;
+	public static final int LEFT_TALON_2_PORT = 2;
+	public static final int RIGHT_TALON_1_PORT = 4;
+	public static final int RIGHT_TALON_2_PORT = 5;
 
-	public static int leftShifterPortA = 0;
-	public static int leftShifterPortB = 1;
-	public static int rightShifterPortA = 2;
-	public static int rightShifterPortB = 3;
+	public static final int LEFT_SHIFTER_PORT_A = 0;
+	public static final int LEFT_SHIFTER_PORT_B = 1;
+	public static final int RIGHT_SHIFTER_PORT_A = 2;
+	public static final int RIGHT_SHIFTER_PORT_B = 3;
 
 	// shooter and turret controller ports
-	public static int flyWheelTalonPort = 9;
-	public static int hoodTalonPort = 11;
-	public static int turretTalonPort = 10;
+	public static final int FLYWHEEL_TALON_PORT = 9;
+	public static final int HOOD_TALON_PORT = 11;
+	public static final int TURRET_TALON_PORT = 10;
 
 	// intake control ports
-	public static int intakeLeftMotorPort = 8;
-	public static int intakeRightMotorPort = 7;
+	public static final int INTAKE_ARM_LEFT_TALON_PORT = 8;
+	public static final int INTAKE_ARM_RIGHT_TALON_PORT = 7;
 
-	public static int intakeRoller1Port = 0;
-	public static int intakeRoller2Port = 1;
+	public static final int INTAKE_ROLLER_1_PORT = 0;
+	public static final int INTAKE_ROLLER_2_PORT = 1;
 
-	public static int intakeSol1PortA = 4;
-	public static int intakeSol1PortB = 5;
-	public static int intakeSol2PortA = 6;
-	public static int intakeSol2PortB = 7;
-	
 	// indexer ports
-	public static int indexerPort = 2;
+	public static final int INDEXER_PORT = 2;
 
 	// intake sensor ports
-	public static int indexerLimitPort1 = 0;
-	public static int indexerLimitPort2 = 1;
-	public static int pressurePadPort = 0; // TODO placeholder
+	public static final int INDEXER_LIMIT_1_PORT = 0;
+	public static final int INDEXER_LIMIT_2_PORT = 1;
+	public static final int PRESSURE_PAD_PORT = 0;
 
 }

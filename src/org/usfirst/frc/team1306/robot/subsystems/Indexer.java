@@ -35,11 +35,11 @@ public class Indexer extends Subsystem {
 	 * switches.
 	 */
 	public Indexer() {
-		motor = new Talon(RobotMap.indexerPort);
+		motor = new Talon(RobotMap.INDEXER_PORT);
 		motor.setInverted(true);
-		ballSwitch1 = new DigitalInput(RobotMap.indexerLimitPort1);
-		ballSwitch2 = new DigitalInput(RobotMap.indexerLimitPort2);
-		pressurePad = new AnalogInput(RobotMap.pressurePadPort);
+		ballSwitch1 = new DigitalInput(RobotMap.INDEXER_LIMIT_1_PORT);
+		ballSwitch2 = new DigitalInput(RobotMap.INDEXER_LIMIT_2_PORT);
+		pressurePad = new AnalogInput(RobotMap.PRESSURE_PAD_PORT);
 	}
 
 	/**

@@ -30,10 +30,10 @@ public class Drivetrain extends Subsystem {
 	public Drivetrain() {
 		if (ENABLED) {
 
-			leftMotor1 = new CANTalon(RobotMap.leftTalon1Port);
-			leftMotor2 = new CANTalon(RobotMap.leftTalon2Port);
-			rightMotor1 = new CANTalon(RobotMap.rightTalon1Port);
-			rightMotor2 = new CANTalon(RobotMap.rightTalon2Port);
+			leftMotor1 = new CANTalon(RobotMap.LEFT_TALON_1_PORT);
+			leftMotor2 = new CANTalon(RobotMap.LEFT_TALON_2_PORT);
+			rightMotor1 = new CANTalon(RobotMap.RIGHT_TALON_1_PORT);
+			rightMotor2 = new CANTalon(RobotMap.RIGHT_TALON_2_PORT);
 
 			motors = new CANTalon[] { leftMotor1, leftMotor2, rightMotor1, rightMotor2 };
 			setupMotors(leftMotor1, leftMotor2);

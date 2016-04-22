@@ -34,8 +34,8 @@ public class IntakeArm extends Subsystem {
 	public IntakeArm() {
 		if (ENABLED) {
 
-			motor = new CANTalon(RobotMap.intakeLeftMotorPort);
-			slave = new CANTalon(RobotMap.intakeRightMotorPort);
+			motor = new CANTalon(RobotMap.INTAKE_ARM_LEFT_TALON_PORT);
+			slave = new CANTalon(RobotMap.INTAKE_ARM_RIGHT_TALON_PORT);
 			motor.setFeedbackDevice(FeedbackDevice.AnalogPot);
 			motor.changeControlMode(TalonControlMode.Position);
 			motor.enable();

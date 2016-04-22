@@ -75,8 +75,8 @@ public class OI {
 	 * Initializes the controllers and maps individual buttons to commands.
 	 */
 	public OI() {
-		xbox = new XboxController(RobotMap.xboxPort);
-		secondary = new XboxController(RobotMap.secondaryPort);
+		xbox = new XboxController(RobotMap.XBOX_PORT);
+		secondary = new XboxController(RobotMap.SECONDARY_PORT);
 
 		buttonA = new JoystickButton(xbox, XboxController.A);
 		buttonB = new JoystickButton(xbox, XboxController.B);

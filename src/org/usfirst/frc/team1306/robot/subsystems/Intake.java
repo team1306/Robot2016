@@ -21,8 +21,8 @@ public class Intake extends Subsystem {
 	 * Constructs an the intake with both rollers.
 	 */
 	public Intake() {
-		lateralRoller = new Talon(RobotMap.intakeRoller1Port);
-		intakeRoller = new Talon(RobotMap.intakeRoller2Port);
+		lateralRoller = new Talon(RobotMap.INTAKE_ROLLER_1_PORT);
+		intakeRoller = new Talon(RobotMap.INTAKE_ROLLER_2_PORT);
 		intakeRoller.setInverted(true);
 
 	}

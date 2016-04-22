@@ -32,7 +32,7 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		if (ENABLED) {
 
-			flywheel = new CANTalon(RobotMap.flyWheelTalonPort);
+			flywheel = new CANTalon(RobotMap.FLYWHEEL_TALON_PORT);
 			lowSpin = false;
 
 			flywheel.reverseSensor(true);
