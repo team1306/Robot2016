@@ -36,6 +36,7 @@ public class DPadPress extends Trigger {
 	 * @return true if the specified direction button is being currently
 	 *         pressed, otherwise false.
 	 */
+	@Override
 	public boolean get() {
 		return xbox.getPOV() == direction.getAngle();
 	}

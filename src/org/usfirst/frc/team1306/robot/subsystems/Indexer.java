@@ -46,6 +46,7 @@ public class Indexer extends Subsystem {
 	 * Sets the default command for the Indexer. Nothing is done to the indexer
 	 * until commands are called, so no default command must be specified.
 	 */
+	@Override
 	public void initDefaultCommand() {
 	}
 

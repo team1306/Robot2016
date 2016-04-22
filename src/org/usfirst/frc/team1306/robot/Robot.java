@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	@Override
 	public void robotInit() {
 		// CommandBase.init() initializes all the subsystems and oi. This needs
 		// to happen before anything else so that the other commands have things
@@ -68,6 +69,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 */
+	@Override
 	public void disabledInit() {
 
 	}
@@ -75,6 +77,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically while the robot is disabled.
 	 */
+	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -90,6 +93,7 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
+	@Override
 	public void autonomousInit() {
 
 		autonomousCommand = (Command) autoChooser.getSelected();
@@ -101,6 +105,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -109,6 +114,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called once each time the robot enters Teleop mode. It
 	 * makes sure that the autonomous stops running when teleop starts running.
 	 */
+	@Override
 	public void teleopInit() {
 
 		if (autonomousCommand != null) {
@@ -120,6 +126,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -127,6 +134,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during test mode
 	 */
+	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
 	}

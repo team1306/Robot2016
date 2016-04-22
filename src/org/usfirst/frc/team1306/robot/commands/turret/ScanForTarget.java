@@ -23,6 +23,7 @@ public class ScanForTarget extends CommandBase {
 	 * Called just before this Command runs the first time. The velocity is
 	 * originally set to a low power so that it doesn't gain too much momentum.
 	 */
+	@Override
 	protected void initialize() {
 		if (turret.getScanDirection().equals(ScanDirection.LEFT)) {
 			turret.setVel(-Constants.TURRET_SCAN_SPEED);
@@ -35,6 +36,7 @@ public class ScanForTarget extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. If the turret
 	 * gets to the edge of its range, it reverses the direction.
 	 */
+	@Override
 	protected void execute() {
 		if (turret.isRight()) {
 			turret.setVel(-Constants.TURRET_SCAN_SPEED);
@@ -47,6 +49,7 @@ public class ScanForTarget extends CommandBase {
 	 * Returns true when this Command no longer needs to run execute(). In this
 	 * case, it's finished scanning when it can see the target.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return Vision.canSeeTarget();
 	}
@@ -55,6 +58,7 @@ public class ScanForTarget extends CommandBase {
 	 * Called once after isFinished returns true. Stops the turret when it can
 	 * see the target.
 	 */
+	@Override
 	protected void end() {
 		turret.setVel(0.0);
 	}
@@ -64,6 +68,7 @@ public class ScanForTarget extends CommandBase {
 	 * subsystems is scheduled to run. Stops the turret from scanning before the
 	 * next command takes over.
 	 */
+	@Override
 	protected void interrupted() {
 		end();
 	}

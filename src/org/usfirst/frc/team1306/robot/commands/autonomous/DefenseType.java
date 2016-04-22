@@ -14,8 +14,9 @@ public enum DefenseType {
 	LOWBAR(Constants.LOW_BAR_POWER, Constants.LOW_BAR_TIME), OBSTACLE(Constants.OBSTACLE_POWER,
 			Constants.OBSTACLE_TIME), TERRAIN(Constants.TERRAIN_POWER, Constants.TERRAIN_TIME);
 
-	/** The TimedDrive command associated with the particular defense */
+	/** The thottle value used for this defense's TimedDrive command. */
 	private final double throttle;
+	/** The time value used for this defense's TimedDrive command. */
 	private final double time;
 
 	/**

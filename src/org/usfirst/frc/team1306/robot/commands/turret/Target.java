@@ -26,6 +26,7 @@ public class Target extends CommandBase {
 	 * automatic targeting mode and resets the turret PID controller (to reset
 	 * the integral to zero).
 	 */
+	@Override
 	protected void initialize() {
 		hood.setTarget(HoodTarget.AUTO);
 		turret.getPIDController().reset();
@@ -38,6 +39,7 @@ public class Target extends CommandBase {
 	 * is set to something other than automatic, it will go to its set position
 	 * instead.
 	 */
+	@Override
 	protected void execute() {
 
 		boolean canSeeTarget = Vision.canSeeTarget();
@@ -63,6 +65,7 @@ public class Target extends CommandBase {
 	 * 
 	 * @return false
 	 */
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
@@ -70,6 +73,7 @@ public class Target extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 		turret.getPIDController().reset();
 		turret.setVel(0.0);
@@ -80,6 +84,7 @@ public class Target extends CommandBase {
 	 * subsystems is scheduled to run. It disables the PID controller and sets
 	 * the turret's velocity to zero.
 	 */
+	@Override
 	protected void interrupted() {
 		end();
 	}

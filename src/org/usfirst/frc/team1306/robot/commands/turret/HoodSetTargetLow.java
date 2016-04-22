@@ -16,6 +16,7 @@ public class HoodSetTargetLow extends CommandBase {
 	 * current command is Target so that it doesn't accidentally move the hood
 	 * up at an inappropriate time.
 	 */
+	@Override
 	protected void initialize() {
 		if (hood.getCurrentCommand() instanceof Target) {
 			hood.setTarget(HoodTarget.LOW);
@@ -26,6 +27,7 @@ public class HoodSetTargetLow extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. Nothing needs to
 	 * be run repeatedly, so this does nothing.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -36,6 +38,7 @@ public class HoodSetTargetLow extends CommandBase {
 	 * 
 	 * @return true
 	 */
+	@Override
 	protected boolean isFinished() {
 		return true;
 	}
@@ -44,6 +47,7 @@ public class HoodSetTargetLow extends CommandBase {
 	 * Called once after isFinished returns true. Nothing is done after this
 	 * command.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -51,6 +55,7 @@ public class HoodSetTargetLow extends CommandBase {
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

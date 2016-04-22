@@ -3,7 +3,7 @@ package org.usfirst.frc.team1306.robot.commands.turret;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
 /**
- * A command for setting the hood to target automatically. Making this a command
+ * A command for removing the adjustment on the hood. Making this a command
  * allows it to be linked to buttons on the secondary controller.
  */
 public class HoodSetAdjustmentNone extends CommandBase {
@@ -12,14 +12,16 @@ public class HoodSetAdjustmentNone extends CommandBase {
 	 * Called just before this Command runs the first time. This command is a
 	 * one-time action, so the target is set here.
 	 */
+	@Override
 	protected void initialize() {
-			hood.setAdjustment(Adjustment.NONE);
+		hood.setAdjustment(Adjustment.NONE);
 	}
 
 	/**
 	 * Called repeatedly when this Command is scheduled to run. Nothing needs to
 	 * be run repeatedly, so this does nothing.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -30,6 +32,7 @@ public class HoodSetAdjustmentNone extends CommandBase {
 	 * 
 	 * @return true
 	 */
+	@Override
 	protected boolean isFinished() {
 		return true;
 	}
@@ -38,6 +41,7 @@ public class HoodSetAdjustmentNone extends CommandBase {
 	 * Called once after isFinished returns true. Nothing is done after this
 	 * command.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -45,6 +49,7 @@ public class HoodSetAdjustmentNone extends CommandBase {
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

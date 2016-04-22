@@ -27,6 +27,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	 * Called just before this Command runs the first time. Nothing is here
 	 * because everything needs to happen repeatedly.
 	 */
+	@Override
 	protected void initialize() {
 	}
 
@@ -38,6 +39,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	 * values are typically for the drivers, while lowercase values are
 	 * typically for debugging purposes.
 	 */
+	@Override
 	protected void execute() {
 
 		SmartDashboard.putNumber("Game Time", Math.floor(Timer.getMatchTime()));
@@ -94,6 +96,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -102,6 +105,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	 * subsystems is scheduled to run. This command requires no subsystems, so
 	 * it is never interrupted.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 

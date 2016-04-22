@@ -24,6 +24,7 @@ public class BatterTargetClose extends CommandBase {
 	 * Called just before this Command runs the first time. Sets the turret
 	 * pointing straight forward.
 	 */
+	@Override
 	protected void initialize() {
 		turret.setTurretForward();
 	}
@@ -32,6 +33,7 @@ public class BatterTargetClose extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. Allows for
 	 * manual hood override, but will otherwise just go to the set position.
 	 */
+	@Override
 	protected void execute() {
 		if (oi.getHoodOverride()) {
 			hood.setVel(oi.getHoodVel());
@@ -46,6 +48,7 @@ public class BatterTargetClose extends CommandBase {
 	 * 
 	 * @return false
 	 */
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
@@ -53,6 +56,7 @@ public class BatterTargetClose extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -61,6 +65,7 @@ public class BatterTargetClose extends CommandBase {
 	 * subsystems is scheduled to run. Nothing needs to happen when this command
 	 * is interrupted.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

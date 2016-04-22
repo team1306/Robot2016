@@ -23,6 +23,7 @@ public class IntakeArmRest extends CommandBase {
 	 * Called just before this Command runs the first time. If the arm is above
 	 * the drop threshold, it is set to the horizontal position.
 	 */
+	@Override
 	protected void initialize() {
 		if (intakeArm.getPosition() > Constants.INTAKE_DROP_THRESHOLD) {
 			intakeArm.setPosition(IntakePosition.PICKUP);
@@ -34,6 +35,7 @@ public class IntakeArmRest extends CommandBase {
 	 * be run repeatedly because the PID calculations are done internally on the
 	 * Talon SRX.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -43,6 +45,7 @@ public class IntakeArmRest extends CommandBase {
 	 * 
 	 * @return true if the intake arm is below the threshold, otherwise false.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return intakeArm.getPosition() <= Constants.INTAKE_DROP_THRESHOLD;
 	}
@@ -51,6 +54,7 @@ public class IntakeArmRest extends CommandBase {
 	 * Called once after isFinished returns true. Once the arm is below the
 	 * threshold, the brakes are released.
 	 */
+	@Override
 	protected void end() {
 		intakeArm.releaseBrakes();
 	}
@@ -60,6 +64,7 @@ public class IntakeArmRest extends CommandBase {
 	 * subsystems is scheduled to run. Nothing needs to happen when this command
 	 * is interrupted.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

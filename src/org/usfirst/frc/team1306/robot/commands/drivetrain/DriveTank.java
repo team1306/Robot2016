@@ -14,6 +14,7 @@ public class DriveTank extends CommandBase {
 		requires(drivetrain);
 	}
 
+	@Override
 	protected void initialize() {
 		drivetrain.shiftDown();
 	}
@@ -23,19 +24,23 @@ public class DriveTank extends CommandBase {
 	 * joysticks. If joysticks aren't used, it can drive straight using the
 	 * triggers.
 	 */
+	@Override
 	protected void execute() {
 		double straightVel = oi.getStraightVel();
 		drivetrain.driveTank(oi.getLeftVel() + straightVel, oi.getRightVel() + straightVel);
 	}
 
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
+	@Override
 	protected void end() {
 		drivetrain.stop();
 	}
 
+	@Override
 	protected void interrupted() {
 		end();
 	}

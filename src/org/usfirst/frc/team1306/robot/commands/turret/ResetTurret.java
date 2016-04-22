@@ -31,6 +31,7 @@ public class ResetTurret extends CommandBase {
 	 * that lowers it to resting position. This is to ensure that the turret
 	 * doesn't hit the intake arm as it turns.
 	 */
+	@Override
 	protected void initialize() {
 		turret.setTurretForward();
 		hood.flatten();
@@ -44,6 +45,7 @@ public class ResetTurret extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. Nothing is here
 	 * because nothing needs to happen repeatedly.
 	 */
+	@Override
 	protected void execute() {
 		shooter.spinDown();
 	}
@@ -54,6 +56,7 @@ public class ResetTurret extends CommandBase {
 	 * 
 	 * @return false
 	 */
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
@@ -61,6 +64,7 @@ public class ResetTurret extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -69,6 +73,7 @@ public class ResetTurret extends CommandBase {
 	 * subsystems is scheduled to run. Nothing happens because it simply
 	 * transfers control, so no new position or velocity needs to be set.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

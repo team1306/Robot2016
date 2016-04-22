@@ -34,6 +34,7 @@ public class Fire extends CommandBase {
 	 * Called just before this Command runs the first time. It makes sure that
 	 * the shooter keeps spinning and begins driving the indexer.
 	 */
+	@Override
 	protected void initialize() {
 		timer.reset();
 		timer.start();
@@ -46,6 +47,7 @@ public class Fire extends CommandBase {
 	 * the ball is pulled into the shooter before stopping the intake and
 	 * setting fired to true.
 	 */
+	@Override
 	protected void execute() {
 		shooter.spinUp();
 		indexer.driveMotor();
@@ -55,6 +57,7 @@ public class Fire extends CommandBase {
 	 * Returns true when this Command no longer needs to run execute(). In this
 	 * case, the period of time required by the timer must have passed.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return timer.hasPeriodPassed(Constants.SHOT_TIME);
 	}
@@ -62,6 +65,7 @@ public class Fire extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This stops the motors.
 	 */
+	@Override
 	protected void end() {
 		indexer.stop();
 		shooter.spinDown();
@@ -73,6 +77,7 @@ public class Fire extends CommandBase {
 	 * subsystems is scheduled to run. It will make sure that neither motor is
 	 * spinning anymore.
 	 */
+	@Override
 	protected void interrupted() {
 		indexer.stop();
 		shooter.spinDown();

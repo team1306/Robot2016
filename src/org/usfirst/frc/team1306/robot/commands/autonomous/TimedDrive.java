@@ -20,8 +20,8 @@ public class TimedDrive extends CommandBase {
 	private final Timer timer;
 
 	/**
-	 * Constructs a new TimedDrive command. Initializes the timer and
-	 * requires the drivetrain.
+	 * Constructs a new TimedDrive command. Initializes the timer and requires
+	 * the drivetrain.
 	 */
 	public TimedDrive(double throttle, double time) {
 		this.throttle = throttle;
@@ -34,6 +34,7 @@ public class TimedDrive extends CommandBase {
 	 * Called just before this Command runs the first time. Here, the timer is
 	 * started.
 	 */
+	@Override
 	protected void initialize() {
 		timer.reset();
 		timer.start();
@@ -43,6 +44,7 @@ public class TimedDrive extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. It runs both
 	 * motors at the designated throttle.
 	 */
+	@Override
 	protected void execute() {
 		drivetrain.driveTank(throttle, throttle);
 	}
@@ -51,6 +53,7 @@ public class TimedDrive extends CommandBase {
 	 * Returns true when this Command no longer needs to run execute(). This
 	 * command ends after a designated amount of time.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return timer.hasPeriodPassed(time);
 	}
@@ -58,6 +61,7 @@ public class TimedDrive extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. Stops the drivetrain.
 	 */
+	@Override
 	protected void end() {
 		drivetrain.stop();
 	}
@@ -67,6 +71,7 @@ public class TimedDrive extends CommandBase {
 	 * subsystems is scheduled to run. Stops the drivetrain so that whatever is
 	 * interrupting can use it.
 	 */
+	@Override
 	protected void interrupted() {
 		end();
 	}

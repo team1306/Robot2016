@@ -29,6 +29,7 @@ public class XboxController extends Joystick {
 	 *            which joystick, LS or RS.
 	 * @return raw X displacement of joystick, on a scale from -1.0 to 1.0.
 	 */
+	@Override
 	public double getX(Hand hand) {
 		if (hand.equals(Hand.kLeft)) {
 			return getRawAxis(0);
@@ -44,6 +45,7 @@ public class XboxController extends Joystick {
 	 *            which joystick, LS or RS.
 	 * @return raw y displacement of joystick, on a scale from -1.0 to 1.0.
 	 */
+	@Override
 	public double getY(Hand hand) {
 		if (hand.equals(Hand.kLeft)) {
 			return -getRawAxis(1);
@@ -59,6 +61,7 @@ public class XboxController extends Joystick {
 	 *            which trigger, LT or RT.
 	 * @return true if the trigger is pressed, otherwise false.
 	 */
+	@Override
 	public boolean getTrigger(Hand hand) {
 		if (hand.equals(Hand.kLeft)) {
 			return getLT() > 0.5;
@@ -84,7 +87,14 @@ public class XboxController extends Joystick {
 	public double getRT() {
 		return getRawAxis(3);
 	}
-	
+
+	/**
+	 * Get angle of the D-Pad button pressed in degrees, or -1 if the D-Pad
+	 * isn't being pressed. This gets values only every 45 degrees.
+	 * 
+	 * @return the angle of the button pressed on the D-Pad.
+	 */
+	@Override
 	public int getPOV() {
 		return super.getPOV();
 	}

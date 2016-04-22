@@ -23,6 +23,7 @@ public class SpinUp extends CommandBase {
 	 * Called just before this Command runs the first time. Nothing needs to be
 	 * done before the command starts.
 	 */
+	@Override
 	protected void initialize() {
 	}
 
@@ -30,6 +31,7 @@ public class SpinUp extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. For whatever
 	 * reason, the spinUp() method must be called repeatedly.
 	 */
+	@Override
 	protected void execute() {
 		shooter.spinUp();
 	}
@@ -40,6 +42,7 @@ public class SpinUp extends CommandBase {
 	 * 
 	 * @return false
 	 */
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
@@ -47,6 +50,7 @@ public class SpinUp extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -55,6 +59,7 @@ public class SpinUp extends CommandBase {
 	 * subsystems is scheduled to run. Nothing happens because it simply
 	 * transfers control, so no new velocity needs to be set.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

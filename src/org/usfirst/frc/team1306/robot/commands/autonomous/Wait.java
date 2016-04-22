@@ -32,6 +32,7 @@ public class Wait extends Command {
 	 * Called just before this Command runs the first time. Starts the timer
 	 * counting.
 	 */
+	@Override
 	protected void initialize() {
 		timer.reset();
 		timer.start();
@@ -40,6 +41,7 @@ public class Wait extends Command {
 	/**
 	 * Called repeatedly when this Command is scheduled to run. Does nothing.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -49,6 +51,7 @@ public class Wait extends Command {
 	 * 
 	 * @return true if the amount of time has passed, otherwise false.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return timer.hasPeriodPassed(seconds);
 	}
@@ -56,6 +59,7 @@ public class Wait extends Command {
 	/**
 	 * Called once after isFinished returns true. Does nothing.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -63,6 +67,7 @@ public class Wait extends Command {
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Does nothing.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

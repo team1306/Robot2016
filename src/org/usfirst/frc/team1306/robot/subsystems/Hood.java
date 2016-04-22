@@ -49,6 +49,7 @@ public class Hood extends Subsystem {
 	 * Sets the default command for the Hood. Nothing is done to the hood until
 	 * commands are called, so no default command must be specified.
 	 */
+	@Override
 	public void initDefaultCommand() {
 	}
 

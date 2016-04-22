@@ -54,6 +54,7 @@ public class IntakeArm extends Subsystem {
 	 * Sets the default command for the IntakeArm. Nothing is done to the intake
 	 * arm until commands are called, so no default command must be specified.
 	 */
+	@Override
 	public void initDefaultCommand() {
 	}
 

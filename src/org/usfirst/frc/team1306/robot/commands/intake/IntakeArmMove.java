@@ -25,6 +25,7 @@ public class IntakeArmMove extends CommandBase {
 	 * Called just before this Command runs the first time. This is where the
 	 * arm's new position is set.
 	 */
+	@Override
 	protected void initialize() {
 		intakeArm.setPosition(position);
 	}
@@ -34,6 +35,7 @@ public class IntakeArmMove extends CommandBase {
 	 * be run repeatedly because the PID calculations are done internally on the
 	 * Talon SRX.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -44,6 +46,7 @@ public class IntakeArmMove extends CommandBase {
 	 * 
 	 * @return false
 	 */
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
@@ -51,6 +54,7 @@ public class IntakeArmMove extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. This command never does end.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -59,6 +63,7 @@ public class IntakeArmMove extends CommandBase {
 	 * subsystems is scheduled to run. Nothing needs to happen when this command
 	 * is interrupted.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

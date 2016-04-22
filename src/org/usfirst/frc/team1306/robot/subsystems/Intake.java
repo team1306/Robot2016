@@ -31,6 +31,7 @@ public class Intake extends Subsystem {
 	 * Sets the default command for the Intake. Nothing is done to the intake
 	 * until commands are called, so no default command must be specified.
 	 */
+	@Override
 	public void initDefaultCommand() {
 	}
 

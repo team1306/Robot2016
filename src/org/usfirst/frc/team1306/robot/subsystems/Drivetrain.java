@@ -91,6 +91,7 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Start the default tank drive command to start driving.
 	 */
+	@Override
 	public void initDefaultCommand() {
 		if (!ENABLED) {
 			return;

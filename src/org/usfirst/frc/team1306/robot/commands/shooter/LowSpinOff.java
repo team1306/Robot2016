@@ -20,6 +20,7 @@ public class LowSpinOff extends CommandBase {
 	 * Called just before this Command runs the first time. This is where the
 	 * low spin setting is disabled.
 	 */
+	@Override
 	protected void initialize() {
 		shooter.setLowSpin(false);
 	}
@@ -28,6 +29,7 @@ public class LowSpinOff extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run. Nothing is run
 	 * repeatedly; this is a one-time command.
 	 */
+	@Override
 	protected void execute() {
 	}
 
@@ -37,6 +39,7 @@ public class LowSpinOff extends CommandBase {
 	 * 
 	 * @return true
 	 */
+	@Override
 	protected boolean isFinished() {
 		return true;
 	}
@@ -44,6 +47,7 @@ public class LowSpinOff extends CommandBase {
 	/**
 	 * Called once after isFinished returns true. Nothing happens here.
 	 */
+	@Override
 	protected void end() {
 	}
 
@@ -51,6 +55,7 @@ public class LowSpinOff extends CommandBase {
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run. Nothing happens here.
 	 */
+	@Override
 	protected void interrupted() {
 	}
 }

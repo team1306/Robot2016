@@ -59,6 +59,7 @@ public class Turret extends PIDSubsystem {
 	 * Sets the default command for the Turret. Nothing is done to the turret
 	 * until commands are called, so no default command must be specified.
 	 */
+	@Override
 	public void initDefaultCommand() {
 	}
 

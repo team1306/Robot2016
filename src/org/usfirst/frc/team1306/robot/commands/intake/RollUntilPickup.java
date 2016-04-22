@@ -29,6 +29,7 @@ public class RollUntilPickup extends CommandBase {
 	 * Called just before this Command runs the first time. This is where the
 	 * indexer is started.
 	 */
+	@Override
 	protected void initialize() {
 		maxCompression = 0.0;
 		indexer.driveMotor();
@@ -40,6 +41,7 @@ public class RollUntilPickup extends CommandBase {
 	 * they're pointless. This allows the driver to move the intake arm up and
 	 * down while intaking a ball.
 	 */
+	@Override
 	protected void execute() {
 
 		maxCompression = Math.max(maxCompression, indexer.getCompression());
@@ -59,6 +61,7 @@ public class RollUntilPickup extends CommandBase {
 	 * 
 	 * @return true if the indexer picked up a ball, otherwise false.
 	 */
+	@Override
 	protected boolean isFinished() {
 		return indexer.hasBall();
 	}
@@ -68,6 +71,7 @@ public class RollUntilPickup extends CommandBase {
 	 * stopped. Also, the intake arm is put in a resting position because it no
 	 * longer needs to be powered.
 	 */
+	@Override
 	protected void end() {
 		intake.stopRollers();
 		indexer.stop();
@@ -86,6 +90,7 @@ public class RollUntilPickup extends CommandBase {
 	 * subsystems is scheduled to run. If the intake or indexer are required by
 	 * other subsystems, they will first be stopped.
 	 */
+	@Override
 	protected void interrupted() {
 		end();
 	}
