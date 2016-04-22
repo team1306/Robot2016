@@ -11,12 +11,12 @@ import org.usfirst.frc.team1306.robot.Constants;
  */
 public enum DefenseType {
 
-	LOWBAR(new TimedDrive(Constants.LOW_BAR_POWER, Constants.LOW_BAR_TIME)), OBSTACLE(
-			new TimedDrive(Constants.OBSTACLE_POWER, Constants.OBSTACLE_TIME)), TERRAIN(
-					new TimedDrive(Constants.TERRAIN_POWER, Constants.TERRAIN_TIME));
+	LOWBAR(Constants.LOW_BAR_POWER, Constants.LOW_BAR_TIME), OBSTACLE(Constants.OBSTACLE_POWER,
+			Constants.OBSTACLE_TIME), TERRAIN(Constants.TERRAIN_POWER, Constants.TERRAIN_TIME);
 
 	/** The TimedDrive command associated with the particular defense */
-	private final TimedDrive driveCommand;
+	private final double throttle;
+	private final double time;
 
 	/**
 	 * Constructs the DefenseType with a TimedDrive command. This command stores
@@ -26,8 +26,9 @@ public enum DefenseType {
 	 * @param driveCommand
 	 *            the command used to traverse the defense.
 	 */
-	private DefenseType(TimedDrive driveCommand) {
-		this.driveCommand = driveCommand;
+	private DefenseType(double throttle, double time) {
+		this.throttle = throttle;
+		this.time = time;
 	}
 
 	/**
@@ -36,6 +37,6 @@ public enum DefenseType {
 	 * @return the TimedDrive command associated with this type of defense.
 	 */
 	public TimedDrive getDriveCommand() {
-		return driveCommand;
+		return new TimedDrive(throttle, time);
 	}
 }

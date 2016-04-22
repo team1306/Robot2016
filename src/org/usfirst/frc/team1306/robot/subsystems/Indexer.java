@@ -53,7 +53,7 @@ public class Indexer extends Subsystem {
 	 * Drives the intake motor at the power specified in Constants.
 	 */
 	public void driveMotor() {
-		motor.set(Constants.INDEXER_POWER);
+		motor.set(-Constants.INDEXER_POWER);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Indexer extends Subsystem {
 	 * Reverse drives the intake motor at the power specified in Constants.
 	 */
 	public void reverse() {
-		motor.set(-1.0);
+		motor.set(1.0);
 	}
 
 	/**

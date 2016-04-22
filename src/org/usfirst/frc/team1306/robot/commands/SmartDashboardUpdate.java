@@ -76,7 +76,7 @@ public class SmartDashboardUpdate extends CommandBase {
 
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
 		SmartDashboard.putString("Adjustment", hood.getAdjustment().toString() + "");
-		SmartDashboard.putString("Scan Direction", turret.getScanDirection().toString());
+		SmartDashboard.putString("Scan Direction", turret.getScanDirection() + "");
 
 	}
 
