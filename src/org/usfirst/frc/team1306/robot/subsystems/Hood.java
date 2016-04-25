@@ -2,6 +2,8 @@ package org.usfirst.frc.team1306.robot.subsystems;
 
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
+import org.usfirst.frc.team1306.robot.commands.CommandBase;
+import org.usfirst.frc.team1306.robot.commands.intake.BallQuality;
 import org.usfirst.frc.team1306.robot.commands.turret.Adjustment;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodTarget;
 import org.usfirst.frc.team1306.robot.vision.Vision;
@@ -43,6 +45,7 @@ public class Hood extends Subsystem {
 		hoodTalon.changeControlMode(TalonControlMode.Position);
 		hoodTalon.enable();
 
+		SmartDashboard.putNumber("hood set height old", SmartDashboard.getNumber("hood set height old", 50.0));
 	}
 
 	/**
@@ -117,8 +120,12 @@ public class Hood extends Subsystem {
 			return 0.0;
 		}
 
-		return Constants.HOOD_AUTOTARGET_A * distance * distance + Constants.HOOD_AUTOTARGET_B * distance
-				+ Constants.HOOD_AUTOTARGET_C;
+		if (CommandBase.indexer.getQuality().equals(BallQuality.OLD)) {
+			return SmartDashboard.getNumber("hood set height old");
+		}
+		return SmartDashboard.getNumber("hood set height");
+//		return Constants.HOOD_AUTOTARGET_A * distance * distance + Constants.HOOD_AUTOTARGET_B * distance
+//				+ Constants.HOOD_AUTOTARGET_C;
 
 	}
 

@@ -52,6 +52,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putString("intake command", intakeArm.getCurrentCommand() + "");
 
 		SmartDashboard.putNumber("target distance", Vision.getData().getDistance());
+		SmartDashboard.putNumber("target yaw", Vision.getData().getYaw() + Math.random() * 0.001);
 
 		SmartDashboard.putBoolean("Vision", Vision.isConnected());
 
@@ -79,6 +80,11 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
 		SmartDashboard.putString("Adjustment", hood.getAdjustment().toString() + "");
 		SmartDashboard.putString("Scan Direction", turret.getScanDirection() + "");
+		
+		SmartDashboard.putString("Ball Quality", indexer.getQuality() + "");
+		
+		
+		SmartDashboard.putNumber("current compression", indexer.getCompression());
 
 	}
 
@@ -118,6 +124,6 @@ public class SmartDashboardUpdate extends CommandBase {
 	 * @return a more readable String.
 	 */
 	private static String displayFeet(double feet) {
-		return Math.floor(feet + 1.0 / 24.0) + " ft " + Math.floor(feet * 12 + 0.5) % 12 + " in";
+		return (int) Math.floor(feet + 1.0 / 24.0) + " ft " + (int) Math.floor(feet * 12 + 0.5) % 12 + " in";
 	}
 }

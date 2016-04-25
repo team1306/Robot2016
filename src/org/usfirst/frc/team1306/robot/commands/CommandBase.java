@@ -25,7 +25,7 @@ public abstract class CommandBase extends Command {
 	protected static Drivetrain drivetrain;
 	protected static Shooter shooter;
 	protected static Turret turret;
-	protected static Indexer indexer;
+	public static Indexer indexer; // TODO figure out how to make this protected
 	protected static Intake intake;
 	protected static IntakeArm intakeArm;
 	protected static Hood hood;

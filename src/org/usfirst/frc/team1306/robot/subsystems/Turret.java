@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Turret extends PIDSubsystem {
 
-	private final static boolean ENABLED = false;
+	private final static boolean ENABLED = true;
 
 	/** The Talon SRX that controls the turret motor. */
 	private final CANTalon turretTalon;

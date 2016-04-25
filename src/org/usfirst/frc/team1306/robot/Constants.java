@@ -18,8 +18,9 @@ public class Constants {
 	// turret constants
 	public final static double TURRET_VISION_TOLERANCE = 1.0;
 
-	public final static double TURRET_P = 0.015;
-	public final static double TURRET_I = 0.001;
+	// TODO at competition, use p=0.015, i=0.001, d=0.
+	public final static double TURRET_P = 0.005;
+	public final static double TURRET_I = 0.0005;
 	public final static double TURRET_D = 0.0;
 
 	public final static double TURRET_EDGE = 12000;
@@ -33,8 +34,8 @@ public class Constants {
 	public final static double SHOOTER_LOW_SPIN = 3000;
 	public final static double SHOT_TIME = 2.0;
 	// hood constants
-	public final static double HOOD_0_POS = 80.0;
-	public final static double HOOD_90_POS = 800.0;
+	public final static double HOOD_0_POS = 5.0;
+	public final static double HOOD_90_POS = 725.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
 	public final static double HOOD_NORMAL_TARGET_POSITION = 50.5;
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
@@ -46,7 +47,7 @@ public class Constants {
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
-	public final static double PRESSURE_THRESHOLD = 1.0; // TODO placeholder
+	public final static double PRESSURE_THRESHOLD = 3.0;
 
 	// intake arm constants
 	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;

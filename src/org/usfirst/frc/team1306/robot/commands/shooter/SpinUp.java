@@ -2,6 +2,9 @@ package org.usfirst.frc.team1306.robot.commands.shooter;
 
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * A command that spins the shooter up to full speed. This command is meant to
  * be used in conjunction with the Target command so that the shooter is spun up
@@ -10,12 +13,16 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * @author Finn Voichick
  */
 public class SpinUp extends CommandBase {
+	
+	private final Timer timer;
+	private boolean spunUp;
 
 	/**
 	 * Constructs the SpinUp command. For obvious reasons, it requires the
 	 * shooter.
 	 */
 	public SpinUp() {
+		timer = new Timer();
 		requires(shooter);
 	}
 
@@ -25,6 +32,9 @@ public class SpinUp extends CommandBase {
 	 */
 	@Override
 	protected void initialize() {
+		timer.reset();
+		timer.start();
+		spunUp = false;
 	}
 
 	/**
@@ -34,6 +44,10 @@ public class SpinUp extends CommandBase {
 	@Override
 	protected void execute() {
 		shooter.spinUp();
+		if (!spunUp && shooter.isSpunUp()) {
+			spunUp = true;
+			SmartDashboard.putNumber("spinup time", timer.get());
+		}
 	}
 
 	/**

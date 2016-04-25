@@ -81,6 +81,8 @@ public class RollUntilPickup extends CommandBase {
 		} else {
 			indexer.setQuality(BallQuality.OLD);
 		}
+		
+		SmartDashboard.putNumber("compression", maxCompression);
 
 		new IntakeArmRest().start();
 	}
