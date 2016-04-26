@@ -132,7 +132,7 @@ public class Vision {
 
 	public static double distanceFeet() {
 		double distance = getData().getDistance();
-		return -0.2689 * distance * distance + 4.2612 * distance - 2.3322;
+		return -0.253 * distance * distance + 4.1235 * distance - 2.0429;
 	}
 
 }

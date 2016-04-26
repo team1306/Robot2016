@@ -38,7 +38,8 @@ public class Shooter extends Subsystem {
 			flywheel.reverseSensor(true);
 			flywheel.reverseOutput(true);
 
-			SmartDashboard.putNumber("flywheel power", Constants.SHOOTER_SET_SPEED);
+			SmartDashboard.putNumber("flywheel power",
+					SmartDashboard.getNumber("flywheel power", Constants.SHOOTER_SET_SPEED));
 
 			flywheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 			flywheel.setSafetyEnabled(false);

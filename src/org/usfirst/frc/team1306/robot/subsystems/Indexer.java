@@ -35,11 +35,16 @@ public class Indexer extends Subsystem {
 	 * switches.
 	 */
 	public Indexer() {
+
 		motor = new Talon(RobotMap.INDEXER_PORT);
 		motor.setInverted(true);
 		ballSwitch1 = new DigitalInput(RobotMap.INDEXER_LIMIT_1_PORT);
 		ballSwitch2 = new DigitalInput(RobotMap.INDEXER_LIMIT_2_PORT);
 		pressurePad = new AnalogInput(RobotMap.PRESSURE_PAD_PORT);
+		pressurePad.setAverageBits(10);
+
+		quality = null;
+
 	}
 
 	/**
@@ -81,7 +86,7 @@ public class Indexer extends Subsystem {
 	}
 
 	public double getCompression() {
-		return pressurePad.getVoltage();
+		return pressurePad.getAverageVoltage();
 	}
 
 	public BallQuality getQuality() {

@@ -29,8 +29,8 @@ public class Constants {
 
 	// shooter constants
 	public final static double SHOOTER_CONVERSION_FACTOR = 3.413333333;
-	public final static int SHOOTER_TOLERANCE = 50;
-	public final static double SHOOTER_SET_SPEED = 9000;
+	public final static int SHOOTER_TOLERANCE = 100;
+	public final static double SHOOTER_SET_SPEED = 7500;
 	public final static double SHOOTER_LOW_SPIN = 3000;
 	public final static double SHOT_TIME = 2.0;
 	// hood constants
@@ -41,9 +41,9 @@ public class Constants {
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
 	public final static double HOOD_TOLERANCE = 0.25;
-	public final static double HOOD_AUTOTARGET_A = 0.8571;
-	public final static double HOOD_AUTOTARGET_B = -14.7;
-	public final static double HOOD_AUTOTARGET_C = 110.82;
+	public final static double HOOD_AUTOTARGET_A = 0.3837;
+	public final static double HOOD_AUTOTARGET_B = -7.2505;
+	public final static double HOOD_AUTOTARGET_C = 76.863;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
@@ -68,8 +68,8 @@ public class Constants {
 	public final static String VISION_HOSTNAME = "10.13.6.19";
 	public final static int VISION_PORT_NUMBER = 5802;
 	public final static double VISION_PERIOD = 0.1;
-	public final static double MIN_DISTANCE = 7.0;
-	public final static double MAX_DISTANCE = 10.0;
+	public final static double MIN_DISTANCE = 5.0;
+	public final static double MAX_DISTANCE = 8.5;
 
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;

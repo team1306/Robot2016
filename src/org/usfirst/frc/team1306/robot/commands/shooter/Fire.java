@@ -5,6 +5,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A Command to fire a ball. This command assumes that the shooter has already
@@ -36,10 +37,14 @@ public class Fire extends CommandBase {
 	 */
 	@Override
 	protected void initialize() {
+
+		SmartDashboard.putBoolean("momentum shot", SmartDashboard.getBoolean("momentum shot", false));
+
 		timer.reset();
 		timer.start();
 		shooter.spinUp();
 		indexer.driveMotor();
+
 	}
 
 	/**
@@ -49,8 +54,15 @@ public class Fire extends CommandBase {
 	 */
 	@Override
 	protected void execute() {
-		shooter.spinUp();
+
+		if (SmartDashboard.getBoolean("momentum shot") && !indexer.hasBall()) {
+			shooter.spinDown();
+		} else {
+			shooter.spinUp();
+		}
+
 		indexer.driveMotor();
+
 	}
 
 	/**
