@@ -16,15 +16,17 @@ public class Constants {
 	// public final static double MAX_SPEED = 7000;
 
 	// turret constants
-	public final static double TURRET_VISION_TOLERANCE = 1.0;
+	public final static double TURRET_VISION_TOLERANCE = 2.0;
 
+//	public final static double TURRET_P = 0.05;
+//	public final static double TURRET_I = 0.0;
 	public final static double TURRET_P = 0.015;
 	public final static double TURRET_I = 0.001;
 	public final static double TURRET_D = 0.0;
 
 	public final static double TURRET_EDGE = 12000.0;
-	public final static double TURRET_SCAN_THRESHOLD = 11000;
-	public final static double TURRET_SCAN_SPEED = 0.1;
+	public final static double TURRET_SCAN_THRESHOLD = 11000.0;
+	public final static double TURRET_SCAN_SPEED = 0.3;
 	public final static double TURRET_SETPOINT = 12000.0;
 
 	// shooter constants
@@ -50,8 +52,8 @@ public class Constants {
 	public final static double PRESSURE_THRESHOLD = 3.0;
 
 	// intake arm constants
-	public final static double INTAKE_LEFT_ARM_0_POS = 427.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 745.0;
+	public final static double INTAKE_LEFT_ARM_0_POS = 540.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 880.0;
 	public final static double INTAKE_PICKUP_POS = 10.0;
 	public final static double INTAKE_VERTICAL_POS = 60.0;
 	public final static double INTAKE_DOWN_POS = -58.0;
@@ -73,9 +75,11 @@ public class Constants {
 	public final static double LOW_BAR_POWER = 0.75;
 	public final static double TERRAIN_POWER = 0.9;
 	public final static double OBSTACLE_POWER = 1.0;
+	public final static double MOAT_POWER = 0.9;
 	public final static double LOW_BAR_TIME = 3.5;
 	public final static double TERRAIN_TIME = 2.5;
 	public final static double OBSTACLE_TIME = 2.75;
+	public final static double MOAT_TIME = 3.25;
 	public final static double TARGET_TIME = 5.0;
 	public final static double SLOW_DRIVE = 0.3;
 
