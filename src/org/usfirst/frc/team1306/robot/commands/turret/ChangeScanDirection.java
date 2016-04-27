@@ -9,6 +9,7 @@ public class ChangeScanDirection extends CommandBase {
 
 	public ChangeScanDirection(ScanDirection direction) {
 		this.direction = direction;
+		setRunWhenDisabled(true);
 	}
 
 	// Called just before this Command runs the first time

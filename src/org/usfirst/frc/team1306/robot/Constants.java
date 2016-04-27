@@ -37,13 +37,13 @@ public class Constants {
 	public final static double HOOD_0_POS = 5.0;
 	public final static double HOOD_90_POS = 725.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
-	public final static double HOOD_NORMAL_TARGET_POSITION = 50.5;
+	public final static double HOOD_NORMAL_TARGET_POSITION = 43.0;
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
 	public final static double HOOD_TOLERANCE = 0.25;
-	public final static double HOOD_AUTOTARGET_A = 0.3837;
-	public final static double HOOD_AUTOTARGET_B = -7.2505;
-	public final static double HOOD_AUTOTARGET_C = 76.863;
+	public final static double HOOD_AUTOTARGET_A = 0.2205;
+	public final static double HOOD_AUTOTARGET_B = -5.4346;
+	public final static double HOOD_AUTOTARGET_C = 72.892;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
@@ -78,6 +78,6 @@ public class Constants {
 	public final static double LOW_BAR_TIME = 3.5;
 	public final static double TERRAIN_TIME = 2.5;
 	public final static double OBSTACLE_TIME = 2.75;
-	public final static double TARGET_TIME = 4.0;
+	public final static double TARGET_TIME = 5.0;
 
 }

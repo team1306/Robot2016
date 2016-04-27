@@ -81,7 +81,7 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putString("Adjustment", hood.getAdjustment().toString() + "");
 		SmartDashboard.putString("Scan Direction", turret.getScanDirection() + "");
 		
-		SmartDashboard.putString("Ball Quality", indexer.getQuality() + "");
+		SmartDashboard.putString("Ball Quality", indexer.getQuality() == null ? "No Ball" : indexer.getQuality().toString());
 		
 		
 		SmartDashboard.putNumber("current compression", indexer.getCompression());

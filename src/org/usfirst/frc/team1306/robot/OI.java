@@ -21,6 +21,7 @@ import org.usfirst.frc.team1306.robot.commands.turret.HoodSetAdjustmentNone;
 import org.usfirst.frc.team1306.robot.commands.turret.HoodSetTargetLow;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
 import org.usfirst.frc.team1306.robot.commands.turret.ScanDirection;
+import org.usfirst.frc.team1306.robot.commands.turret.ScanThenTarget;
 import org.usfirst.frc.team1306.robot.commands.turret.Target;
 import org.usfirst.frc.team1306.robot.triggers.DPadDirection;
 import org.usfirst.frc.team1306.robot.triggers.DPadPress;
@@ -110,7 +111,7 @@ public class OI {
 		buttonA.whenPressed(new Fire());
 		buttonB.whenPressed(new StopRoll());
 		buttonB.whenPressed(new ResetTurret());
-		buttonX.whenPressed(new SpinUp());
+		buttonX.whenPressed(new ScanThenTarget());
 		buttonY.whenPressed(new ResetTurret());
 		buttonY.whenPressed(new IntakeArmMove(IntakePosition.PICKUP));
 		buttonY.whenPressed(new RollUntilPickup());

@@ -90,7 +90,7 @@ public class Indexer extends Subsystem {
 	}
 
 	public BallQuality getQuality() {
-		return quality;
+		return hasBall() ? quality : null;
 	}
 
 	public void setQuality(BallQuality quality) {
