@@ -79,5 +79,6 @@ public class Constants {
 	public final static double TERRAIN_TIME = 2.5;
 	public final static double OBSTACLE_TIME = 2.75;
 	public final static double TARGET_TIME = 5.0;
+	public final static double SLOW_DRIVE = 0.3;
 
 }

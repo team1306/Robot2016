@@ -135,4 +135,19 @@ public class Vision {
 		return -0.253 * distance * distance + 4.1235 * distance - 2.0429;
 	}
 
+	public static VisionStatus getStatus() {
+
+		if (!isConnected()) {
+			return VisionStatus.DISCONNECTED;
+		} else if (!canSeeTarget()) {
+			return VisionStatus.INVISIBLE;
+		} else if (distanceFeet() > Constants.MAX_DISTANCE) {
+			return VisionStatus.FAR;
+		} else if (distanceFeet() < Constants.MIN_DISTANCE) {
+			return VisionStatus.CLOSE;
+		}
+		return VisionStatus.INRANGE;
+
+	}
+
 }

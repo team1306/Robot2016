@@ -27,7 +27,7 @@ public class AutonomousCommand extends CommandGroup {
 	 * @param fire
 	 *            whether or not to fire after moving.
 	 */
-	public AutonomousCommand(DefenseType defenseType, boolean fire) {
+	public AutonomousCommand(DefenseType defenseType, boolean fire, boolean inRange) {
 
 		if (defenseType.equals(DefenseType.LOWBAR)) {
 			addSequential(new IntakeArmRest());
@@ -42,6 +42,9 @@ public class AutonomousCommand extends CommandGroup {
 			addParallel(new RaiseHood());
 			addSequential(new ScanForTarget());
 			addParallel(new Target());
+			if (inRange) {
+				addSequential(new DriveInRange());
+			}
 			addSequential(new Wait(Constants.TARGET_TIME));
 			addSequential(new Fire());
 		}

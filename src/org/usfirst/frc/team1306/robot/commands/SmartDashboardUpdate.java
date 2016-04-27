@@ -63,27 +63,15 @@ public class SmartDashboardUpdate extends CommandBase {
 		SmartDashboard.putBoolean("Hood", hood.onTarget());
 
 		SmartDashboard.putString("Distance", displayFeet(Vision.distanceFeet()));
-		String inRange;
-		if (!Vision.isConnected()) {
-			inRange = "Vision disconnected";
-		} else if (!Vision.canSeeTarget()) {
-			inRange = "Can't see target";
-		} else if (Vision.distanceFeet() > Constants.MAX_DISTANCE) {
-			inRange = "Get closer";
-		} else if (Vision.distanceFeet() < Constants.MIN_DISTANCE) {
-			inRange = "Too close";
-		} else {
-			inRange = "In range";
-		}
-		SmartDashboard.putString("In Range", inRange);
+		SmartDashboard.putString("In Range", Vision.getStatus().toString());
 
 		SmartDashboard.putString("Aiming", hood.isManuallyControlled() ? "Manual Aim" : hood.getTarget() + "");
 		SmartDashboard.putString("Adjustment", hood.getAdjustment().toString() + "");
 		SmartDashboard.putString("Scan Direction", turret.getScanDirection() + "");
-		
-		SmartDashboard.putString("Ball Quality", indexer.getQuality() == null ? "No Ball" : indexer.getQuality().toString());
-		
-		
+
+		SmartDashboard.putString("Ball Quality",
+				indexer.getQuality() == null ? "No Ball" : indexer.getQuality().toString());
+
 		SmartDashboard.putNumber("current compression", indexer.getCompression());
 
 	}
