@@ -24,7 +24,7 @@ public class Constants {
 
 	public final static double TURRET_EDGE = 12000.0;
 	public final static double TURRET_SCAN_THRESHOLD = 11000;
-	public final static double TURRET_SCAN_SPEED = 0.2;
+	public final static double TURRET_SCAN_SPEED = 0.1;
 	public final static double TURRET_SETPOINT = 12000.0;
 
 	// shooter constants

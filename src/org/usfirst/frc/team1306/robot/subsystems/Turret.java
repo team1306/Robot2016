@@ -112,7 +112,7 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
+		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
+		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
 	}
 
 	public void setScanDirection(ScanDirection scanDirection) {
@@ -153,7 +153,7 @@ public class Turret extends PIDSubsystem {
 
 		double yaw = -Vision.getData().getYaw();
 
-		return Math.abs(yaw) < Constants.TURRET_VISION_TOLERANCE ? 0.0 : yaw;
+		return Math.abs(yaw) <= Constants.TURRET_VISION_TOLERANCE ? 0.0 : yaw;
 	}
 
 	/**
@@ -165,7 +165,9 @@ public class Turret extends PIDSubsystem {
 		}
 
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		if (onTarget()) {
+
+		double yaw = -Vision.getData().getYaw();
+		if (Math.abs(yaw) <= Constants.TURRET_VISION_TOLERANCE) {
 			turretTalon.set(0.0);
 		} else {
 			turretTalon.set(output);
