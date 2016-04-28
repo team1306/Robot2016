@@ -1,43 +1,40 @@
-package org.usfirst.frc.team1306.robot.commands.intake;
+package org.usfirst.frc.team1306.robot.commands.turret;
 
+import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 
-/**
- *
- */
-public class Pass extends CommandBase {
+// TODO Documentation
+public class TargetSetpoint extends CommandBase {
 
-	public Pass() {
-		requires(intake);
-		requires(indexer);
+	public TargetSetpoint() {
+		requires(turret);
+		requires(hood);
 	}
 
 	// Called just before this Command runs the first time
-	@Override
 	protected void initialize() {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	@Override
 	protected void execute() {
-		indexer.reverse();
-		intake.reverse();
+		turret.setTurretPosition(Constants.TURRET_SETPOINT);
+		hood.setTarget(HoodTarget.SETPOINT);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
-	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
 	// Called once after isFinished returns true
-	@Override
 	protected void end() {
+		turret.getPIDController().reset();
+		turret.setVel(0.0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
-	@Override
 	protected void interrupted() {
+		end();
 	}
 }

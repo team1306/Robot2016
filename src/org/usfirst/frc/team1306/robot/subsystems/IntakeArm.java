@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeArm extends Subsystem {
 
-	private static final boolean ENABLED = false;
+	private static final boolean ENABLED = true;
 
 	/** The talon that lifts the left side of the arm. */
 	private final CANTalon motor;
@@ -107,6 +107,14 @@ public class IntakeArm extends Subsystem {
 
 		return getPosition() > Constants.INTAKE_ROLL_THRESHOLD;
 
+	}
+	
+	public boolean isDown() {
+		if (!ENABLED) {
+			return false;
+		}
+		
+		return getPosition() < 0.0;
 	}
 
 	/**

@@ -39,8 +39,8 @@ public class Intake extends Subsystem {
 	 * Set the rollers spinning. This direction will pull balls in.
 	 */
 	public void startRollers() {
-		lateralRoller.set(1.0);
-		intakeRoller.set(1.0);
+		lateralRoller.set(0.5);
+		intakeRoller.set(0.5);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Intake extends Subsystem {
 	 * Reverse the rollers. This will push balls out.
 	 */
 	public void reverse() {
-		lateralRoller.set(1.0);
+		lateralRoller.set(-1.0);
 		intakeRoller.set(-1.0);
 	}
 

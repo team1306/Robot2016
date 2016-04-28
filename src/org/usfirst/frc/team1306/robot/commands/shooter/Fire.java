@@ -3,6 +3,7 @@ package org.usfirst.frc.team1306.robot.commands.shooter;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.commands.CommandBase;
 import org.usfirst.frc.team1306.robot.commands.turret.ResetTurret;
+import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,6 +45,8 @@ public class Fire extends CommandBase {
 		timer.start();
 		shooter.spinUp();
 		indexer.driveMotor();
+		
+		SmartDashboard.putString("shots", SmartDashboard.getString("shots") + "dist:" + Vision.distanceFeet() +";turret:" + Vision.getData().getYaw() + ";hood:" + hood.getHeight() + " ");
 
 	}
 

@@ -40,6 +40,7 @@ public class AutonomousCommand extends CommandGroup {
 		if (fire) {
 			addParallel(new SpinUp());
 			addParallel(new RaiseHood());
+			addSequential(new IntakeArmRest());
 			addSequential(new ScanForTarget());
 			addParallel(new Target());
 			if (inRange) {

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1306.robot.commands;
 
-import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -29,6 +28,7 @@ public class SmartDashboardUpdate extends CommandBase {
 	 */
 	@Override
 	protected void initialize() {
+		SmartDashboard.putString("shots", "");
 	}
 
 	/**

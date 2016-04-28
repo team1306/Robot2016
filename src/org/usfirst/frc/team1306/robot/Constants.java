@@ -18,14 +18,14 @@ public class Constants {
 	// turret constants
 	public final static double TURRET_VISION_TOLERANCE = 1.0;
 
-	// TODO at competition, use p=0.015, i=0.001, d=0.
-	public final static double TURRET_P = 0.005;
-	public final static double TURRET_I = 0.0005;
+	public final static double TURRET_P = 0.015;
+	public final static double TURRET_I = 0.001;
 	public final static double TURRET_D = 0.0;
 
-	public final static double TURRET_EDGE = 12000;
+	public final static double TURRET_EDGE = 12000.0;
 	public final static double TURRET_SCAN_THRESHOLD = 11000;
 	public final static double TURRET_SCAN_SPEED = 0.2;
+	public final static double TURRET_SETPOINT = 12000.0;
 
 	// shooter constants
 	public final static double SHOOTER_CONVERSION_FACTOR = 3.413333333;
@@ -50,15 +50,13 @@ public class Constants {
 	public final static double PRESSURE_THRESHOLD = 3.0;
 
 	// intake arm constants
-	public final static double INTAKE_LEFT_ARM_0_POS = 74.0;
-	public final static double INTAKE_LEFT_ARM_90_POS = 390.0;
-	public final static double INTAKE_RIGHT_ARM_0_POS = 836.0;
-	public final static double INTAKE_RIGHT_ARM_90_POS = 401.0;
-	public final static double INTAKE_PICKUP_POS = 11.0;
-	public final static double INTAKE_VERTICAL_POS = 85.0;
-	public final static double INTAKE_DOWN_POS = -30.0;
-	public final static double INTAKE_DROP_THRESHOLD = 10.0;
-	public final static double INTAKE_ROLL_THRESHOLD = 85.0;
+	public final static double INTAKE_LEFT_ARM_0_POS = 427.0;
+	public final static double INTAKE_LEFT_ARM_90_POS = 745.0;
+	public final static double INTAKE_PICKUP_POS = 10.0;
+	public final static double INTAKE_VERTICAL_POS = 60.0;
+	public final static double INTAKE_DOWN_POS = -58.0;
+	public final static double INTAKE_DROP_THRESHOLD = 30.0;
+	public final static double INTAKE_ROLL_THRESHOLD = 80.0;
 
 	// OI constants
 	public final static double DEADBAND = 0.15;

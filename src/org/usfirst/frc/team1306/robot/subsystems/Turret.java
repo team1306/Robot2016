@@ -41,6 +41,7 @@ public class Turret extends PIDSubsystem {
 		if (ENABLED) {
 
 			setAbsoluteTolerance(Constants.TURRET_VISION_TOLERANCE);
+			setOutputRange(-0.2, 0.2);
 
 			turretTalon = new CANTalon(RobotMap.TURRET_TALON_PORT);
 			turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -85,19 +86,18 @@ public class Turret extends PIDSubsystem {
 	 * forward.
 	 */
 	public void setTurretForward() {
-		if (!ENABLED) {
-			return;
-		}
+		setTurretPosition(0.0);
+	}
 
-		if (!turretTalon.isEnabled()) {
-			System.err.println("Turret Talon disconnected");
+	public void setTurretPosition(double position) {
+		if (!ENABLED) {
 			return;
 		}
 
 		getPIDController().reset();
 
 		turretTalon.changeControlMode(TalonControlMode.Position);
-		turretTalon.set(0.0);
+		turretTalon.set(position);
 		turretTalon.enable();
 	}
 
@@ -112,10 +112,6 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		if (!turretTalon.isEnabled()) {
-			System.err.println("Turret Talon disconnected");
-			return false;
-		}
 		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
 	}
 
@@ -130,10 +126,6 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		if (!turretTalon.isEnabled()) {
-			System.err.println("Turret Talon disconnected");
-			return false;
-		}
 		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 

@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
 
-	private final static boolean ENABLED = false;
+	private final static boolean ENABLED = true;
 
 	private final CANTalon[] motors;
 	private final CANTalon leftMotor1;
