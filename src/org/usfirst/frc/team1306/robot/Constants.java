@@ -36,16 +36,16 @@ public class Constants {
 	public final static double SHOOTER_LOW_SPIN = 3000;
 	public final static double SHOT_TIME = 2.0;
 	// hood constants
-	public final static double HOOD_0_POS = 5.0;
-	public final static double HOOD_90_POS = 725.0;
+	public final static double HOOD_0_POS = -70.0;
+	public final static double HOOD_90_POS = 650.0;
 	public final static double HOOD_LOW_GOAL_POSITION = 10;
 	public final static double HOOD_NORMAL_TARGET_POSITION = 43.0;
 	public final static double HOOD_BATTER_CLOSE_POSITION = 67.0;
 	public final static double HOOD_BATTER_FAR_POSITION = 61;
 	public final static double HOOD_TOLERANCE = 0.25;
-	public final static double HOOD_AUTOTARGET_A = 0.2205;
-	public final static double HOOD_AUTOTARGET_B = -5.4346;
-	public final static double HOOD_AUTOTARGET_C = 72.892;
+	public final static double HOOD_AUTOTARGET_A = 0.1509;
+	public final static double HOOD_AUTOTARGET_B = -4.5271;
+	public final static double HOOD_AUTOTARGET_C = 69.905;
 
 	// indexer constants
 	public final static double INDEXER_POWER = 0.6;
@@ -78,7 +78,7 @@ public class Constants {
 	public final static double MOAT_POWER = 0.9;
 	public final static double LOW_BAR_TIME = 3.5;
 	public final static double TERRAIN_TIME = 2.5;
-	public final static double OBSTACLE_TIME = 2.75;
+	public final static double OBSTACLE_TIME = 2.85;
 	public final static double MOAT_TIME = 3.25;
 	public final static double TARGET_TIME = 5.0;
 	public final static double SLOW_DRIVE = 0.3;
