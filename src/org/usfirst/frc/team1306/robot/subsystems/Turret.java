@@ -46,7 +46,7 @@ public class Turret extends PIDSubsystem {
 			turretTalon = new CANTalon(RobotMap.TURRET_TALON_PORT);
 			turretTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 			turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-			turretTalon.enableBrakeMode(false);
+			turretTalon.enableBrakeMode(true);
 			setSetpoint(0.0);
 
 			scanDirection = ScanDirection.LEFT;
@@ -151,7 +151,9 @@ public class Turret extends PIDSubsystem {
 			return 0.0;
 		}
 
-		return -Vision.getData().getYaw();
+		double yaw = -Vision.getData().getYaw();
+
+		return Math.abs(yaw) < Constants.TURRET_VISION_TOLERANCE ? 0.0 : yaw;
 	}
 
 	/**
@@ -163,7 +165,11 @@ public class Turret extends PIDSubsystem {
 		}
 
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.set(output);
+		if (onTarget()) {
+			turretTalon.set(0.0);
+		} else {
+			turretTalon.set(output);
+		}
 	}
 
 }
