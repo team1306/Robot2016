@@ -3,13 +3,13 @@ package org.usfirst.frc.team1306.robot.subsystems;
 import org.usfirst.frc.team1306.robot.Constants;
 import org.usfirst.frc.team1306.robot.RobotMap;
 import org.usfirst.frc.team1306.robot.commands.turret.ScanDirection;
-//import org.usfirst.frc.team1306.robot.vision.Vision;
 import org.usfirst.frc.team1306.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The turret that controls the heading of the shooter relative to the robot.
@@ -77,7 +77,7 @@ public class Turret extends PIDSubsystem {
 		}
 
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		turretTalon.set(-0.2 * speed);
+		turretTalon.set(-Constants.TURRET_SCAN_SPEED * speed);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		return turretTalon.getPosition() > Constants.TURRET_SCAN_THRESHOLD;
+		return turretTalon.getPosition() * 4096.0 < -Constants.TURRET_SCAN_THRESHOLD;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class Turret extends PIDSubsystem {
 			return false;
 		}
 
-		return turretTalon.getPosition() < -Constants.TURRET_SCAN_THRESHOLD;
+		return turretTalon.getPosition() * 4096.0 > Constants.TURRET_SCAN_THRESHOLD;
 	}
 
 	public void setScanDirection(ScanDirection scanDirection) {
@@ -153,7 +153,7 @@ public class Turret extends PIDSubsystem {
 
 		double yaw = -Vision.getData().getYaw();
 
-		return Math.abs(yaw) < Constants.TURRET_VISION_TOLERANCE ? 0.0 : yaw;
+		return Math.abs(yaw) <= Constants.TURRET_VISION_TOLERANCE ? 0.0 : yaw;
 	}
 
 	/**
@@ -165,7 +165,9 @@ public class Turret extends PIDSubsystem {
 		}
 
 		turretTalon.changeControlMode(TalonControlMode.PercentVbus);
-		if (onTarget()) {
+
+		double yaw = -Vision.getData().getYaw();
+		if (Math.abs(yaw) <= Constants.TURRET_VISION_TOLERANCE) {
 			turretTalon.set(0.0);
 		} else {
 			turretTalon.set(output);
