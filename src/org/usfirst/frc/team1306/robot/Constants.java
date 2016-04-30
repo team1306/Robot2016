@@ -73,14 +73,21 @@ public class Constants {
 
 	// autonomous constants
 	public final static double LOW_BAR_POWER = 0.75;
+	public final static double MOAT_POWER = 1.0;
+	public final static double RAMPARTS_POWER = 1.0;
 	public final static double TERRAIN_POWER = 0.9;
-	public final static double OBSTACLE_POWER = 1.0;
-	public final static double MOAT_POWER = 0.9;
+	public final static double WALL_POWER = 1.0;
 	public final static double LOW_BAR_TIME = 3.5;
+	public final static double MOAT_TIME = 2.7;
+	public final static double RAMPARTS_TIME = 2.8;
 	public final static double TERRAIN_TIME = 2.5;
-	public final static double OBSTACLE_TIME = 2.85;
-	public final static double MOAT_TIME = 3.25;
+	public final static double WALL_TIME = 2.7;
 	public final static double TARGET_TIME = 5.0;
 	public final static double SLOW_DRIVE = 0.3;
+	/*
+	 * ramparts: 2.7
+	 * 
+	 * 
+	 */
 
 }

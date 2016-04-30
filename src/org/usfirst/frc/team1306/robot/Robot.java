@@ -53,18 +53,15 @@ public class Robot extends IterativeRobot {
 		// Since we write some auto programs, we need to add them here
 		autoChooser = new SendableChooser();
 		autoChooser.addObject("Low Bar - Don't Shoot", new AutonomousCommand(DefenseType.LOWBAR, false, false));
+		autoChooser.addObject("Moat - Don't Shoot", new AutonomousCommand(DefenseType.MOAT, false, false));
+		autoChooser.addObject("Ramparts - Don't Shoot", new AutonomousCommand(DefenseType.RAMPARTS, false, false));
 		autoChooser.addObject("Rough Terrain - Don't Shoot", new AutonomousCommand(DefenseType.TERRAIN, false, false));
-		autoChooser.addObject("Moat, Wall, or Ramparts - Don't Shoot",
-				new AutonomousCommand(DefenseType.OBSTACLE, false, false));
-		autoChooser.addDefault("Low Bar - Fire", new AutonomousCommand(DefenseType.LOWBAR, true, false));
+		autoChooser.addObject("Wall - Don't Shoot", new AutonomousCommand(DefenseType.WALL, false, false));
+		autoChooser.addObject("Low Bar - Fire", new AutonomousCommand(DefenseType.LOWBAR, true, false));
+		autoChooser.addObject("Moat - Fire", new AutonomousCommand(DefenseType.MOAT, true, false));
+		autoChooser.addObject("Ramparts - Fire", new AutonomousCommand(DefenseType.RAMPARTS, true, false));
 		autoChooser.addObject("Rough Terrain - Fire", new AutonomousCommand(DefenseType.TERRAIN, true, false));
-		autoChooser.addObject("Moat, Wall, or Ramparts - Fire",
-				new AutonomousCommand(DefenseType.OBSTACLE, true, false));
-		autoChooser.addDefault("Low Bar - Fire - Modified", new AutonomousCommand(DefenseType.LOWBAR, true, true));
-		autoChooser.addObject("Rough Terrain - Fire - Modified",
-				new AutonomousCommand(DefenseType.TERRAIN, true, true));
-		autoChooser.addObject("Moat, Wall, or Ramparts - Fire - Modified",
-				new AutonomousCommand(DefenseType.OBSTACLE, true, true));
+		autoChooser.addDefault("Wall - Fire", new AutonomousCommand(DefenseType.WALL, true, false));
 		SmartDashboard.putData("Auto mode", autoChooser);
 
 		// Start the debugging log command

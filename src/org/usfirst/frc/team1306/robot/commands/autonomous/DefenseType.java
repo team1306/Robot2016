@@ -11,8 +11,9 @@ import org.usfirst.frc.team1306.robot.Constants;
  */
 public enum DefenseType {
 
-	LOWBAR(Constants.LOW_BAR_POWER, Constants.LOW_BAR_TIME), OBSTACLE(Constants.OBSTACLE_POWER,
-			Constants.OBSTACLE_TIME), TERRAIN(Constants.TERRAIN_POWER, Constants.TERRAIN_TIME);
+	LOWBAR(Constants.LOW_BAR_POWER, Constants.LOW_BAR_TIME), MOAT(Constants.MOAT_POWER, Constants.MOAT_TIME), RAMPARTS(
+			Constants.RAMPARTS_POWER, Constants.RAMPARTS_TIME), TERRAIN(Constants.TERRAIN_POWER,
+					Constants.TERRAIN_TIME), WALL(Constants.WALL_POWER, Constants.WALL_TIME);
 
 	/** The thottle value used for this defense's TimedDrive command. */
 	private final double throttle;
