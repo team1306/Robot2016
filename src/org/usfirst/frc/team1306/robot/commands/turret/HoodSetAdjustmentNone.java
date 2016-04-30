@@ -7,6 +7,10 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
  * allows it to be linked to buttons on the secondary controller.
  */
 public class HoodSetAdjustmentNone extends CommandBase {
+	
+	public HoodSetAdjustmentNone() {
+		setRunWhenDisabled(true);
+	}
 
 	/**
 	 * Called just before this Command runs the first time. This command is a

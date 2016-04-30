@@ -6,6 +6,7 @@ import org.usfirst.frc.team1306.robot.commands.CommandBase;
 public class HoodSetAdjustmentLower extends CommandBase {
 
 	public HoodSetAdjustmentLower() {
+		setRunWhenDisabled(true);
 	}
 
 	// Called just before this Command runs the first time
